@@ -5,10 +5,19 @@
 (function () {
   "use strict";
 
-  // Absolute URL to summary.html (same folder as the current page) for the ids.
+  // Absolute URL to summary.html (same folder as the current page) for the ids,
+  // carrying the active language so the saved link reopens in the same language.
   function permalinkFor(ids) {
     var dir = location.href.replace(/[?#].*$/, "").replace(/[^/]*$/, "");
-    return dir + "summary.html#sel=" + ids.join(",");
+    var lang = (window.TDS_I18N && window.TDS_I18N.lang) || "eng";
+    var q = (lang && lang !== "eng") ? "?lang=" + lang : "";
+    return dir + "summary.html" + q + "#sel=" + ids.join(",");
+  }
+
+  // Localized string with a safe English fallback.
+  function t(key, fallback) {
+    var s = (window.TDS_I18N && window.TDS_I18N.t(key));
+    return (s && s !== key) ? s : fallback;
   }
 
   function toast(msg) {
@@ -53,9 +62,9 @@
     if (!ids || !ids.length) return;
     var url = permalinkFor(ids);
     copyText(url).then(function () {
-      toast("Link copied to your clipboard. Save it to return to these five skills anytime.");
+      toast(t("toastCopied", "Link copied to your clipboard. Save it to return to these five skills anytime."));
     }).catch(function () {
-      toast("Couldn’t copy automatically. Your link: " + url);
+      toast(t("toastCopyFail", "Couldn’t copy automatically. Your link:") + " " + url);
     });
   }
 

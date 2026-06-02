@@ -3,17 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Build Your Christlike-Teaching Skill Page</title>
+  <title data-i18n="selectTitle">Build Your Christlike-Teaching Skill Page</title>
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
   <main class="wrap">
 
-    <p class="backlink"><a href="index.html">&larr; Back to the skill combination generator</a></p>
+    <nav class="langbar" id="langbar" aria-label="Language"></nav>
+
+    <p class="backlink"><a href="index.html" data-i18n="backToGenerator">&larr; Back to the skill combination generator</a></p>
 
     <div class="intro" style="text-align:left">
-      <h1>Choose one skill from each principle</h1>
-      <p class="lead" style="margin-left:0">
+      <h1 data-i18n="selectHeading">Choose one skill from each principle</h1>
+      <p class="lead" style="margin-left:0" data-i18n-html="selectLead">
         Pick a skill from all five principles below. When every principle has a
         selection, press <strong>Make my page</strong> to see the full description
         of each skill you chose &mdash; with a permanent link you can save.
@@ -24,12 +26,13 @@
 
     <div class="actionbar">
       <span id="progress" class="progress" aria-live="polite">0 of 5 chosen</span>
-      <button id="makepage" class="btn" type="button" disabled>Make my page</button>
+      <button id="makepage" class="btn" type="button" disabled data-i18n="btnMakePage">Make my page</button>
     </div>
 
   </main>
 
-  <script src="assets/skills-data.js"></script>
+  <script>window.TDS_CONFIG = { needs: ["data", "strings"] };</script>
+  <script src="assets/i18n.js"></script>
   <script src="assets/select.js"></script>
 </body>
 </html>

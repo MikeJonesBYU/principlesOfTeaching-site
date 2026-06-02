@@ -3,13 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Teacher Development Skills — Structure</title>
+<title data-i18n="structureTitle">Teacher Development Skills — Structure</title>
 <style>
   :root { --ink:#1a1a1a; --muted:#666; --line:#ddd; --link:#0b5fa5; --bg:#fff; }
   * { box-sizing:border-box; }
   body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
          color:var(--ink); background:var(--bg); margin:0; line-height:1.45; }
   .wrap { max-width:900px; margin:0 auto; padding:24px 20px 80px; }
+  .langbar { text-align:right; font-size:.85rem; margin:0 0 10px; min-height:1.2em; }
+  .langbar a { color:var(--link); text-decoration:none; }
+  .langbar a:hover { text-decoration:underline; }
+  .langbar .lang-active { font-weight:700; color:var(--ink); }
+  .langbar .lang-sep { color:var(--line); margin:0 8px; }
   h1 { font-size:1.5rem; margin:0 0 4px; }
   .sub { color:var(--muted); font-size:.9rem; margin:0 0 16px; }
   .sub a { color:var(--link); }
@@ -23,8 +28,6 @@
   details.section > summary::before { content:"\25B8 "; color:var(--muted); }
   details.section[open] > summary::before { content:"\25BE "; }
   .secbody { padding:6px 14px 14px; }
-  .subgroup { font-size:.78rem; text-transform:uppercase; letter-spacing:.05em;
-              color:var(--muted); margin:16px 0 6px; border-bottom:1px solid var(--line); padding-bottom:3px; }
   .page { margin:12px 0 4px; }
   .page-title { font-weight:600; font-size:1rem; margin:0 0 4px; }
   ul.skills { margin:0 0 8px; padding-left:22px; }
@@ -36,224 +39,20 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>Teacher Development Skills</h1>
-  <p class="sub">Hierarchical index &mdash; source: <a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills?lang=eng" target="_blank" rel="noopener">churchofjesuschrist.org</a>. Each skill links directly to its anchor on the live site.</p>
-  <p class="sub"><a href="index.html">&larr; Back to the skill combination generator</a></p>
+  <nav class="langbar" id="langbar" aria-label="Language"></nav>
+  <h1 data-i18n="structureHeading">Teacher Development Skills</h1>
+  <p class="sub" data-i18n-html="structureSubHtml">Hierarchical index &mdash; source: <a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills?lang=eng" target="_blank" rel="noopener">churchofjesuschrist.org</a>. Each skill links directly to its anchor on the live site.</p>
+  <p class="sub"><a href="index.html" data-i18n="backToGenerator">&larr; Back to the skill combination generator</a></p>
   <div class="toolbar">
-    <button onclick="document.querySelectorAll('details.section').forEach(d=>d.open=true)">Expand all</button>
-    <button onclick="document.querySelectorAll('details.section').forEach(d=>d.open=false)">Collapse all</button>
+    <button onclick="document.querySelectorAll('details.section').forEach(d=>d.open=true)" data-i18n="expandAll">Expand all</button>
+    <button onclick="document.querySelectorAll('details.section').forEach(d=>d.open=false)" data-i18n="collapseAll">Collapse all</button>
   </div>
 
-  <details class="section" open>
-    <summary>Focus on Jesus Christ <span class="count">(12 skills)</span></summary>
-    <div class="secbody">
-      <div class="subgroup">Teach about Jesus Christ No Matter What You are Teaching</div>
-      <div class="page">
-        <div class="page-title">Emphasize the example of Jesus Christ</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/03-teach-about-jesus-christ/004-emphasize-the-example-of-jesus-christ?lang=eng#title_number1" target="_blank" rel="noopener">Help students connect what they are learning with how Christ exemplifies the principle.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/03-teach-about-jesus-christ/004-emphasize-the-example-of-jesus-christ?lang=eng#title_number2" target="_blank" rel="noopener">Use pictures and videos of Jesus Christ to illustrate a gospel principle.</a></li>
-        </ul>
-      </div>
-      <div class="page">
-        <div class="page-title">Teach about the titles, roles, and attributes of Jesus Christ</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/03-teach-about-jesus-christ/005-teach-about-titles-roles-attributes?lang=eng#p16" target="_blank" rel="noopener">Create search questions to help students identify roles, titles, symbols, attributes, and characteristics of Jesus Christ.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/03-teach-about-jesus-christ/005-teach-about-titles-roles-attributes?lang=eng#title_number17" target="_blank" rel="noopener">Ask questions that allow students to identify roles Jesus Christ can have in their lives.</a></li>
-        </ul>
-      </div>
-      <div class="page">
-        <div class="page-title">Look for symbols that testify of Jesus Christ</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/03-teach-about-jesus-christ/006-look-for-symbols-that-testify-of-christ?lang=eng#title_number1" target="_blank" rel="noopener">Ask questions that help students learn about Jesus Christ through symbols in the scriptures.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/03-teach-about-jesus-christ/006-look-for-symbols-that-testify-of-christ?lang=eng#title_number2" target="_blank" rel="noopener">Help students have a sensory experience with scriptural objects that symbolize Jesus Christ.</a></li>
-        </ul>
-      </div>
-      <div class="subgroup">Help Learners Come unto Jesus Christ</div>
-      <div class="page">
-        <div class="page-title">Help learners recognize the Lord’s love, power, and mercy in their lives</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/04-help-learners-come-unto-jesus-christ/007-help-learners-recognize-love-power-mercy?lang=eng#title_number1" target="_blank" rel="noopener">Ask questions that focus on connecting the Lord’s power, mercy, and influence to the truths being taught.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/04-help-learners-come-unto-jesus-christ/007-help-learners-recognize-love-power-mercy?lang=eng#title_number2" target="_blank" rel="noopener">Give invitations that help learners recognize the Lord’s love, power, and mercy in their own experiences.</a></li>
-        </ul>
-      </div>
-      <div class="page">
-        <div class="page-title">Help learners strengthen their relationship with Heavenly Father and Jesus Christ</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/04-help-learners-come-unto-jesus-christ/008-help-learners-strengthen-relationship-with-heavenly-father?lang=eng#title_number1" target="_blank" rel="noopener">Statements that help students know and feel the love of Heavenly Father and Jesus Christ.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/04-help-learners-come-unto-jesus-christ/008-help-learners-strengthen-relationship-with-heavenly-father?lang=eng#title_number2" target="_blank" rel="noopener">Ask questions that help students find examples of Heavenly Father’s love in the scripture passage.</a></li>
-        </ul>
-      </div>
-      <div class="page">
-        <div class="page-title">Help learners intentionally strive to be more like Jesus Christ</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/04-help-learners-come-unto-jesus-christ/009-help-learners-strive-to-be-more-like-jesus-christ?lang=eng#title_number1" target="_blank" rel="noopener">Observe Christlike attributes in students and share what you’ve noticed in ways that inspire them to continue to be like Him.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/04-help-learners-come-unto-jesus-christ/009-help-learners-strive-to-be-more-like-jesus-christ?lang=eng#title_number2" target="_blank" rel="noopener">Invite students to look for ways to follow the example of Jesus Christ in their personal lives.</a></li>
-        </ul>
-      </div>
-    </div>
-  </details>
-  <details class="section" open>
-    <summary>Love Those You Teach <span class="count">(11 skills)</span></summary>
-    <div class="secbody">
-      <div class="page">
-        <div class="page-title">See learners the way God sees them</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/05-love-those-you-teach/011-see-learners-the-way-god-sees?lang=eng#title_number1" target="_blank" rel="noopener">Study recent prophetic messages to understand how Heavenly Father sees young people.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/05-love-those-you-teach/011-see-learners-the-way-god-sees?lang=eng#title_number2" target="_blank" rel="noopener">“Think celestial” about your students to help you see them as God does.</a></li>
-        </ul>
-      </div>
-      <div class="page">
-        <div class="page-title">Seek to know them—understand their circumstances, needs, and strengths</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/05-love-those-you-teach/012-seek-to-know-them?lang=eng#intro2" target="_blank" rel="noopener">Observe and ask about students’ interests.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/05-love-those-you-teach/012-seek-to-know-them?lang=eng#title_number4" target="_blank" rel="noopener">Pause, reflect, and answer questions we ask ourselves that invite a Christlike spirit of discernment, love, and empathy in our interactions.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/05-love-those-you-teach/012-seek-to-know-them?lang=eng#title_number3" target="_blank" rel="noopener">Seek to clarify and understand the real intent of students’ questions, feelings, and beliefs.</a></li>
-        </ul>
-      </div>
-      <div class="page">
-        <div class="page-title">Pray for them by name</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/05-love-those-you-teach/013-pray-for-them-by-name?lang=eng#intro2" target="_blank" rel="noopener">Pray and ask how you can help your students and follow the promptings from the Holy Ghost.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/05-love-those-you-teach/013-pray-for-them-by-name?lang=eng#intro3" target="_blank" rel="noopener">Invite students to pray for other students.</a></li>
-        </ul>
-      </div>
-      <div class="page">
-        <div class="page-title">Create a safe environment where all are respected and know their contributions are valued</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/05-love-those-you-teach/014-create-a-safe-environment?lang=eng#intro2" target="_blank" rel="noopener">Communicate that you value students before they comment or as they raise their hand to comment.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/05-love-those-you-teach/014-create-a-safe-environment?lang=eng#title_number3" target="_blank" rel="noopener">Communicate that students are not only welcome but needed.</a></li>
-        </ul>
-      </div>
-      <div class="page">
-        <div class="page-title">Find appropriate ways to express your love</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/05-love-those-you-teach/015-find-appropriate-ways-to-express-love?lang=eng#title_number1" target="_blank" rel="noopener">Send a message to a student’s parent about something positive you have noticed about their child.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/05-love-those-you-teach/015-find-appropriate-ways-to-express-love?lang=eng#title_number2" target="_blank" rel="noopener">Testify of God’s love when it is hard for you to feel or express love to those you teach.</a></li>
-        </ul>
-      </div>
-    </div>
-  </details>
-  <details class="section" open>
-    <summary>Teach By the Spirit <span class="count">(10 skills)</span></summary>
-    <div class="secbody">
-      <div class="page">
-        <div class="page-title">Prepare yourself spiritually</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/06-teach-by-the-spirit/017-prepare-yourself-spiritually?lang=eng#title_number1" target="_blank" rel="noopener">Use the document “Improving as a Christlike Teacher—A Personal Evaluation” to invite the Holy Ghost to help you refine your preparations to teach.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/06-teach-by-the-spirit/017-prepare-yourself-spiritually?lang=eng#title_number2" target="_blank" rel="noopener">Ask questions to assess your own experience and testimony with Jesus Christ and the doctrine and principles in the lesson.</a></li>
-        </ul>
-      </div>
-      <div class="page">
-        <div class="page-title">Always be ready to respond to spiritual promptings about the needs of learners</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/06-teach-by-the-spirit/018-always-be-ready-to-respond-to-spiritual-promptings?lang=eng#title_number1" target="_blank" rel="noopener">Ask a question to assess learning before moving on in the lesson.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/06-teach-by-the-spirit/018-always-be-ready-to-respond-to-spiritual-promptings?lang=eng#title_number2" target="_blank" rel="noopener">Listen to and observe students to ask follow-up questions.</a></li>
-        </ul>
-      </div>
-      <div class="page">
-        <div class="page-title">Create settings and opportunities for learners to be taught by the Holy Ghost</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/06-teach-by-the-spirit/019-create-settings-and-opportunities-to-be-taught-by-holy-ghost?lang=eng#intro1" target="_blank" rel="noopener">Create student self-evaluations about a doctrine, truth, or principle.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/06-teach-by-the-spirit/019-create-settings-and-opportunities-to-be-taught-by-holy-ghost?lang=eng#title_number2" target="_blank" rel="noopener">Use sacred music. Invite students to identify lines and phrases in sacred music that connect with the truths they are learning.</a></li>
-        </ul>
-      </div>
-      <div class="page">
-        <div class="page-title">Help learners seek, recognize, and act on personal revelation</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/06-teach-by-the-spirit/020-help-learners-seek-recognize-act-on-personal-revelation?lang=eng#intro2" target="_blank" rel="noopener">Before responding to a student’s question or comment, pause and think, “What can I ask them?” or “What can I invite them to do?”</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/06-teach-by-the-spirit/020-help-learners-seek-recognize-act-on-personal-revelation?lang=eng#title_number3" target="_blank" rel="noopener">Share statements that help students recognize when the Holy Ghost is performing His role or function.</a></li>
-        </ul>
-      </div>
-      <div class="page">
-        <div class="page-title">Bear testimony often and invite learners to share their feelings, experiences, and testimonies</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/06-teach-by-the-spirit/021-bear-testimony-often?lang=eng#title_number1" target="_blank" rel="noopener">Create prompts that help students verbalize their feelings, experiences, and testimony.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/06-teach-by-the-spirit/021-bear-testimony-often?lang=eng#title_number2" target="_blank" rel="noopener">Testify more frequently and more powerfully of Jesus Christ.</a></li>
-        </ul>
-      </div>
-    </div>
-  </details>
-  <details class="section" open>
-    <summary>Teach the Doctrine <span class="count">(10 skills)</span></summary>
-    <div class="secbody">
-      <div class="page">
-        <div class="page-title">Learn the doctrine of Jesus Christ for yourself</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/07-teach-the-doctrine/023-learn-the-doctrine-of-jesus-christ?lang=eng#title_number1" target="_blank" rel="noopener">Create open-ended search questions that help learners discover gospel doctrine and principles for themselves and do not lead students to a specific response.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/07-teach-the-doctrine/023-learn-the-doctrine-of-jesus-christ?lang=eng#title_number2" target="_blank" rel="noopener">Search the scriptures and words of the prophets for deeper understanding.</a></li>
-        </ul>
-      </div>
-      <div class="page">
-        <div class="page-title">Teach from the scriptures and the words of latter-day prophets</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/07-teach-the-doctrine/024-teach-from-scriptures?lang=eng#title_number1" target="_blank" rel="noopener">Prepare invitations that help students connect truths found in the scriptures to what living prophets are saying.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/07-teach-the-doctrine/024-teach-from-scriptures?lang=eng#title_number2" target="_blank" rel="noopener">Express your love for and testimony of prophets as their words are shared in class.</a></li>
-        </ul>
-      </div>
-      <div class="page">
-        <div class="page-title">Help learners seek, recognize, and understand truths in the scriptures</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/07-teach-the-doctrine/025-help-learners-seek-recognize-understand-truths?lang=eng#intro2" target="_blank" rel="noopener">Create student self-evaluations that help them recognize their current understanding and abilities about scripture study skills.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/07-teach-the-doctrine/025-help-learners-seek-recognize-understand-truths?lang=eng#title_number3" target="_blank" rel="noopener">Consider assessment questions to carefully choose media, personal stories, and object lessons.</a></li>
-        </ul>
-      </div>
-      <div class="page">
-        <div class="page-title">Focus on truths that lead to conversion and build faith in Jesus Christ</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/07-teach-the-doctrine/026-focus-on-truths-that-lead-to-conversion?lang=eng#intro2" target="_blank" rel="noopener">Ask questions that help students identify and state converting principles.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/07-teach-the-doctrine/026-focus-on-truths-that-lead-to-conversion?lang=eng#title_number3" target="_blank" rel="noopener">Respond to questions in a way that avoids speculation and nondoctrinal personal ideas.</a></li>
-        </ul>
-      </div>
-      <div class="page">
-        <div class="page-title">Help learners find personal relevance in the doctrine of Jesus Christ</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/07-teach-the-doctrine/027-help-learners-find-personal-relevance?lang=eng#title_number1" target="_blank" rel="noopener">Prepare invitations and prompts that help students find personal relevance to a scripture block.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/07-teach-the-doctrine/027-help-learners-find-personal-relevance?lang=eng#title_number2" target="_blank" rel="noopener">Start a learning activity by inviting students to ponder a personal circumstance.</a></li>
-        </ul>
-      </div>
-    </div>
-  </details>
-  <details class="section" open>
-    <summary>Invite Diligent Learning <span class="count">(10 skills)</span></summary>
-    <div class="secbody">
-      <div class="page">
-        <div class="page-title">Help learners take responsibility for their learning</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/08-invite-diligent-learning/029-help-learners-take-responsibility?lang=eng#title_number1" target="_blank" rel="noopener">Resist the tendency to respond to every comment and question and invite the class to respond.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/08-invite-diligent-learning/029-help-learners-take-responsibility?lang=eng#title_number2" target="_blank" rel="noopener">Focus on what the learner can do in class that the teacher typically does.</a></li>
-        </ul>
-      </div>
-      <div class="page">
-        <div class="page-title">Encourage learners to come to know the Savior by studying the gospel daily—study goal</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/08-invite-diligent-learning/030-encourage-learners-to-know-the-savior?lang=eng#intro2" target="_blank" rel="noopener">Assist students in creating a daily scripture study goal.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/08-invite-diligent-learning/030-encourage-learners-to-know-the-savior?lang=eng#title_number3" target="_blank" rel="noopener">Develop and ask questions that help learners connect what they have learned in their personal and family scripture study to the classroom experience.</a></li>
-        </ul>
-      </div>
-      <div class="page">
-        <div class="page-title">Invite learners to prepare to learn</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/08-invite-diligent-learning/031-invite-learners-to-prepare?lang=eng#title_number1" target="_blank" rel="noopener">Create invitations that help learners prepare for the next learning experience.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/08-invite-diligent-learning/031-invite-learners-to-prepare?lang=eng#title_number2" target="_blank" rel="noopener">Create a meaningful invitation connected to the lesson outcome to be used at the beginning of each lesson.</a></li>
-        </ul>
-      </div>
-      <div class="page">
-        <div class="page-title">Encourage learners to share the truths they are learning</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/08-invite-diligent-learning/032-encourage-learners-to-share-truths?lang=eng#intro2" target="_blank" rel="noopener">Help students create or begin gospel conversations.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/08-invite-diligent-learning/032-encourage-learners-to-share-truths?lang=eng#title_number3" target="_blank" rel="noopener">Prepare invitations for students to share with each other what they are learning.</a></li>
-        </ul>
-      </div>
-      <div class="page">
-        <div class="page-title">Invite learners to live what they are learning</div>
-        <ul class="skills">
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/08-invite-diligent-learning/033-invite-learners-to-live?lang=eng#title_number1" target="_blank" rel="noopener">Plan to follow up on invitations given in a previous class and invite learners to share their experiences living what they learned.</a></li>
-          <li><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills/08-invite-diligent-learning/033-invite-learners-to-live?lang=eng#title_number2" target="_blank" rel="noopener">Ask search questions that help learners consider who God is and blessings He offers them.</a></li>
-        </ul>
-      </div>
-    </div>
-  </details>
+  <div id="tree"></div>
 </div>
+
+<script>window.TDS_CONFIG = { needs: ["data", "strings"] };</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/structure.js"></script>
 </body>
 </html>
