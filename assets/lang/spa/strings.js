@@ -9,7 +9,7 @@ window.TDS_STRINGS = {
 
   // ---- index.html ----
   "indexTitle": "Enseñanza al estilo de Cristo — Generador de combinaciones de habilidades",
-  "diagramAlt": "Principios de la enseñanza de Cristo: un anillo exterior con las leyendas «Ama a Quienes Enseñas» y «Enseña por el Espíritu» rodea tres círculos superpuestos —«Enfócate en Jesucristo», «Enseña la Doctrina» e «Invita al Aprendizaje Diligente»— que se unen en el centro: «Conversión a Jesucristo».",
+  "diagramAlt": "Principios de la enseñanza de Cristo: un anillo exterior con las leyendas «Amar a quienes enseña» y «Enseñar por el Espíritu» rodea tres círculos superpuestos —«Centrarse en Jesucristo», «Enseñar la doctrina» e «Invitar al aprendizaje diligente»— que se unen en el centro: «Conversión a Jesucristo».",
   "indexHeading": "Cree una combinación de habilidades de enseñanza al estilo de Cristo",
   "indexLead": "Cada semana, elija una habilidad de cada uno de los cinco principios anteriores y trabaje en ella en su próxima lección. Si cada maestro sigue esta sencilla práctica, mejoraremos en gran manera la conversión a Jesucristo.",
   "btnPickOwn": "Quiero elegir mis propias habilidades",
