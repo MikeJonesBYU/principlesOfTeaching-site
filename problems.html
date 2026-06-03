@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n="problemsTitle">Find Help for a Teaching Challenge</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <main class="wrap">
+
+    <nav class="langbar" id="langbar" aria-label="Language"></nav>
+
+    <p class="backlink"><a href="index.html" data-i18n="backHome">&larr; Back to the home page</a></p>
+
+    <div class="intro" style="text-align:left">
+      <h1 data-i18n="problemsHeading">What's happening in your class?</h1>
+      <p class="lead" style="margin-left:0" data-i18n="problemsLead">
+        Find the challenge that sounds like what you're facing, and jump to a few skills
+        from the guide that can help. Search by what's happening, or browse by category.
+      </p>
+    </div>
+
+    <div class="pfilter">
+      <div class="pf-searchwrap">
+        <input id="pf-search" type="search" autocomplete="off" spellcheck="false"
+               data-i18n-attr="placeholder:problemsSearchPlaceholder|aria-label:problemsSearchPlaceholder"
+               placeholder="Search what's happening — &ldquo;no one talks,&rdquo; &ldquo;bored,&rdquo; &ldquo;hard to love&rdquo;&hellip;">
+      </div>
+      <div class="pf-chips" id="pf-chips" role="group" aria-label="Filter by category"></div>
+      <p class="pf-count" id="pf-count" aria-live="polite"></p>
+    </div>
+
+    <div id="problems"></div>
+    <p class="pf-empty" id="pf-empty" hidden></p>
+
+    <nav class="subnav">
+      <a href="structure.html" data-i18n="navBrowseAll">Browse the full list of all skills &rarr;</a>
+    </nav>
+
+  </main>
+
+  <script>window.TDS_CONFIG = { needs: ["data", "strings"] };</script>
+  <script src="assets/i18n.js"></script>
+  <script src="assets/problems-data.js"></script>
+  <script src="assets/problems.js"></script>
+</body>
+</html>
