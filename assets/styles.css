@@ -272,10 +272,15 @@ h1 { font-size: 1.6rem; line-height: 1.2; margin: 22px 0 6px; }
 .pf-chip:focus-visible { outline: 3px solid #1f7a8c; outline-offset: 2px; }
 .pf-count { color: var(--muted); font-size: .85rem; margin: 10px 0 0; }
 
-.pcat { margin: 26px 0 0; }
+#problems { display: flex; flex-direction: column; gap: 14px; }
+.pcat-header { margin: 12px 0 -2px; }
+#problems > .pcat-header:first-child { margin-top: 0; }
 .pcat-title { font-size: 1.2rem; margin: 0 0 2px; }
-.pcat-blurb { color: var(--muted); margin: 0 0 12px; font-size: .92rem; }
-.pcat-problems { display: grid; gap: 12px; }
+.pcat-blurb { color: var(--muted); margin: 0; font-size: .92rem; }
+/* per-card category label, shown only while searching (ranked, cross-category) */
+.pcard-cat { display: none; font-size: .7rem; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
+#problems.ranked .pcard-cat { display: block; }
 
 .pcard {
   background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
