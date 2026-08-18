@@ -1,0 +1,443 @@
+/* ============================================================================
+   companion.css — the CS 356 companion's own look.
+
+   DELIBERATELY NOT the teaching site's brand. The teaching site is cool teal +
+   gold on gray; this is a lab notebook: warm paper, dark warm ink, a red-pen
+   accent, and a monospace voice for every piece of metadata. When a screenshot
+   or an embedded view of the teaching site appears inside these pages, it should
+   read unmistakably as a SPECIMEN sitting on a notebook page.
+
+   Self-contained: system fonts only, no @import, no web fonts, no images,
+   zero network requests.
+
+   Contents
+     1. Tokens and base
+     2. Fiction marking (banner, badge, frame)  <- the honest-fiction contract
+     3. Layout and typography
+     4. Pending / unlinked states               <- the no-dead-links rule
+     5. The study arc
+     6. The version gallery
+     7. Prev/next arc navigation
+     8. Responsive
+   ========================================================================== */
+
+/* -------------------------------------------------- 1. Tokens and base ----- */
+:root {
+  --paper:        #f4efe4;   /* page ground: warm oatmeal */
+  --panel:        #fffdf7;   /* cards and panels: notebook stock */
+  --panel-sunk:   #f9f4e9;
+  --ink:          #29241f;   /* warm near-black */
+  --ink-soft:     #4b433b;
+  --muted:        #6f665b;
+  --rule:         #ded3bf;   /* ruled-line color */
+  --rule-strong:  #c8bba1;
+
+  --accent:       #9c3a1c;   /* the one accent: red pen */
+  --accent-deep:  #6f2712;
+  --accent-tint:  #f7e7df;
+
+  --flag-bg:      #7a1d0e;   /* fiction banner */
+  --flag-ink:     #fff4ea;
+  --flag-line:    #4a1108;
+
+  --radius: 6px;
+  --radius-lg: 10px;
+  --maxw: 940px;
+
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background-color: var(--paper);
+  /* Faint ruled lines. Pure CSS — no image request. */
+  background-image: linear-gradient(to bottom, rgba(160,140,105,.13) 1px, transparent 1px);
+  background-size: 100% 2rem;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+a:hover { color: var(--accent-deep); }
+a:focus-visible,
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* ------------------------------------------------- 2. Fiction marking ------ */
+/* The banner is injected by companion.js at the top of <body> on EVERY page.
+   It is meant to be impossible to miss or to mistake for decoration. */
+.fiction-banner {
+  background: var(--flag-bg);
+  color: var(--flag-ink);
+  border-bottom: 4px solid var(--flag-line);
+  font-size: .95rem;
+  line-height: 1.45;
+}
+.fiction-banner__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 12px 20px;
+}
+.fiction-banner__flag {
+  font-family: var(--mono);
+  font-weight: 700;
+  letter-spacing: .04em;
+  margin-right: .25em;
+}
+.fiction-banner__text { color: #f6e2d5; }
+.fiction-banner__link {
+  color: #fff;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration-thickness: 2px;
+}
+.fiction-banner__link:hover { color: #ffd9c6; }
+.fiction-banner a:focus-visible { outline-color: #ffd9c6; }
+
+/* Stamped on any table, chart, quote, figure, or number that is invented. */
+.fiction-badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  background: var(--accent-tint);
+  border: 1px solid var(--accent);
+  border-radius: 3px;
+  padding: 2px 7px;
+  vertical-align: 2px;
+  white-space: nowrap;
+}
+
+/* Optional wrapper for a whole invented artifact (table, chart, transcript).
+   Use with a .fiction-badge inside the caption. */
+.fiction-frame {
+  border-left: 4px solid var(--accent);
+  background: var(--accent-tint);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 14px 18px;
+  margin: 22px 0;
+}
+.fiction-frame > :first-child { margin-top: 0; }
+.fiction-frame > :last-child { margin-bottom: 0; }
+
+.fiction-note {
+  font-size: .92rem;
+  color: var(--ink-soft);
+  background: var(--panel-sunk);
+  border: 1px dashed var(--rule-strong);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  margin: 0 0 20px;
+}
+
+/* -------------------------------------------- 3. Layout and typography ----- */
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 28px 20px 80px; }
+
+.kicker {
+  font-family: var(--mono);
+  font-size: .78rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 8px;
+}
+
+h1 {
+  font-size: 2rem;
+  line-height: 1.15;
+  letter-spacing: -.01em;
+  margin: 0 0 10px;
+}
+h2 {
+  font-size: 1.3rem;
+  line-height: 1.25;
+  margin: 44px 0 6px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--rule-strong);
+}
+h3 { font-size: 1.05rem; margin: 0 0 6px; line-height: 1.3; }
+
+.lead { font-size: 1.12rem; color: var(--ink-soft); max-width: 62ch; }
+.section-note { color: var(--muted); max-width: 68ch; margin-top: 8px; }
+p { margin: 0 0 14px; }
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  margin: 22px 0;
+  box-shadow: 0 1px 0 var(--rule);
+}
+.panel > :first-child { margin-top: 0; }
+.panel > :last-child { margin-bottom: 0; }
+
+.panel--callout { border-left: 5px solid var(--accent); }
+
+.micro-label {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-right: .45em;
+}
+
+.pill {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 2px 9px;
+  border: 1px solid var(--rule-strong);
+  background: var(--panel-sunk);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.pill--kind { border-color: var(--rule-strong); }
+.pill--optional { border-style: dashed; margin-left: 6px; }
+.pill--pending {
+  border-color: var(--accent);
+  color: var(--accent-deep);
+  background: var(--accent-tint);
+}
+
+code {
+  font-family: var(--mono);
+  font-size: .88em;
+  background: var(--panel-sunk);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1px 5px;
+}
+
+/* A few spacing utilities, so pages never need inline styles. */
+.u-flush-top { margin-top: 0; }
+.u-flush-bottom { margin-bottom: 0; }
+.u-tight { margin: 4px 0 0; }
+
+.stack-list { list-style: none; margin: 0; padding: 0; }
+.stack-list > li {
+  border-top: 1px solid var(--rule);
+  padding: 12px 0;
+}
+.stack-list > li:last-child { border-bottom: 1px solid var(--rule); }
+
+.site-head { margin: 0 0 28px; }
+
+.site-foot {
+  margin-top: 56px;
+  padding-top: 16px;
+  border-top: 2px solid var(--rule-strong);
+  font-size: .9rem;
+  color: var(--muted);
+}
+
+/* --------------------------------------- 4. Pending / unlinked states ------ */
+/* Nothing unfinished is ever a link. Unfinished things say so, in place. */
+.is-pending { color: var(--muted); }
+.is-pending__label { color: var(--ink-soft); font-weight: 600; }
+
+.arc-item--pending,
+.version-card--pending { background: var(--panel-sunk); }
+.arc-item--pending .arc-item__title,
+.version-card--pending .version-card__title { font-weight: 600; }
+
+/* ------------------------------------------------------ 5. The study arc --- */
+.arc-list { list-style: none; margin: 0; padding: 0; }
+
+.arc-item {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  margin: 0 0 14px;
+  position: relative;
+}
+/* The connector that makes the arc read as a walk, not a pile. */
+.arc-item::after {
+  content: "";
+  position: absolute;
+  left: 46px;
+  bottom: -15px;
+  width: 2px;
+  height: 14px;
+  background: var(--rule-strong);
+}
+.arc-item:last-child::after { display: none; }
+
+.arc-item--interlude {
+  background: var(--panel-sunk);
+  border-style: dashed;
+}
+
+.arc-item__marker {
+  flex: 0 0 76px;
+  font-family: var(--mono);
+  font-size: .7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border-right: 2px solid var(--rule);
+  padding-right: 12px;
+  min-height: 2.2em;
+}
+.arc-item--interlude .arc-item__marker { color: var(--muted); }
+
+.arc-item__body { flex: 1 1 auto; min-width: 0; }
+.arc-item__title { margin: 0 0 4px; font-size: 1.1rem; }
+.arc-item__method {
+  font-family: var(--mono);
+  font-size: .78rem;
+  color: var(--muted);
+  margin: 0 0 8px;
+}
+.arc-item__question { margin: 0 0 6px; }
+/* Dashed rule keeps the invented-finding marking attached even in a cropped
+   screenshot of a single card (see fiction.html's marking rationale). */
+.arc-item__finding {
+  margin: 0 0 8px; color: var(--ink-soft);
+  border-left: 3px dashed var(--accent, #9c3a1c); padding-left: 10px;
+}
+.arc-item__versions { margin-top: 8px; }
+
+.chips { list-style: none; display: inline; margin: 0; padding: 0; }
+.chips__item { display: inline-block; margin: 3px 6px 3px 0; }
+.chip {
+  display: inline-block;
+  font-size: .82rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
+  padding: 2px 10px;
+  background: var(--panel-sunk);
+}
+a.chip { text-decoration: none; border-color: var(--accent); }
+a.chip:hover { background: var(--accent-tint); }
+span.chip.is-pending .is-pending__label { font-weight: 500; }
+span.chip.is-pending .pill--pending {
+  border: 0;
+  background: none;
+  padding: 0 0 0 4px;
+  font-size: .62rem;
+}
+
+/* ------------------------------------------------ 6. The version gallery --- */
+.version-gallery {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.version-card {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+}
+.version-card--constructed { border-style: dashed; }
+.version-card--live { border-color: var(--accent); border-width: 2px; }
+
+.version-card__rung {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 8px;
+}
+.version-card__fidelity {
+  font-family: var(--mono);
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--panel);
+  background: var(--accent);
+  border-radius: 4px;
+  padding: 1px 7px;
+}
+.version-card__rung-name {
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.version-card__title { margin: 0 0 8px; }
+.version-card__kind { margin: 0 0 10px; }
+.version-card__source,
+.version-card__shows { font-size: .92rem; margin: 0 0 10px; }
+.version-card__source { color: var(--muted); }
+.version-card__shows { color: var(--ink-soft); }
+.version-card__studies { margin-top: auto; padding-top: 6px; }
+
+/* ------------------------------------------- 7. Prev/next arc navigation --- */
+.arcnav {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 48px;
+  padding-top: 16px;
+  border-top: 2px solid var(--rule-strong);
+  font-size: .95rem;
+}
+.arcnav__side { display: flex; flex-direction: column; gap: 2px; max-width: 38%; }
+.arcnav__side--next { text-align: right; align-items: flex-end; }
+.arcnav__side--empty { color: var(--muted); }
+.arcnav__title { font-weight: 600; }
+.arcnav__hub {
+  font-family: var(--mono);
+  font-size: .74rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------- 8. Responsive -- */
+@media (max-width: 720px) {
+  body { font-size: 16px; }
+  h1 { font-size: 1.6rem; }
+  .wrap { padding: 20px 16px 64px; }
+  .fiction-banner__inner { padding: 11px 16px; }
+  .fiction-banner__link { white-space: normal; display: inline-block; }
+
+  .arc-item { flex-direction: column; gap: 8px; padding: 14px; }
+  .arc-item::after { left: 22px; }
+  .arc-item__marker {
+    flex: none;
+    border-right: 0;
+    border-bottom: 2px solid var(--rule);
+    padding: 0 0 6px;
+    min-height: 0;
+  }
+
+  .version-gallery { grid-template-columns: 1fr; }
+
+  .arcnav { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .arcnav__side, .arcnav__side--next {
+    max-width: 100%;
+    text-align: left;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 380px) {
+  .fiction-badge { letter-spacing: .06em; }
+}

@@ -37,8 +37,9 @@ This is the single most important editorial rule of the companion.
 
 Marking standard ("very, very clearly marked"):
 
-1. **Global banner** on every companion page, injected by `companion.js`:
-   *"Fictitious teaching example — all participants, quotes, and data on this page
+1. **Global banner** on every companion page, injected by `companion.js`. The
+   canonical wording is CONTENT-PLAN §5 (single source for boilerplate):
+   *"Fictitious teaching example. All participants, quotes, and data on this page
    are invented for CS 356. The site and its design decisions are real."* Links to
    `fiction.html`.
 2. **`.fiction-badge`** component stamped directly on every table, chart, quote
@@ -72,6 +73,7 @@ companion/
   studies/
     01-contextual-study.html  One long-form page per study (see CONTENT-PLAN §3)
     02-card-sort.html
+    02b-fidelity-ladder.html  The prototyping-ladder interlude (kind:"interlude")
     03-tree-test.html
     04-task-test.html
     05-external-review.html
@@ -126,6 +128,10 @@ window.CS356_COMPANION = {
   ]
 };
 ```
+
+Note on `order`: it is the **arc/walk position** (interludes included), not the
+displayed study number — study numbers are counted over `kind:"study"` entries
+only, so the interlude sits between "Study 2" and "Study 3" without renumbering.
 
 **What renders from the registry:** the hub's arc diagram/table, per-study
 prev/next navigation, the version gallery, and cross-links between studies and

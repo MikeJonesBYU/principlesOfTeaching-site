@@ -38,7 +38,7 @@ Arc-level narrative rule: each page ends with "what changed because of this" and
 | `v-wireframe` | constructed | 2 — wireframe | authored for the companion | Grayscale boxes + real labels; IA visible, visual design withheld |
 | `v1-hierarchy` | real | 3 — first coded | `782ddb5` (initial commit): generator + select/summary + hierarchy browse, English-only | A faithful mirror of the manual's hierarchy; no problem-driven path yet |
 | `v2-bilingual` | real | 4 — shipped v2 | `52f8dda` (i18n complete, pre-problem-page) | i18n architecture; still navigable only by principle |
-| `v3-pre-softsearch` | real (optional) | 4.5 | `e2bf223`..`bf7bcdf` era | Problem page exists but strict search fails natural sentences — pairs with study 4 |
+| `v3-pre-softsearch` | real (optional) | 4.5 | snapshot at `e2bf223` (problem page present; immediately before the soft search in `d476c8c`) | Problem page exists but strict search fails natural sentences — pairs with study 4 |
 | *(live)* | live | 5 — current | `../` (never snapshotted) | Problem-driven + soft search + uniform buttons |
 
 ## 3. Study-page template
@@ -58,7 +58,9 @@ learn the genre by repetition):
 5. **Discussion** — what the results mean, honestly including ambiguity.
 6. **Decisions** — the real design decisions, cited to commits/files.
 7. **See it in the site** — links to the linked version(s) + the live page.
-8. Prev/next arc navigation (rendered from the registry).
+8. Prev/next arc navigation (rendered from the registry). Required hooks:
+   `<body data-study="<slug>">` and an empty `<nav data-companion="arcnav">`
+   element (companion.js fills it and adds the styling class).
 
 ## 4. "Meet the Timpanogos Shadows Ward" (ward bible)
 
