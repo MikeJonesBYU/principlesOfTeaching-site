@@ -43,8 +43,18 @@ Marking standard ("very, very clearly marked"):
    are invented for CS 356. The site and its design decisions are real."* Links to
    `fiction.html`.
 2. **`.fiction-badge`** component stamped directly on every table, chart, quote
-   block, or number that contains invented data (badge text: "FICTITIOUS DATA").
+   block, or number that contains invented data. Default badge text: "FICTITIOUS
+   DATA"; on quotation blocks the variant "INVENTED QUOTE" is allowed (same
+   component, same styling) so a run of quotes reads clearly without identical
+   stamps.
 3. **`fiction.html`** — the canonical full statement of what is real vs invented.
+   3a. **Speculation marking.** Where the fiction is set *after* a real-world
+   change that had not yet taken effect when the page was written (e.g., the
+   September 2026 Sunday schedule change, written about in August 2026), the
+   page must say so explicitly: a dated speculation note near the top ("written
+   August 2026, before the change went live — every account of how it played
+   out is speculation"), and the badge variant "SPECULATION" on passages whose
+   content is a guess about the future rather than ordinary invented data.
 4. Every study page opens with a **scope note** listing exactly what on that page
    is real (the artifact, the decision) and what is invented (the people, the data).
 

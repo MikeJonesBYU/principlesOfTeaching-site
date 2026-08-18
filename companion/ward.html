@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meet the Timpanogos Shadows Ward — CS 356 Companion</title>
+  <meta name="description" content="The fictitious setting for the CS 356 companion: an invented North Orem ward, its teaching corps, its participant roster, and the way its teachers actually talk about teaching trouble.">
+  <link rel="stylesheet" href="assets/companion.css">
+  <style>
+    /* Page-scoped only. Everything here is a layout need this one page has and
+       no other page in the companion has yet: a small data table, a roster
+       entry header, and a quote block. All colors come from the existing
+       tokens in companion.css; no new palette, no new components elsewhere. */
+
+    .ward-table__scroll { overflow-x: auto; }
+    .ward-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .95rem;
+      margin: 0;
+    }
+    .ward-table th,
+    .ward-table td {
+      text-align: left;
+      vertical-align: top;
+      padding: 8px 12px 8px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .ward-table thead th {
+      font-family: var(--mono);
+      font-size: .7rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 2px solid var(--rule-strong);
+      white-space: nowrap;
+    }
+    .ward-table tbody tr:last-child td { border-bottom: 0; }
+    .ward-table .num { font-family: var(--mono); white-space: nowrap; }
+
+    .person {
+      border-top: 1px solid var(--rule);
+      padding: 20px 0 6px;
+    }
+    .person:first-of-type { border-top: 0; padding-top: 4px; }
+    .person__head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 6px 10px;
+      margin: 0 0 4px;
+    }
+    .person__id {
+      font-family: var(--mono);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: var(--panel);
+      background: var(--accent);
+      border-radius: 4px;
+      padding: 2px 8px;
+    }
+    .person__name { font-size: 1.08rem; margin: 0; }
+    .person__meta {
+      font-family: var(--mono);
+      font-size: .76rem;
+      color: var(--muted);
+      margin: 0 0 10px;
+      line-height: 1.5;
+    }
+
+    .ward-quote {
+      margin: 12px 0 0;
+      padding: 4px 0 4px 14px;
+      border-left: 3px dashed var(--accent);
+      color: var(--ink-soft);
+    }
+    .ward-quote p { margin: 0 0 6px; }
+    .ward-quote cite {
+      display: block;
+      font-style: normal;
+      font-family: var(--mono);
+      font-size: .72rem;
+      letter-spacing: .06em;
+      color: var(--muted);
+    }
+
+    .roster-light { list-style: none; margin: 0; padding: 0; }
+    .roster-light > li {
+      border-top: 1px solid var(--rule);
+      padding: 12px 0;
+    }
+    .roster-light > li:last-child { border-bottom: 1px solid var(--rule); }
+
+    .say-cols {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin: 18px 0 0;
+    }
+    .say-list { margin: 0; padding-left: 20px; }
+    .say-list li { margin-bottom: 7px; }
+    .say-list li:last-child { margin-bottom: 0; }
+    .say-tail { margin: 12px 0 0; }
+
+    /* Small spacing helpers this page needs and companion.css does not have. */
+    .u-nudge-left { margin-left: 6px; }
+    .roster-subhead { margin-top: 28px; }
+    .table-caption { margin: 0 0 10px; }
+  </style>
+</head>
+<body data-page="ward">
+
+  <main class="wrap">
+
+    <header class="site-head">
+      <p class="kicker">CS 356 Companion &middot; The fictitious setting</p>
+      <h1>Meet the Timpanogos Shadows Ward</h1>
+      <p class="lead">
+        Every study in this companion needs participants, and the participants
+        have to be the <em>same people</em> from study to study &mdash; same
+        calling, same phone, same worries &mdash; or the arc stops reading as one
+        project. So we built a ward. This page is that ward: where it sits, who
+        lives in it, who teaches in it, and the exact words its teachers use when
+        something in a lesson goes wrong.
+      </p>
+      <p class="lead">
+        It is the reference sheet the studies draw from. When a study says
+        &ldquo;P04,&rdquo; it means the person listed under P04 here, and it will
+        keep meaning her.
+      </p>
+      <p class="lead">
+        The ward is described as it stands in <strong>November 2026</strong>
+        &mdash; about ten weeks into the Church&rsquo;s new Sunday meeting
+        schedule, with October general conference just behind it. That timing is
+        not incidental. It puts every teacher in this ward in the middle of
+        relearning a job they had already spent twenty years learning, which is
+        the most interesting moment there is to study anybody.
+      </p>
+    </header>
+
+    <section class="panel panel--callout" aria-labelledby="scope">
+      <h2 id="scope">Scope note</h2>
+      <p>
+        <span class="fiction-badge">FICTITIOUS DATA</span>
+      </p>
+      <p>
+        <strong>Everything on this page is invented.</strong> The ward, its
+        boundaries, its meetinghouse, its numbers, all sixteen people, their
+        callings, their phones, and every word in quotation marks. The
+        Timpanogos&nbsp;Shadows Ward does not exist and never did. None of these
+        people are based on real individuals, and nothing here was observed,
+        surveyed, or counted.
+      </p>
+      <p>
+        <strong>What is real is the shape.</strong> A North Orem neighborhood
+        where households stay twenty to forty years, where the teachers are
+        diligent and untrained and short on time, and where nobody has ever said
+        the phrase &ldquo;skill development&rdquo; out loud &mdash; that pattern
+        is realistic, and it is the reason this fiction is worth writing down.
+        The site the studies examine is
+        <a href="../">real and deployed</a>, and so are the design decisions the
+        studies land on.
+      </p>
+      <p class="u-flush-bottom">
+        <a href="fiction.html">The full statement of what is real and what is not &rarr;</a>
+      </p>
+    </section>
+
+    <section class="panel panel--callout" aria-labelledby="speculation">
+      <h2 id="speculation">Speculation note: this page guesses about the future</h2>
+      <p>
+        <span class="fiction-badge">SPECULATION</span>
+        <span class="micro-label u-nudge-left">Written August 2026 &middot; set November 2026</span>
+      </p>
+      <p>
+        There is a second layer of unreality on this page, and it is easy to miss
+        because it sits on top of a fact.
+      </p>
+      <p>
+        <strong>The schedule change is real.</strong> In March 2026 the First
+        Presidency announced a new Sunday meeting schedule, effective the first
+        regular Sunday in September 2026: sacrament meeting of up to sixty
+        minutes, a five-minute transition, twenty-five minutes of Sunday School
+        every week for adults and youth, another five-minute transition, and
+        twenty-five minutes of elders quorum, Relief Society, Young Women, or an
+        Aaronic Priesthood quorum &mdash; also every week. Primary runs
+        fifty-five minutes alongside. Elders quorum and Relief Society study
+        recent general conference messages; the youth use the updated <em>For the
+        Strength of Youth: A Guide for Making Choices</em>. Teacher council
+        meetings become monthly, held during one of the class periods. The
+        guidance asks leaders to end on time, keep transitions brief, socialize
+        before and after church rather than between meetings, and build lessons
+        around one to three key principles &mdash; explicitly preferring
+        meaningful discussion over covering all the material. All of that is
+        real, and is published by the Church on its
+        <em>Sunday meeting schedule</em> feature page.
+      </p>
+      <p>
+        <strong>How this ward experienced it is not real, and could not be.</strong>
+        This page was written in <strong>August 2026</strong> &mdash; before the
+        new schedule had been used for a single Sunday, by anyone, anywhere. It
+        then describes a fictitious ward ten weeks into it. So every account here
+        of how the change landed is a guess about a future nobody had lived yet:
+        the Primary rotation that got tried and abandoned, the strain on a
+        two-person Relief Society rotation, who found the shorter class a relief
+        and who quietly grieved it, and every word any of these people say about
+        any of it.
+      </p>
+      <p>
+        That makes two layers of invention stacked on one real event: the
+        <em>ordinary</em> fiction of this companion (the ward and its people do
+        not exist) plus the <em>speculative</em> fiction of their reception (the
+        event is real; their experience of it is imagined in advance). Passages
+        carrying the second layer are stamped
+        <span class="fiction-badge">SPECULATION</span>.
+      </p>
+      <p class="u-flush-bottom">
+        Read them as design fiction, not prediction. Nothing here was forecast by
+        anyone with data, and a real September would have produced surprises no
+        one sitting in August could invent &mdash; which is, conveniently, the
+        same lesson the rest of this companion is trying to teach.
+      </p>
+    </section>
+
+    <section aria-labelledby="geography">
+      <h2 id="geography">Ward geography and rhythm</h2>
+      <p class="section-note">
+        Invented, but built to the proportions of the place it is standing in
+        for.
+      </p>
+      <p>
+        <span class="fiction-badge">FICTITIOUS DATA</span>
+        <span class="micro-label u-nudge-left">Invented place, invented detail</span>
+      </p>
+
+      <p>
+        The ward sits on the bench in North Orem, six streets wide, on ground
+        that tilts up toward the mountain the ward is named after. It was orchard
+        before it was anything: apple and cherry, torn out in stages between 1968
+        and 1984 and platted into quarter-acre lots of split-levels and ramblers.
+        A few of the original trees are still standing in back yards, kept by
+        people who remember what they were part of.
+      </p>
+      <p>
+        An irrigation ditch runs the length of the ward behind the back fences,
+        with a gravel walking path beside it. At dusk the path is the busiest
+        place in the boundaries. Half the ward can walk to church; the other half
+        drives four blocks and parks anyway, because of the hill.
+      </p>
+      <p>
+        The meetinghouse is shared with two other wards. Timpanogos Shadows meets
+        at 11:00&nbsp;a.m., which means the building is already warm and slightly
+        loud when they get there, and the parking lot is a negotiation.
+      </p>
+      <p>
+        Since the first Sunday in September the shape of that block has been the
+        new one: sacrament meeting of up to an hour, a five-minute transition,
+        twenty-five minutes of Sunday School, another five-minute transition, and
+        twenty-five minutes in elders quorum, Relief Society, Young Women, or an
+        Aaronic Priesthood quorum. Everything meets every week now. Nothing
+        alternates, nothing skips, and no one has a week off. Primary runs
+        fifty-five minutes alongside the two class periods &mdash; five minutes
+        of opening, twenty of singing time, a five-minute transition, then
+        twenty-five minutes of class. The Primary teachers used to be the only
+        adults in the building who were on every Sunday. Now everybody is.
+      </p>
+      <p>
+        The rest of the rhythm is the ordinary one, and survived the change
+        untouched. Youth activities Wednesday night. Break-the-fast at
+        somebody&rsquo;s house on the first Sunday. The Primary program in the
+        fall, which the whole ward attends and the Primary presidency dreads and
+        loves. A ward temple night that about eleven people make. And funerals:
+        the Relief Society has served lunch in that cultural hall for three
+        generations of the same families, and knows which ones want the rolls
+        warm.
+      </p>
+
+      <div class="panel">
+        <p class="u-flush-top">
+          <span class="fiction-badge">SPECULATION</span>
+          <span class="micro-label u-nudge-left">Guessed reception, written in advance</span>
+        </p>
+        <h3>What ten weeks did to the hallway</h3>
+        <p>
+          The building was designed for a ward that moved twice on a Sunday. It
+          now moves three times, and two of those moves are budgeted at five
+          minutes each. Two hundred people, one main corridor, and a foyer that
+          has been the ward&rsquo;s living room for forty years.
+        </p>
+        <p>
+          The instruction to socialize before and after church rather than
+          between meetings is clear, and ten weeks in, the hallway has not read
+          it. The conversations that used to happen in a leisurely gap now happen
+          in a five-minute one, at the same length, which means classes start
+          with a trickle. Anyone three minutes late to a twenty-five-minute
+          class has missed an eighth of it, and everyone knows this now in a way
+          nobody had to know it before.
+        </p>
+        <p class="u-flush-bottom">
+          The reframe is landing better than the timing is. Fellowship before and
+          after church is no longer loitering; it is the instruction. The ward is
+          good at exactly that, and for a congregation whose warmth had nowhere
+          official to live, being told to stand in the foyer and talk to people
+          has been an unexpectedly easy thing to obey.
+        </p>
+      </div>
+    </section>
+
+    <section aria-labelledby="demographics">
+      <h2 id="demographics">Who lives here</h2>
+      <p class="section-note">
+        The single most important fact about this ward is that people do not
+        leave it.
+      </p>
+      <p>
+        <span class="fiction-badge">FICTITIOUS DATA</span>
+        <span class="micro-label u-nudge-left">Invented population</span>
+      </p>
+
+      <p>
+        Households in these boundaries stay twenty to forty years. Couples buy in
+        their early thirties, raise everybody, and then stay &mdash; the house is
+        paid for, the yard is established, and the grandchildren are twenty
+        minutes away. Turnover happens when someone dies or finally moves to a
+        smaller place, and then the house is bought by a young couple who will
+        also stay for thirty years.
+      </p>
+      <p>
+        The result is a ward with two ends and a thin middle: a large, deeply
+        rooted population of empty-nesters and grandparents, and a small, growing
+        band of newlyweds and young families in the recently-turned-over houses
+        and the basement apartments. The forty-to-fifty-five band &mdash; the
+        people who would normally absorb the heaviest callings &mdash; is the
+        smallest group in the ward, which is exactly why those few households
+        hold three callings apiece and are the busiest people in the boundaries.
+      </p>
+
+      <div class="panel">
+        <p class="u-flush-top">
+          <span class="fiction-badge">FICTITIOUS DATA</span>
+          <span class="micro-label u-nudge-left">Invented ward figures</span>
+        </p>
+        <div class="ward-table__scroll">
+          <table class="ward-table">
+            <caption class="section-note table-caption">
+              Timpanogos Shadows Ward at a glance &mdash; all numbers invented for
+              CS&nbsp;356.
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Measure</th>
+                <th scope="col">Figure</th>
+                <th scope="col">Why it matters to the studies</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Members on the records</td>
+                <td class="num">391</td>
+                <td>Ordinary-sized suburban ward; nothing exotic.</td>
+              </tr>
+              <tr>
+                <td>Households</td>
+                <td class="num">128</td>
+                <td>Recruiting pool for every study in the arc.</td>
+              </tr>
+              <tr>
+                <td>Average sacrament attendance</td>
+                <td class="num">~205</td>
+                <td>Roughly half the roll, which is normal and fine.</td>
+              </tr>
+              <tr>
+                <td>Households in the boundaries 20+ years</td>
+                <td class="num">74 (58%)</td>
+                <td>The long-tenure majority: settled habits, settled vocabulary.</td>
+              </tr>
+              <tr>
+                <td>Households 5&ndash;19 years</td>
+                <td class="num">32 (25%)</td>
+                <td>The thin middle that holds most of the callings.</td>
+              </tr>
+              <tr>
+                <td>Households under 5 years</td>
+                <td class="num">22 (17%)</td>
+                <td>Mostly newlyweds with babies; 14 of the 22 are under 32.</td>
+              </tr>
+              <tr>
+                <td>Children in Primary</td>
+                <td class="num">44</td>
+                <td>
+                  Seven classes, unevenly sized &mdash; four in the nursery, and
+                  eleven in the combined ten-and-eleven class. The largest
+                  teaching corps in the ward.
+                </td>
+              </tr>
+              <tr>
+                <td>Youth ages 12&ndash;18</td>
+                <td class="num">27</td>
+                <td>
+                  Three youth Sunday School classes, then Young Women classes
+                  and Aaronic Priesthood quorums &mdash; both blocks, every
+                  week.
+                </td>
+              </tr>
+              <tr>
+                <td>Adults 65 and over</td>
+                <td class="num">71</td>
+                <td>The other end of the barbell.</td>
+              </tr>
+              <tr>
+                <td>Converts baptized in the last five years</td>
+                <td class="num">3</td>
+                <td>
+                  Converts are rare here. One of the three is sixteen years old
+                  and sitting in a Sunday School class right now (P09).
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <p>
+        Occupations run the way North Orem runs: BYU and UVU faculty and staff,
+        tech workers who commute south to the Silicon Slopes offices two or three
+        days a week, nurses and PAs and a couple of physicians, small business
+        owners &mdash; a contractor, a landscaper, a photographer &mdash; and a
+        long bench of retired people who used to be all of those things.
+      </p>
+    </section>
+
+    <section aria-labelledby="corps">
+      <h2 id="corps">The teaching corps</h2>
+      <p class="section-note">
+        Twenty-six adults in this ward are called to stand up and teach
+        something on a Sunday: 13 in Primary, 4 in Sunday School, 4 with the
+        youth, 3 in elders quorum, 2 in Relief Society. This is who they are.
+      </p>
+
+      <p>
+        <strong>Primary</strong> is the biggest teaching operation in the
+        building &mdash; thirteen of the twenty-six &mdash; with twelve class
+        teachers covering seven classes from nursery up through the
+        eleven-year-olds, plus the music leader. (The presidency runs Primary
+        but does not teach a class, so they are not counted here.) The classes
+        are unevenly sized: four in the nursery, and a combined ten-and-eleven
+        class that, at eleven children, is both the oldest class and the
+        biggest one in Primary. Primary was already on every week, which is why
+        it is the one organization whose cadence the new schedule did not
+        change &mdash; only its shape. Most Primary teachers here are
+        either grandmothers with thirty years of practice or young mothers who
+        were called four months ago, and there is very little in between.
+      </p>
+      <p>
+        <strong>Sunday School</strong> has four teachers for four classes
+        &mdash; three youth classes and the adult class &mdash; and now meets
+        every week, so each of those four teaches fifty-two times a year instead
+        of twenty-four. Each lesson is twenty-five minutes instead of fifty. The
+        arithmetic says their total teaching time barely moved; the teachers
+        will tell you something else entirely, and the something else is about
+        preparation, not minutes. The presidency also runs the teacher council
+        meetings, which are now monthly and held during a class period rather
+        than squeezed into whatever the calendar allowed &mdash; which, before
+        September, was roughly twice a year.
+      </p>
+      <p>
+        <strong>Young Women and the quorums</strong> meet in the second class
+        period every week, and four advisers teach between them, working from
+        the updated <em>For the Strength of Youth</em> guide and its monthly
+        themes. They are mostly in their thirties and fifties, and several of
+        them are also the parents of the youth in the room, which they will tell
+        you is complicated.
+      </p>
+      <p>
+        <span class="fiction-badge">SPECULATION</span>
+        <strong>Elders quorum</strong> keeps three instructors against a meeting
+        that now happens every week, so a turn comes around about every third
+        week &mdash; where it used to be every sixth. The old complaint was that
+        the gap was long enough to forget what worked last time. That complaint
+        is gone. <strong>Relief Society</strong> runs leaner still: two
+        instructors, alternating weekly, which means each of them teaches every
+        other week where she used to teach once a month. That is a doubling, and
+        it is the single hardest number on this page to live with. The two
+        instructors have been talking since October about whether to ask for a
+        third. As of November neither has raised it with the presidency.
+      </p>
+
+      <div class="panel">
+        <p class="u-flush-top">
+          <span class="fiction-badge">FICTITIOUS DATA</span>
+          <span class="micro-label u-nudge-left">Invented corps profile</span>
+        </p>
+        <ul class="stack-list">
+          <li>
+            <strong>Church experience: deep.</strong>
+            <p class="u-tight">
+              Twenty-three of the twenty-six were born in the church and have
+              been active their whole lives. Eighteen served missions. Eight
+              have been in a bishopric, on a stake high council, or in a Relief
+              Society or Primary presidency at the stake level. They know how a
+              meeting works, how a calling works, and how to show up.
+            </p>
+          </li>
+          <li>
+            <strong>Training in teaching: essentially none.</strong>
+            <p class="u-tight">
+              Not one of them has been trained to teach a gospel lesson. The
+              closest the ward comes is Sister Tolman (P13), who taught fifth
+              grade for twenty-eight years &mdash; and she is the first to say
+              that a Sunday School class is not a classroom and that almost none
+              of what she learned transfers. Everyone else is running on
+              instinct, memory of their own teachers, and whatever they can
+              improvise.
+            </p>
+          </li>
+          <li>
+            <strong>Devices: the phone is the tool.</strong>
+            <p class="u-tight">
+              Twenty-two of the twenty-six prepare primarily on a phone,
+              standing up, in fragments. Seven also open a laptop at some point,
+              though only one of those does the whole job on it. Three print
+              things. Almost all lesson prep happens Saturday evening or Sunday
+              morning, in twenty-minute pieces, interrupted.
+            </p>
+          </li>
+          <li>
+            <strong>They mean it.</strong>
+            <p class="u-tight">
+              Nobody in this corps is coasting. They accepted the calling, they
+              think about the people in the room during the week, and several of
+              them lose sleep over it. What they are short on is time and
+              training, not care.
+            </p>
+          </li>
+          <li>
+            <strong>And they are all worried about the same thing.</strong>
+            <p class="u-tight">
+              When the Sunday School president asked the teachers what they
+              wanted help with, almost every answer was some version of
+              <em>getting through it</em>: the lesson is too long, the clock is
+              too short, and there is material left on the page at the end.
+              Coverage is not the point of teaching, and it is not the point of
+              any lesson these people have ever been given &mdash; but it is
+              what they measure themselves against, week after week.
+            </p>
+          </li>
+        </ul>
+      </div>
+
+      <h3 class="roster-subhead">Ten weeks in</h3>
+      <p class="section-note">
+        What the new schedule did to this corps between September and November.
+        Every word of it is a guess written before the first Sunday of the new
+        schedule had happened.
+      </p>
+
+      <p class="fiction-note">
+        <span class="fiction-badge">SPECULATION</span>
+        The change is real; this reception is invented in advance. The two
+        panels below are the substance of that guess.
+      </p>
+
+      <div class="panel">
+        <p class="u-flush-top">
+          <span class="fiction-badge">SPECULATION</span>
+          <span class="micro-label u-nudge-left">What got harder</span>
+        </p>
+
+        <p>
+          The cruelty of the timing is that this ward&rsquo;s oldest anxiety and
+          the Church&rsquo;s newest instruction finally point the same direction
+          &mdash; and the ward cannot quite believe it. The guidance now says, in
+          print, that meaningful discussion matters more than covering all the
+          material, and that a lesson should carry one to three key principles.
+          These teachers have measured themselves by coverage for twenty years.
+          Being told they were measuring the wrong thing has not, in ten weeks,
+          stopped them measuring it. Several feel <em>more</em> coverage anxiety
+          than before, not less: the same manual, half the runway.
+        </p>
+
+        <ul class="stack-list">
+          <li>
+            <strong>The twenty-five-minute wall.</strong>
+            <p class="u-tight">
+              Twenty-five minutes is not twenty-five minutes. Subtract the
+              stragglers, the opening prayer, and the settling, and a teacher has
+              eighteen or twenty minutes of actual teaching. Habits, materials,
+              and instincts are all still sized for the old block.
+            </p>
+          </li>
+          <li>
+            <strong>Silence got expensive.</strong>
+            <p class="u-tight">
+              A ninety-second pause after a good question used to be a technique.
+              In a twenty-five-minute class it is six percent of the lesson, and
+              it feels like a crisis. Teachers who are frightened of dead air
+              have started filling it themselves &mdash; which is to say they
+              have started lecturing, because lecturing is the one thing that
+              reliably fits the time. That is the precise opposite of what the
+              short block was meant to produce.
+            </p>
+          </li>
+          <li>
+            <strong>Weekly cadence means weekly preparation.</strong>
+            <p class="u-tight">
+              This is the most-felt cost in this ward, and it is not close. Per
+              lesson, preparation is down. In total, and in mental load, it is
+              sharply up: a Sunday School or Relief Society teacher who used to
+              face the class twice a month now faces it every single week,
+              forever. For a corps made entirely of people with three callings
+              and no slack, the drumbeat is the thing.
+            </p>
+          </li>
+          <li>
+            <strong>Twenty years of pacing instinct, miscalibrated overnight.</strong>
+            <p class="u-tight">
+              The veteran shape &mdash; a warm-up story, the discussion, a
+              closing testimony &mdash; was built for fifty minutes and does
+              not compress. The best material these teachers own is the long
+              stuff: the object lesson with real setup, the story that takes four
+              minutes before it turns. Much of it simply no longer fits, and the
+              people who own it are quietly grieving. Nobody has said so out
+              loud, because it would sound like complaining about the prophet.
+            </p>
+          </li>
+          <li>
+            <strong>The conference-talk format exposed the training gap.</strong>
+            <p class="u-tight">
+              Elders quorum and Relief Society now work from recent general
+              conference messages rather than a prepared manual chapter. That
+              swaps the demand: content knowledge, which this corps genuinely
+              has, matters less; facilitation of a fresh text, which nobody here
+              was ever trained in, is now the whole job. The scaffolding that
+              used to carry an underprepared teacher through fifty minutes is
+              gone.
+            </p>
+          </li>
+          <li>
+            <strong>The Primary experiment that lasted two Sundays.</strong>
+            <p class="u-tight">
+              With forty-four children, the Primary presidency was within the
+              size where the children may be split into two groups that swap
+              between singing time and classes. They tried it on the sixth and
+              thirteenth of September. It doubled the transitions in a wing built
+              for one, and it meant the music leader delivered her entire singing
+              time twice in a row, to two different halves, every week. They
+              reverted before the end of the month. All-together singing, then
+              classes, exactly as written.
+            </p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <p class="u-flush-top">
+          <span class="fiction-badge">SPECULATION</span>
+          <span class="micro-label u-nudge-left">What got better</span>
+        </p>
+
+        <ul class="stack-list">
+          <li>
+            <strong>Twenty-five minutes fits an actual human attention span.</strong>
+            <p class="u-tight">
+              Fifty minutes never really matched a fifteen-year-old, and the
+              old Primary block never matched a ten-year-old at all. In several
+              classes the behavior problems did not get managed &mdash; they got
+              shorter than the lesson. Teachers who spent years failing to hold
+              a room for the old class length are discovering they can hold it
+              for twenty-five, which is a different sentence about themselves
+              than the one they had been telling.
+            </p>
+          </li>
+          <li>
+            <strong>Permission, in print.</strong>
+            <p class="u-tight">
+              For the teachers who have actually absorbed it, &ldquo;one to three
+              key principles&rdquo; is the most liberating sentence the
+              institution has ever handed them. It is the first time anyone in
+              authority has told them <em>in writing</em> that not covering
+              everything is not a failure. The ones who believe it have relaxed
+              in a way that is visible from the back of the room.
+            </p>
+          </li>
+          <li>
+            <strong>Continuity, finally.</strong>
+            <p class="u-tight">
+              Seeing the same class every week instead of every other week means
+              threads carry. A question left open on the tenth is still alive on
+              the seventeenth. Teachers who spent years reintroducing themselves
+              every fortnight now know where they left off, and the relationships
+              compound instead of resetting.
+            </p>
+          </li>
+          <li>
+            <strong>A room where teaching gets talked about.</strong>
+            <p class="u-tight">
+              The monthly teacher council, held inside a class period rather than
+              wherever the calendar could fit it, is the first regular, sanctioned
+              venue this ward has ever had for teachers to talk to each other
+              about teaching. Twenty-five minutes a month is not much. It is
+              infinitely more than twice a year, and it is the change the Sunday
+              School president would defend hardest.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="roster">
+      <h2 id="roster">The participant roster</h2>
+      <p class="section-note">
+        Sixteen people. Seven are written out in full because the studies lean on
+        them; the other nine are sketched, and can be filled in later without
+        changing an ID. <strong>IDs are permanent.</strong> P04 is Whitney
+        Kartchner in every study in this companion, with the same calling, the
+        same phone, and the same worry.
+      </p>
+
+      <p class="fiction-note">
+        <span class="fiction-badge">FICTITIOUS DATA</span>
+        Every person, calling, age, occupation, device, and quotation in this
+        roster is invented for CS&nbsp;356. None of them are real, and none of
+        them are based on real individuals.
+      </p>
+
+      <p class="fiction-note">
+        <span class="fiction-badge">SPECULATION</span>
+        Everything any of these people are said to think, feel, or say about the
+        new schedule is doubly invented &mdash; guessed in August 2026 about a
+        November nobody had reached. Their names, ages, families, occupations,
+        devices, and callings are the ordinary fiction and have not changed.
+        Their reactions are the guess. The quotes carry their own stamp; assume
+        the schedule content in every entry below is speculative.
+      </p>
+
+      <h3 class="roster-subhead">The seven the studies lean on</h3>
+
+      <article class="person">
+        <div class="person__head">
+          <span class="person__id">P01</span>
+          <h4 class="person__name">Margie Ostler</h4>
+          <span class="pill">Primary &middot; 10&ndash;11s</span>
+        </div>
+        <p class="person__meta">
+          61 &middot; in the ward 29 years &middot; office manager, family dental
+          practice (part-time) &middot; iPhone, three years old, cracked corner
+        </p>
+        <p>
+          Margie and her husband bought their house on the ditch side of the ward
+          in 1996 and have not seriously considered leaving it. Four grown
+          children, seven grandchildren, two of them currently in Primary and one
+          of them in her own class, which she says is either the best or the
+          worst part of the calling depending on the Sunday. She has taught in
+          Primary, on and off, for most of two decades, and is the person the
+          Primary president calls when a class is falling apart &mdash; which is
+          how she ended up with the ten-and-elevens, eleven of them, the biggest
+          class in Primary. She prepares
+          standing at the kitchen counter on Saturday night with the phone
+          propped against the toaster, twenty minutes at a stretch, and she is
+          looking for one thing: something to <em>do</em> with eleven
+          kids that will hold them. She does not want more content. She
+          has plenty of content.
+        </p>
+        <p>
+          The tighter class is, for her specific problem, the best thing that has
+          happened in twenty years of Primary. Her eleven were never going to
+          last the old block and both she and they knew it. Twenty-five minutes
+          with a hard edge, she can do &mdash; mostly. What she did not expect was that the fix
+          would create its own tax at the seam: the children arrive from singing
+          time already up, already loud, already turned toward each other, and
+          she spends the first three minutes of a twenty-five-minute class
+          getting them back down. She has begun planning for a twenty-two-minute
+          lesson and treating those three minutes as weather.
+        </p>
+        <blockquote class="ward-quote">
+          <p>
+            &ldquo;I can hold eleven of them for twenty-five minutes. I just
+            can&rsquo;t have the first three.&rdquo;
+          </p>
+          <cite>
+            <span class="fiction-badge">Invented quote</span>
+            Margie Ostler (P01)
+          </cite>
+        </blockquote>
+      </article>
+
+      <article class="person">
+        <div class="person__head">
+          <span class="person__id">P02</span>
+          <h4 class="person__name">Trent Larkin</h4>
+          <span class="pill">Sunday School &middot; adult class</span>
+        </div>
+        <p class="person__meta">
+          44 &middot; in the ward 11 years &middot; software engineer, commutes to
+          Lehi three days a week &middot; Android phone, work laptop, everything
+          in tabs
+        </p>
+        <p>
+          Trent is one of the thin-middle households, and he has three callings
+          to prove it. Four kids, two of them teenagers, one car in the shop at
+          any given moment. He teaches the adult Sunday School class and takes it
+          seriously enough to read ahead on the train,
+          which is where most of his preparation happens. His problem is not
+          material and it is not confidence &mdash; he is comfortable in front of
+          a room. His problem is that he builds a lesson with four scriptures, a
+          video, and a question he genuinely likes, and then runs out of clock
+          having used one of the four. Every time. He has started to suspect the
+          plan is the problem, and has no idea what to do about that.
+        </p>
+        <p>
+          He is the peak case for what the new schedule did to a coverage-anxious
+          teacher, and ten weeks in he has not adjusted. The class is weekly now,
+          so the train reading is weekly too, and it has quietly eaten his
+          commute. The block of <em>Come, Follow Me</em> assigned to a given
+          Sunday did not shrink when the class did, and he cannot bring himself
+          to cut it to one principle &mdash; that feels to him like deciding
+          which parts of the scriptures the class does not get. So he still plans
+          four things, still opens strong, and now stops mid-thought at
+          twenty-five minutes instead of mid-thought at fifty. He reads the
+          guidance about key principles every week. He believes it is true. He
+          teaches as though it is not.
+        </p>
+        <blockquote class="ward-quote">
+          <p>
+            &ldquo;They tell me I only need one principle. I have the whole
+            chapter and twenty-five minutes and four people who came with
+            questions. You pick the one.&rdquo;
+          </p>
+          <cite>
+            <span class="fiction-badge">Invented quote</span>
+            Trent Larkin (P02)
+          </cite>
+        </blockquote>
+      </article>
+
+      <article class="person">
+        <div class="person__head">
+          <span class="person__id">P03</span>
+          <h4 class="person__name">Sione Latu</h4>
+          <span class="pill">Elders quorum &middot; instructor</span>
+        </div>
+        <p class="person__meta">
+          52 &middot; in the ward 19 years &middot; owns a small remodeling
+          business &middot; older iPhone, text size cranked up, Gospel Library and
+          nothing else
+        </p>
+        <p>
+          Sione served a mission, was a counselor in a bishopric in his previous
+          ward, and has done more church service than almost anyone else in the
+          teaching corps. He is one of three elders quorum instructors against a
+          weekly meeting, so his turn comes about every third week, and he
+          prepares in his truck between
+          jobs &mdash; phone in the cup holder, Gospel Library open, the talk
+          scrolled with a thumb. He never opens a computer. He is warm and funny
+          and the discussion in his lessons never dies, which everyone tells him
+          is the hard part. He is not convinced. His worry is quieter than
+          Trent&rsquo;s: he could fill fifty minutes with good conversation and
+          still drive home unsure whether anything happened to anybody.
+        </p>
+        <p>
+          Of the veterans, he has had the easiest ten weeks, and he is a little
+          sheepish about it. Teaching from a conference talk given four weeks ago
+          suits him exactly: it is concrete, it is short, everyone in the room
+          either heard it or can hear it on the way to church, and there is no
+          manual chapter standing between him and the men in the circle. October
+          conference handed him three talks he actually wanted to argue with.
+          And the old ache has an unexpected balm &mdash; quorum meets every
+          week now, so on the two Sundays out of three when he is not teaching he
+          is sitting there watching, which turns out to be the first sustained
+          look he has ever had at whether anything is landing.
+        </p>
+        <blockquote class="ward-quote">
+          <p>
+            &ldquo;Now I&rsquo;m in there every week whether it&rsquo;s my turn
+            or not. Took me twenty years to find out what my class looks like
+            when I&rsquo;m not the one talking.&rdquo;
+          </p>
+          <cite>
+            <span class="fiction-badge">Invented quote</span>
+            Sione Latu (P03)
+          </cite>
+        </blockquote>
+      </article>
+
+      <article class="person">
+        <div class="person__head">
+          <span class="person__id">P04</span>
+          <h4 class="person__name">Whitney Kartchner</h4>
+          <span class="pill">Young Women &middot; 14&ndash;15s</span>
+        </div>
+        <p class="person__meta">
+          33 &middot; in the ward 4 years &middot; nurse practitioner, three
+          twelve-hour shifts a week &middot; iPhone, one-handed, at 11&nbsp;p.m.
+        </p>
+        <p>
+          Whitney and her husband bought a house on the north edge of the ward
+          when the previous owners &mdash; forty-one years in that house &mdash;
+          moved to a condo. Two children under five. She works three long shifts
+          and does everything else in the gaps between them. She teaches the
+          14&ndash;15-year-old Young Women every week now and cares
+          about them more than she expected to. All of her preparation is done in
+          bed on her phone after the kids are asleep: she reads the outline,
+          screenshots two things, and hopes. She was the most explicitly
+          time-poor person in this roster, and she was the clearest voice for the
+          coverage worry, because she was the one who had genuinely never once
+          finished a lesson.
+        </p>
+        <p>
+          She is the ward&rsquo;s early success story, and nobody is more
+          surprised by that than she is. The new youth guide runs on monthly
+          themes, and monthly themes are the first church material that has ever
+          matched how her life actually works: she cannot plan a week, but she
+          can sit down once, on a Sunday night after a shift, and rough out four
+          weeks of one idea. November&rsquo;s theme has been on her lock screen
+          since the end of October. The weekly cadence that is crushing the
+          Sunday School teachers costs her less than it costs them, because she
+          is no longer starting from nothing each time &mdash; she is spending
+          twenty-five minutes on the fourth quarter of something she already
+          thought about. By November two other teachers have asked her, in the
+          hallway and slightly awkwardly, how she is doing it.
+        </p>
+        <blockquote class="ward-quote">
+          <p>
+            &ldquo;I still can&rsquo;t plan a week. I can plan a month. Nobody
+            ever gave me anything shaped like a month before.&rdquo;
+          </p>
+          <cite>
+            <span class="fiction-badge">Invented quote</span>
+            Whitney Kartchner (P04)
+          </cite>
+        </blockquote>
+      </article>
+
+      <article class="person">
+        <div class="person__head">
+          <span class="person__id">P05</span>
+          <h4 class="person__name">Curtis Openshaw</h4>
+          <span class="pill">Sunday School &middot; 16&ndash;18s</span>
+        </div>
+        <p class="person__meta">
+          71 &middot; in the ward 38 years &middot; retired university facilities
+          supervisor &middot; iPad his daughter set up; prints the outline at the
+          library
+        </p>
+        <p>
+          Curtis is the ward&rsquo;s long-tenure archetype: same house since 1988,
+          former ward clerk, former high councilor, mission decades ago, wife in
+          the Relief Society presidency. He has taught the oldest Sunday School
+          class for six years and is very good at the part of teaching that
+          cannot be taught &mdash; the kids know he likes them, and they come. He
+          is comfortable to the point of automatic, which is the thing that has
+          started to bother him. There is a sixteen-year-old in his class now
+          (P09) who was baptized in June, and Curtis has begun noticing how much
+          of what he says every week only works if you already know what it
+          means. He has said &ldquo;the Spirit will confirm it&rdquo; in that room
+          a thousand times and never once wondered what it sounded like from the
+          outside. He is not defensive about this. He is a little shaken by it.
+        </p>
+        <p>
+          The new schedule has been harder on Curtis than on anyone else in this
+          roster, and he is meeting it the way he meets everything, which is
+          diligently and without complaint. His printed outlines &mdash; and he
+          still prints them, at the library, on Saturday &mdash; were built over
+          six years for a fifty-minute room. The first three Sundays in September
+          he simply ran the old outline and got a third of the way through it.
+          Since then he has been cutting, and what he cuts first is the stories,
+          because the stories are what take setup. They are also the reason those
+          kids come. He knows both of those things at once and has not found the
+          third thing that resolves them. He is teaching every week now instead
+          of twice a month, at seventy-one, and he has not missed one.
+        </p>
+        <blockquote class="ward-quote">
+          <p>
+            &ldquo;I can get to the point in twenty-five minutes. It&rsquo;s the
+            getting there that I was ever any good at.&rdquo;
+          </p>
+          <cite>
+            <span class="fiction-badge">Invented quote</span>
+            Curtis Openshaw (P05)
+          </cite>
+        </blockquote>
+      </article>
+
+      <article class="person">
+        <div class="person__head">
+          <span class="person__id">P06</span>
+          <h4 class="person__name">Jenae Rowley</h4>
+          <span class="pill">Relief Society &middot; instructor</span>
+        </div>
+        <p class="person__meta">
+          38 &middot; in the ward 6 years &middot; grant administrator, university
+          research office &middot; MacBook and iPhone; the only person here who
+          makes an outline document
+        </p>
+        <p>
+          Jenae is the most organized person in the teaching corps and would be
+          embarrassed to hear it said. Three children, a husband who travels, a
+          job with real deadlines. She and Aubrey (P12) are the entire Relief
+          Society rotation, alternating weekly, which means she teaches every
+          other week &mdash; twice what it was before September.
+          Others in this roster open a laptop at some point; she is the only one
+          who does the entire job on it, reading the source end to end and
+          building an outline in a document with headings. And she
+          <em>still</em> ran out of
+          time, which she found genuinely disorienting &mdash; she did everything
+          right and the clock beat her anyway. She has started to wonder whether
+          the outline is answering the wrong question, and that suspicion is the
+          most useful thing anyone in this ward has said about teaching.
+        </p>
+        <p>
+          The doubling is breaking her method, and she knows it before she is
+          willing to say it. A full read-and-outline every other week, on top of
+          three children and a travelling husband and a job with deadlines, does
+          not fit inside a life; she has done it since September by taking the
+          hours from somewhere, and by November it is visible. The format is
+          arguing with her too. A conference talk is twelve minutes long and
+          already has its own structure &mdash; there is nothing to outline, only
+          something to open up. Her instinct is to build scaffolding around it
+          and her growing suspicion is that the scaffolding is the problem, which
+          is the same suspicion she had before, arriving now from a direction she
+          did not choose. She and Aubrey have been asking each other since
+          October whether they can request a third instructor. Neither has raised
+          it with the presidency. Both know the presidency is watching them.
+        </p>
+        <blockquote class="ward-quote">
+          <p>
+            &ldquo;Every other week. I can do it, I just can&rsquo;t do it the
+            way I do it. And I don&rsquo;t know another way yet.&rdquo;
+          </p>
+          <cite>
+            <span class="fiction-badge">Invented quote</span>
+            Jenae Rowley (P06)
+          </cite>
+        </blockquote>
+      </article>
+
+      <article class="person">
+        <div class="person__head">
+          <span class="person__id">P07</span>
+          <h4 class="person__name">Kade Beckstrand</h4>
+          <span class="pill">Primary &middot; 7-year-olds</span>
+        </div>
+        <p class="person__meta">
+          29 &middot; in the ward 3 years &middot; parts manager at a dealership
+          &middot; Android phone, Gospel Library app, does not use a computer at
+          home
+        </p>
+        <p>
+          Kade grew up two streets over, drifted away in his early twenties,
+          married Rylee (P08), and came back &mdash; into his grandmother&rsquo;s
+          old house, which the family kept. They were sealed in the temple this
+          spring with their two children, six and three, and the whole ward turned
+          out for it. He and Rylee were called to teach the seven-year-olds
+          together four months later, and he said yes before he had time to be
+          afraid of it. He is the newest person in this roster to the way things
+          are currently done: the curriculum changed while he was away, everybody
+          around him has been using it for years, and he has not wanted to admit
+          how much of it he is guessing at. He is not embarrassed about his
+          history. He is a little embarrassed about the manual.
+        </p>
+        <p>
+          He and Rylee (P08) got the seven-year-olds shortly before everything
+          changed, which means the new shape is very nearly the only one they
+          have ever taught in. They have nothing to unlearn. Twenty-five minutes
+          with a class of six is simply what Primary is, opening and singing time
+          and then their turn, and they are quietly good at it. What baffles Kade
+          is the mood of the veterans &mdash; he keeps overhearing people he
+          respects talk about the change as a loss, and he cannot see the thing
+          they are describing. He has stopped asking, because the one time he
+          did, Sister Ostler got a look on her face he did not know what to do
+          with.
+        </p>
+        <blockquote class="ward-quote">
+          <p>
+            &ldquo;Everyone keeps asking how I&rsquo;m adjusting. Adjusting from
+            what? This is just how it is.&rdquo;
+          </p>
+          <cite>
+            <span class="fiction-badge">Invented quote</span>
+            Kade Beckstrand (P07)
+          </cite>
+        </blockquote>
+      </article>
+
+      <h3 class="roster-subhead">The rest of the pool</h3>
+      <p class="section-note">
+        Sketched, not developed. Studies may promote any of these to a full
+        persona later; the ID stays the same when they do.
+      </p>
+
+      <ul class="roster-light">
+        <li>
+          <div class="person__head">
+            <span class="person__id">P08</span>
+            <h4 class="person__name">Rylee Beckstrand</h4>
+            <span class="pill">Primary &middot; 7-year-olds</span>
+          </div>
+          <p class="person__meta">28 &middot; in the ward 3 years &middot; medical billing, from home &middot; iPhone</p>
+          <p class="u-tight">
+            The other half of the newly sealed family (with P07). She runs the
+            music, the props, and the crowd; Kade does the talking. Cheerfully
+            certain she is not the teacher in the partnership, which is not what
+            the seven-year-olds would tell you. Like Kade, she has taught almost
+            entirely under the new schedule and finds the twenty-five-minute
+            class unremarkable; her one observation is that the props she used to
+            need two of, she now needs one of.
+          </p>
+        </li>
+        <li>
+          <div class="person__head">
+            <span class="person__id">P09</span>
+            <h4 class="person__name">Wes Purdy</h4>
+            <span class="pill">Class member &middot; not a teacher</span>
+          </div>
+          <p class="person__meta">16 &middot; in the ward 18 months &middot; high school junior, wrestling team &middot; hand-me-down Android</p>
+          <p class="u-tight">
+            Baptized in June &mdash; a friend from the team invited him to a ward
+            activity and he kept coming back. He lives with his mother and
+            younger sister in a rental on the south edge; his mom is not a
+            member and drops him off. He sits in Brother Openshaw&rsquo;s class
+            (P05), listens hard, and asks direct questions that nobody else in
+            the room would think to ask, because everyone else has known the
+            answers since they were four. He is not lost and he is not fragile.
+            He is simply the only person in the building who is hearing this
+            vocabulary for the first time, and he is the reason at least one
+            teacher in this ward has stopped assuming.
+          </p>
+          <p class="u-tight">
+            Since September his Sunday has more moving parts, not fewer &mdash;
+            Sunday School and then priests quorum, both every week, two rooms and
+            two sets of unwritten rules to read in one morning. The part that has
+            genuinely helped him is the one nobody designed for him: the youth
+            guide runs a single theme for a whole month, so for the first time he
+            walks in knowing roughly what the subject will be. He knows what
+            November is about. For everyone else that is a scheduling detail. For
+            the one person in the room without twelve years of Primary behind
+            him, it is the difference between arriving oriented and arriving
+            behind.
+          </p>
+        </li>
+        <li>
+          <div class="person__head">
+            <span class="person__id">P10</span>
+            <h4 class="person__name">Marlo Wheeler</h4>
+            <span class="pill">Primary &middot; music leader</span>
+          </div>
+          <p class="person__meta">66 &middot; in the ward 34 years &middot; retired postal carrier &middot; flip phone until last year</p>
+          <p class="u-tight">
+            Holds forty-four children with a flip chart and a rolled-up sock.
+            Quietly the most effective teacher in the building and would deny it
+            under oath.
+          </p>
+          <p class="u-tight">
+            For two Sundays in September the presidency split the children into
+            two rotating groups, which meant Marlo led the entire singing time
+            twice in a row, to two half-rooms, with a transition in the middle.
+            She did it without comment both weeks and then said one sentence in
+            presidency meeting that ended the experiment. Singing time is now
+            twenty minutes, all together, which she reports is
+            &ldquo;exactly two songs shorter than the Spirit needs.&rdquo; She
+            has not been asked to elaborate and has not offered.
+          </p>
+        </li>
+        <li>
+          <div class="person__head">
+            <span class="person__id">P11</span>
+            <h4 class="person__name">Nathan Kim</h4>
+            <span class="pill">Sunday School &middot; 12&ndash;13s</span>
+          </div>
+          <p class="person__meta">41 &middot; in the ward 9 years &middot; data analyst, health tech &middot; iPhone plus a laptop he rarely opens for this</p>
+          <p class="u-tight">
+            Over-prepared, under-delivered, blamed himself, and said the same
+            sentence most weeks he taught: &ldquo;I didn&rsquo;t get through it
+            again.&rdquo; Then the class became twenty-five minutes and he
+            stopped treating it as a lesson and started treating it as a
+            timebox &mdash; one question, one text, hard stop &mdash; which is
+            how he has run a meeting at work for fifteen years. It is going far
+            better than he expected. He has mentioned this to several people.
+          </p>
+        </li>
+        <li>
+          <div class="person__head">
+            <span class="person__id">P12</span>
+            <h4 class="person__name">Aubrey Delgado</h4>
+            <span class="pill">Relief Society &middot; instructor</span>
+          </div>
+          <p class="person__meta">35 &middot; in the ward 5 years &middot; runs a portrait photography business from home &middot; iPhone, iPad for editing</p>
+          <p class="u-tight">
+            The other half of the Relief Society rotation with Jenae (P06).
+            Visual, confident, improvises well, and keeps meaning to prepare
+            earlier than Saturday. The weekly alternation suits her better than
+            it suits Jenae &mdash; improvising off a fresh conference talk is
+            nearly her native mode &mdash; but every other week is still every
+            other week, and she is the one who first said out loud that two
+            instructors might not be enough. It has been a running conversation
+            between them since October and has not yet left the two of them.
+          </p>
+        </li>
+        <li>
+          <div class="person__head">
+            <span class="person__id">P13</span>
+            <h4 class="person__name">Lonnie Tolman</h4>
+            <span class="pill">Primary &middot; 4-year-olds</span>
+          </div>
+          <p class="person__meta">74 &middot; in the ward 41 years &middot; retired fifth-grade teacher &middot; iPad, large text</p>
+          <p class="u-tight">
+            The one person in the ward with any classroom training at all, and
+            for years the one most insistent that it did not transfer: &ldquo;I
+            had them five days a week and I could make them do things. Here I
+            have the whole block and no leverage and I love them more.&rdquo; Has
+            never been trained to teach a gospel lesson, like everyone else.
+          </p>
+          <p class="u-tight">
+            The change has handed her a small, private vindication she is far too
+            gracious to name. Twenty-five minutes with four-year-olds is an
+            activity block &mdash; it is, almost exactly, the unit she planned in
+            for twenty-eight years. Her pacing instincts, which fit nothing about
+            the old block, fit this precisely: settle, one idea, one thing to do
+            with it, finish before they turn. Of everyone in the corps, the
+            person whose secular training suddenly transfers best is the one who
+            always said it wouldn&rsquo;t.
+          </p>
+        </li>
+        <li>
+          <div class="person__head">
+            <span class="person__id">P14</span>
+            <h4 class="person__name">Bryce Tuckett</h4>
+            <span class="pill">Sunday School president</span>
+          </div>
+          <p class="person__meta">47 &middot; in the ward 16 years &middot; physician assistant, orthopedic clinic &middot; iPhone, Outlook, a calendar full of other people&rsquo;s meetings</p>
+          <p class="u-tight">
+            The one man in the ward whose calling is literally improving
+            teaching, and who has never been trained to teach or to train. Keenly
+            aware of the gap. The most likely person to go looking for a resource
+            on his own.
+          </p>
+          <p class="u-tight">
+            No calling in the ward changed more in September. Sunday School is
+            now every week for every class, the corridor between the two class
+            periods is his to keep moving, and &ldquo;end on time&rdquo; is
+            something he is expected to enforce with teachers twenty-four years
+            his senior, which he has so far done by standing in doorways looking
+            apologetic. But the teacher councils went from roughly twice a year
+            to monthly, held inside a class period &mdash; which costs him a real
+            headache arranging cover for the teachers who are in them. Ten weeks
+            in, it is the part of the change he would defend hardest and the
+            first thing he mentions when anyone asks.
+          </p>
+        </li>
+        <li>
+          <div class="person__head">
+            <span class="person__id">P15</span>
+            <h4 class="person__name">Cami Sprague</h4>
+            <span class="pill">Primary &middot; 5-year-olds</span>
+          </div>
+          <p class="person__meta">24 &middot; in the ward 8 months &middot; dental hygiene student &middot; iPhone, everything</p>
+          <p class="u-tight">
+            Married last year; she and her husband rent the basement apartment of
+            a couple who have been in the ward since 1979. Called to Primary
+            within a month of moving in, which is what happens here. Enthusiastic,
+            genuinely unsure what she is doing, too new to know that everyone else
+            is unsure too. She has no strong feeling about the schedule either
+            way, having barely known the old one. Her worry is the same worry it
+            was &mdash; whether she is doing enough for them &mdash; and the
+            shorter class mostly registers as mercy: there is less time in which
+            to run out of ideas.
+          </p>
+        </li>
+        <li>
+          <div class="person__head">
+            <span class="person__id">P16</span>
+            <h4 class="person__name">Garrett Nakamura</h4>
+            <span class="pill">Priests quorum &middot; adviser</span>
+          </div>
+          <p class="person__meta">58 &middot; in the ward 22 years &middot; owns a landscaping and irrigation company &middot; rugged Android, cracked, in a work truck</p>
+          <p class="u-tight">
+            Bishop of this ward a decade ago; knows every family in the
+            boundaries and most of their history. Teaches the oldest young men
+            every week, mostly by telling them things that
+            happened to him. Never had a minute of training in his life and has
+            never thought of that as strange until recently.
+          </p>
+          <p class="u-tight">
+            He is the calm center of the ward&rsquo;s reaction, mostly because
+            his memory is longer than everyone else&rsquo;s. He was ordained
+            under a three-hour block, watched it become two hours in 2019, and
+            has now watched it change again; his settled view is that the
+            building empties out and the people are the same people. He runs the
+            youth guide&rsquo;s monthly theme as a spine and improvises the rest.
+            When a younger teacher tells him the twenty-five minutes are
+            impossible, he agrees with them warmly and does not adjust anything.
+          </p>
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="talk">
+      <h2 id="talk">How this ward talks</h2>
+      <p class="section-note">
+        Observed ward speech, recorded here as raw material. Not a taxonomy, not
+        an analysis &mdash; just the words these people actually use in the
+        hallway when a lesson has gone sideways.
+      </p>
+
+      <p class="fiction-note">
+        <span class="fiction-badge">FICTITIOUS DATA</span>
+        These phrases are invented for CS&nbsp;356. Nobody said them. They are
+        written to be the kind of thing this kind of teacher plausibly says,
+        which is exactly what makes them useful and exactly what would make them
+        dangerous if mistaken for evidence.
+      </p>
+
+      <div class="say-cols">
+        <div class="panel">
+          <h3>What they say</h3>
+          <ul class="say-list">
+            <li>&ldquo;My class won&rsquo;t settle.&rdquo;</li>
+            <li>&ldquo;We had no reverence at all today.&rdquo;</li>
+            <li>&ldquo;I ran out of time again.&rdquo;</li>
+            <li>&ldquo;I didn&rsquo;t get through the lesson.&rdquo;</li>
+            <li>&ldquo;There&rsquo;s so much material.&rdquo;</li>
+            <li>&ldquo;Nobody answers. They just sit there.&rdquo;</li>
+            <li>&ldquo;It&rsquo;s a hard lesson this week.&rdquo;</li>
+            <li>&ldquo;I need something to do with my hands.&rdquo;</li>
+            <li>&ldquo;How do I make it apply to them?&rdquo;</li>
+            <li>&ldquo;Somebody asked me a question I couldn&rsquo;t answer.&rdquo;</li>
+            <li>&ldquo;Do you have any ideas for this one?&rdquo;</li>
+            <li>&ldquo;What did you do for that lesson?&rdquo;</li>
+            <li>&ldquo;I&rsquo;m not a teacher. I&rsquo;m just the one who got called.&rdquo;</li>
+            <li>&ldquo;My kids were wild.&rdquo; <em>(&ldquo;my kids&rdquo; means the class)</em></li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3>What they never say</h3>
+          <ul class="say-list">
+            <li>&ldquo;skill development&rdquo;</li>
+            <li>&ldquo;learning objective&rdquo;</li>
+            <li>&ldquo;engagement strategy&rdquo;</li>
+            <li>&ldquo;facilitation&rdquo;</li>
+            <li>&ldquo;scaffolding&rdquo;</li>
+            <li>&ldquo;assessment&rdquo;</li>
+            <li>&ldquo;differentiation&rdquo;</li>
+            <li>&ldquo;pedagogy&rdquo;</li>
+            <li>Any name of a principle category, ever, unprompted</li>
+            <li>The number of a lesson, without looking it up</li>
+          </ul>
+          <p class="say-tail">
+            Two words carry almost the whole load instead:
+            <strong>challenge</strong> and <strong>problem</strong>. &ldquo;My
+            challenge is getting them to talk.&rdquo; &ldquo;The problem is the
+            last ten minutes.&rdquo;
+          </p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p class="u-flush-top">
+          <span class="fiction-badge">SPECULATION</span>
+          <span class="micro-label u-nudge-left">New since September</span>
+        </p>
+        <h3>What they have started saying since the change</h3>
+        <p>
+          Ten weeks of a new schedule produced a new dialect of the same
+          complaint. None of the phrases above went away &mdash; the timeless
+          ones are timeless &mdash; but these have joined them, and they are
+          guesses about speech nobody has spoken yet.
+        </p>
+        <ul class="say-list">
+          <li>&ldquo;Twenty-five minutes.&rdquo; <em>(said flatly, as a complete sentence)</em></li>
+          <li>&ldquo;We barely got started.&rdquo;</li>
+          <li>&ldquo;I lost five minutes to the hallway.&rdquo;</li>
+          <li>&ldquo;The transition killed me.&rdquo;</li>
+          <li>&ldquo;Which week am I on?&rdquo;</li>
+          <li>&ldquo;Did you get to the talk, or just the first story?&rdquo;</li>
+          <li>&ldquo;It&rsquo;s my week again already.&rdquo;</li>
+          <li>&ldquo;I only did one thing.&rdquo; <em>(said as an apology; the guidance would call it success)</em></li>
+        </ul>
+        <p class="say-tail">
+          Note what did <em>not</em> change: they still say
+          &ldquo;challenge&rdquo; and &ldquo;problem,&rdquo; they still describe
+          trouble as a story about last Sunday, and not one of them has adopted a
+          single word from the guidance that caused all this.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h3>A few more habits of speech</h3>
+        <ul class="stack-list">
+          <li>
+            <strong>&ldquo;The lesson&rdquo; has not shrunk with the clock.</strong>
+            <p class="u-tight">
+              It still means the whole class period, whatever length the class
+              is this year. It also means the printed outline, and sometimes the
+              topic. Which one is meant is always clear from context to them and
+              never clear to anyone else.
+            </p>
+          </li>
+          <li>
+            <strong>&ldquo;The manual&rdquo; and &ldquo;the app.&rdquo;</strong>
+            <p class="u-tight">
+              &ldquo;The manual&rdquo; is whatever outline they are supposed to
+              be following. &ldquo;The app&rdquo; is Gospel Library. Almost
+              nobody in this ward distinguishes between the app and the church
+              website; both are just &ldquo;where it is.&rdquo;
+            </p>
+          </li>
+          <li>
+            <strong>Trouble is described as an event, not a category.</strong>
+            <p class="u-tight">
+              Nobody says &ldquo;I have a classroom management issue.&rdquo; They
+              say &ldquo;the Whipple twins were under the table.&rdquo; The
+              problem arrives as a story about last Sunday, in the past tense,
+              with names in it.
+            </p>
+          </li>
+          <li>
+            <strong>Retired names never die here.</strong>
+            <p class="u-tight">
+              The Primary class names were officially retired years ago and the
+              classes now go by age, but half this ward still says
+              &ldquo;Valiant&rdquo; and &ldquo;Sunbeams&rdquo; in the hallway,
+              and everyone still knows what is meant. Official vocabulary and
+              ward vocabulary are two different languages, and the ward is
+              fluent in only one of them.
+            </p>
+          </li>
+          <li>
+            <strong>The help-seeking is peer-to-peer and verbal.</strong>
+            <p class="u-tight">
+              When a teacher here is stuck, the first move is not a search box.
+              It is asking whoever taught the same class last year, in the hall,
+              on the way to the car.
+            </p>
+          </li>
+          <li>
+            <strong>Shared vocabulary is assumed, universally.</strong>
+            <p class="u-tight">
+              Everyone in this ward has been in it for twenty years or was raised
+              in the church somewhere else, so the working language is dense with
+              terms nobody defines. It works perfectly &mdash; right up until
+              there is one person in the room it does not work for.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="usage">
+      <h2 id="usage">How the studies use this page</h2>
+
+      <div class="panel panel--callout">
+        <ul class="stack-list">
+          <li>
+            <strong>IDs are permanent.</strong>
+            <p class="u-tight">
+              A study cites participants as P01&hellip;P16. Those IDs will never
+              be reassigned to a different person, and a person&rsquo;s calling,
+              device, and personality stay fixed across the whole arc. If a study
+              needs someone new, the roster grows past P16; nothing above it
+              moves.
+            </p>
+          </li>
+          <li>
+            <strong>Light entries can be promoted, never renumbered.</strong>
+            <p class="u-tight">
+              The nine sketched people can be written out in full when a study
+              needs them. That fills in detail; it does not change who they are.
+            </p>
+          </li>
+          <li>
+            <strong>The vocabulary section is source material, not findings.</strong>
+            <p class="u-tight">
+              It records how these teachers talk. What a study does with that
+              &mdash; grouping it, naming categories, testing the names &mdash;
+              belongs to the study, not to this page.
+            </p>
+          </li>
+          <li>
+            <strong>This page invents people. It does not invent the site.</strong>
+            <p class="u-tight">
+              Everything the studies examine &mdash; the pages, the structure, the
+              search, the commits &mdash; is real and open in another tab.
+            </p>
+          </li>
+          <li>
+            <strong>The study pages are being revised against this setting.</strong>
+            <p class="u-tight">
+              This ward moved to a November 2026 timeline after several studies
+              were already written, so for a while you may find a study that
+              still describes the old Sunday rhythm &mdash; alternating weeks, a
+              fifty-minute class. Where a study and this page disagree about the
+              schedule, <strong>this page is current</strong>. Participant
+              identity was never affected: the IDs, names, and callings are the
+              same ones the studies already cite.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="site-foot">
+      <p>
+        <a href="index.html">&larr; Back to the companion hub</a>
+        &nbsp;&middot;&nbsp;
+        <a href="fiction.html">What&rsquo;s real and what&rsquo;s not</a>
+        &nbsp;&middot;&nbsp;
+        <a href="../">The live teaching site</a>
+      </p>
+      <p>
+        The Timpanogos Shadows Ward is fictitious. The live teaching site
+        contains no links to this companion, and none of the people described
+        here exist.
+      </p>
+    </footer>
+
+  </main>
+
+  <script src="assets/studies-data.js" defer></script>
+  <script src="assets/companion.js" defer></script>
+</body>
+</html>
