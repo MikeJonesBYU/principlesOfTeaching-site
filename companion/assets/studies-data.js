@@ -122,17 +122,21 @@ window.CS356_COMPANION = {
       "order": 2,
       "kind": "study",
       "title": "Open card sort",
-      "method": "Open card sorting (~30 skill cards, 8 participants; standardization + dendrogram)",
-      "status": "draft",
+      "method": "Open card sorting (30 skill cards drawn from the 53-skill inventory; 8 sorts with 10 participants — six solo, two pairs; group-name standardization and pattern reading, no dendrogram at this sample size)",
+      "status": "published",
       "page": "studies/02-card-sort.html",
       "question": "How do teachers naturally group the manual's skills — and what words do they use for the groups?",
-      "keyFinding": "Participants did not reproduce the five principles. Clusters formed around teaching problems — “keeping attention”, “hard questions” — and no participant ever said “skill development”; they said “challenge” and “problem”.",
+      "keyFinding": "Participants did not reproduce the five principles. Piles formed around teaching problems — “When nobody talks”, “Hard questions” — and no participant ever said “skill development”; they said “challenge” and “problem”.",
       "decisions": [
         "The seven problem categories and the teacher-language problem statements in assets/problems-data.js. (e2bf223)"
       ],
       "versions": ["v1-hierarchy", "live"],
       "links": [
-        { "label": "The problem-driven page on the live site", "href": "../problems.html" }
+        { "label": "The problem-driven page on the live site", "href": "../problems.html" },
+        {
+          "label": "Navigation prototype built from the standardized labels (for a first-click test)",
+          "href": "studies/artifacts/card-sort-nav/index.html"
+        }
       ]
     },
 

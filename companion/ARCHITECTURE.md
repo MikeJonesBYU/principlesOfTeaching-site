@@ -46,7 +46,11 @@ Marking standard ("very, very clearly marked"):
    block, or number that contains invented data. Default badge text: "FICTITIOUS
    DATA"; on quotation blocks the variant "INVENTED QUOTE" is allowed (same
    component, same styling) so a run of quotes reads clearly without identical
-   stamps.
+   stamps. A "CONSTRUCTED …" variant (e.g. "CONSTRUCTED DECK") is allowed for
+   material *assembled from verified real sources with authored presentation* —
+   a study instrument built out of real content — provided the block prints a
+   traceability key back to the real source. Stamping such material "FICTITIOUS
+   DATA" would itself be a small lie; stamping it real would be a larger one.
 3. **`fiction.html`** — the canonical full statement of what is real vs invented.
    3a. **Speculation marking.** Where the fiction is set *after* a real-world
    change that had not yet taken effect when the page was written (e.g., the
@@ -87,6 +91,10 @@ companion/
     03-tree-test.html
     04-task-test.html
     05-external-review.html
+    artifacts/
+      <name>/                Self-contained study artifacts (e.g., the card-sort
+                             first-click nav prototype). Own minimal marking
+                             banner + noindex; do NOT load companion.js/css.
   versions/
     <slug>/                   Frozen, self-contained site snapshots (see §6)
   assets/

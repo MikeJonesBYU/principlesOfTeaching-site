@@ -21,7 +21,7 @@ can see the before/after. Real provenance is cited by commit so students can che
 | # | Study (slug) | Method | Fictitious core finding | Real decision it illustrates (provenance) | Linked versions |
 |---|---|---|---|---|---|
 | 1 | `contextual-study` | Contextual study / observation (NN/g-style, 1 session per participant) | A Primary teacher with a real lesson and a real problem ("my class won't sit still") spends 9 minutes on the church manual site and never finds a usable skill; she navigates by principle names that don't match her problem. | The redesign exists at all; the brief's claim that the IA (not the content) is the obstacle. (Site inception) | church site (external), `v1-hierarchy` |
-| 2 | `card-sort` | Open card sort, ~30 skill cards, 8 fictitious ward participants; standardization + dendrogram | Participants do **not** reproduce the 5 principles; clusters form around *teaching problems* ("keeping attention", "hard questions"…). Controlled-vocabulary work: teachers say "challenge/problem", never "skill development". | The 7 problem categories and teacher-language problem statements in `assets/problems-data.js`. (`e2bf223`) | `v1-hierarchy`, live site `problems.html` |
+| 2 | `card-sort` | Open card sort, 30 skill cards drawn from the real 53-skill inventory; 8 sorts / 10 fictitious ward participants (six solo, two pairs); group-name standardization + pattern reading, **no dendrogram** (see below) | Participants do **not** reproduce the 5 principles; piles form around *teaching problems* ("When nobody talks", "Hard questions"…), with one minority scheme sorting by lesson sequence. Controlled-vocabulary work: teachers say "challenge/problem", never "skill development". | The 7 problem categories and teacher-language problem statements in `assets/problems-data.js`. (`e2bf223`) | `v1-hierarchy`, live site `problems.html` |
 | — | `fidelity-ladder` (interlude page, not a study) | Prototyping methods: sketch → wireframe → coded, per Buxton + the AI-era amendment | n/a — this page narrates the ladder itself: what each rung invited ("the sketch got strangers to propose reorganizations; the polished site got font comments") | The real `sketched` branch (de-fidelity experiment, `20bae25`); the coded first version (`782ddb5`) | `v-sketch`, `v-wireframe`, `v1-hierarchy` |
 | 3 | `tree-test` | Tree test, 10 fictitious participants, 4 lesson-drawn tasks; proposed structure vs church-site baseline | Problem-first tree wins on problem-shaped tasks (83% vs 41% pass) **but** assigned-topic tasks ("prepare something on symbols of Christ") still need the principle hierarchy — neither structure dominates. | Both paths coexist deliberately: browse-by-principle (`select.html`, `structure.html`) *and* problem-driven (`problems.html`); three equal home buttons. (`0dcf6c5`) | `v2-bilingual`, live site |
 | 4 | `task-test` | Five-user task test on the deployed site, recorded (fictitious) sessions on participants' own phones | Users type natural sentences into search — "learner isn't feeling god's love" — and strict all-words matching returns nothing; two users read the gold button as "the only real option". | Soft search: stemming, synonyms, IDF ranking, typo tolerance (`d476c8c`); uniform home buttons (`0dcf6c5`). | live site (search), `v3-pre-softsearch` *(optional snapshot)* |
@@ -52,9 +52,12 @@ learn the genre by repetition):
    vocabulary (self-contained; optional link to course material if public).
 3. **Study design** — research question, participants (fictitious, from the ward
    roster), materials, protocol. Written as a reusable design students can copy.
-4. **Results** — the invented data, presented properly for the method (dendrogram
-   / similarity matrix for card sort; pass–time–directness table for tree test…),
-   every artifact stamped `.fiction-badge`.
+4. **Results** — the invented data, presented properly for the method **at the
+   sample size claimed** (for an 8-sort card sort: the raw group-name table and a
+   standardization table — *not* a dendrogram or similarity matrix, which
+   manufacture structure from too few observations and hide minority schemes;
+   pass–time–directness table for tree test…), every artifact stamped
+   `.fiction-badge`.
 5. **Discussion** — what the results mean, honestly including ambiguity.
 6. **Decisions** — the real design decisions, cited to commits/files.
 7. **See it in the site** — links to the linked version(s) + the live page.

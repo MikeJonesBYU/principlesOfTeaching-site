@@ -315,6 +315,7 @@ code {
   border-left: 3px dashed var(--accent, #9c3a1c); padding-left: 10px;
 }
 .arc-item__versions { margin-top: 8px; }
+.arc-item__links { margin-top: 8px; }
 
 .chips { list-style: none; display: inline; margin: 0; padding: 0; }
 .chips__item { display: inline-block; margin: 3px 6px 3px 0; }

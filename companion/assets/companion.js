@@ -227,6 +227,23 @@
     return list.firstChild ? list : null;
   }
 
+  /* Study-level links (artifacts, live-site pages, external sources). Rendered
+     only for studies whose page exists — an artifact of an unwritten study has
+     nothing to be read alongside yet. */
+  function linkChips(study) {
+    if (!studyIsLive(study) || !isArray(study.links) || !study.links.length) {
+      return null;
+    }
+    var list = h('ul', { 'class': 'chips' });
+    each(study.links, function (link) {
+      if (!link || !link.href || !link.label) { return; }
+      list.appendChild(h('li', { 'class': 'chips__item' }, [
+        h('a', { 'class': 'chip', 'href': resolve(link.href) }, link.label)
+      ]));
+    });
+    return list.firstChild ? list : null;
+  }
+
   function studyChips(data, slugs) {
     if (!isArray(slugs) || !slugs.length) { return null; }
     var list = h('ul', { 'class': 'chips' });
@@ -267,6 +284,13 @@
     if (chips) {
       body.push(h('div', { 'class': 'arc-item__versions' }, [
         h('span', { 'class': 'micro-label' }, 'Versions'), chips
+      ]));
+    }
+
+    var links = linkChips(study);
+    if (links) {
+      body.push(h('div', { 'class': 'arc-item__links' }, [
+        h('span', { 'class': 'micro-label' }, 'Alongside'), links
       ]));
     }
 
