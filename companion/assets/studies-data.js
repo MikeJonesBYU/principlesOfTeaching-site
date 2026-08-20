@@ -122,21 +122,18 @@ window.CS356_COMPANION = {
       "order": 2,
       "kind": "study",
       "title": "Open card sort",
-      "method": "Open card sorting (30 skill cards drawn from the 53-skill inventory; 8 sorts with 10 participants — six solo, two pairs; group-name standardization and pattern reading, no dendrogram at this sample size)",
+      "method": "Open card sorting (21 cards, each one a skill name quoted verbatim from the 53-skill inventory; 5 solo remote sorts over Zoom using a free online card-sorting site, participants typing their own group titles after grouping; per-sort reading, no dendrogram at this sample size)",
       "status": "published",
       "page": "studies/02-card-sort.html",
-      "question": "How do teachers naturally group the manual's skills — and what words do they use for the groups?",
-      "keyFinding": "Participants did not reproduce the five principles. Piles formed around teaching problems — “When nobody talks”, “Hard questions” — and no participant ever said “skill development”; they said “challenge” and “problem”.",
+      "question": "How do teachers group the manual's skills when nobody gives them categories — and what words do they put at the top of a group?",
+      "keyFinding": "Twenty-eight group titles across five sorts, and not one is a section name. Seventeen name a situation — “Getting them to talk”, “Running out of time (what to cut)”, “Do they feel like they belong?” — in the teacher's own words, never the manual's.",
       "decisions": [
-        "The seven problem categories and the teacher-language problem statements in assets/problems-data.js. (e2bf223)"
+        "Group by the teacher's situation, not the manual's section: the seven problem categories in problems.html, defined in assets/problems-data.js. (e2bf223)",
+        "Label in teacher language — each entry a first-person sentence about trouble, not a topic — and let one skill appear under several problems. (e2bf223)"
       ],
       "versions": ["v1-hierarchy", "live"],
       "links": [
-        { "label": "The problem-driven page on the live site", "href": "../problems.html" },
-        {
-          "label": "Navigation prototype built from the standardized labels (for a first-click test)",
-          "href": "studies/artifacts/card-sort-nav/index.html"
-        }
+        { "label": "The problem-driven page on the live site", "href": "../problems.html" }
       ]
     },
 

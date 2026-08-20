@@ -4,127 +4,59 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Study 2 — Open card sort — CS 356 Companion</title>
-  <meta name="description" content="An open card sort of 30 cards drawn from the manual's 53 skills, run with 10 fictitious ward participants across 8 sorts. Nobody reproduced the manual's five sections; the piles were situations, not topics.">
+  <meta name="description" content="A short worked example of an open card sort: 21 cards quoting real skill names verbatim, five solo remote sorts shown in full, one page of analysis, and the grouping and labeling decisions that came out of it.">
   <link rel="stylesheet" href="../assets/companion.css">
   <style>
-    /* Page-scoped only. These are layout needs this page has and companion.css
-       does not yet carry: data tables, a transcript block, a deck-card cell,
-       and a two-column mapping list. All colors come from existing tokens in
-       companion.css — no new palette, no new site-wide components. Patterned
-       after ward.html's page-scoped table/quote rules. */
-
+    /* Page-scoped only. Two things this page needs that companion.css does not
+       carry: compact data tables, and a sort "board" (CSS name only) that reads
+       like the end state of
+       an online card-sorting tool. Every color is an existing companion.css
+       token — no new palette, no new site-wide components. Same approach as
+       ward.html's page-scoped table and quote rules. */
     .cs-table__scroll { overflow-x: auto; }
-    .cs-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: .95rem;
-      margin: 0;
-    }
+    .cs-table { width: 100%; border-collapse: collapse; font-size: .92rem; margin: 0; }
     .cs-table th,
-    .cs-table td {
-      text-align: left;
-      vertical-align: top;
-      padding: 8px 14px 8px 0;
-      border-bottom: 1px solid var(--rule);
-    }
-    .cs-table thead th {
-      font-family: var(--mono);
-      font-size: .7rem;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      border-bottom: 2px solid var(--rule-strong);
-      white-space: nowrap;
-    }
+    .cs-table td { text-align: left; vertical-align: top; padding: 7px 14px 7px 0; border-bottom: 1px solid var(--rule); }
+    .cs-table thead th { font-family: var(--mono); font-size: .68rem; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--muted); border-bottom: 2px solid var(--rule-strong); white-space: nowrap; }
     .cs-table tbody tr:last-child td { border-bottom: 0; }
     .cs-table .num { font-family: var(--mono); white-space: nowrap; }
-    .cs-table .skillid {
-      font-family: var(--mono);
-      font-size: .78rem;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-    .cs-table .sect { font-size: .85rem; color: var(--muted); }
-    .cs-table tbody th {
-      font-family: var(--mono);
-      font-size: .72rem;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      background: var(--panel-sunk);
-      padding-top: 14px;
-    }
+    .cs-table .skillid { font-family: var(--mono); font-size: .76rem; color: var(--muted); white-space: nowrap; }
+    .cs-table .sect { font-size: .84rem; color: var(--muted); }
 
-    /* The deck cell: authored card wording on top, manual wording beneath. */
-    .card-text { font-weight: 600; display: block; }
-    .card-source {
-      display: block;
-      margin-top: 3px;
-      font-size: .83rem;
-      color: var(--muted);
-      font-style: italic;
-    }
+    /* The board: one figure per sort, read left to right like the tool's final
+       screen. Scrolls horizontally on a narrow phone rather than reflowing,
+       because the columns ARE the finding. */
+    .board-fig { margin: 0 0 26px; }
+    .board { display: flex; align-items: flex-start; gap: 10px; overflow-x: auto; padding: 2px 2px 10px; }
+    .board__col { flex: 0 0 196px; background: var(--panel); border: 1px solid var(--rule-strong);
+      border-radius: var(--radius); padding: 9px 9px 5px; }
+    .board__col--left { border-style: dashed; background: var(--panel-sunk); }
+    .board__title { margin: 0 0 4px; font-size: .88rem; line-height: 1.3; font-weight: 700; }
+    .board__meta { display: block; font-family: var(--mono); font-size: .64rem; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--rule);
+      padding-bottom: 6px; margin-bottom: 8px; }
+    .board__cards { list-style: none; margin: 0; padding: 0; }
+    .board__cards li { background: var(--panel-sunk); border: 1px solid var(--rule); border-radius: 4px;
+      padding: 6px 7px; margin: 0 0 6px; font-size: .76rem; line-height: 1.35; }
+    .board__col--left .board__cards li { background: var(--panel); }
+    .board__cards .cid { display: block; font-family: var(--mono); font-size: .68rem;
+      letter-spacing: .04em; color: var(--muted); margin-top: 3px; }
+    .board-fig figcaption { font-size: .88rem; color: var(--ink-soft); margin-top: 4px; }
+    .board-fig figcaption .who { font-weight: 600; }
 
-    .cs-quote {
-      margin: 14px 0 0;
-      padding: 4px 0 4px 14px;
-      border-left: 3px dashed var(--accent);
-      color: var(--ink-soft);
-    }
+    .cs-quote { margin: 14px 0 0; padding: 4px 0 4px 14px; border-left: 3px dashed var(--accent); color: var(--ink-soft); }
     .cs-quote p { margin: 0 0 6px; }
-    .cs-quote cite {
-      display: block;
-      font-style: normal;
-      font-family: var(--mono);
-      font-size: .72rem;
-      letter-spacing: .06em;
-      color: var(--muted);
-    }
-    .cs-quote .speaker {
-      font-family: var(--mono);
-      font-size: .74rem;
-      letter-spacing: .06em;
-      color: var(--accent);
-      margin-right: .4em;
-    }
-    .cs-quote .stage {
-      display: block;
-      font-size: .84rem;
-      color: var(--muted);
-      margin: 0 0 6px;
-    }
+    .cs-quote cite { display: block; font-style: normal; font-family: var(--mono);
+      font-size: .72rem; letter-spacing: .06em; color: var(--muted); }
 
-    /* Standardized label -> shipped title mapping. */
-    .maplist { list-style: none; margin: 0; padding: 0; }
-    .maplist > li {
-      border-top: 1px solid var(--rule);
-      padding: 12px 0;
-    }
-    .maplist > li:last-child { border-bottom: 1px solid var(--rule); }
-    .maplist .said {
-      font-size: 1.02rem;
-      font-weight: 600;
-    }
-    .maplist .arrow {
-      font-family: var(--mono);
-      color: var(--accent);
-      margin: 0 .45em;
-    }
-    .maplist .shipped { font-size: 1.02rem; }
-    .maplist .shipped code { font-size: .8em; }
-
-    .u-nudge-left { margin-left: 6px; }
     .table-caption { margin: 0 0 10px; }
     .subhead { margin-top: 30px; }
-    .keynum {
-      font-family: var(--mono);
-      font-weight: 700;
-      color: var(--accent-deep);
-    }
 
     @media (max-width: 720px) {
-      .cs-table { font-size: .9rem; }
+      .cs-table { font-size: .88rem; }
       .cs-table th, .cs-table td { padding-right: 10px; }
+      .board__col { flex-basis: 172px; }
     }
   </style>
 </head>
@@ -134,2115 +66,644 @@
 
     <header class="site-head">
       <p class="kicker">CS 356 Companion &middot; Study 2 &middot; Open card sort</p>
-      <h1>Nobody built the manual&rsquo;s five sections</h1>
+      <h1>Nobody rebuilt the manual&rsquo;s five sections</h1>
       <p class="lead">
-        We printed thirty cards, one skill to a card, in the plainest language we
-        could write. We handed the deck to ten teachers across eight sessions and
-        asked them to make piles that made sense to them, and then to name the
-        piles. We did not tell them what the manual&rsquo;s five sections were.
+        We put twenty-one of the manual&rsquo;s skills on cards &mdash; the
+        skill&rsquo;s own words, nothing rewritten &mdash; and asked five teachers
+        to drag them into groups and name the groups themselves. Not one rebuilt
+        the five sections the manual is organized by. They built situations:
+        getting them to talk, running out of time, hard questions, knowing the
+        class.
       </p>
       <p class="lead">
-        Not one of the eight sorts came back with the manual&rsquo;s structure.
-        Six of the eight built piles out of <em>situations</em> &mdash; the
-        moments in a lesson where something goes wrong. One built a running
-        order. One came close to topics and then named his topics after
-        situations anyway.
-      </p>
-      <p class="lead">
-        That result is the reason the live site has a
-        <a href="../../problems.html">problem-driven front door</a> at all, and
-        the reason its seven categories are named the way they are.
+        This page is deliberately short. It is the shape your own P1 card-sort
+        report should have: every sort shown, a page of analysis, half a page of
+        decisions, and an honest list of what we decided <em>not</em> to act on.
       </p>
     </header>
 
-    <!-- ================================================== 1. SCOPE NOTE ==== -->
+    <!-- ==================================================== SCOPE NOTE === -->
     <section class="panel panel--callout" aria-labelledby="scope">
       <h2 id="scope">Scope note</h2>
       <p>
-        <span class="fiction-badge">FICTITIOUS DATA</span>
-        <span class="micro-label u-nudge-left">What is real, what is constructed, what is invented</span>
-      </p>
-      <p>
-        <strong>Real:</strong> the artifact this study examines, and the design
-        decision at the end. The
+        <strong>Real:</strong> the
         <a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills?lang=eng">Teacher
-        Development Skills manual</a> is real; its inventory of <span class="keynum">53</span>
-        skills in five sections is real and sits in
-        <code>assets/lang/eng/skills-data.js</code>; the seven problem categories
-        and the twenty-nine teacher-language problem statements this study ends
-        in are real, live at <a href="../../problems.html">problems.html</a>, and
-        committed at <code>e2bf223</code>.
+        Development Skills manual</a>, its 53-skill inventory, the wording of all
+        twenty-one cards (each is a skill name quoted verbatim, with its skill id
+        beside it), and the design decisions at the end &mdash; which shipped, and
+        which you can read in the live site&rsquo;s source.
       </p>
       <p>
-        <strong>Constructed:</strong> the deck. The thirty cards are built from
-        real skills &mdash; every card traces to a real skill id you can look up
-        &mdash; but the card <em>wording</em> is ours, written for this study.
-        The manual did not phrase anything the way these cards do. The
-        traceability key is printed in full below so you can check every rewrite
-        against its source.
-      </p>
-      <p>
-        <strong>Invented:</strong> every participant, every session, every quote,
-        every group name, and every number describing what happened in a room.
-        No card sort was run. Nobody sorted anything. The ten people named here
-        are the fictitious roster from
-        <a href="../ward.html">the Timpanogos Shadows Ward</a>, and they do not
-        exist.
+        <strong>Invented:</strong> every participant, session, group, group title,
+        and number in between. No card sort was run. The five people in the session
+        table belong to the fictitious
+        <a href="../ward.html">Timpanogos Shadows Ward</a>, and the sorts are
+        constructed to fit the real decision they illustrate.
       </p>
       <p class="u-flush-bottom">
         <a href="../fiction.html">The full statement of what is real and what is not &rarr;</a>
       </p>
     </section>
 
-    <section class="panel panel--callout" aria-labelledby="speculation">
-      <h2 id="speculation">Speculation note</h2>
-      <p>
-        <span class="fiction-badge">SPECULATION</span>
-        <span class="micro-label u-nudge-left">Written August 2026 &middot; set November 2026</span>
-      </p>
-      <p>
-        This study is dated November 2026, about ten weeks into the Church&rsquo;s
-        new Sunday meeting schedule. The schedule change is real and published.
-        <strong>How this ward experienced it is not</strong> &mdash; the companion
-        was written in August 2026, before the new schedule had been used for a
-        single Sunday by anybody. Any finding here that depends on how teachers
-        are reacting to a twenty-five-minute class is a guess written in advance,
-        and carries the <span class="fiction-badge">SPECULATION</span> stamp where
-        it appears. That includes, specifically, everything below about the
-        <em>time pile</em>.
-      </p>
-      <p class="u-flush-bottom">
-        The scheme finding &mdash; that teachers group by situation rather than by
-        the manual&rsquo;s topics &mdash; does <em>not</em> depend on the schedule
-        change, and would read the same in August. See
-        <a href="../ward.html">the ward page</a> for the full two-layer account.
-      </p>
-    </section>
-
-    <!-- ================================================== 2. THE METHOD ==== -->
+    <!-- ===================================================== 1. METHOD === -->
     <section aria-labelledby="method">
-      <h2 id="method">The method: an open card sort</h2>
-      <p class="section-note">
-        Everything in this section is method, not findings. It is real, and you
-        can copy it.
-      </p>
-
+      <h2 id="method">The method, briefly</h2>
       <p>
-        A card sort hands people the <em>content</em> of a site, one item per
-        card, and asks them to organize it. In an <strong>open</strong> sort they
-        make whatever groups they like and then <strong>name</strong> the groups
-        themselves. In a <strong>closed</strong> sort you hand them your proposed
-        categories and ask them to file the cards into those. The two are not
-        variants of one method; they answer different questions. Open sorting is
-        <em>generative</em> &mdash; it produces candidate structures and candidate
-        labels. Closed sorting is <em>evaluative</em> &mdash; it tests a structure
-        you already have. We had no structure worth testing yet, only the
-        manual&rsquo;s, so we ran an open sort.
+        An <strong>open card sort</strong> hands someone a deck of content items
+        and asks them to group it however they make sense &mdash; with no
+        categories supplied &mdash; then to <em>name</em> each group.
       </p>
       <p>
-        The names are the point. In an open sort you are not only watching where
-        the cards land; you are collecting a direct, unprompted sample of the
-        words your users reach for when they have to describe a group of things
-        out loud. That sample is the raw material of the labelling system. You
-        cannot get it from a closed sort, because in a closed sort the labels are
-        yours already.
-      </p>
-      <p>
-        Deck size runs roughly thirty to sixty cards. Below thirty there is not
-        enough content for structure to emerge; above sixty people start managing
-        the pile instead of thinking about it. Cards are written in plain
-        language, one item per card, never in the designer&rsquo;s vocabulary, and
-        <strong>never as category names</strong> &mdash; a card that is secretly a
-        label tells participants the answer.
-      </p>
-      <p>
-        Eight to ten participants drawn from the real population is a normal
-        size. Donna Spencer&rsquo;s advice, which we followed, is to run some of
-        the sorts in <strong>pairs</strong>: two people sorting one deck have to
-        negotiate out loud, and the negotiation exposes the mental model in a way
-        a solo sorter&rsquo;s silence never will. Throughout, the think-aloud is
-        often the more valuable half of what you collect. A card someone holds for
-        ten seconds is data. A card someone moves three times is data. Write it
-        down.
-      </p>
-      <p>
-        Analysis looks for <strong>patterns, not averages</strong>. There is no
-        mean structure to compute; you are not averaging your way to an
-        information architecture. You standardize similar group names so that
-        &ldquo;when nobody talks&rdquo; and &ldquo;when they won&rsquo;t answer&rdquo;
-        count as the same idea, and then read for: groups almost everybody made;
-        strong pairs, meaning cards that travel together across sorts; splitters,
-        meaning cards that scatter; the organizing <em>schemes</em> people used
-        (topic, task, audience, sequence); and the vocabulary.
-      </p>
-      <p>
-        <strong>We did not build a dendrogram, deliberately.</strong> At eight
-        sorts and thirty cards the clustering statistics are noise dressed as
-        rigour: a cluster tree drawn from eight observations will show structure
-        whether or not any exists, and it will hide the one sort that disagreed
-        with everybody &mdash; which, as it turned out, was the most interesting
-        sort we ran. Spencer&rsquo;s guidance for a study this size is to
-        standardize the group names and then <em>eyeball</em> the result. That is
-        what we did. A dendrogram earns its place at thirty or fifty sorts, in an
-        online tool, where no human can hold the data in view at once.
-      </p>
-
-      <div class="panel">
-        <h3>What a card sort cannot tell you</h3>
-        <p>
-          This matters as much as what it can. A card sort tells you how people
-          group and name content. It does <strong>not</strong> tell you:
-        </p>
-        <ul class="stack-list">
-          <li>
-            <strong>Whether users can find things.</strong>
-            <p class="u-tight">
-              Grouping is not finding. People routinely build a structure they
-              then fail to navigate. That question belongs to a
-              <strong>tree test</strong>, which is the next study in this arc.
-            </p>
-          </li>
-          <li>
-            <strong>Whether a label invites the right click.</strong>
-            <p class="u-tight">
-              A group name that a participant produced while holding a pile of
-              cards may read completely differently as a link on a page with
-              six siblings. That question belongs to a <strong>first-click
-              test</strong>, which is why the first artifact this study produced
-              is a navigation prototype rather than a specification.
-            </p>
-          </li>
-          <li>
-            <strong>Whether the content is any good.</strong>
-            <p class="u-tight">
-              Every card in this deck was accepted as sensible. That says nothing
-              about whether the skills work on a Sunday.
-            </p>
-          </li>
-        </ul>
-      </div>
-
-      <p class="fiction-note u-flush-bottom">
-        <strong>Sources for the method.</strong> The CS&nbsp;356 course material
-        on card sorting, and Donna Spencer, <em>Card Sorting: Designing Usable
-        Categories</em> (Rosenfeld Media, 2009). Both real; neither is quoted at
-        length here.
+        The <strong>groupings</strong> tell you what belongs together. The
+        <strong>titles</strong> give you the reader&rsquo;s own words for those
+        groups &mdash; the raw material for navigation labels. Five to eight sorts
+        show the dominant scheme and the minority ones &mdash; not enough for a
+        dendrogram. We read the sorts.
       </p>
     </section>
 
-    <!-- ================================================= 3. STUDY DESIGN === -->
+    <!-- =============================================== 2. STUDY DESIGN === -->
     <section aria-labelledby="design">
       <h2 id="design">Study design</h2>
-      <p class="section-note">
-        Written as a design you could copy and run. The participants and sessions
-        in it are invented.
+
+      <h3>Research question</h3>
+      <p>
+        <em>How do teachers group the manual&rsquo;s skills when nobody gives them
+        categories &mdash; and what words do they put at the top of a group?</em>
       </p>
 
-      <h3 class="subhead">Research question</h3>
-      <div class="panel">
-        <p class="u-flush-bottom">
-          <strong>When teachers organize the manual&rsquo;s skills themselves,
-          what structure do they build &mdash; and what do they call the
-          groups?</strong>
-          Behind it, the question the brief actually cared about: is the
-          manual&rsquo;s five-section hierarchy the structure teachers already
-          carry, or is it the publisher&rsquo;s structure?
-        </p>
+      <h3 class="subhead">The deck: 21 cards, each one a skill&rsquo;s own words</h3>
+      <p>
+        A card holds one skill from the Teacher Development Skills guide. We sorted
+        twenty-one of the fifty-three to keep the study tractable, spread
+        proportionally across the five sections
+        (5&nbsp;/&nbsp;4&nbsp;/&nbsp;4&nbsp;/&nbsp;4&nbsp;/&nbsp;4 against
+        12&nbsp;/&nbsp;11&nbsp;/&nbsp;10&nbsp;/&nbsp;10&nbsp;/&nbsp;10). Nothing
+        reworded; every card carries its skill id.
+      </p>
+      <p>
+        The tradeoff: the manual&rsquo;s wording carries its structure &mdash; five
+        cards say &ldquo;Jesus Christ&rdquo; and can be collected on the words
+        alone. Rewriting closes that leak but smuggles our decisions into the
+        instrument, so we chose traceability (see
+        <a href="#ignoring">what we ignored</a>).
+      </p>
+
+      <div class="cs-table__scroll">
+        <table class="cs-table">
+          <caption class="section-note table-caption">
+            The deck. Card text is the skill&rsquo;s <code>name</code> field,
+            verbatim; the id is the traceability key. <strong>This table is
+            real</strong> &mdash; it is the manual&rsquo;s content, quoted.
+          </caption>
+          <thead>
+            <tr><th scope="col">Skill id</th><th scope="col">Card text (verbatim)</th><th scope="col">Manual section</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="skillid">004.title_number2</td><td>Use pictures and videos of Jesus Christ to illustrate a gospel principle.</td><td class="sect">Focus on Jesus Christ</td></tr>
+            <tr><td class="skillid">005.title_number17</td><td>Ask questions that allow students to identify roles Jesus Christ can have in their lives.</td><td class="sect">Focus on Jesus Christ</td></tr>
+            <tr><td class="skillid">006.title_number2</td><td>Help students have a sensory experience with scriptural objects that symbolize Jesus Christ.</td><td class="sect">Focus on Jesus Christ</td></tr>
+            <tr><td class="skillid">007.title_number2</td><td>Give invitations that help learners recognize the Lord&rsquo;s love, power, and mercy in their own experiences.</td><td class="sect">Focus on Jesus Christ</td></tr>
+            <tr><td class="skillid">009.title_number2</td><td>Invite students to look for ways to follow the example of Jesus Christ in their personal lives.</td><td class="sect">Focus on Jesus Christ</td></tr>
+            <tr><td class="skillid">012.intro2</td><td>Observe and ask about students&rsquo; interests.</td><td class="sect">Love Those You Teach</td></tr>
+            <tr><td class="skillid">013.intro3</td><td>Invite students to pray for other students.</td><td class="sect">Love Those You Teach</td></tr>
+            <tr><td class="skillid">014.title_number3</td><td>Communicate that students are not only welcome but needed.</td><td class="sect">Love Those You Teach</td></tr>
+            <tr><td class="skillid">015.title_number1</td><td>Send a message to a student&rsquo;s parent about something positive you have noticed about their child.</td><td class="sect">Love Those You Teach</td></tr>
+            <tr><td class="skillid">018.title_number1</td><td>Ask a question to assess learning before moving on in the lesson.</td><td class="sect">Teach By the Spirit</td></tr>
+            <tr><td class="skillid">018.title_number2</td><td>Listen to and observe students to ask follow-up questions.</td><td class="sect">Teach By the Spirit</td></tr>
+            <tr><td class="skillid">020.intro2</td><td>Before responding to a student&rsquo;s question or comment, pause and think, &ldquo;What can I ask them?&rdquo; or &ldquo;What can I invite them to do?&rdquo;</td><td class="sect">Teach By the Spirit</td></tr>
+            <tr><td class="skillid">021.title_number2</td><td>Testify more frequently and more powerfully of Jesus Christ.</td><td class="sect">Teach By the Spirit</td></tr>
+            <tr><td class="skillid">023.title_number2</td><td>Search the scriptures and words of the prophets for deeper understanding.</td><td class="sect">Teach the Doctrine</td></tr>
+            <tr><td class="skillid">024.title_number2</td><td>Express your love for and testimony of prophets as their words are shared in class.</td><td class="sect">Teach the Doctrine</td></tr>
+            <tr><td class="skillid">026.title_number3</td><td>Respond to questions in a way that avoids speculation and nondoctrinal personal ideas.</td><td class="sect">Teach the Doctrine</td></tr>
+            <tr><td class="skillid">027.title_number2</td><td>Start a learning activity by inviting students to ponder a personal circumstance.</td><td class="sect">Teach the Doctrine</td></tr>
+            <tr><td class="skillid">029.title_number1</td><td>Resist the tendency to respond to every comment and question and invite the class to respond.</td><td class="sect">Invite Diligent Learning</td></tr>
+            <tr><td class="skillid">029.title_number2</td><td>Focus on what the learner can do in class that the teacher typically does.</td><td class="sect">Invite Diligent Learning</td></tr>
+            <tr><td class="skillid">032.intro2</td><td>Help students create or begin gospel conversations.</td><td class="sect">Invite Diligent Learning</td></tr>
+            <tr><td class="skillid">033.title_number1</td><td>Plan to follow up on invitations given in a previous class and invite learners to share their experiences living what they learned.</td><td class="sect">Invite Diligent Learning</td></tr>
+          </tbody>
+        </table>
       </div>
 
-      <h3 class="subhead">Participants</h3>
-      <p>
-        <span class="fiction-badge">FICTITIOUS DATA</span>
-        <span class="micro-label u-nudge-left">Invented participants and sessions</span>
-      </p>
-      <p>
-        <span class="keynum">10</span> participants across
-        <span class="keynum">8</span> sorts: six people sorting alone, and two
-        pairs sorting one deck together. All ten are from
-        <a href="../ward.html">the ward roster</a>, keep their roster ID, and
-        keep the calling, device, and personality that page gives them.
-      </p>
-      <p>
-        The two pairs were chosen because the pairing is real in the ward, not
-        convenient for us. <strong>P06 Jenae Rowley and P12 Aubrey Delgado are
-        the entire Relief Society instructor rotation</strong> &mdash; two people
-        who alternate weeks and who have been talking to each other about
-        teaching since October. <strong>P07 Kade and P08 Rylee Beckstrand are
-        married and co-teach the same Primary class</strong>, in the same room, on
-        the same Sunday. Those are two very different kinds of pair, and they
-        produced two very different transcripts.
-      </p>
-      <p>
-        The sample splits four sorts of Primary teachers against four sorts of
-        Sunday School, Relief Society, and youth teachers. That was deliberate.
-        Primary is the ward&rsquo;s largest teaching corps and the one
-        organization the September schedule change did not touch, so the split
-        gives us a within-study control on anything the schedule might be doing
-        to people&rsquo;s answers.
-      </p>
-
-      <div class="panel">
-        <p class="u-flush-top">
-          <span class="fiction-badge">FICTITIOUS DATA</span>
-          <span class="micro-label u-nudge-left">Invented sessions</span>
-        </p>
-        <div class="cs-table__scroll">
-          <table class="cs-table">
-            <caption class="section-note table-caption">
-              The eight sorts. All dates, durations, and settings are invented
-              for CS&nbsp;356.
-            </caption>
-            <thead>
-              <tr>
-                <th scope="col">Sort</th>
-                <th scope="col">Who</th>
-                <th scope="col">Calling</th>
-                <th scope="col">When &amp; where</th>
-                <th scope="col">Minutes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="num">A</td>
-                <td>P01 Margie Ostler <span class="sect">(solo)</span></td>
-                <td class="sect">Primary, 10&ndash;11s</td>
-                <td>Thu 5 Nov, her kitchen counter</td>
-                <td class="num">36</td>
-              </tr>
-              <tr>
-                <td class="num">B</td>
-                <td>P02 Trent Larkin <span class="sect">(solo)</span></td>
-                <td class="sect">Sunday School, adult class</td>
-                <td>Tue 10 Nov, his kitchen table</td>
-                <td class="num">33</td>
-              </tr>
-              <tr>
-                <td class="num">C</td>
-                <td>P05 Curtis Openshaw <span class="sect">(solo)</span></td>
-                <td class="sect">Sunday School, 16&ndash;18s</td>
-                <td>Sun 8 Nov, the foyer after church</td>
-                <td class="num">41</td>
-              </tr>
-              <tr>
-                <td class="num">D</td>
-                <td>P11 Nathan Kim <span class="sect">(solo)</span></td>
-                <td class="sect">Sunday School, 12&ndash;13s</td>
-                <td>Wed 11 Nov, his kitchen table</td>
-                <td class="num">30</td>
-              </tr>
-              <tr>
-                <td class="num">E</td>
-                <td>P13 Lonnie Tolman <span class="sect">(solo)</span></td>
-                <td class="sect">Primary, 4-year-olds</td>
-                <td>Sat 14 Nov, her kitchen table</td>
-                <td class="num">34</td>
-              </tr>
-              <tr>
-                <td class="num">F</td>
-                <td>P15 Cami Sprague <span class="sect">(solo)</span></td>
-                <td class="sect">Primary, 5-year-olds</td>
-                <td>Sun 15 Nov, the foyer after church</td>
-                <td class="num">38</td>
-              </tr>
-              <tr>
-                <td class="num">G</td>
-                <td>P06 Jenae Rowley + P12 Aubrey Delgado <span class="sect">(pair)</span></td>
-                <td class="sect">Relief Society, both instructors</td>
-                <td>Thu 19 Nov, Jenae&rsquo;s kitchen table</td>
-                <td class="num">44</td>
-              </tr>
-              <tr>
-                <td class="num">H</td>
-                <td>P07 Kade + P08 Rylee Beckstrand <span class="sect">(pair)</span></td>
-                <td class="sect">Primary, 7-year-olds, co-teachers</td>
-                <td>Sun 22 Nov, their kitchen table</td>
-                <td class="num">28</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="u-flush-bottom section-note">
-          Eight sessions, <span class="keynum">284</span> minutes of contact in
-          total; shortest 28, longest 44, median 35. Note that the fastest sort
-          in the study was a pair.
-        </p>
-      </div>
-
-      <h3 class="subhead">Materials and protocol</h3>
-      <ul class="stack-list">
-        <li>
-          <strong>Physical index cards.</strong>
-          <p class="u-tight">
-            Thirty cards, handwriting-sized type, one skill per card. Numbered on
-            the <em>back</em> only, so the numbers are an analysis key and never
-            a running order the participant can read. Shuffled before every
-            session. Blank cards and a pen were on the table for group names, and
-            more blank cards in case anyone wanted to write a card we had missed.
-            Nobody did.
-          </p>
-        </li>
-        <li>
-          <strong>Kitchen tables and a church foyer.</strong>
-          <p class="u-tight">
-            Six sessions at participants&rsquo; own tables, two in the foyer after
-            church because that is when those two people were actually available.
-            The foyer sessions were noisier and are not obviously worse; the
-            foyer is where this ward talks about teaching anyway.
-          </p>
-        </li>
-        <li>
-          <strong>The prompt, said the same way each time.</strong>
-          <p class="u-tight">
-            &ldquo;These are things a teacher could do. Put them into groups that
-            make sense to you &mdash; any number of groups, and it&rsquo;s fine to
-            have a pile that doesn&rsquo;t fit anywhere. When you&rsquo;re done,
-            write a name on a blank card for each group. There is no right
-            answer, and I&rsquo;m not testing you.&rdquo;
-          </p>
-        </li>
-        <li>
-          <strong>Think-aloud, captured by hand.</strong>
-          <p class="u-tight">
-            No recording. One observer, writing. That is a real limitation and we
-            say so in <a href="#differently">what we&rsquo;d do differently</a>:
-            hand notes catch the loud moments and lose the quiet ones, and every
-            quotation on this page is therefore a reconstruction even within the
-            fiction.
-          </p>
-        </li>
-        <li>
-          <strong>Named after sorting, never before.</strong>
-          <p class="u-tight">
-            Participants were not allowed to write a group name and then fill it.
-            Naming a pile before you build it turns an open sort into a closed
-            one that the participant designed, and the vocabulary you collect is
-            no longer a response to the content.
-          </p>
-        </li>
-      </ul>
-
-      <!-- ---------------------------------------- how the cards were made -->
-      <h3 class="subhead" id="deck">How the cards were made</h3>
-      <p class="section-note">
-        The deck is the instrument. A card sort is only as good as its cards, and
-        most of the work in this study happened before anybody sorted anything.
-      </p>
-
-      <p>
-        <strong>(a) The content inventory is real.</strong> The site&rsquo;s
-        generator pulled every skill out of the
-        <a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills?lang=eng">Teacher
-        Development Skills manual</a> into one structured file,
-        <code>assets/lang/eng/skills-data.js</code>: <span class="keynum">53</span>
-        skills, each with an id, a name, the subsection it sits under, the first
-        sentence of its &ldquo;Define&rdquo; section, and a deep link back to the
-        manual page it came from. Those 53 skills are distributed across the
-        manual&rsquo;s five sections as 12 / 11 / 10 / 10 / 10. That file is the
-        content inventory. We did not have to invent one, and neither should you
-        if the content already exists somewhere structured.
-      </p>
-
-      <p>
-        <strong>(b) Selecting 30 of the 53.</strong> Thirty is at the bottom of
-        the useful range, and we chose the bottom on purpose: these participants
-        were going to do this standing at a kitchen counter after a shift, or in
-        a foyer with their coat still on. Three rules produced the cut.
-      </p>
-      <ul class="stack-list">
-        <li>
-          <strong>Proportional coverage of all five sections.</strong>
-          <p class="u-tight">
-            A deck that over-samples one section pre-loads the answer. At 30 of
-            53 the proportional targets were 6.8 / 6.2 / 5.7 / 5.7 / 5.7, which
-            rounds to 7 / 6 / 6 / 6 / 6 &mdash; thirty-one cards. One had to go,
-            and it came out of <em>Invite Diligent Learning</em>, which contained
-            the closest near-duplicate pair in the whole inventory (two skills
-            that both amount to &ldquo;get them studying during the week&rdquo;).
-            Final deck: <span class="keynum">7 / 6 / 6 / 6 / 5</span>.
-          </p>
-        </li>
-        <li>
-          <strong>Drop near-duplicates.</strong>
-          <p class="u-tight">
-            The manual frequently states a skill twice at different grain &mdash;
-            &ldquo;create search questions to help students identify roles,
-            titles, symbols&hellip;&rdquo; and &ldquo;ask questions that allow
-            students to identify roles Jesus Christ can have in their
-            lives&rdquo; are one card&rsquo;s worth of idea, not two. Two
-            near-identical cards in a deck do not test anything; they just tell
-            you that people put identical things together, which you already
-            knew, and they cost you a slot.
-          </p>
-        </li>
-        <li>
-          <strong>Drop skills that cannot stand alone.</strong>
-          <p class="u-tight">
-            Some skills are unintelligible without the manual open beside them
-            &mdash; one names a specific evaluation document by title; another
-            asks the teacher to &ldquo;think celestial&rdquo; about the class,
-            which is a phrase rather than an action. A card that sends the
-            participant looking for context has stopped measuring their model and
-            started measuring their reading comprehension. Both were cut.
-          </p>
-        </li>
-      </ul>
-
-      <p>
-        <strong>(c) Rewriting each card.</strong> The manual&rsquo;s sentences are
-        long, imperative, and written to be read slowly with scriptures open. A
-        card has to be readable in about three seconds by a Primary teacher who
-        is holding it at arm&rsquo;s length. Four rules:
-      </p>
-      <ul class="stack-list">
-        <li>
-          <strong>One action per card.</strong>
-          <p class="u-tight">
-            If the manual&rsquo;s sentence contains two verbs the participant
-            could do separately, the card takes one of them. A card with two
-            actions in it can legitimately go in two piles, and then you have
-            manufactured a splitter that tells you nothing about the content.
-          </p>
-        </li>
-        <li>
-          <strong>Strip every word that telegraphs a section name.</strong>
-          <p class="u-tight">
-            This is the rule that matters most, and it is the easiest one to
-            break by accident. The deck must not leak the taxonomy it is testing.
-            The word &ldquo;Spirit&rdquo; appears on <strong>zero</strong> of the
-            thirty cards; so does &ldquo;doctrine&rdquo;; so does
-            &ldquo;love&rdquo; as a label-word. Where the manual said
-            &ldquo;follow the promptings of the Holy Ghost&rdquo; the card says
-            &ldquo;then do what comes.&rdquo; Where it said &ldquo;examples of
-            Heavenly Father&rsquo;s love,&rdquo; the card says &ldquo;where the
-            passage shows God caring about someone.&rdquo;
-          </p>
-          <p class="u-tight">
-            <strong>We could not do this for the fifth section.</strong> Four of
-            the thirty cards name the Savior, because a card drawn from
-            <em>Focus on Jesus Christ</em> that does not mention Christ is no
-            longer that skill. We knew this was a leak when we printed it, and it
-            is the first thing we hold against our own results
-            <a href="#discussion">in the discussion</a>.
-          </p>
-        </li>
-        <li>
-          <strong>Compress to card length, in ward language.</strong>
-          <p class="u-tight">
-            &ldquo;Learner,&rdquo; &ldquo;students,&rdquo; and &ldquo;class
-            members&rdquo; all become &ldquo;them.&rdquo; Nominalizations become
-            verbs. Twenty-four words become nine. The test we applied to every
-            card: could a teacher read this out loud in one breath and know
-            immediately whether she has ever done it?
-          </p>
-        </li>
-        <li>
-          <strong>Never write a card that is a category.</strong>
-          <p class="u-tight">
-            No card says &ldquo;classroom management&rdquo; or &ldquo;lesson
-            preparation.&rdquo; Every card is a single concrete thing a teacher
-            does on a specific Sunday. A card that is really a label hands the
-            participant a pile name and then you collect it back and call it a
-            finding.
-          </p>
-        </li>
-        <li>
-          <strong>Keep a traceability key.</strong>
-          <p class="u-tight">
-            Every card keeps its source skill id, so that when a pile forms you
-            can walk it back to real content and, later, map the shipped
-            categories onto real skills. Without the key, a card sort produces a
-            nice diagram and nothing you can build. The key is the table below.
-          </p>
-        </li>
-      </ul>
-
-      <div class="panel">
-        <p class="u-flush-top">
-          <span class="fiction-badge">CONSTRUCTED DECK</span>
-          <span class="micro-label u-nudge-left">Real skills, authored card wording</span>
-        </p>
-        <p>
-          The full deck and its traceability key. <strong>Bold</strong> is the
-          card as printed &mdash; our wording. The italic line beneath is the
-          real skill from the manual, verbatim from
-          <code>assets/lang/eng/skills-data.js</code>. The id resolves in that
-          file and deep-links to the manual page it came from.
-        </p>
-        <div class="cs-table__scroll">
-          <table class="cs-table">
-            <caption class="section-note table-caption">
-              The 30-card deck &mdash; 7 / 6 / 6 / 6 / 5 across the manual&rsquo;s
-              five sections.
-            </caption>
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Card, and the skill it was written from</th>
-                <th scope="col">Skill id</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><th scope="rowgroup" colspan="3">Focus on Jesus Christ &mdash; 7 cards</th></tr>
-              <tr>
-                <td class="num">1</td>
-                <td>
-                  <span class="card-text">Show them how the Savior did the thing you&rsquo;re teaching.</span>
-                  <span class="card-source">Help students connect what they are learning with how Christ exemplifies the principle.</span>
-                </td>
-                <td class="skillid">004.title_number1</td>
-              </tr>
-              <tr>
-                <td class="num">2</td>
-                <td>
-                  <span class="card-text">Use a picture or a video of the Savior.</span>
-                  <span class="card-source">Use pictures and videos of Jesus Christ to illustrate a gospel principle.</span>
-                </td>
-                <td class="skillid">004.title_number2</td>
-              </tr>
-              <tr>
-                <td class="num">3</td>
-                <td>
-                  <span class="card-text">Ask each person what the Savior is to them.</span>
-                  <span class="card-source">Ask questions that allow students to identify roles Jesus Christ can have in their lives.</span>
-                </td>
-                <td class="skillid">005.title_number17</td>
-              </tr>
-              <tr>
-                <td class="num">4</td>
-                <td>
-                  <span class="card-text">Bring something they can hold.</span>
-                  <span class="card-source">Help students have a sensory experience with scriptural objects that symbolize Jesus Christ.</span>
-                </td>
-                <td class="skillid">006.title_number2</td>
-              </tr>
-              <tr>
-                <td class="num">5</td>
-                <td>
-                  <span class="card-text">Ask them to name a time God helped them this week.</span>
-                  <span class="card-source">Give invitations that help learners recognize the Lord&rsquo;s love, power, and mercy in their own experiences.</span>
-                </td>
-                <td class="skillid">007.title_number2</td>
-              </tr>
-              <tr>
-                <td class="num">6</td>
-                <td>
-                  <span class="card-text">Have them find where the passage shows God caring about someone.</span>
-                  <span class="card-source">Ask questions that help students find examples of Heavenly Father&rsquo;s love in the scripture passage.</span>
-                </td>
-                <td class="skillid">008.title_number2</td>
-              </tr>
-              <tr>
-                <td class="num">7</td>
-                <td>
-                  <span class="card-text">Ask them to copy one thing the Savior did, this week.</span>
-                  <span class="card-source">Invite students to look for ways to follow the example of Jesus Christ in their personal lives.</span>
-                </td>
-                <td class="skillid">009.title_number2</td>
-              </tr>
-
-              <tr><th scope="rowgroup" colspan="3">Love Those You Teach &mdash; 6 cards</th></tr>
-              <tr>
-                <td class="num">8</td>
-                <td>
-                  <span class="card-text">Ask them about something they like outside of church.</span>
-                  <span class="card-source">Observe and ask about students&rsquo; interests.</span>
-                </td>
-                <td class="skillid">012.intro2</td>
-              </tr>
-              <tr>
-                <td class="num">9</td>
-                <td>
-                  <span class="card-text">When a comment is odd, find out what they really meant.</span>
-                  <span class="card-source">Seek to clarify and understand the real intent of students&rsquo; questions, feelings, and beliefs.</span>
-                </td>
-                <td class="skillid">012.title_number3</td>
-              </tr>
-              <tr>
-                <td class="num">10</td>
-                <td>
-                  <span class="card-text">Pray for one of them by name, then do what comes.</span>
-                  <span class="card-source">Pray and ask how you can help your students and follow the promptings from the Holy Ghost.</span>
-                </td>
-                <td class="skillid">013.intro2</td>
-              </tr>
-              <tr>
-                <td class="num">11</td>
-                <td>
-                  <span class="card-text">Show you want their comment before they&rsquo;ve given it.</span>
-                  <span class="card-source">Communicate that you value students before they comment or as they raise their hand to comment.</span>
-                </td>
-                <td class="skillid">014.intro2</td>
-              </tr>
-              <tr>
-                <td class="num">12</td>
-                <td>
-                  <span class="card-text">Tell them you need them, not just that they&rsquo;re welcome.</span>
-                  <span class="card-source">Communicate that students are not only welcome but needed.</span>
-                </td>
-                <td class="skillid">014.title_number3</td>
-              </tr>
-              <tr>
-                <td class="num">13</td>
-                <td>
-                  <span class="card-text">Text a parent one good thing you saw in their kid.</span>
-                  <span class="card-source">Send a message to a student&rsquo;s parent about something positive you have noticed about their child.</span>
-                </td>
-                <td class="skillid">015.title_number1</td>
-              </tr>
-
-              <tr><th scope="rowgroup" colspan="3">Teach By the Spirit &mdash; 6 cards</th></tr>
-              <tr>
-                <td class="num">14</td>
-                <td>
-                  <span class="card-text">Ask yourself what you actually believe about this, before Sunday.</span>
-                  <span class="card-source">Ask questions to assess your own experience and testimony with Jesus Christ and the doctrine and principles in the lesson.</span>
-                </td>
-                <td class="skillid">017.title_number2</td>
-              </tr>
-              <tr>
-                <td class="num">15</td>
-                <td>
-                  <span class="card-text">Stop partway and ask something to find out if it&rsquo;s landing.</span>
-                  <span class="card-source">Ask a question to assess learning before moving on in the lesson.</span>
-                </td>
-                <td class="skillid">018.title_number1</td>
-              </tr>
-              <tr>
-                <td class="num">16</td>
-                <td>
-                  <span class="card-text">Ask a follow-up about something you just noticed.</span>
-                  <span class="card-source">Listen to and observe students to ask follow-up questions.</span>
-                </td>
-                <td class="skillid">018.title_number2</td>
-              </tr>
-              <tr>
-                <td class="num">17</td>
-                <td>
-                  <span class="card-text">Play a hymn and have them find the line that fits.</span>
-                  <span class="card-source">Use sacred music. Invite students to identify lines and phrases in sacred music that connect with the truths they are learning.</span>
-                </td>
-                <td class="skillid">019.title_number2</td>
-              </tr>
-              <tr>
-                <td class="num">18</td>
-                <td>
-                  <span class="card-text">When they ask you something, ask them something back.</span>
-                  <span class="card-source">Before responding to a student&rsquo;s question or comment, pause and think, &ldquo;What can I ask them?&rdquo; or &ldquo;What can I invite them to do?&rdquo;</span>
-                </td>
-                <td class="skillid">020.intro2</td>
-              </tr>
-              <tr>
-                <td class="num">19</td>
-                <td>
-                  <span class="card-text">Write a prompt that helps someone put a feeling into words.</span>
-                  <span class="card-source">Create prompts that help students verbalize their feelings, experiences, and testimony.</span>
-                </td>
-                <td class="skillid">021.title_number1</td>
-              </tr>
-
-              <tr><th scope="rowgroup" colspan="3">Teach the Doctrine &mdash; 6 cards</th></tr>
-              <tr>
-                <td class="num">20</td>
-                <td>
-                  <span class="card-text">Write a question with more than one right answer.</span>
-                  <span class="card-source">Create open-ended search questions that help learners discover gospel doctrine and principles for themselves and do not lead students to a specific response.</span>
-                </td>
-                <td class="skillid">023.title_number1</td>
-              </tr>
-              <tr>
-                <td class="num">21</td>
-                <td>
-                  <span class="card-text">Read further than the lesson does, for yourself.</span>
-                  <span class="card-source">Search the scriptures and words of the prophets for deeper understanding.</span>
-                </td>
-                <td class="skillid">023.title_number2</td>
-              </tr>
-              <tr>
-                <td class="num">22</td>
-                <td>
-                  <span class="card-text">Line something up in the reading with something a prophet said.</span>
-                  <span class="card-source">Prepare invitations that help students connect truths found in the scriptures to what living prophets are saying.</span>
-                </td>
-                <td class="skillid">024.title_number1</td>
-              </tr>
-              <tr>
-                <td class="num">23</td>
-                <td>
-                  <span class="card-text">Decide whether that story or object lesson is the right one.</span>
-                  <span class="card-source">Consider assessment questions to carefully choose media, personal stories, and object lessons.</span>
-                </td>
-                <td class="skillid">025.title_number3</td>
-              </tr>
-              <tr>
-                <td class="num">24</td>
-                <td>
-                  <span class="card-text">Answer a hard one without guessing past what we know.</span>
-                  <span class="card-source">Respond to questions in a way that avoids speculation and nondoctrinal personal ideas.</span>
-                </td>
-                <td class="skillid">026.title_number3</td>
-              </tr>
-              <tr>
-                <td class="num">25</td>
-                <td>
-                  <span class="card-text">Open with something that&rsquo;s happening in their own week.</span>
-                  <span class="card-source">Start a learning activity by inviting students to ponder a personal circumstance.</span>
-                </td>
-                <td class="skillid">027.title_number2</td>
-              </tr>
-
-              <tr><th scope="rowgroup" colspan="3">Invite Diligent Learning &mdash; 5 cards</th></tr>
-              <tr>
-                <td class="num">26</td>
-                <td>
-                  <span class="card-text">Don&rsquo;t answer your own question &mdash; hand it back.</span>
-                  <span class="card-source">Resist the tendency to respond to every comment and question and invite the class to respond.</span>
-                </td>
-                <td class="skillid">029.title_number1</td>
-              </tr>
-              <tr>
-                <td class="num">27</td>
-                <td>
-                  <span class="card-text">Give them a job you&rsquo;d normally do yourself.</span>
-                  <span class="card-source">Focus on what the learner can do in class that the teacher typically does.</span>
-                </td>
-                <td class="skillid">029.title_number2</td>
-              </tr>
-              <tr>
-                <td class="num">28</td>
-                <td>
-                  <span class="card-text">Say at the start what you&rsquo;re asking them to do by the end.</span>
-                  <span class="card-source">Create a meaningful invitation connected to the lesson outcome to be used at the beginning of each lesson.</span>
-                </td>
-                <td class="skillid">031.title_number2</td>
-              </tr>
-              <tr>
-                <td class="num">29</td>
-                <td>
-                  <span class="card-text">Have them tell each other what they got out of it.</span>
-                  <span class="card-source">Prepare invitations for students to share with each other what they are learning.</span>
-                </td>
-                <td class="skillid">032.title_number3</td>
-              </tr>
-              <tr>
-                <td class="num">30</td>
-                <td>
-                  <span class="card-text">Next week, ask what happened when they tried it.</span>
-                  <span class="card-source">Plan to follow up on invitations given in a previous class and invite learners to share their experiences living what they learned.</span>
-                </td>
-                <td class="skillid">033.title_number1</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="u-flush-bottom section-note">
-          Thirty cards, twenty-three skills left in the drawer. Every one of the
-          thirty maps to at least one problem on the live
-          <a href="../../problems.html">problems page</a> today &mdash; which is
-          a fact about the shipped site, checkable in
-          <code>assets/problems-data.js</code>, not a finding of this study.
-        </p>
-      </div>
-    </section>
-
-    <!-- ===================================================== 4. RESULTS ==== -->
-    <section aria-labelledby="results">
-      <h2 id="results">Results</h2>
-      <p class="section-note">
-        Eight sorts, thirty cards, <span class="keynum">240</span> card
-        placements, <span class="keynum">44</span> participant-written group
-        names. Everything in this section is invented.
-      </p>
-
+      <h3 class="subhead">Participants and sessions</h3>
       <p class="fiction-note">
         <span class="fiction-badge">FICTITIOUS DATA</span>
-        Nobody sorted these cards. Every pile, name, count, and quotation below
-        was written for CS&nbsp;356, constructed to be consistent with the real
-        design decision at the end of the page. Read them as a model of how a
-        card sort is reported, not as evidence about teachers.
+        Five invented sessions with five invented people from the ward roster.
+        Nothing below was scheduled, run, or timed.
       </p>
-
-      <!-- ---------------------------------------------------- 4.1 schemes -->
-      <h3 class="subhead" id="schemes">Finding 1 &mdash; the scheme, and the mismatch</h3>
-
       <p>
-        <strong>Nobody reproduced the manual&rsquo;s five sections.</strong> Not
-        one sort produced five groups; not one produced a group whose membership
-        matched a manual section; not one used a section name. The manual&rsquo;s
-        structure &mdash; <em>Focus on Jesus Christ</em>, <em>Love Those You
-        Teach</em>, <em>Teach By the Spirit</em>, <em>Teach the Doctrine</em>,
-        <em>Invite Diligent Learning</em> &mdash; is a structure of
-        <strong>topics</strong>. Six of the eight sorts built structures of
-        <strong>situations</strong>: the moment in a lesson when something is
-        going wrong and you need to do something about it.
+        Five sorts, all solo. A remote sort needs a device that holds a video call
+        and a drag-and-drop page at once, and most of this corps prepares on a
+        phone &mdash; which shaped the sample more than our recruiting did.
       </p>
 
-      <div class="panel">
-        <p class="u-flush-top">
-          <span class="fiction-badge">FICTITIOUS DATA</span>
-          <span class="micro-label u-nudge-left">Invented sorting behaviour</span>
-        </p>
-        <div class="cs-table__scroll">
-          <table class="cs-table">
-            <caption class="section-note table-caption">
-              What each sort was organized <em>by</em>, and the one-line
-              principle the observer wrote down at the end of the session.
-            </caption>
-            <thead>
-              <tr>
-                <th scope="col">Sort</th>
-                <th scope="col">Who</th>
-                <th scope="col">Groups</th>
-                <th scope="col">Scheme</th>
-                <th scope="col">Sorting principle, as observed</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="num">A</td>
-                <td>P01 Margie</td>
-                <td class="num">6</td>
-                <td>Problem</td>
-                <td>&ldquo;What is going wrong, and what do I do about it?&rdquo; Sorted fastest on anything involving eleven children being loud.</td>
-              </tr>
-              <tr>
-                <td class="num">B</td>
-                <td>P02 Trent</td>
-                <td class="num">6</td>
-                <td>Problem</td>
-                <td>Sorted by which of his own recurring failures a card would fix. Built the time pile first, before he had built anything else.</td>
-              </tr>
-              <tr>
-                <td class="num">C</td>
-                <td>P05 Curtis</td>
-                <td class="num">5</td>
-                <td>Problem, nearly topical</td>
-                <td>The only sort whose <em>membership</em> came close to the manual&rsquo;s topics &mdash; and he named every group after a moment anyway.</td>
-              </tr>
-              <tr>
-                <td class="num">D</td>
-                <td>P11 Nathan</td>
-                <td class="num">6</td>
-                <td><strong>Sequence</strong></td>
-                <td>Sorted by <em>when in the lesson</em> each card happens, then laid the piles out left to right in running order.</td>
-              </tr>
-              <tr>
-                <td class="num">E</td>
-                <td>P13 Lonnie</td>
-                <td class="num">5</td>
-                <td>Problem</td>
-                <td>Sorted by classroom precondition: settle them first, then everything else becomes possible.</td>
-              </tr>
-              <tr>
-                <td class="num">F</td>
-                <td>P15 Cami</td>
-                <td class="num">5</td>
-                <td>Problem</td>
-                <td>Sorted confidently on the concrete cards and made the study&rsquo;s largest single pile out of the ones she could not decode.</td>
-              </tr>
-              <tr>
-                <td class="num">G</td>
-                <td>P06 + P12 (pair)</td>
-                <td class="num">6</td>
-                <td>Problem</td>
-                <td>Negotiated every boundary out loud. Disagreed twice about names, never about membership.</td>
-              </tr>
-              <tr>
-                <td class="num">H</td>
-                <td>P07 + P08 (pair)</td>
-                <td class="num">5</td>
-                <td>Problem</td>
-                <td>Barely negotiated at all &mdash; two people who teach the same six children already share one model. Fastest sort in the study.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="u-flush-bottom section-note">
-          Six problem sorts, one nearly-topical sort, one sequence sort:
-          <span class="keynum">6 + 1 + 1 = 8</span>. Forty-four group names in
-          total.
-        </p>
+      <div class="cs-table__scroll">
+        <table class="cs-table">
+          <caption class="section-note table-caption">
+            Sessions &mdash; all invented for CS&nbsp;356. IDs are the permanent
+            roster IDs from <a href="../ward.html">the ward page</a>.
+          </caption>
+          <thead>
+            <tr><th scope="col">ID</th><th scope="col">Participant</th><th scope="col">Calling</th><th scope="col">Device</th><th scope="col">Date</th><th scope="col">Minutes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="skillid">P02</td><td>Trent Larkin</td><td>Sunday School &middot; adult class</td><td class="sect">Work laptop</td><td class="num">9 Jun 2026</td><td class="num">34</td></tr>
+            <tr><td class="skillid">P06</td><td>Jenae Rowley</td><td>Relief Society &middot; instructor</td><td class="sect">MacBook</td><td class="num">10 Jun 2026</td><td class="num">41</td></tr>
+            <tr><td class="skillid">P05</td><td>Curtis Openshaw</td><td>Sunday School &middot; 16&ndash;18s</td><td class="sect">iPad</td><td class="num">11 Jun 2026</td><td class="num">29</td></tr>
+            <tr><td class="skillid">P11</td><td>Nathan Kim</td><td>Sunday School &middot; 12&ndash;13s</td><td class="sect">Laptop</td><td class="num">15 Jun 2026</td><td class="num">26</td></tr>
+            <tr><td class="skillid">P13</td><td>Lonnie Tolman</td><td>Primary &middot; 4-year-olds</td><td class="sect">iPad</td><td class="num">17 Jun 2026</td><td class="num">37</td></tr>
+          </tbody>
+        </table>
       </div>
 
-      <h4>The near-miss: P05 Curtis</h4>
+      <h3 class="subhead">Protocol</h3>
       <p>
-        Curtis has read the manual more carefully than anyone else in the roster,
-        and it shows: his five piles are the closest thing in the study to the
-        manual&rsquo;s sections, with four of them holding mostly cards from a
-        single section. Then he named them. &ldquo;When it&rsquo;s about
-        Him.&rdquo; &ldquo;When they&rsquo;re not with you.&rdquo; &ldquo;When
-        they ask something hard.&rdquo; He had grouped like an editor and labelled
-        like a teacher, and when the two disagreed the teacher won. That is worth
-        more than a clean result: the one participant with the taxonomy in his
-        head <em>still</em> could not name a pile after a topic.
+        One participant at a time on Zoom, screen shared, with a free online
+        card-sorting site in their own browser (generic on purpose: the method does
+        not depend on the tool).
       </p>
-
-      <h4>The genuine alternate scheme: P11 Nathan</h4>
-      <p>
-        Nathan sorted by <strong>time within the lesson</strong>, and it was not
-        a confusion &mdash; it was a whole competing architecture, executed
-        cleanly and laid out on the table in order:
-        <em>Before</em> &middot; <em>First five minutes</em> &middot; <em>The
-        middle</em> &middot; <em>Last two minutes</em> &middot; <em>After class,
-        during the week</em>, plus a sixth pile off to one side that he called
-        <em>Doesn&rsquo;t fit in twenty-five minutes</em>.
-      </p>
-      <p>
-        His sort is the reason we did not draw a cluster tree. Averaged in with
-        the other seven, Nathan disappears: his cards distribute across everyone
-        else&rsquo;s groups and add a faint, uninterpretable smear. Read on its
-        own, he is the single most useful hour in the study &mdash; a teacher who
-        has stopped thinking of a lesson as a topic and started thinking of it as
-        a runtime. We set his sort aside and analyzed it separately rather than
-        forcing it into the standardization, which is what you are supposed to do
-        with a minority scheme that is internally coherent.
-      </p>
-      <blockquote class="cs-quote">
-        <p>
-          <span class="speaker">P11</span>
-          &ldquo;These aren&rsquo;t topics. They&rsquo;re a running order. This is
-          minute one, this is minute nine, and this pile here is the stuff I
-          never get to.&rdquo;
-        </p>
-        <cite>
-          <span class="fiction-badge">Invented quote</span>
-          Nathan Kim (P11), sort D
-        </cite>
-      </blockquote>
-
-      <!-- ------------------------------------------------ 4.2 vocabulary -->
-      <h3 class="subhead" id="vocabulary">Finding 2 &mdash; the vocabulary</h3>
-      <p>
-        Here are all <span class="keynum">44</span> group names, exactly as the
-        participants wrote them on the blank cards. This table is the single most
-        useful artifact the study produced, because it is the labelling system
-        arriving in the users&rsquo; own handwriting.
-      </p>
-
-      <div class="panel">
-        <p class="u-flush-top">
-          <span class="fiction-badge">FICTITIOUS DATA</span>
-          <span class="micro-label u-nudge-left">Invented group names</span>
-        </p>
-        <div class="cs-table__scroll">
-          <table class="cs-table">
-            <caption class="section-note table-caption">
-              Group names as written, by sort. Forty-four names across eight
-              sorts.
-            </caption>
-            <thead>
-              <tr>
-                <th scope="col">Sort</th>
-                <th scope="col">Names, verbatim</th>
-                <th scope="col">Count</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="num">A &middot; P01</td>
-                <td>
-                  &ldquo;Getting them back down&rdquo; &middot;
-                  &ldquo;Things to actually do&rdquo; &middot;
-                  &ldquo;Making it about the Savior&rdquo; &middot;
-                  &ldquo;Knowing my kids&rdquo; &middot;
-                  &ldquo;Getting through it&rdquo; &middot;
-                  <em>&ldquo;Not sure&rdquo; (3 cards)</em>
-                </td>
-                <td class="num">6</td>
-              </tr>
-              <tr>
-                <td class="num">B &middot; P02</td>
-                <td>
-                  &ldquo;When nobody talks&rdquo; &middot;
-                  &ldquo;Twenty-five minutes&rdquo; &middot;
-                  &ldquo;Keeping it on Christ&rdquo; &middot;
-                  &ldquo;Questions I can&rsquo;t answer&rdquo; &middot;
-                  &ldquo;Making it matter to them&rdquo; &middot;
-                  &ldquo;The part I can&rsquo;t control&rdquo;
-                </td>
-                <td class="num">6</td>
-              </tr>
-              <tr>
-                <td class="num">C &middot; P05</td>
-                <td>
-                  &ldquo;When they&rsquo;re not with you&rdquo; &middot;
-                  &ldquo;Saturday, and what gets cut&rdquo; &middot;
-                  &ldquo;When it&rsquo;s about Him&rdquo; &middot;
-                  &ldquo;When you can feel it&rdquo; &middot;
-                  &ldquo;When they ask something hard&rdquo;
-                </td>
-                <td class="num">5</td>
-              </tr>
-              <tr>
-                <td class="num">D &middot; P11</td>
-                <td>
-                  &ldquo;Before&rdquo; &middot;
-                  &ldquo;First five minutes&rdquo; &middot;
-                  &ldquo;The middle&rdquo; &middot;
-                  &ldquo;Last two minutes&rdquo; &middot;
-                  &ldquo;After class, during the week&rdquo; &middot;
-                  &ldquo;Doesn&rsquo;t fit in twenty-five minutes&rdquo;
-                </td>
-                <td class="num">6</td>
-              </tr>
-              <tr>
-                <td class="num">E &middot; P13</td>
-                <td>
-                  &ldquo;Settling them&rdquo; &middot;
-                  &ldquo;One thing to do&rdquo; &middot;
-                  &ldquo;Loving them&rdquo; &middot;
-                  &ldquo;Him&rdquo; &middot;
-                  &ldquo;For the teacher&rdquo;
-                </td>
-                <td class="num">5</td>
-              </tr>
-              <tr>
-                <td class="num">F &middot; P15</td>
-                <td>
-                  &ldquo;When they won&rsquo;t listen&rdquo; &middot;
-                  &ldquo;Making them like it&rdquo; &middot;
-                  &ldquo;About Jesus&rdquo; &middot;
-                  &ldquo;Getting ready&rdquo; &middot;
-                  <em>&ldquo;Church-y things I should probably know&rdquo; (7 cards)</em>
-                </td>
-                <td class="num">5</td>
-              </tr>
-              <tr>
-                <td class="num">G &middot; P06 + P12</td>
-                <td>
-                  &ldquo;When nobody talks&rdquo; &middot;
-                  &ldquo;Sunday morning at 6 a.m.&rdquo; &middot;
-                  &ldquo;Keeping it about Him&rdquo; &middot;
-                  &ldquo;Knowing them&rdquo; &middot;
-                  &ldquo;When you get a hard one&rdquo; &middot;
-                  &ldquo;Feeling it&rdquo;
-                </td>
-                <td class="num">6</td>
-              </tr>
-              <tr>
-                <td class="num">H &middot; P07 + P08</td>
-                <td>
-                  &ldquo;Sitting down&rdquo; &middot;
-                  &ldquo;Doing something&rdquo; &middot;
-                  &ldquo;Jesus ones&rdquo; &middot;
-                  &ldquo;Us stuff&rdquo; &middot;
-                  &ldquo;Talking to them and their parents&rdquo;
-                </td>
-                <td class="num">5</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="u-flush-bottom section-note">
-          6 + 6 + 5 + 6 + 5 + 5 + 6 + 5 = <span class="keynum">44</span>. Two of
-          the eight sorts made an explicit leftover pile (A and F), holding ten
-          cards between them.
-        </p>
-      </div>
-
-      <p>
-        Read the column again and notice what is not in it. Nobody wrote
-        &ldquo;skill development.&rdquo; Nobody wrote &ldquo;engagement,&rdquo;
-        &ldquo;facilitation,&rdquo; &ldquo;learning objectives,&rdquo; or
-        &ldquo;classroom management.&rdquo; Nobody wrote any of the manual&rsquo;s
-        five section names, or anything close to one. What they wrote instead was
-        <strong>when</strong>: &ldquo;when nobody talks,&rdquo; &ldquo;when
-        they&rsquo;re not with you,&rdquo; &ldquo;when they ask something hard,&rdquo;
-        &ldquo;when they won&rsquo;t listen.&rdquo; Eight of the forty-four names
-        open with &ldquo;when&rdquo; outright, and eleven of the thirty-eight
-        names outside Nathan&rsquo;s sequence sort name a moment rather than a
-        topic. All six of Nathan&rsquo;s do as well &mdash; but his are positions
-        in a lesson (&ldquo;The middle&rdquo;) rather than situations inside one
-        (&ldquo;When nobody talks&rdquo;), which is a different kind of moment
-        and part of why his sort stands apart. Several names are not noun phrases
-        at all.
-      </p>
-      <p>
-        This is exactly the speech <a href="../ward.html#talk">the ward page</a>
-        records: trouble arrives as an event, not a category, and the two words
-        carrying the load are <em>challenge</em> and <em>problem</em>. The card
-        sort did not discover the ward&rsquo;s vocabulary; it confirmed that the
-        vocabulary survives contact with an abstraction task. Handed thirty
-        decontextualized cards and asked to be organizational, these teachers
-        went right on talking about last Sunday.
-      </p>
-
-      <!-- ------------------------------------------------- 4.3 time pile -->
-      <h3 class="subhead" id="timepile">Finding 3 &mdash; the time pile</h3>
-      <p>
-        <span class="fiction-badge">SPECULATION</span>
-        <span class="micro-label u-nudge-left">Reception of a real schedule change, guessed in advance</span>
-      </p>
-      <p>
-        In <span class="keynum">five</span> of the eight sorts a pile formed that
-        was not about a kind of teaching at all. It was about <em>time</em>, and
-        in four of the five it was loud &mdash; built early, defended, and named
-        with a number in it.
-      </p>
-
-      <div class="panel">
-        <p class="u-flush-top">
-          <span class="fiction-badge">SPECULATION</span>
-          <span class="micro-label u-nudge-left">Invented, and set after a change nobody had lived</span>
-        </p>
-        <div class="cs-table__scroll">
-          <table class="cs-table">
-            <caption class="section-note table-caption">
-              Where a time pile appeared, and in whose words.
-            </caption>
-            <thead>
-              <tr>
-                <th scope="col">Sort</th>
-                <th scope="col">Teaches</th>
-                <th scope="col">Time pile</th>
-                <th scope="col">Its name</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="num">B &middot; P02</td>
-                <td class="sect">Sunday School</td>
-                <td>Yes &mdash; built first</td>
-                <td>&ldquo;Twenty-five minutes&rdquo;</td>
-              </tr>
-              <tr>
-                <td class="num">C &middot; P05</td>
-                <td class="sect">Sunday School</td>
-                <td>Yes</td>
-                <td>&ldquo;Saturday, and what gets cut&rdquo;</td>
-              </tr>
-              <tr>
-                <td class="num">D &middot; P11</td>
-                <td class="sect">Sunday School</td>
-                <td>Yes &mdash; plus the whole scheme</td>
-                <td>&ldquo;Doesn&rsquo;t fit in twenty-five minutes&rdquo;</td>
-              </tr>
-              <tr>
-                <td class="num">G &middot; P06 + P12</td>
-                <td class="sect">Relief Society</td>
-                <td>Yes &mdash; and argued about</td>
-                <td>&ldquo;Sunday morning at 6 a.m.&rdquo;</td>
-              </tr>
-              <tr>
-                <td class="num">A &middot; P01</td>
-                <td class="sect">Primary</td>
-                <td>Yes &mdash; but timeless</td>
-                <td>&ldquo;Getting through it&rdquo;</td>
-              </tr>
-              <tr>
-                <td class="num">E &middot; P13</td>
-                <td class="sect">Primary</td>
-                <td>No</td>
-                <td>&mdash;</td>
-              </tr>
-              <tr>
-                <td class="num">F &middot; P15</td>
-                <td class="sect">Primary</td>
-                <td>No</td>
-                <td>&mdash;</td>
-              </tr>
-              <tr>
-                <td class="num">H &middot; P07 + P08</td>
-                <td class="sect">Primary</td>
-                <td>No</td>
-                <td>&mdash;</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="u-flush-bottom section-note">
-          Five sorts with a time pile, three without: <span class="keynum">5 + 3 = 8</span>.
-          All four adult and youth sorts produced one; of the four Primary sorts,
-          one did.
-        </p>
-      </div>
-
-      <p>
-        The split is the finding, not the count. <strong>The four sorts that used
-        the new schedule&rsquo;s vocabulary are the four sorts run with teachers
-        whose Sunday changed in September.</strong> They said &ldquo;twenty-five
-        minutes&rdquo; flatly, as a complete thought, the way
-        <a href="../ward.html#talk">the ward page</a> records it. The fifth time
-        pile belongs to Margie, who teaches Primary, whose class period did not
-        move an inch, and whose pile is called &ldquo;Getting through it&rdquo;
-        &mdash; the ward&rsquo;s oldest complaint, in the ward&rsquo;s oldest
-        words, with no number in it. The three Primary sorts that produced no
-        time pile at all round out a clean pattern: the November vocabulary
-        appears exactly where the November change happened, and the timeless
-        anxiety about coverage appears in a Primary room that has always had it.
-      </p>
-      <p>
-        We are stamping this <span class="fiction-badge">SPECULATION</span> and
-        we mean it. The schedule change is real; the idea that it would surface
-        in a card sort as a defended, first-built pile is a guess we wrote in
-        August about a November nobody had reached. A real November might have
-        produced no time pile whatsoever, or one in every sort.
-      </p>
-
-      <!-- --------------------------------------------- 4.4 standardization -->
-      <h3 class="subhead" id="standardization">Finding 4 &mdash; standardizing to seven groups</h3>
-      <p>
-        Standardization is where a card sort becomes design work and stops being
-        transcription. Forty-four names is not a structure; it is a word list.
-        The job is to decide which names are the same idea in different mouths,
-        and to be honest that deciding is a judgment you are making, not a vote
-        you are counting.
-      </p>
-      <p>
-        <strong>We set Nathan&rsquo;s sort aside first</strong> (six group names,
-        a coherent sequence scheme), leaving <span class="keynum">38</span>
-        names from seven sorts. Two of those were explicit leftover piles &mdash;
-        Margie&rsquo;s &ldquo;Not sure&rdquo; and Cami&rsquo;s &ldquo;Church-y
-        things I should probably know&rdquo; &mdash; which are findings about the
-        deck and the vocabulary, not groups, and were also excluded. That leaves
-        <span class="keynum">36</span> participant groups to standardize, and
-        they went into <span class="keynum">seven</span> buckets.
-      </p>
-
-      <div class="panel">
-        <p class="u-flush-top">
-          <span class="fiction-badge">FICTITIOUS DATA</span>
-          <span class="micro-label u-nudge-left">Invented standardization</span>
-        </p>
-        <div class="cs-table__scroll">
-          <table class="cs-table">
-            <caption class="section-note table-caption">
-              The seven standardized groups, the raw names folded into each, and
-              how many of the seven folded sorts produced one.
-            </caption>
-            <thead>
-              <tr>
-                <th scope="col">Standardized group</th>
-                <th scope="col">Raw names folded in</th>
-                <th scope="col">Sorts</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>When nobody talks</strong></td>
-                <td class="sect">&ldquo;When nobody talks&rdquo; &middot; &ldquo;Getting them back down&rdquo; &middot; &ldquo;When they&rsquo;re not with you&rdquo; &middot; &ldquo;Settling them&rdquo; &middot; &ldquo;When they won&rsquo;t listen&rdquo; &middot; &ldquo;Sitting down&rdquo;</td>
-                <td class="num">7 of 7</td>
-              </tr>
-              <tr>
-                <td><strong>Getting ready (and getting through)</strong></td>
-                <td class="sect">&ldquo;Twenty-five minutes&rdquo; &middot; &ldquo;Saturday, and what gets cut&rdquo; &middot; &ldquo;Getting through it&rdquo; &middot; &ldquo;For the teacher&rdquo; &middot; &ldquo;Getting ready&rdquo; &middot; &ldquo;Sunday morning at 6 a.m.&rdquo; &middot; &ldquo;Us stuff&rdquo;</td>
-                <td class="num">7 of 7</td>
-              </tr>
-              <tr>
-                <td><strong>Keeping it about Christ</strong></td>
-                <td class="sect">&ldquo;Making it about the Savior&rdquo; &middot; &ldquo;Keeping it on Christ&rdquo; &middot; &ldquo;When it&rsquo;s about Him&rdquo; &middot; &ldquo;Him&rdquo; &middot; &ldquo;About Jesus&rdquo; &middot; &ldquo;Keeping it about Him&rdquo; &middot; &ldquo;Jesus ones&rdquo;</td>
-                <td class="num">7 of 7</td>
-              </tr>
-              <tr>
-                <td><strong>Making it stick</strong></td>
-                <td class="sect">&ldquo;Things to actually do&rdquo; &middot; &ldquo;Making it matter to them&rdquo; &middot; &ldquo;One thing to do&rdquo; &middot; &ldquo;Making them like it&rdquo; &middot; &ldquo;Doing something&rdquo;</td>
-                <td class="num">5 of 7</td>
-              </tr>
-              <tr>
-                <td><strong>Knowing and loving your class</strong></td>
-                <td class="sect">&ldquo;Knowing my kids&rdquo; &middot; &ldquo;Loving them&rdquo; &middot; &ldquo;Knowing them&rdquo; &middot; &ldquo;Talking to them and their parents&rdquo;</td>
-                <td class="num">4 of 7</td>
-              </tr>
-              <tr>
-                <td><strong>Feeling the Spirit</strong></td>
-                <td class="sect">&ldquo;The part I can&rsquo;t control&rdquo; &middot; &ldquo;When you can feel it&rdquo; &middot; &ldquo;Feeling it&rdquo;</td>
-                <td class="num">3 of 7</td>
-              </tr>
-              <tr>
-                <td><strong>Hard questions</strong></td>
-                <td class="sect">&ldquo;Questions I can&rsquo;t answer&rdquo; &middot; &ldquo;When they ask something hard&rdquo; &middot; &ldquo;When you get a hard one&rdquo;</td>
-                <td class="num">3 of 7</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="u-flush-bottom section-note">
-          7 + 7 + 7 + 5 + 4 + 3 + 3 = <span class="keynum">36</span> folded
-          groups. Plus Nathan&rsquo;s six, plus the two leftover piles, gives the
-          44 names on the table above.
-        </p>
-      </div>
-
-      <p>
-        Three groups are universal: every one of the seven folded sorts built a
-        pile about nobody participating, a pile about the teacher&rsquo;s own
-        preparation, and a pile about keeping the lesson on Christ. Two more
-        appear in a clear majority. Two &mdash; the Spirit and hard questions
-        &mdash; appear in only three sorts each, which is a weaker signal than
-        their eventual prominence on the shipped site suggests, and we say more
-        about that <a href="#discussion">below</a>.
-      </p>
-
-      <!-- ---------------------------------------------- 4.5 pairs, splitters -->
-      <h3 class="subhead" id="pairs">Finding 5 &mdash; strong pairs</h3>
-      <p>
-        Three sets of cards travelled together often enough to be treated as
-        single objects in the structure.
-      </p>
-
-      <div class="panel">
-        <p class="u-flush-top">
-          <span class="fiction-badge">FICTITIOUS DATA</span>
-          <span class="micro-label u-nudge-left">Invented co-occurrence</span>
-        </p>
-        <ul class="stack-list">
-          <li>
-            <strong>The questions trio &mdash; cards 18, 20, 26 &mdash; together in 7 of 8 sorts.</strong>
-            <p class="u-tight">
-              &ldquo;When they ask you something, ask them something back&rdquo;
-              (<code>020.intro2</code>), &ldquo;Write a question with more than
-              one right answer&rdquo; (<code>023.title_number1</code>), and
-              &ldquo;Don&rsquo;t answer your own question &mdash; hand it
-              back&rdquo; (<code>029.title_number1</code>). Three cards from
-              three <em>different</em> manual sections, which participants
-              treated as one idea in seven of the eight sorts. Only Nathan split
-              them, and he split them by minute, not by meaning.
-            </p>
-            <p class="u-tight">
-              <strong>Check this against the shipped site.</strong> The live
-              <a href="../../problems.html">problems page</a> answers &ldquo;No
-              one answers when I ask a question &mdash; the room just goes
-              silent&rdquo; with exactly those three skills, in
-              <code>assets/problems-data.js</code> under
-              <code>participate &rsaquo; silence</code>. That mapping is real and
-              you can read it in the file.
-            </p>
-          </li>
-          <li>
-            <strong>The safety pair &mdash; cards 11 and 12 &mdash; together in 7 of 8 sorts.</strong>
-            <p class="u-tight">
-              &ldquo;Show you want their comment before they&rsquo;ve given
-              it&rdquo; (<code>014.intro2</code>) and &ldquo;Tell them you need
-              them, not just that they&rsquo;re welcome&rdquo;
-              (<code>014.title_number3</code>). These two <em>are</em> from the
-              same manual subsection, so their travelling together is the least
-              surprising result in the study &mdash; which is why it is useful:
-              it is the control that tells you the deck and the participants are
-              behaving sensibly. On the live site both sit under
-              <code>relationships &rsaquo; not-safe</code>.
-            </p>
-          </li>
-          <li>
-            <strong>The follow-through pair &mdash; cards 29 and 30 &mdash; together in 6 of 8 sorts.</strong>
-            <p class="u-tight">
-              &ldquo;Have them tell each other what they got out of it&rdquo;
-              (<code>032.title_number3</code>) and &ldquo;Next week, ask what
-              happened when they tried it&rdquo;
-              (<code>033.title_number1</code>). Both are about the week rather
-              than the lesson. The shipped site keeps them in the same category
-              (<code>relevance</code>) but splits them across two different
-              problems &mdash; a small, honest disagreement between what the sort
-              said and what we shipped.
-            </p>
-          </li>
-        </ul>
-      </div>
-
-      <h3 class="subhead" id="splitters">Finding 6 &mdash; splitters</h3>
-      <p>
-        Three cards refused to stay put. A splitter is not noise; it is the
-        content telling you that a single home is the wrong shape for it. Spencer
-        gives three responses &mdash; rename it, give it multiple homes, or make
-        it a facet &mdash; and the interesting part is which one you pick.
-      </p>
-
-      <div class="panel">
-        <p class="u-flush-top">
-          <span class="fiction-badge">FICTITIOUS DATA</span>
-          <span class="micro-label u-nudge-left">Invented scatter; real shipped homes</span>
-        </p>
-        <div class="cs-table__scroll">
-          <table class="cs-table">
-            <caption class="section-note table-caption">
-              The three splitters, where they scattered (invented), and where the
-              shipped site actually put them (real, in
-              <code>assets/problems-data.js</code>).
-            </caption>
-            <thead>
-              <tr>
-                <th scope="col">Card</th>
-                <th scope="col">Scattered into</th>
-                <th scope="col">Shipped homes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <span class="card-text">2 &middot; Use a picture or a video of the Savior.</span>
-                  <span class="card-source">004.title_number2</span>
-                </td>
-                <td class="sect">
-                  Landed in four differently-named groups across the eight sorts:
-                  the Christ pile (4 sorts), the attention pile (2), the
-                  preparation pile (1), and Nathan&rsquo;s &ldquo;First five
-                  minutes&rdquo; (1).
-                </td>
-                <td class="sect">
-                  <strong>Two problems, two categories:</strong>
-                  <code>participate &rsaquo; children</code> and
-                  <code>sound-doctrine &rsaquo; media-choices</code>.
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <span class="card-text">15 &middot; Stop partway and ask something to find out if it&rsquo;s landing.</span>
-                  <span class="card-source">018.title_number1</span>
-                </td>
-                <td class="sect">
-                  Three groups: the participation pile (3 sorts), the preparation
-                  pile (3), and Nathan&rsquo;s &ldquo;The middle&rdquo; (1); in
-                  the eighth it went to a leftover pile. One participant moved it
-                  three times before leaving it.
-                </td>
-                <td class="sect">
-                  <strong>Three problems, two categories:</strong>
-                  <code>participate &rsaquo; shallow</code>,
-                  <code>prepare &rsaquo; cant-tell-learning</code>, and
-                  <code>prepare &rsaquo; out-of-time</code>.
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <span class="card-text">17 &middot; Play a hymn and have them find the line that fits.</span>
-                  <span class="card-source">019.title_number2</span>
-                </td>
-                <td class="sect">
-                  The widest scatter in the study: the Spirit pile, the attention
-                  pile, the &ldquo;things to do&rdquo; pile, and both leftover
-                  piles. No two sorts agreed about it.
-                </td>
-                <td class="sect">
-                  <strong>Three problems, three categories:</strong>
-                  <code>participate &rsaquo; bored</code>,
-                  <code>invite-spirit &rsaquo; feels-flat</code>, and
-                  <code>prepare &rsaquo; same-every-week</code>.
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="u-flush-bottom section-note">
-          The scatter is invented. The shipped homes are real: open
-          <code>assets/problems-data.js</code> and search the skill id.
-        </p>
-      </div>
-
-      <p>
-        The response we chose, in every case, was <strong>multiple homes</strong>
-        &mdash; and it is the single most consequential structural decision that
-        came out of this study. Across the whole deck, <span class="keynum">20</span>
-        of the 30 cards ended up filed under more than one problem on the shipped
-        site; the thirty cards occupy <span class="keynum">59</span> slots across
-        the seven categories. A skill is not a possession of a category. It is an
-        answer that several different questions can have.
-      </p>
-
-      <!-- ---------------------------------------------- 4.6 think-aloud -->
-      <h3 class="subhead" id="thinkaloud">Finding 7 &mdash; the think-aloud</h3>
+      <ol class="stack-list">
+        <li>
+          <strong>Set up (5 min).</strong> Open the link; check they can drag a
+          card.
+        </li>
+        <li>
+          <strong>Frame the task (2 min).</strong> &ldquo;Group these however makes
+          sense to you. You are not being tested &mdash; the manual is.&rdquo; No
+          categories, no section names.
+        </li>
+        <li>
+          <strong>Group (15&ndash;25 min).</strong> They dragged and thought aloud;
+          we prompted only with &ldquo;what are you looking at?&rdquo;
+        </li>
+        <li>
+          <strong>Then name the groups (5&ndash;10 min).</strong> Only once the
+          piles stopped moving did we ask for a typed title on each column.
+          <strong>Titles after grouping, never before</strong> &mdash; a title typed
+          first becomes a rule the rest of the sort obeys.
+        </li>
+        <li>
+          <strong>Walk it back (5 min).</strong> They read their own sort aloud.
+        </li>
+      </ol>
       <p class="section-note">
-        The half of a card sort that does not fit in a table. Every quotation
-        below is invented.
+        Sessions predate the September 2026 schedule change; nothing here turns on
+        how long a class is.
+      </p>
+    </section>
+
+    <!-- ==================================================== 3. RESULTS === -->
+    <section aria-labelledby="results">
+      <h2 id="results">Results: all five sorts</h2>
+      <p>
+        Five sorts, five figures, nothing summarized away. Each figure is the end
+        state of that participant&rsquo;s screen: their columns, in their order,
+        with the title they typed at the top &mdash; verbatim, fragments and
+        question mark included. Cards carry their skill id, so any group traces
+        back to the deck.
+      </p>
+      <p class="fiction-note">
+        <span class="fiction-badge">FICTITIOUS DATA</span>
+        All five sorts are invented. The card text on them is real (quoted
+        skill names); the columns, the titles, and the placements are not.
       </p>
 
-      <h4>The ten-second hold</h4>
+      <figure class="board-fig">
+        <div class="board">          <div class="board__col"><p class="board__title">Getting them to talk</p><span class="board__meta">4 cards</span><ul class="board__cards">
+              <li>Resist the tendency to respond to every comment and question and invite the class to respond.<span class="cid">029.title_number1</span></li>
+              <li>Focus on what the learner can do in class that the teacher typically does.<span class="cid">029.title_number2</span></li>
+              <li>Listen to and observe students to ask follow-up questions.<span class="cid">018.title_number2</span></li>
+              <li>Help students create or begin gospel conversations.<span class="cid">032.intro2</span></li>
+          </ul></div>
+          <div class="board__col"><p class="board__title">Running out of time (what to cut)</p><span class="board__meta">3 cards</span><ul class="board__cards">
+              <li>Ask a question to assess learning before moving on in the lesson.<span class="cid">018.title_number1</span></li>
+              <li>Before responding to a student&rsquo;s question or comment, pause and think, &ldquo;What can I ask them?&rdquo; or &ldquo;What can I invite them to do?&rdquo;<span class="cid">020.intro2</span></li>
+              <li>Plan to follow up on invitations given in a previous class and invite learners to share their experiences living what they learned.<span class="cid">033.title_number1</span></li>
+          </ul></div>
+          <div class="board__col"><p class="board__title">Keeping it about the Savior</p><span class="board__meta">4 cards</span><ul class="board__cards">
+              <li>Ask questions that allow students to identify roles Jesus Christ can have in their lives.<span class="cid">005.title_number17</span></li>
+              <li>Invite students to look for ways to follow the example of Jesus Christ in their personal lives.<span class="cid">009.title_number2</span></li>
+              <li>Use pictures and videos of Jesus Christ to illustrate a gospel principle.<span class="cid">004.title_number2</span></li>
+              <li>Testify more frequently and more powerfully of Jesus Christ.<span class="cid">021.title_number2</span></li>
+          </ul></div>
+          <div class="board__col"><p class="board__title">Hard questions</p><span class="board__meta">2 cards</span><ul class="board__cards">
+              <li>Respond to questions in a way that avoids speculation and nondoctrinal personal ideas.<span class="cid">026.title_number3</span></li>
+              <li>Search the scriptures and words of the prophets for deeper understanding.<span class="cid">023.title_number2</span></li>
+          </ul></div>
+          <div class="board__col"><p class="board__title">Knowing the class</p><span class="board__meta">4 cards</span><ul class="board__cards">
+              <li>Observe and ask about students&rsquo; interests.<span class="cid">012.intro2</span></li>
+              <li>Communicate that students are not only welcome but needed.<span class="cid">014.title_number3</span></li>
+              <li>Invite students to pray for other students.<span class="cid">013.intro3</span></li>
+              <li>Send a message to a student&rsquo;s parent about something positive you have noticed about their child.<span class="cid">015.title_number1</span></li>
+          </ul></div>
+          <div class="board__col board__col--left"><p class="board__title">Not sure</p><span class="board__meta">4 cards &middot; leftovers</span><ul class="board__cards">
+              <li>Help students have a sensory experience with scriptural objects that symbolize Jesus Christ.<span class="cid">006.title_number2</span></li>
+              <li>Give invitations that help learners recognize the Lord&rsquo;s love, power, and mercy in their own experiences.<span class="cid">007.title_number2</span></li>
+              <li>Express your love for and testimony of prophets as their words are shared in class.<span class="cid">024.title_number2</span></li>
+              <li>Start a learning activity by inviting students to ponder a personal circumstance.<span class="cid">027.title_number2</span></li>
+          </ul></div>
+        </div>
+        <figcaption>          <span class="fiction-badge">FICTITIOUS DATA</span>
+          <strong>Sort 1.</strong> <span class="who">P02 Trent Larkin</span>,
+          Sunday School adult class, 34 minutes, 6 groups. His first two columns
+          are things that go wrong during a class; the last is the pile he built
+          when he stopped wanting to decide.
+        </figcaption>
+      </figure>
+
+      <figure class="board-fig">
+        <div class="board">          <div class="board__col"><p class="board__title">Before Sunday &mdash; my own preparation</p><span class="board__meta">3 cards</span><ul class="board__cards">
+              <li>Search the scriptures and words of the prophets for deeper understanding.<span class="cid">023.title_number2</span></li>
+              <li>Start a learning activity by inviting students to ponder a personal circumstance.<span class="cid">027.title_number2</span></li>
+              <li>Plan to follow up on invitations given in a previous class and invite learners to share their experiences living what they learned.<span class="cid">033.title_number1</span></li>
+          </ul></div>
+          <div class="board__col"><p class="board__title">In the moment, when someone comments</p><span class="board__meta">4 cards</span><ul class="board__cards">
+              <li>Before responding to a student&rsquo;s question or comment, pause and think, &ldquo;What can I ask them?&rdquo; or &ldquo;What can I invite them to do?&rdquo;<span class="cid">020.intro2</span></li>
+              <li>Listen to and observe students to ask follow-up questions.<span class="cid">018.title_number2</span></li>
+              <li>Resist the tendency to respond to every comment and question and invite the class to respond.<span class="cid">029.title_number1</span></li>
+              <li>Respond to questions in a way that avoids speculation and nondoctrinal personal ideas.<span class="cid">026.title_number3</span></li>
+          </ul></div>
+          <div class="board__col"><p class="board__title">Making it land for them personally</p><span class="board__meta">3 cards</span><ul class="board__cards">
+              <li>Give invitations that help learners recognize the Lord&rsquo;s love, power, and mercy in their own experiences.<span class="cid">007.title_number2</span></li>
+              <li>Invite students to look for ways to follow the example of Jesus Christ in their personal lives.<span class="cid">009.title_number2</span></li>
+              <li>Help students create or begin gospel conversations.<span class="cid">032.intro2</span></li>
+          </ul></div>
+          <div class="board__col"><p class="board__title">Do they feel like they belong?</p><span class="board__meta">4 cards</span><ul class="board__cards">
+              <li>Observe and ask about students&rsquo; interests.<span class="cid">012.intro2</span></li>
+              <li>Invite students to pray for other students.<span class="cid">013.intro3</span></li>
+              <li>Communicate that students are not only welcome but needed.<span class="cid">014.title_number3</span></li>
+              <li>Send a message to a student&rsquo;s parent about something positive you have noticed about their child.<span class="cid">015.title_number1</span></li>
+          </ul></div>
+          <div class="board__col"><p class="board__title">Christ front and center</p><span class="board__meta">3 cards</span><ul class="board__cards">
+              <li>Ask questions that allow students to identify roles Jesus Christ can have in their lives.<span class="cid">005.title_number17</span></li>
+              <li>Use pictures and videos of Jesus Christ to illustrate a gospel principle.<span class="cid">004.title_number2</span></li>
+              <li>Help students have a sensory experience with scriptural objects that symbolize Jesus Christ.<span class="cid">006.title_number2</span></li>
+          </ul></div>
+          <div class="board__col"><p class="board__title">Testimony &mdash; mine and theirs</p><span class="board__meta">2 cards</span><ul class="board__cards">
+              <li>Testify more frequently and more powerfully of Jesus Christ.<span class="cid">021.title_number2</span></li>
+              <li>Express your love for and testimony of prophets as their words are shared in class.<span class="cid">024.title_number2</span></li>
+          </ul></div>
+          <div class="board__col"><p class="board__title">Am I getting anywhere with them</p><span class="board__meta">2 cards</span><ul class="board__cards">
+              <li>Ask a question to assess learning before moving on in the lesson.<span class="cid">018.title_number1</span></li>
+              <li>Focus on what the learner can do in class that the teacher typically does.<span class="cid">029.title_number2</span></li>
+          </ul></div>
+        </div>
+        <figcaption>          <span class="fiction-badge">FICTITIOUS DATA</span>
+          <strong>Sort 2.</strong> <span class="who">P06 Jenae Rowley</span>,
+          Relief Society instructor, 41 minutes, 7 groups. Her first cut was
+          <em>when</em> a skill gets used &mdash; before Sunday, during class,
+          after &mdash; an axis the manual does not have.
+        </figcaption>
+      </figure>
+
+      <figure class="board-fig">
+        <div class="board">          <div class="board__col"><p class="board__title">Good teaching</p><span class="board__meta">7 cards</span><ul class="board__cards">
+              <li>Before responding to a student&rsquo;s question or comment, pause and think, &ldquo;What can I ask them?&rdquo; or &ldquo;What can I invite them to do?&rdquo;<span class="cid">020.intro2</span></li>
+              <li>Listen to and observe students to ask follow-up questions.<span class="cid">018.title_number2</span></li>
+              <li>Resist the tendency to respond to every comment and question and invite the class to respond.<span class="cid">029.title_number1</span></li>
+              <li>Focus on what the learner can do in class that the teacher typically does.<span class="cid">029.title_number2</span></li>
+              <li>Ask a question to assess learning before moving on in the lesson.<span class="cid">018.title_number1</span></li>
+              <li>Plan to follow up on invitations given in a previous class and invite learners to share their experiences living what they learned.<span class="cid">033.title_number1</span></li>
+              <li>Start a learning activity by inviting students to ponder a personal circumstance.<span class="cid">027.title_number2</span></li>
+          </ul></div>
+          <div class="board__col"><p class="board__title">Teaching about the Savior</p><span class="board__meta">6 cards</span><ul class="board__cards">
+              <li>Use pictures and videos of Jesus Christ to illustrate a gospel principle.<span class="cid">004.title_number2</span></li>
+              <li>Ask questions that allow students to identify roles Jesus Christ can have in their lives.<span class="cid">005.title_number17</span></li>
+              <li>Help students have a sensory experience with scriptural objects that symbolize Jesus Christ.<span class="cid">006.title_number2</span></li>
+              <li>Give invitations that help learners recognize the Lord&rsquo;s love, power, and mercy in their own experiences.<span class="cid">007.title_number2</span></li>
+              <li>Invite students to look for ways to follow the example of Jesus Christ in their personal lives.<span class="cid">009.title_number2</span></li>
+              <li>Testify more frequently and more powerfully of Jesus Christ.<span class="cid">021.title_number2</span></li>
+          </ul></div>
+          <div class="board__col"><p class="board__title">The scriptures and the prophets</p><span class="board__meta">3 cards</span><ul class="board__cards">
+              <li>Search the scriptures and words of the prophets for deeper understanding.<span class="cid">023.title_number2</span></li>
+              <li>Express your love for and testimony of prophets as their words are shared in class.<span class="cid">024.title_number2</span></li>
+              <li>Respond to questions in a way that avoids speculation and nondoctrinal personal ideas.<span class="cid">026.title_number3</span></li>
+          </ul></div>
+          <div class="board__col"><p class="board__title">The kids themselves</p><span class="board__meta">5 cards</span><ul class="board__cards">
+              <li>Observe and ask about students&rsquo; interests.<span class="cid">012.intro2</span></li>
+              <li>Invite students to pray for other students.<span class="cid">013.intro3</span></li>
+              <li>Communicate that students are not only welcome but needed.<span class="cid">014.title_number3</span></li>
+              <li>Send a message to a student&rsquo;s parent about something positive you have noticed about their child.<span class="cid">015.title_number1</span></li>
+              <li>Help students create or begin gospel conversations.<span class="cid">032.intro2</span></li>
+          </ul></div>
+        </div>
+        <figcaption>          <span class="fiction-badge">FICTITIOUS DATA</span>
+          <strong>Sort 3.</strong> <span class="who">P05 Curtis Openshaw</span>,
+          Sunday School 16&ndash;18s, 29 minutes, 4 groups &mdash; the fewest, and
+          the broadest label on any sort. He worked on an iPad, and dragging cost
+          him enough that he stopped splitting piles about twenty minutes in.
+        </figcaption>
+      </figure>
+
+      <figure class="board-fig">
+        <div class="board">          <div class="board__col"><p class="board__title">Openers</p><span class="board__meta">3 cards</span><ul class="board__cards">
+              <li>Start a learning activity by inviting students to ponder a personal circumstance.<span class="cid">027.title_number2</span></li>
+              <li>Help students have a sensory experience with scriptural objects that symbolize Jesus Christ.<span class="cid">006.title_number2</span></li>
+              <li>Use pictures and videos of Jesus Christ to illustrate a gospel principle.<span class="cid">004.title_number2</span></li>
+          </ul></div>
+          <div class="board__col"><p class="board__title">Middle &mdash; keeping it moving</p><span class="board__meta">5 cards</span><ul class="board__cards">
+              <li>Resist the tendency to respond to every comment and question and invite the class to respond.<span class="cid">029.title_number1</span></li>
+              <li>Focus on what the learner can do in class that the teacher typically does.<span class="cid">029.title_number2</span></li>
+              <li>Listen to and observe students to ask follow-up questions.<span class="cid">018.title_number2</span></li>
+              <li>Before responding to a student&rsquo;s question or comment, pause and think, &ldquo;What can I ask them?&rdquo; or &ldquo;What can I invite them to do?&rdquo;<span class="cid">020.intro2</span></li>
+              <li>Help students create or begin gospel conversations.<span class="cid">032.intro2</span></li>
+          </ul></div>
+          <div class="board__col"><p class="board__title">Checks</p><span class="board__meta">2 cards</span><ul class="board__cards">
+              <li>Ask a question to assess learning before moving on in the lesson.<span class="cid">018.title_number1</span></li>
+              <li>Plan to follow up on invitations given in a previous class and invite learners to share their experiences living what they learned.<span class="cid">033.title_number1</span></li>
+          </ul></div>
+          <div class="board__col"><p class="board__title">When it gets hard</p><span class="board__meta">2 cards</span><ul class="board__cards">
+              <li>Respond to questions in a way that avoids speculation and nondoctrinal personal ideas.<span class="cid">026.title_number3</span></li>
+              <li>Search the scriptures and words of the prophets for deeper understanding.<span class="cid">023.title_number2</span></li>
+          </ul></div>
+          <div class="board__col"><p class="board__title">Relationship stuff</p><span class="board__meta">4 cards</span><ul class="board__cards">
+              <li>Observe and ask about students&rsquo; interests.<span class="cid">012.intro2</span></li>
+              <li>Invite students to pray for other students.<span class="cid">013.intro3</span></li>
+              <li>Communicate that students are not only welcome but needed.<span class="cid">014.title_number3</span></li>
+              <li>Send a message to a student&rsquo;s parent about something positive you have noticed about their child.<span class="cid">015.title_number1</span></li>
+          </ul></div>
+          <div class="board__col"><p class="board__title">Christ (all of these say Christ)</p><span class="board__meta">5 cards</span><ul class="board__cards">
+              <li>Ask questions that allow students to identify roles Jesus Christ can have in their lives.<span class="cid">005.title_number17</span></li>
+              <li>Give invitations that help learners recognize the Lord&rsquo;s love, power, and mercy in their own experiences.<span class="cid">007.title_number2</span></li>
+              <li>Invite students to look for ways to follow the example of Jesus Christ in their personal lives.<span class="cid">009.title_number2</span></li>
+              <li>Testify more frequently and more powerfully of Jesus Christ.<span class="cid">021.title_number2</span></li>
+              <li>Express your love for and testimony of prophets as their words are shared in class.<span class="cid">024.title_number2</span></li>
+          </ul></div>
+        </div>
+        <figcaption>          <span class="fiction-badge">FICTITIOUS DATA</span>
+          <strong>Sort 4.</strong> <span class="who">P11 Nathan Kim</span>, Sunday
+          School 12&ndash;13s, 26 minutes, 6 groups. The fastest sort: three titles
+          are positions on a clock, and the sixth says out loud what it sorted on.
+        </figcaption>
+      </figure>
+
+      <figure class="board-fig">
+        <div class="board">          <div class="board__col"><p class="board__title">Things I can actually do with four-year-olds</p><span class="board__meta">4 cards</span><ul class="board__cards">
+              <li>Use pictures and videos of Jesus Christ to illustrate a gospel principle.<span class="cid">004.title_number2</span></li>
+              <li>Help students have a sensory experience with scriptural objects that symbolize Jesus Christ.<span class="cid">006.title_number2</span></li>
+              <li>Invite students to pray for other students.<span class="cid">013.intro3</span></li>
+              <li>Observe and ask about students&rsquo; interests.<span class="cid">012.intro2</span></li>
+          </ul></div>
+          <div class="board__col"><p class="board__title">Getting them to say something back</p><span class="board__meta">6 cards</span><ul class="board__cards">
+              <li>Resist the tendency to respond to every comment and question and invite the class to respond.<span class="cid">029.title_number1</span></li>
+              <li>Focus on what the learner can do in class that the teacher typically does.<span class="cid">029.title_number2</span></li>
+              <li>Listen to and observe students to ask follow-up questions.<span class="cid">018.title_number2</span></li>
+              <li>Help students create or begin gospel conversations.<span class="cid">032.intro2</span></li>
+              <li>Before responding to a student&rsquo;s question or comment, pause and think, &ldquo;What can I ask them?&rdquo; or &ldquo;What can I invite them to do?&rdquo;<span class="cid">020.intro2</span></li>
+              <li>Ask a question to assess learning before moving on in the lesson.<span class="cid">018.title_number1</span></li>
+          </ul></div>
+          <div class="board__col board__col--left"><p class="board__title">The ones that are for grown-up classes</p><span class="board__meta">4 cards &middot; set aside</span><ul class="board__cards">
+              <li>Search the scriptures and words of the prophets for deeper understanding.<span class="cid">023.title_number2</span></li>
+              <li>Express your love for and testimony of prophets as their words are shared in class.<span class="cid">024.title_number2</span></li>
+              <li>Respond to questions in a way that avoids speculation and nondoctrinal personal ideas.<span class="cid">026.title_number3</span></li>
+              <li>Plan to follow up on invitations given in a previous class and invite learners to share their experiences living what they learned.<span class="cid">033.title_number1</span></li>
+          </ul></div>
+          <div class="board__col"><p class="board__title">Making them feel wanted</p><span class="board__meta">3 cards</span><ul class="board__cards">
+              <li>Communicate that students are not only welcome but needed.<span class="cid">014.title_number3</span></li>
+              <li>Send a message to a student&rsquo;s parent about something positive you have noticed about their child.<span class="cid">015.title_number1</span></li>
+              <li>Give invitations that help learners recognize the Lord&rsquo;s love, power, and mercy in their own experiences.<span class="cid">007.title_number2</span></li>
+          </ul></div>
+          <div class="board__col"><p class="board__title">Helping them love Jesus</p><span class="board__meta">4 cards</span><ul class="board__cards">
+              <li>Ask questions that allow students to identify roles Jesus Christ can have in their lives.<span class="cid">005.title_number17</span></li>
+              <li>Invite students to look for ways to follow the example of Jesus Christ in their personal lives.<span class="cid">009.title_number2</span></li>
+              <li>Testify more frequently and more powerfully of Jesus Christ.<span class="cid">021.title_number2</span></li>
+              <li>Start a learning activity by inviting students to ponder a personal circumstance.<span class="cid">027.title_number2</span></li>
+          </ul></div>
+        </div>
+        <figcaption>          <span class="fiction-badge">FICTITIOUS DATA</span>
+          <strong>Sort 5.</strong> <span class="who">P13 Lonnie Tolman</span>,
+          Primary 4-year-olds, 37 minutes, 5 groups. The only Primary teacher here,
+          and the only participant who built a group meaning &ldquo;not for my
+          room&rdquo; &mdash; then filled it and left it there.
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- =================================================== 4. ANALYSIS === -->
+    <section aria-labelledby="analysis">
+      <h2 id="analysis">Analysis</h2>
+      <p class="fiction-note">
+        <span class="fiction-badge">FICTITIOUS DATA</span>
+        The counts here are counts of invented sorts. The reading method is real.
+      </p>
+
+      <h3>What kept happening</h3>
       <p>
-        Margie picked up card 2 &mdash; the picture-or-video card &mdash; and did
-        not put it down. The observer&rsquo;s note reads &ldquo;~10s, moved hand
-        twice.&rdquo; That hold is where the many-to-many decision was actually
-        made; the tally that followed only confirmed it.
+        <strong>Nobody rebuilt the manual&rsquo;s five sections.</strong>
+        Twenty-eight group titles across five sorts, not one a section name.
+        <code>018.title_number1</code> and <code>018.title_number2</code> share a
+        subsection, and three of five participants split them; the
+        <code>029</code> pair stayed together on four sorts, never in a column
+        named after that subsection.
+      </p>
+      <p>
+        <strong>Groups formed around situations, not subjects.</strong> Seventeen
+        of the twenty-eight titles name a moment teaching is going a particular way
+        &mdash; &ldquo;Getting them to talk&rdquo;, &ldquo;Running out of time (what
+        to cut)&rdquo;, &ldquo;When it gets hard&rdquo;. Eight name a subject.
+      </p>
+      <p>
+        <strong>One situation is on every sort, under five names.</strong> <em>Do I
+        know these people</em>: &ldquo;Knowing the class&rdquo;, &ldquo;Do they
+        feel like they belong?&rdquo;, &ldquo;The kids themselves&rdquo;,
+        &ldquo;Relationship stuff&rdquo;, &ldquo;Making them feel wanted&rdquo;.
+        The same four cards move as a block on four of the five.
+      </p>
+      <p>
+        <strong>They wrote in their own vocabulary.</strong> Nobody typed
+        &ldquo;skill&rdquo;, &ldquo;principle&rdquo;, or &ldquo;doctrine&rdquo;;
+        nine titles open with a gerund and eight put the class in as <em>them</em>
+        &mdash; the hallway vocabulary the ward page records.
+      </p>
+
+      <h3 class="subhead">What surprised us</h3>
+      <p>
+        <strong>One section did survive, and we do not trust it.</strong> Every
+        sort has a Christ group &mdash; and Nathan titled his &ldquo;Christ (all of
+        these say Christ)&rdquo;. Five cards contain the words; he sorted on the
+        string, and swept in a sixth that never mentions Christ.
+      </p>
+      <p>
+        <strong>An axis the manual does not have.</strong> Three sorts organized
+        partly by <em>when</em> a skill gets used: &ldquo;Before Sunday &mdash; my
+        own preparation&rdquo;; &ldquo;Openers&rdquo;, &ldquo;Middle&rdquo;,
+        &ldquo;Checks&rdquo;. Nobody prompted a timeline.
+      </p>
+      <p>
+        <strong>Typing a title moved cards.</strong> Four of five dragged a card
+        after they started naming. Name first and the sort becomes filing against
+        the participant&rsquo;s opening guess.
+      </p>
+
+      <h3 class="subhead">Once or twice, but worth keeping</h3>
+      <p>
+        <strong>A group that means &ldquo;not for me&rdquo;</strong> (P13, once).
+        Lonnie left four cards in &ldquo;The ones that are for grown-up
+        classes&rdquo; &mdash; a filter on the inventory, from the sample&rsquo;s
+        only Primary teacher. Logged as a question for the tree test.
+      </p>
+      <p>
+        <strong>Wording that only works if you already know</strong> (P05, once).
+        Curtis stalled on <code>006.title_number2</code>: &ldquo;sensory experience
+        with scriptural objects&rdquo; is nothing anyone would say in a hallway. An
+        outside reviewer says it louder in study&nbsp;5.
+      </p>
+      <p>
+        <strong>&ldquo;Can this one go in two places?&rdquo;</strong> (P06, once).
+        The tool says no; the content says yes. Asked once, and it decided
+        something anyway (third decision below).
       </p>
       <blockquote class="cs-quote">
         <p>
-          <span class="speaker">P01</span>
-          &ldquo;Is this a Jesus one or a settle-them-down one?&hellip; It&rsquo;s
-          both. It&rsquo;s how I get them down.&rdquo;
+          &ldquo;I can put it under time or under whether they got it. It&rsquo;s
+          the same thing I&rsquo;d do. Why do I have to pick?&rdquo;
         </p>
         <cite>
           <span class="fiction-badge">Invented quote</span>
-          Margie Ostler (P01), sort A, holding card 2
-        </cite>
-      </blockquote>
-
-      <h4>The pair that negotiated: P06 and P12</h4>
-      <p>
-        Jenae and Aubrey are the whole Relief Society rotation and have been
-        arguing gently about teaching since October. They disagreed twice in
-        forty-four minutes, both times about a <em>name</em> and never about
-        which cards belonged together &mdash; which is itself the finding. Their
-        shared model was solid; their vocabulary for it was not.
-      </p>
-      <blockquote class="cs-quote">
-        <p class="stage">Over the preparation pile, about thirty minutes in.</p>
-        <p><span class="speaker">P06</span> &ldquo;This is &lsquo;preparing.&rsquo; All of these happen before Sunday.&rdquo;</p>
-        <p><span class="speaker">P12</span> &ldquo;It&rsquo;s not preparing. It&rsquo;s Sunday morning at six in the morning, is what it is.&rdquo;</p>
-        <p><span class="speaker">P06</span> &ldquo;That&rsquo;s the same pile.&rdquo;</p>
-        <p><span class="speaker">P12</span> &ldquo;It&rsquo;s the same pile with a different feeling.&rdquo;</p>
-        <cite>
-          <span class="fiction-badge">Invented quote</span>
-          Jenae Rowley (P06) and Aubrey Delgado (P12), sort G
-        </cite>
-      </blockquote>
-      <p>
-        They wrote &ldquo;Sunday morning at 6 a.m.&rdquo; on the card. Aubrey won,
-        and she won by insisting that the label carry the feeling and not just
-        the definition. That argument is the entire labelling problem in
-        miniature: <em>preparing</em> is accurate, and it is not what the pile is
-        about.
-      </p>
-
-      <h4>The pair that didn&rsquo;t: P07 and P08</h4>
-      <p>
-        The Beckstrands teach the same six seven-year-olds in the same room every
-        Sunday, and they finished in twenty-eight minutes, the fastest sort in the
-        study. There was almost no negotiation to observe, because there was
-        almost no disagreement to negotiate.
-      </p>
-      <blockquote class="cs-quote">
-        <p class="stage">Four seconds, start to finish, card placed.</p>
-        <p><span class="speaker">P08</span> &ldquo;Sitting down.&rdquo;</p>
-        <p><span class="speaker">P07</span> &ldquo;Yeah.&rdquo;</p>
-        <p class="stage">Later, twice more, verbatim:</p>
-        <p><span class="speaker">P07</span> &ldquo;Jesus one?&rdquo;</p>
-        <p><span class="speaker">P08</span> &ldquo;Jesus one.&rdquo;</p>
-        <cite>
-          <span class="fiction-badge">Invented quote</span>
-          Kade (P07) and Rylee (P08) Beckstrand, sort H
-        </cite>
-      </blockquote>
-      <p>
-        This is a caution about the pairing technique, not a failure of it. Pairs
-        surface mental models when the two people have to build a shared one in
-        the room. Two people who already share one produce a fast, confident,
-        almost silent sort &mdash; excellent data about <em>what</em> they think
-        and nearly none about <em>why</em>. If we ran this again we would pair
-        people who teach different classes.
-      </p>
-
-      <h4>Three more moments worth the notebook</h4>
-      <blockquote class="cs-quote">
-        <p>
-          <span class="speaker">P05</span>
-          &ldquo;There&rsquo;s a boy in my class who&rsquo;s been a member since
-          June. He asks the questions the rest of them stopped asking when they
-          were nine. This one&rsquo;s for him.&rdquo;
-        </p>
-        <cite>
-          <span class="fiction-badge">Invented quote</span>
-          Curtis Openshaw (P05), sort C, placing card 24
-        </cite>
-      </blockquote>
-      <blockquote class="cs-quote">
-        <p>
-          <span class="speaker">P15</span>
-          &ldquo;I don&rsquo;t know what this one wants me to do. Is that a me
-          problem?&rdquo;
-        </p>
-        <cite>
-          <span class="fiction-badge">Invented quote</span>
-          Cami Sprague (P15), sort F, building the study&rsquo;s largest single pile
-        </cite>
-      </blockquote>
-      <blockquote class="cs-quote">
-        <p>
-          <span class="speaker">P13</span>
-          &ldquo;You&rsquo;ve given me thirty things to do and one of them is
-          &lsquo;settle them.&rsquo; Settle them and the other twenty-nine work.
-          Don&rsquo;t settle them and none of them do.&rdquo;
-        </p>
-        <cite>
-          <span class="fiction-badge">Invented quote</span>
-          Lonnie Tolman (P13), sort E
+          Jenae Rowley (P06), sort 2, on <code>018.title_number1</code>
         </cite>
       </blockquote>
     </section>
 
-    <!-- ================================================== 5. DISCUSSION ==== -->
-    <section aria-labelledby="discussion">
-      <h2 id="discussion">Discussion</h2>
-      <p class="section-note">
-        What the results mean, including the parts that do not flatter the study.
-      </p>
-
-      <h3 class="subhead">The mismatch is about grammar, not disagreement</h3>
+    <!-- =================================================== 5. IGNORING === -->
+    <section aria-labelledby="ignoring">
+      <h2 id="ignoring">Three findings we are ignoring, and why</h2>
       <p>
-        It would be easy and wrong to read this study as &ldquo;teachers reject
-        the manual&rsquo;s structure.&rdquo; Nobody rejected anything. Every card
-        was accepted as a sensible thing a teacher could do, and Curtis &mdash;
-        the one participant who knows the manual well &mdash; grouped almost
-        along its lines. The mismatch is grammatical. The manual&rsquo;s five
-        sections are <strong>nouns describing what a skill is about</strong>. The
-        piles these teachers built are <strong>clauses describing when you would
-        need one</strong>. Both structures are true of the same content. Only one
-        of them matches the sentence in a teacher&rsquo;s head on Saturday night,
-        which is never &ldquo;I would like to study inviting diligent
-        learning&rdquo; and is always some version of &ldquo;they won&rsquo;t
-        talk and I have twenty-five minutes.&rdquo;
-      </p>
-      <p>
-        That is an argument for adding a door, not for demolishing the building.
-        The manual&rsquo;s hierarchy is the right structure for someone browsing
-        to improve; it is the wrong structure for someone arriving with a
-        problem. The live site ships both, and
-        <strong>study 3, the tree test</strong> is where we tested whether that
-        was a cop-out or a correct reading.
-      </p>
-
-      <h3 class="subhead">The deck leaked, in exactly one place</h3>
-      <p>
-        &ldquo;Keeping it about Christ&rdquo; appeared in all seven folded sorts,
-        making it one of the three universal groups. It is also the one group
-        whose cards we could not de-brand: four of the thirty cards say
-        &ldquo;the Savior,&rdquo; because a card from <em>Focus on Jesus
-        Christ</em> that does not mention Christ is a different skill. So the
-        deck telegraphed one of the five section names, and the corresponding
-        pile then formed everywhere.
-      </p>
-      <p>
-        How much should that discount the finding? Some, honestly &mdash; but
-        less than it first appears, for two reasons. First, the piles those four
-        cards formed were <em>not</em> the manual&rsquo;s section: cards 2 and 4
-        scattered away from it (card 2 is our first splitter), and cards from
-        three other sections joined it. Second, the finding under test was never
-        &ldquo;is Christ a category?&rdquo; It was &ldquo;do teachers build the
-        manual&rsquo;s <em>five</em> sections?&rdquo; and the answer is no in
-        every sort, including all seven where the Christ pile appeared. A
-        leak that produces one group out of seven does not manufacture a scheme
-        mismatch across the other six.
-      </p>
-      <p>
-        Worth writing on the wall anyway: <strong>the strongest result in a card
-        sort is often the one your deck built.</strong> Go and look for it before
-        someone else does.
-      </p>
-
-      <h3 class="subhead">The time pile was a judgment, not a vote</h3>
-      <p>
-        <span class="fiction-badge">SPECULATION</span>
-        <span class="micro-label u-nudge-left">Rests on guessed reception of the schedule change</span>
-      </p>
-      <p>
-        Five of eight sorts produced a pile about time. On a naive reading that
-        makes Time a category &mdash; it out-scored &ldquo;Feeling the
-        Spirit&rdquo; and &ldquo;Hard questions,&rdquo; which appeared in three
-        folded sorts each and both shipped as categories. We folded it into
-        &ldquo;Getting ready (and getting through)&rdquo; instead, and demoted the
-        specific complaint to a problem statement inside that category. Here is
-        the reasoning, because this is the decision on this page a student is most
-        entitled to argue with.
+        A study produces more results than it produces evidence. What you decline
+        to act on has to be written down where a reader can argue with it &mdash;
+        otherwise the things you quietly dropped look like things you never saw.
       </p>
       <ul class="stack-list">
         <li>
-          <strong>A card sort is not a referendum.</strong>
-          <p class="u-tight">
-            Frequency across eight sorts is evidence about what is salient, not
-            an instruction about what to build. Spencer is blunt about this and
-            she is right: you are the designer; the sort informs the decision and
-            does not make it.
-          </p>
+          <strong>The Christ group, as evidence about grouping.</strong>
+          <em>Artifact of the deck.</em> Five cards carry the words &ldquo;Jesus
+          Christ&rdquo;; a participant can collect them without reading past the
+          second word, and one of them said so in his own title. The shipped site
+          does have a Christ-centered category &mdash; it earns its place from the
+          manual&rsquo;s own emphasis and from study&nbsp;1, not from this pile.
+          Any deck of verbatim names will hand you a group like this. Do not spend
+          it twice.
         </li>
         <li>
-          <strong>Time is not a kind of teaching problem. It is the condition every teaching problem happens inside.</strong>
-          <p class="u-tight">
-            Every card in every time pile was <em>also</em> plausibly in another
-            pile &mdash; that is why the piles kept being built out of borrowed
-            cards. A category whose members all belong somewhere else is a facet
-            wearing a category&rsquo;s coat. Promoting it would have meant a
-            top-level bucket that competes with all six of its neighbours for
-            every skill in the site.
-          </p>
+          <strong>Differences in how many groups people made.</strong>
+          <em>Artifact of the tool and the device.</em> Four groups on an iPad and
+          seven on a laptop is a fact about dragging, not about how finely a
+          teacher thinks. Curtis stopped splitting piles when his hand got tired;
+          Jenae could make a column with a keystroke. We read which cards went
+          together and what the columns were called, and never compared group
+          counts across participants.
         </li>
         <li>
-          <strong>It was the most schedule-contingent signal in the study.</strong>
-          <p class="u-tight">
-            Four of the five time piles came from the four teachers whose Sunday
-            had just changed, ten weeks earlier. Building a permanent top-level
-            category out of a ten-week-old disruption is how an information
-            architecture acquires a wing named after a season.
-          </p>
-        </li>
-        <li>
-          <strong>And it is genuinely a real, permanent worry &mdash; so it had to go somewhere visible.</strong>
-          <p class="u-tight">
-            Margie&rsquo;s timeless &ldquo;Getting through it&rdquo; is the proof
-            that this is not only a September problem. That is why it is a
-            first-class <em>problem statement</em>, not a footnote.
-          </p>
+          <strong>What was in the &ldquo;Not sure&rdquo; column.</strong>
+          <em>Artifact of the session&rsquo;s end.</em> Trent&rsquo;s four
+          leftovers were the last four cards he touched, past the thirty-minute
+          mark. That is a signal about fatigue and about the order the tool dealt
+          the deck, not about those four skills.
         </li>
       </ul>
-      <p>
-        On the live site the resolution is visible and checkable: the category is
-        <strong>&ldquo;Preparing yourself and managing the lesson&rdquo;</strong>,
-        and inside it sits the problem
-        <strong>&ldquo;I run out of time and rush to cover everything&rdquo;</strong>
-        &mdash; real, in <code>assets/problems-data.js</code> under
-        <code>prepare &rsaquo; out-of-time</code>, mapping to three skills, one of
-        which is our splitter card 15.
-      </p>
-      <p>
-        The honest cost of that call: the shipped category title lost the
-        teachers&rsquo; own words. &ldquo;Getting through it&rdquo; is what these
-        people say; &ldquo;managing the lesson&rdquo; is what a designer says.
-        The phrase survives one level down, in the problem statement, which is
-        better than nothing and worse than a category named the way its users
-        would name it. That trade is unresolved, and it is the first thing the
-        nav prototype below is built to interrogate.
-      </p>
-
-      <h3 class="subhead">Seven groups became seven categories, which should make you suspicious</h3>
-      <p>
-        The standardization produced seven groups and the shipped site has seven
-        categories, one-to-one. Real card sorts are almost never that tidy, and
-        you should know exactly why this one is: <strong>this study was written
-        backwards from a decision that had already been made.</strong> The
-        categories were committed on 2 June 2026 at <code>e2bf223</code>; the
-        study is set in November 2026. The fiction is constructed to be the study
-        that would have produced the real result, which is the whole method of
-        this companion and also
-        <a href="../fiction.html">its honest limit</a>. Invented participants
-        cannot surprise you. Real ones would have produced eight groups, or five,
-        or one that nobody on the design team had thought of, and the argument
-        about what to do with it would have been the most valuable meeting of the
-        project.
-      </p>
-
-      <h3 class="subhead">Two signals we shipped on thinner evidence than we like</h3>
-      <p>
-        &ldquo;Feeling the Spirit&rdquo; and &ldquo;Hard questions&rdquo; each
-        appeared in three of seven folded sorts. Both became categories anyway,
-        and the reason is not in this study: both are heavily represented in the
-        content inventory, and a category set that cannot hold a chunk of the
-        content is not an option. That is a legitimate reason and it is worth
-        naming out loud, because it is a place where <em>content structure</em>
-        overrode <em>user structure</em>, in a study whose headline finding is
-        that you should not let content structure override user structure.
-      </p>
-
-      <h3 class="subhead">Cami&rsquo;s pile is a finding we did not act on</h3>
-      <p>
-        The largest single pile any participant built was Cami Sprague&rsquo;s
-        seven cards of &ldquo;Church-y things I should probably know&rdquo;
-        &mdash; the newest teacher in the roster, eight months in the ward,
-        unable to decode almost a quarter of the deck. We treated that as noise
-        about our card wording. It might equally be a finding about the site: that
-        the vocabulary a brand-new teacher lacks is a barrier no reorganization
-        fixes. That thread is picked up, from the outside, in
-        <strong>study 5, the external review</strong>.
-      </p>
     </section>
 
-    <!-- ================================= 6. WHAT CHANGED BECAUSE OF THIS === -->
-    <section aria-labelledby="changed">
-      <h2 id="changed">What changed because of this</h2>
+    <!-- ================================================== 6. DECISIONS === -->
+    <section aria-labelledby="decisions">
+      <h2 id="decisions">Design decisions: how skills get grouped, and what the groups are called</h2>
       <p class="section-note">
-        The decisions in this section are real, are in the repository, and are
-        cited to the commit where they landed.
+        Everything here is <strong>real</strong> and shipped, cited to the live
+        site and the commit.
       </p>
-
-      <div class="panel panel--callout">
-        <ul class="stack-list">
-          <li>
-            <strong>1. The site got a problem-driven front door.</strong>
-            <p class="u-tight">
-              <a href="../../problems.html">problems.html</a> exists, with its
-              own data source <code>assets/problems-data.js</code>, added in
-              commit <code>e2bf223</code> (&ldquo;Add problem-driven experience
-              (data-driven from a single source)&rdquo;, 2 June 2026). Before that
-              commit the site could only be entered through the manual&rsquo;s
-              hierarchy.
-            </p>
-          </li>
-          <li>
-            <strong>2. Seven categories, named for situations.</strong>
-            <p class="u-tight">
-              Getting everyone to participate &middot; Keeping Jesus Christ at
-              the center &middot; Making it relevant and leading to real change
-              &middot; Building relationships and a safe class &middot; Inviting
-              the Spirit and deepening testimony &middot; Handling hard questions
-              and teaching sound doctrine &middot; Preparing yourself and
-              managing the lesson. Real, in
-              <code>assets/problems-data.js</code>.
-            </p>
-          </li>
-          <li>
-            <strong>3. Twenty-nine problem statements, written in the first person.</strong>
-            <p class="u-tight">
-              Not topic labels &mdash; sentences a teacher would say. &ldquo;No
-              one answers when I ask a question &mdash; the room just goes
-              silent.&rdquo; &ldquo;The children won&rsquo;t sit still or stay
-              focused.&rdquo; &ldquo;A student asks a question I can&rsquo;t
-              answer, or one that could open speculation or controversy.&rdquo;
-              &ldquo;I run out of time and rush to cover
-              everything.&rdquo; All real; all in the file; all drafted to sound
-              like the group names on this page rather than like the manual.
-            </p>
-          </li>
-          <li>
-            <strong>4. Skills map to problems many-to-many &mdash; the splitter lesson.</strong>
-            <p class="u-tight">
-              Each problem lists skill ids, and a skill id may appear under any
-              number of problems in any number of categories. Twenty of our
-              thirty cards have more than one home; the deck occupies 59 slots
-              across the seven categories. This is the structural answer to the
-              splitters, and it is why the site never had to force card 17 to
-              choose between the Spirit and boredom.
-            </p>
-          </li>
-          <li>
-            <strong>5. One source, two views &mdash; the hierarchy stayed.</strong>
-            <p class="u-tight">
-              The problem page joins <code>problems-data.js</code> to the same
-              <code>skills-data.js</code> the hierarchy pages render from. No
-              content was duplicated and nothing was thrown away: the
-              manual&rsquo;s structure still browses at
-              <a href="../../structure.html">structure.html</a>. A card sort
-              justified <em>adding</em> an access path, and that is usually what
-              a card sort justifies.
-            </p>
-          </li>
-        </ul>
-      </div>
-
-      <div class="fiction-note">
-        <strong>Chronology, honestly.</strong> <code>e2bf223</code> was committed
-        on 2 June 2026. This study is set in November 2026. The real decision
-        came first and the study was written afterwards to be the study that
-        would have produced it. Nothing on this page caused anything in the
-        repository. See <a href="../fiction.html">what&rsquo;s real and what&rsquo;s
-        not</a> for why the companion is built this way and what it costs.
-      </div>
-    </section>
-
-    <!-- ===================================== 7. THE FIRST ARTIFACT ========= -->
-    <section aria-labelledby="artifact">
-      <h2 id="artifact">The first artifact from this study</h2>
-
+      <ol class="stack-list">
+        <li>
+          <strong>Group by situation, not by the manual&rsquo;s section.</strong>
+          Twenty-eight titles, zero section names, seventeen situations &mdash; so
+          the site got a second front door: seven problem categories in
+          <a href="../../problems.html">problems.html</a>, defined in
+          <code>assets/problems-data.js</code> (<code>e2bf223</code>).
+        </li>
+        <li>
+          <strong>Label in the teacher&rsquo;s words.</strong> The titles were
+          first-person and situational, so the shipped entries are complaints, not
+          topics &mdash; &ldquo;No one answers when I ask a question&rdquo; &mdash;
+          and those strings live in <code>problems-data.js</code>.
+        </li>
+        <li>
+          <strong>Let a skill live in more than one place.</strong> Problems map to
+          skills many-to-many: <code>018.title_number1</code> is filed under both
+          &ldquo;I run out of time&hellip;&rdquo; and &ldquo;I can&rsquo;t tell
+          whether they&rsquo;re actually learning.&rdquo; The sort forced a choice;
+          the site does not.
+        </li>
+        <li>
+          <strong>Keep the manual&rsquo;s hierarchy as well.</strong> Two sorts
+          held subject-shaped groups, and a teacher assigned a topic still needs to
+          browse, so <a href="../../structure.html">structure.html</a> and
+          <a href="../../select.html">select.html</a> stay &mdash; study&nbsp;3
+          tests whether that was right.
+        </li>
+      </ol>
       <p>
-        A card sort ends with labels, and labels are promises. &ldquo;Getting
-        ready (and getting through)&rdquo; made sense to a teacher holding a pile
-        of cards she had just built herself. Whether it makes sense as one of
-        seven links on a page she has never seen, in three seconds, on a phone,
-        is a completely different question &mdash; and it is one this method
-        cannot answer.
-      </p>
-      <p>
-        So the first thing we built was not a specification. It was a
-        deliberately ugly <strong>navigation prototype</strong>: the seven
-        standardized labels as seven links, on a home page with nothing else on
-        it. No colour, no brand, no illustrations, no explanatory blurbs, no
-        search box. Everything that could help a reader guess correctly for the
-        wrong reason has been removed, so that the only thing being tested is the
-        words. Behind each label is one plain page listing the problem statements
-        filed under it, so a click can be scored right or wrong.
-      </p>
-      <p>
-        <strong>Two different decks, two different numbers &mdash; keep them
-        apart.</strong> The <span class="keynum">30</span> cards above are
-        <em>skill</em> cards, drawn from the manual&rsquo;s 53-skill inventory:
-        they are the study&rsquo;s input, the content people sorted. The
-        <span class="keynum">29</span> problem statements are a later and
-        different artifact: they are the study&rsquo;s <em>output</em>, written
-        afterwards in participants&rsquo; own grammar and shipped in
-        <code>assets/problems-data.js</code>. The prototype distributes all
-        twenty-nine of them across the seven standardized labels. No card became
-        a statement, and no statement is a card.
-      </p>
-
-      <div class="panel">
-        <h3>What it is for: a first-click test</h3>
-        <p>
-          The question is narrow and answerable: <strong>given a teaching problem
-          in a teacher&rsquo;s own words, does the label invite the right first
-          click?</strong> First-click testing rests on a well-replicated finding
-          &mdash; when the first click is right, the task usually succeeds; when
-          it is wrong, it usually does not, because people rarely reverse cleanly
-          out of a wrong branch.
-        </p>
-        <p class="u-flush-bottom">
-          Two labels are on trial in particular. <strong>&ldquo;Getting ready
-          (and getting through)&rdquo;</strong> &mdash; does the parenthesis do
-          any work, or does a teacher who is out of time on Saturday night
-          scan past it? And <strong>&ldquo;Making it stick&rdquo;</strong>
-          &mdash; the one standardized label with no obvious symptom in it,
-          folded from five different phrasings, and therefore the one most likely
-          to be a designer&rsquo;s word wearing a participant&rsquo;s coat.
-        </p>
-        <p class="u-flush-bottom">
-          Two administration notes, because a first-click test is sensitive to
-          things that look like housekeeping. The seven labels are ordered to
-          match the live site&rsquo;s category order, <em>not</em> by how many
-          sorts produced them &mdash; ranking the stimulus by our own findings
-          would put the strongest label first and quietly buy the result we are
-          testing for. And the marking banner at the top of every prototype page
-          is scaffolding for readers of this companion, not part of the
-          instrument: it would be removed before the prototype is put in front
-          of a participant, since two live links above the seven targets is
-          exactly the kind of contamination the test is built to avoid.
-        </p>
-      </div>
-
-      <p>
-        <a href="artifacts/card-sort-nav/index.html"><strong>Open the navigation
-        prototype &rarr;</strong></a>
-        &nbsp;&mdash;&nbsp; seven labels, one page, no styling worth the name.
-        The tasks it will be tested with, and what happened, belong to
-        <strong>study 3, the tree test</strong> and
-        <strong>study 4, the task test</strong>.
-      </p>
-      <p class="section-note u-flush-bottom">
-        Those later studies are named in bold rather than linked throughout this
-        page because their write-ups are not finished yet
-        <span class="pill pill--pending">Page not written yet</span>. They will
-        become links from <a href="../index.html">the arc on the hub</a> the
-        moment they exist; nothing in this companion links to a page that is not
-        there.
+        <strong>What changed:</strong> the site stopped having one front door
+        &mdash; seven categories in teacher language, entries phrased as a teacher
+        would say them, and a skill free to appear under every problem it helps
+        with.
       </p>
     </section>
 
-    <!-- ========================================== 8. SEE IT IN THE SITE ==== -->
+    <!-- ============================================ 7. SEE IT IN THE SITE == -->
     <section aria-labelledby="seeit">
       <h2 id="seeit">See it in the site</h2>
-
       <ul class="stack-list">
         <li>
-          <strong><a href="../../problems.html">The problem-driven page (live)</a></strong>
-          <p class="u-tight">
-            The shipped answer to this study. Seven categories, twenty-nine
-            problem statements, every one of them a sentence a teacher would say
-            out loud. Open it beside the group-name table above and read the
-            deltas.
-          </p>
+          <a href="../../problems.html">The problem-driven page (live)</a> &mdash;
+          the seven categories and their problem statements. Read those headings
+          against the twenty-eight titles above.
         </li>
         <li>
-          <strong><a href="../../index.html">The live site&rsquo;s front door</a></strong>
-          <p class="u-tight">
-            Three equal ways in, none of them privileged. That
-            three-across arrangement was decided by <strong>study 3, the tree
-            test</strong>, not by this one &mdash; but this study is why one of
-            the three is the problem page.
-          </p>
+          <a href="../../structure.html">Browse by principle (live)</a> &mdash; the
+          manual&rsquo;s own five sections, still shipped, still the right door for
+          a teacher who arrives with a topic instead of a problem.
         </li>
         <li>
-          <strong><a href="../../structure.html">Browse by principle (live)</a></strong>
-          <p class="u-tight">
-            The manual&rsquo;s own five sections, still here, still browsable.
-            Nothing in this study argued for removing them.
-          </p>
-        </li>
-        <li>
-          <span class="is-pending">
-            <span class="is-pending__label">First coded site &mdash; hierarchy only (v1-hierarchy)</span>
-            <span class="pill pill--pending">Snapshot not built yet</span>
-          </span>
-          <p class="u-tight">
-            The version this sort argued with: commit <code>782ddb5</code>, a
-            faithful mirror of the manual&rsquo;s hierarchy with no
-            problem-driven path at all. When the snapshot is built it will
-            appear in the
-            <a href="../index.html">version gallery on the hub</a>; until then
-            this is deliberately not a link, because a dead link is worse than an
-            honest label.
-          </p>
-        </li>
-        <li>
-          <strong><a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills?lang=eng">The manual itself</a></strong>
-          <p class="u-tight">
-            Five sections, 53 skills, on the Church&rsquo;s own site. The
-            structure this study failed to reproduce &mdash; and the source every
-            card in the deck traces back to.
-          </p>
+          <a href="https://www.churchofjesuschrist.org/study/manual/teacher-development-skills?lang=eng">The manual (churchofjesuschrist.org)</a>
+          &mdash; the source of every card in the deck, and the structure nobody
+          rebuilt.
         </li>
       </ul>
     </section>
 
-    <!-- ==================================== WHAT WE'D DO DIFFERENTLY ======= -->
+    <!-- ============================================== 8. DIFFERENTLY ====== -->
     <section aria-labelledby="differently">
       <h2 id="differently">What we&rsquo;d do differently</h2>
-
       <ul class="stack-list">
         <li>
-          <strong>Fix card 4, which lost its meaning along with its label-word.</strong>
-          <p class="u-tight">
-            The manual&rsquo;s skill is &ldquo;help students have a sensory
-            experience with scriptural objects that <em>symbolize Jesus
-            Christ</em>.&rdquo; Our card says &ldquo;Bring something they can
-            hold.&rdquo; We stripped the taxonomy and the content in the same
-            stroke, and then watched the card behave like a generic
-            keep-them-busy activity, which is not the skill. De-branding a card
-            is a rewrite with a blast radius; check every one against its source
-            for meaning, not just for leaked vocabulary.
-          </p>
+          <strong>Stop letting the device pick the sample.</strong> A remote
+          drag-and-drop sort quietly requires a laptop or tablet, and most of this
+          ward&rsquo;s teachers &mdash; nearly all of Primary &mdash; work on a
+          phone. One Primary teacher in five sorts is a sample shaped by our
+          tooling, not by our recruiting. Paper cards in person, or a
+          phone-friendly tool, would have produced a different room.
         </li>
         <li>
-          <strong>Pair people who do not already agree.</strong>
-          <p class="u-tight">
-            The Beckstrands were the wrong pair for the technique &mdash; two
-            co-teachers of one class share a model and so have nothing to
-            negotiate. Pair a Primary teacher with a Relief Society teacher and
-            the boundary arguments become the transcript. Jenae and Aubrey, who
-            teach the same class in alternate weeks, were closer to right and
-            still nearly too aligned.
-          </p>
+          <strong>Run a second deck.</strong> Twenty-one of fifty-three skills
+          were sorted; thirty-two were never seen, and the seven shipped
+          categories have to hold all fifty-three. That extrapolation is real and
+          we made it. A closed sort of the remaining thirty-two into these
+          categories would cost an hour and close the gap.
         </li>
         <li>
-          <strong>Record the sessions.</strong>
-          <p class="u-tight">
-            Hand notes caught the loud moments and lost the quiet ones. We have a
-            note reading &ldquo;~10s, moved hand twice&rdquo; and no idea what she
-            said in the second half of the pause. Audio is cheap; a second
-            observer is cheaper than a lost finding.
-          </p>
+          <strong>Shuffle the deck between participants.</strong> We dealt the
+          cards in the same order every time, which is why the leftover pile is
+          uninterpretable and why the Christ cards kept arriving in a clump.
+          Shuffling costs nothing and would have saved a whole ignored finding.
         </li>
         <li>
-          <strong>Run a closed sort on the seven labels, and run it before shipping.</strong>
-          <p class="u-tight">
-            We standardized forty-four names into seven by judgment, and then
-            shipped seven category titles that are not the seven standardized
-            names. Two of those renamings &mdash; &ldquo;Getting ready (and
-            getting through)&rdquo; to &ldquo;Preparing yourself and managing the
-            lesson,&rdquo; and &ldquo;Making it stick&rdquo; to &ldquo;Making it
-            relevant and leading to real change&rdquo; &mdash; moved the label
-            away from the participants&rsquo; words and toward ours. A twenty-
-            minute closed sort would have told us whether the shipped titles still
-            attract the same cards. We built the nav prototype instead, which
-            answers a narrower question later.
-          </p>
-        </li>
-        <li>
-          <strong>Sample the whole inventory, or say what the sample cost.</strong>
-          <p class="u-tight">
-            Thirty of 53 skills were sorted; twenty-three were never seen by a
-            participant. The seven categories were then built to hold all
-            fifty-three. That is a real extrapolation and we made it quietly. A
-            second deck of the remaining twenty-three, sorted into the seven
-            standardized groups by two of the same participants, would have cost
-            an hour and closed the gap.
-          </p>
-        </li>
-        <li>
-          <strong>Take Cami&rsquo;s pile seriously the first time.</strong>
-          <p class="u-tight">
-            Seven undecodable cards out of thirty, from the newest teacher, was
-            filed as a card-wording problem. It should have opened a question
-            about who the site assumes its reader is. It took an outside reviewer
-            in <strong>study 5, the external review</strong> to say it in a way
-            we heard.
-          </p>
-        </li>
-        <li>
-          <strong>Ask Primary.</strong>
-          <p class="u-tight">
-            <span class="fiction-badge">SPECULATION</span>
-            Four of our eight sorts were Primary teachers who have been teaching a
-            short lesson inside a longer weekly block for their entire callings,
-            and whose piles contained almost none of the anxiety the adult
-            teachers brought. We used that as a control. We never once asked them
-            how they do it. That is a study this companion has not run and
-            probably should.
-          </p>
+          <strong>Ask the Primary teacher the obvious follow-up.</strong> Lonnie
+          set four cards aside as belonging to somebody else&rsquo;s class and we
+          let it pass. &ldquo;What would have to be true for these to be for
+          you?&rdquo; was one question long, and we did not ask it.
         </li>
       </ul>
     </section>
 
-    <!-- ============================================ 8. PREV/NEXT ARC NAV === -->
+    <!-- ============================================ 9. PREV/NEXT ARC NAV == -->
     <nav data-companion="arcnav" aria-label="Study arc navigation"></nav>
 
     <footer class="site-foot">
@@ -2256,9 +717,9 @@
         <a href="../../problems.html">The live problem page</a>
       </p>
       <p>
-        No card sort was run and none of these participants exist. The site, the
-        manual, the 53-skill inventory, the seven shipped categories, and the
-        commits are real.
+        No card sort was run and none of these participants exist. The manual, the
+        53-skill inventory, the twenty-one card texts, the seven shipped
+        categories, and the commits are real.
       </p>
     </footer>
 
