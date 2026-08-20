@@ -1,0 +1,190 @@
+/* cs356 comments client styling. Every class is namespaced cs356- so it
+   won't collide with anything on the page. */
+
+.cs356-admin-btn {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 2147483600;
+  background: #2b6cb0;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font: 600 13px/1 -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+.cs356-admin-btn.on { background: #c05621; }
+.cs356-admin-btn:hover { filter: brightness(1.1); }
+
+/* Hover highlight on commentable elements while admin mode is on. */
+body.cs356-admin-on *:not(.cs356-ui):not(.cs356-ui *):hover {
+  outline: 2px dashed #c05621 !important;
+  outline-offset: 1px;
+  cursor: crosshair !important;
+}
+
+/* Marker pinned to a commented element. */
+.cs356-marker {
+  position: absolute;
+  background: #f6e05e;
+  color: #1a202c;
+  border: 1px solid #b7791f;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font: 600 11px/1.2 -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  cursor: pointer;
+  z-index: 2147483500;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+.cs356-marker.has-new { background: #fbd38d; border-color: #c05621; }
+.cs356-marker:hover { filter: brightness(0.97); }
+
+/* Modal overlay (composer + viewer share this). */
+.cs356-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 2147483700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cs356-card {
+  background: #fff;
+  padding: 18px 20px 16px;
+  border-radius: 8px;
+  width: min(540px, 92vw);
+  max-height: 82vh;
+  overflow: auto;
+  box-shadow: 0 6px 26px rgba(0, 0, 0, 0.3);
+  font: 14px/1.45 -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  color: #1a202c;
+}
+.cs356-card-header {
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cs356-card-header .cs356-meta {
+  font-weight: 400;
+  color: #555;
+  font-size: 12px;
+  margin-left: 4px;
+}
+.cs356-close {
+  margin-left: auto;
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  line-height: 1;
+  color: #555;
+  padding: 0 4px;
+}
+.cs356-card-target {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 6px;
+  word-break: break-all;
+}
+.cs356-card-target code {
+  background: #edf2f7;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 11.5px;
+}
+.cs356-card-snippet {
+  font-size: 12.5px;
+  color: #2d3748;
+  background: #f7fafc;
+  border-left: 3px solid #cbd5e0;
+  padding: 6px 8px;
+  margin-bottom: 10px;
+  border-radius: 0 3px 3px 0;
+}
+.cs356-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border: 1px solid #cbd5e0;
+  border-radius: 4px;
+  font: 14px/1.45 -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  resize: vertical;
+}
+.cs356-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+.cs356-btn {
+  padding: 6px 14px;
+  border-radius: 4px;
+  border: 1px solid #cbd5e0;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  font: 600 13px/1 -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+.cs356-btn:hover { background: #f7fafc; }
+.cs356-primary {
+  background: #2b6cb0;
+  color: #fff;
+  border-color: #2b6cb0;
+}
+.cs356-primary:hover { background: #2c5282; }
+
+/* List of existing comments inside the viewer. */
+.cs356-list { display: flex; flex-direction: column; }
+.cs356-comment {
+  padding: 10px 0;
+  border-top: 1px solid #e2e8f0;
+}
+.cs356-comment:first-child { border-top: none; padding-top: 4px; }
+.cs356-comment-meta {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.cs356-comment-meta strong { color: #1a202c; }
+.cs356-status-badge {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  background: #fefcbf;
+  color: #744210;
+}
+.cs356-status-badge.cs356-status-resolved { background: #c6f6d5; color: #22543d; }
+.cs356-status-badge.cs356-status-ignored { background: #e2e8f0; color: #4a5568; }
+.cs356-comment-text {
+  white-space: pre-wrap;
+  margin: 4px 0 8px;
+}
+.cs356-comment-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+}
+.cs356-mark-label { color: #555; margin-right: 2px; }
+.cs356-comment-actions button {
+  padding: 2px 8px;
+  font-size: 11px;
+  border-radius: 3px;
+  border: 1px solid #cbd5e0;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+.cs356-comment-actions button:hover { background: #edf2f7; }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<comments>
+  <comment id="c-1a01c165711-62f768" status="resolved">
+    <page>/companion/studies/02-card-sort.html</page>
+    <selector>body &gt; main &gt; header &gt; p:nth-of-type(3)</selector>
+    <element-snippet>This page is deliberately short. It is the shape your own P1 card-sort report should have: a deck yo</element-snippet>
+    <author>Mike J</author>
+    <timestamp>2026-08-19T22:13:41Z</timestamp>
+    <text>these don't need to be reproducable.</text>
+  </comment>
+  <comment id="c-1a01c16cc70-3df057" status="resolved">
+    <page>/companion/studies/02-card-sort.html</page>
+    <selector>body &gt; main &gt; section:nth-of-type(2) &gt; p:nth-of-type(1)</selector>
+    <element-snippet>An open card sort asks someone to group a deck of content items however they make sense, then to nam</element-snippet>
+    <author>Mike J</author>
+    <timestamp>2026-08-19T22:14:11Z</timestamp>
+    <text>drop the last sentence</text>
+  </comment>
+  <comment id="c-1a01c173043-71a57d" status="resolved">
+    <page>/companion/studies/02-card-sort.html</page>
+    <selector>body &gt; main &gt; section:nth-of-type(2) &gt; p:nth-of-type(2)</selector>
+    <element-snippet>The groupings say what belongs with what; the titles say what a reader would go looking with. Five t</element-snippet>
+    <author>Mike J</author>
+    <timestamp>2026-08-19T22:14:36Z</timestamp>
+    <text>first sentence is awkward.</text>
+  </comment>
+  <comment id="c-1a01c17bae6-c0d009" status="resolved">
+    <page>/companion/studies/02-card-sort.html</page>
+    <selector>body &gt; main &gt; section:nth-of-type(3) &gt; p:nth-of-type(2)</selector>
+    <element-snippet>One skill is this site’s unit of information, so one skill goes on a card: twenty-one of the fifty-t</element-snippet>
+    <author>Mike J</author>
+    <timestamp>2026-08-19T22:15:12Z</timestamp>
+    <text>one skill from the TEacher Skill guide</text>
+  </comment>
+  <comment id="c-1a01c17f0ab-2a0c4f" status="resolved">
+    <page>/companion/studies/02-card-sort.html</page>
+    <selector>body &gt; main &gt; section:nth-of-type(3) &gt; p:nth-of-type(2)</selector>
+    <element-snippet>One skill is this site’s unit of information, so one skill goes on a card: twenty-one of the fifty-t</element-snippet>
+    <author>Mike J</author>
+    <timestamp>2026-08-19T22:15:26Z</timestamp>
+    <text>to keep it tractable we did 21 of 53.</text>
+  </comment>
+  <comment id="c-1a01c184ccf-57a09f" status="ignored">
+    <page>/companion/studies/02-card-sort.html</page>
+    <selector>body &gt; main &gt; section:nth-of-type(3) &gt; p:nth-of-type(2)</selector>
+    <element-snippet>One skill is this site’s unit of information, so one skill goes on a card: twenty-one of the fifty-t</element-snippet>
+    <author>Mike J</author>
+    <timestamp>2026-08-19T22:15:49Z</timestamp>
+    <text>drop the skill id bit everywhere, we dn't need that.</text>
+  </comment>
+</comments>
