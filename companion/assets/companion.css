@@ -442,3 +442,7 @@ span.chip.is-pending .pill--pending {
 @media (max-width: 380px) {
   .fiction-badge { letter-spacing: .06em; }
 }
+
+/* --- Prototype stations in the chain (restart 2026-08-21) ----------------- */
+.arc-item--prototype { background: var(--panel-sunk); }
+.arc-item--prototype .arc-item__marker { color: var(--muted); }

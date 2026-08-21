@@ -7,14 +7,18 @@
      1. Injects the global fiction banner at the top of <body>. Every companion
         page gets it, always, with no per-page markup required.
      2. Renders registry-driven views into placeholder elements, when present:
-          <div data-companion="arc">      the study arc (hub)
-          <div data-companion="versions"> the version gallery (hub)
+          <div data-companion="chain">    the design cycle (hub)
           <nav data-companion="arcnav">   prev/next arc nav (study pages; the
                                           page identifies itself with
-                                          <body data-study="card-sort">)
-     3. Keeps the site free of dead links: entries that are not finished render
+                                          <body data-arc="card-sort">)
+     3. Keeps the site free of dead links: stations that are not finished render
         as clearly labeled, UNLINKED "in progress" items. Only studies with
-        status "published" and versions with status "built"/"live" become links.
+        status "published" and prototypes with status "built"/"frozen"/"shipped"
+        become links.
+
+   NOTE: prototype artifacts under prototypes/<slug>/ do NOT load this file —
+   they are self-contained specimens with their own static banner
+   (ARCHITECTURE §6).
 
    No build step, no dependencies, no network requests. ES5-compatible on
    purpose — this file has to be readable by students who are learning.
@@ -22,7 +26,7 @@
 (function () {
   'use strict';
 
-  /* --- The global banner's exact wording (CONTENT-PLAN §5). Do not paraphrase:
+  /* --- The global banner's exact wording (CONTENT-PLAN §8). Do not paraphrase:
          this text is the honest-fiction contract's most visible surface. ----- */
   var BANNER = {
     flag: 'Fictitious teaching example.',
@@ -33,8 +37,10 @@
   var LABELS = {
     inProgress: 'In progress',
     studyPending: 'Page not written yet',
-    versionPending: 'Snapshot not built yet',
+    prototypePending: 'Not built yet',
     retired: 'Retired',
+    frozen: 'Frozen',
+    shipped: 'Shipped',
     noRegistry: 'The companion registry did not load, so this section is empty.'
   };
 
@@ -89,11 +95,11 @@
   }
 
   /* --------------------------------------------------------- path resolution
-     Companion pages live at two depths (companion/ and companion/studies/), and
-     version snapshots sit deeper still. Rather than hard-coding depth into each
-     page, derive the path back to companion/ from this script's own src — which
-     the page already had to write correctly for the script to be running at all.
-     Falls back to counting path segments after "/companion/". ---------------- */
+     Companion pages live at two depths (companion/ and companion/studies/).
+     Rather than hard-coding depth into each page, derive the path back to
+     companion/ from this script's own src — which the page already had to
+     write correctly for the script to be running at all. Falls back to
+     counting path segments after "/companion/". ----------------------------- */
   function computeBase() {
     var scripts = document.getElementsByTagName('script');
     for (var i = scripts.length - 1; i >= 0; i--) {
@@ -155,31 +161,35 @@
 
   function registry() {
     var data = window.CS356_COMPANION;
-    if (!data || !isArray(data.studies) || !isArray(data.versions)) { return null; }
+    if (!data || !isArray(data.arc)) { return null; }
     return data;
   }
 
-  function studyById(data, id) {
-    for (var i = 0; i < data.studies.length; i++) {
-      if (data.studies[i].id === id) { return data.studies[i]; }
+  function stationById(data, id) {
+    for (var i = 0; i < data.arc.length; i++) {
+      if (data.arc[i].id === id) { return data.arc[i]; }
     }
     return null;
   }
 
-  function versionById(data, id) {
-    for (var i = 0; i < data.versions.length; i++) {
-      if (data.versions[i].id === id) { return data.versions[i]; }
+  /* THE NO-DEAD-LINKS RULE lives in this predicate. */
+  function stationIsLive(station) {
+    if (!station) { return false; }
+    if (station.kind === 'prototype') {
+      return station.status === 'built' || station.status === 'frozen' ||
+        station.status === 'shipped';
     }
-    return null;
+    return station.status === 'published';
   }
 
-  /* THE NO-DEAD-LINKS RULE lives in these two predicates. */
-  function studyIsLive(study) {
-    return !!study && study.status === 'published';
+  function stationHref(station) {
+    return station.kind === 'prototype' ? station.path : station.page;
   }
 
-  function versionIsLive(version) {
-    return !!version && (version.status === 'built' || version.status === 'live');
+  function pendingLabel(station) {
+    if (station.status === 'retired') { return LABELS.retired; }
+    return station.kind === 'prototype'
+      ? LABELS.prototypePending : LABELS.studyPending;
   }
 
   /* A link when the target exists, otherwise plain text plus a pending pill. */
@@ -198,200 +208,116 @@
     return h('span', { 'class': 'fiction-badge' }, text || 'FICTITIOUS DATA');
   }
 
-  /* ------------------------------------------------------------- the arc ---- */
+  /* ------------------------------------------------------------ the chain ---
+     One list, chain order: Study 1, Prototype 1, Study 2, … Studies and
+     prototypes are numbered separately, so markers read "Study 2" and
+     "Prototype 2" without either renumbering the other. ------------------- */
 
-  function studyNumbers(data) {
-    /* Studies are numbered 1..5; the interlude sits in the walk without a
-       number, so numbering is counted rather than read from `order`. */
+  function stationNumbers(data) {
     var map = {};
-    var n = 0;
-    each(data.studies, function (s) {
-      if (s.kind === 'interlude') { map[s.id] = null; return; }
-      n += 1;
-      map[s.id] = n;
+    var s = 0, p = 0;
+    each(data.arc, function (st) {
+      if (st.kind === 'prototype') { p += 1; map[st.id] = 'Prototype ' + p; }
+      else { s += 1; map[st.id] = 'Study ' + s; }
     });
     return map;
   }
 
-  function versionChips(data, slugs) {
-    if (!isArray(slugs) || !slugs.length) { return null; }
-    var list = h('ul', { 'class': 'chips' });
-    each(slugs, function (slug) {
-      var v = versionById(data, slug);
-      if (!v) { return; }
-      list.appendChild(h('li', { 'class': 'chips__item' }, [
-        linkOrPending(versionIsLive(v), resolve(v.path), v.title,
-          LABELS.versionPending, 'chip')
-      ]));
-    });
-    return list.firstChild ? list : null;
-  }
-
-  /* Study-level links (artifacts, live-site pages, external sources). Rendered
-     only for studies whose page exists — an artifact of an unwritten study has
-     nothing to be read alongside yet. */
-  function linkChips(study) {
-    if (!studyIsLive(study) || !isArray(study.links) || !study.links.length) {
-      return null;
-    }
-    var list = h('ul', { 'class': 'chips' });
-    each(study.links, function (link) {
-      if (!link || !link.href || !link.label) { return; }
-      list.appendChild(h('li', { 'class': 'chips__item' }, [
-        h('a', { 'class': 'chip', 'href': resolve(link.href) }, link.label)
-      ]));
-    });
-    return list.firstChild ? list : null;
-  }
-
-  function studyChips(data, slugs) {
-    if (!isArray(slugs) || !slugs.length) { return null; }
-    var list = h('ul', { 'class': 'chips' });
-    each(slugs, function (slug) {
-      var s = studyById(data, slug);
-      if (!s) { return; }
-      list.appendChild(h('li', { 'class': 'chips__item' }, [
-        linkOrPending(studyIsLive(s), resolve(s.page), s.title,
-          LABELS.studyPending, 'chip')
-      ]));
-    });
-    return list.firstChild ? list : null;
-  }
-
-  function arcItem(data, study, numbers) {
-    var isInterlude = study.kind === 'interlude';
-    var number = numbers[study.id];
-    var marker = isInterlude ? 'Interlude' : 'Study ' + number;
-    var classes = 'arc-item' + (isInterlude ? ' arc-item--interlude' : '') +
-      (studyIsLive(study) ? '' : ' arc-item--pending');
+  function chainItem(data, station, numbers) {
+    var isProto = station.kind === 'prototype';
+    var live = stationIsLive(station);
+    var classes = 'arc-item' + (isProto ? ' arc-item--prototype' : '') +
+      (live ? '' : ' arc-item--pending');
 
     var head = h('h3', { 'class': 'arc-item__title' }, [
-      linkOrPending(studyIsLive(study), resolve(study.page), study.title,
-        study.status === 'retired' ? LABELS.retired : LABELS.inProgress)
+      linkOrPending(live, resolve(stationHref(station)), station.title,
+        pendingLabel(station))
     ]);
 
     var body = [
-      h('p', { 'class': 'arc-item__method' }, study.method || ''),
-      study.question ? h('p', { 'class': 'arc-item__question' }, [
-        h('span', { 'class': 'micro-label' }, 'Question'), ' ', study.question
+      h('p', { 'class': 'arc-item__method' },
+        isProto ? ('Prototype — ' + (station.fidelity || '') + ' fidelity')
+                : (station.method || '')),
+      station.question ? h('p', { 'class': 'arc-item__question' }, [
+        h('span', { 'class': 'micro-label' }, 'Question'), ' ', station.question
       ]) : null,
-      study.keyFinding ? h('p', { 'class': 'arc-item__finding' }, [
-        h('span', { 'class': 'micro-label' }, 'Finding'), ' ', study.keyFinding
+      station.shows ? h('p', { 'class': 'arc-item__finding' }, [
+        h('span', { 'class': 'micro-label' }, isProto ? 'Notice' : 'Delivers'),
+        ' ', station.shows
       ]) : null
     ];
 
-    var chips = versionChips(data, study.versions);
-    if (chips) {
-      body.push(h('div', { 'class': 'arc-item__versions' }, [
-        h('span', { 'class': 'micro-label' }, 'Versions'), chips
+    /* Cross-link: what this station feeds, or the study that tests it. */
+    var partnerId = isProto ? station.testedBy : station.feeds;
+    var partner = partnerId ? stationById(data, partnerId) : null;
+    if (partner) {
+      body.push(h('p', { 'class': 'arc-item__links' }, [
+        h('span', { 'class': 'micro-label' },
+          isProto ? 'Tested by' : 'Feeds'),
+        ' ',
+        linkOrPending(stationIsLive(partner), resolve(stationHref(partner)),
+          partner.title, pendingLabel(partner), 'chip')
       ]));
     }
-
-    var links = linkChips(study);
-    if (links) {
-      body.push(h('div', { 'class': 'arc-item__links' }, [
-        h('span', { 'class': 'micro-label' }, 'Alongside'), links
+    if (isProto && station.status === 'frozen') {
+      body.push(h('p', { 'class': 'arc-item__links' }, [
+        h('span', { 'class': 'pill pill--kind' }, LABELS.frozen)
+      ]));
+    }
+    if (isProto && station.status === 'shipped') {
+      body.push(h('p', { 'class': 'arc-item__links' }, [
+        h('span', { 'class': 'pill pill--kind' }, LABELS.shipped)
       ]));
     }
 
     return h('li', { 'class': classes }, [
-      h('div', { 'class': 'arc-item__marker' }, marker),
+      h('div', { 'class': 'arc-item__marker' }, numbers[station.id]),
       h('div', { 'class': 'arc-item__body' }, [head].concat(body))
     ]);
   }
 
-  function renderArc(container, data) {
-    var numbers = studyNumbers(data);
+  function renderChain(container, data) {
+    var numbers = stationNumbers(data);
     var list = h('ol', { 'class': 'arc-list' });
-    each(data.studies, function (study) {
-      list.appendChild(arcItem(data, study, numbers));
+    each(data.arc, function (station) {
+      list.appendChild(chainItem(data, station, numbers));
     });
     clear(container);
     append(container, [
       h('p', { 'class': 'fiction-note' }, [
         badge('FICTITIOUS DATA'), ' ',
-        'The one-line findings, participant counts, and study parameters below ' +
-        'are invented for CS 356. The methods, the design decisions, and the ' +
-        'commits they cite are real.'
+        'The study questions, findings, and participant details below are ' +
+        'invented for CS 356. The prototypes are real working artifacts, and ' +
+        'the design decisions the studies land on are really implemented in ' +
+        'the next prototype in the chain.'
       ]),
       list
     ]);
   }
 
-  /* ------------------------------------------------------ the version gallery */
-
-  function kindLabel(version) {
-    if (version.kind === 'live') { return 'Live site'; }
-    if (version.kind === 'constructed') { return 'Constructed for teaching'; }
-    return 'Real git snapshot';
-  }
-
-  function versionCard(data, version) {
-    var live = versionIsLive(version);
-    var classes = 'version-card version-card--' + (version.kind || 'real') +
-      (live ? '' : ' version-card--pending');
-
-    var parts = [
-      h('div', { 'class': 'version-card__rung' }, [
-        h('span', { 'class': 'version-card__fidelity' }, String(version.fidelity)),
-        h('span', { 'class': 'version-card__rung-name' }, version.rung || '')
-      ]),
-      h('h3', { 'class': 'version-card__title' }, [
-        linkOrPending(live, resolve(version.path), version.title,
-          version.kind === 'live' ? LABELS.inProgress : LABELS.versionPending)
-      ]),
-      h('p', { 'class': 'version-card__kind' }, [
-        h('span', { 'class': 'pill pill--kind' }, kindLabel(version)),
-        version.optional ? h('span', { 'class': 'pill pill--optional' }, 'Optional') : null
-      ]),
-      version.source ? h('p', { 'class': 'version-card__source' }, [
-        h('span', { 'class': 'micro-label' }, 'Provenance'), ' ', version.source
-      ]) : null,
-      version.shows ? h('p', { 'class': 'version-card__shows' }, version.shows) : null
-    ];
-
-    var chips = studyChips(data, version.studies);
-    if (chips) {
-      parts.push(h('div', { 'class': 'version-card__studies' }, [
-        h('span', { 'class': 'micro-label' }, 'Studied in'), chips
-      ]));
-    }
-
-    return h('li', { 'class': classes }, parts);
-  }
-
-  function renderVersions(container, data) {
-    var list = h('ul', { 'class': 'version-gallery' });
-    each(data.versions, function (version) {
-      list.appendChild(versionCard(data, version));
-    });
-    clear(container);
-    append(container, list);
-  }
-
   /* ------------------------------------------------------- prev/next arc nav */
 
-  function navSide(study, direction) {
+  function navSide(station, direction) {
     var label = direction === 'prev' ? 'Previous' : 'Next';
     var classes = 'arcnav__side arcnav__side--' + direction;
-    if (!study) {
+    if (!station) {
       return h('span', { 'class': classes + ' arcnav__side--empty' }, [
         h('span', { 'class': 'micro-label' }, label),
         h('span', { 'class': 'arcnav__title' },
-          direction === 'prev' ? 'Start of the arc' : 'End of the arc')
+          direction === 'prev' ? 'Start of the chain' : 'End of the chain')
       ]);
     }
     return h('span', { 'class': classes }, [
       h('span', { 'class': 'micro-label' }, label),
-      linkOrPending(studyIsLive(study), resolve(study.page), study.title,
-        LABELS.inProgress, 'arcnav__title')
+      linkOrPending(stationIsLive(station), resolve(stationHref(station)),
+        station.title, pendingLabel(station), 'arcnav__title')
     ]);
   }
 
   function renderArcNav(container, data, currentId) {
     var index = -1;
-    for (var i = 0; i < data.studies.length; i++) {
-      if (data.studies[i].id === currentId) { index = i; break; }
+    for (var i = 0; i < data.arc.length; i++) {
+      if (data.arc[i].id === currentId) { index = i; break; }
     }
     if (index < 0) { return; }
     // Pages only need the data-companion hook; the styling class rides along.
@@ -400,10 +326,10 @@
     }
     clear(container);
     append(container, [
-      navSide(index > 0 ? data.studies[index - 1] : null, 'prev'),
+      navSide(index > 0 ? data.arc[index - 1] : null, 'prev'),
       h('a', { 'class': 'arcnav__hub', 'href': resolve('index.html') },
-        'The whole arc'),
-      navSide(index < data.studies.length - 1 ? data.studies[index + 1] : null, 'next')
+        'The whole chain'),
+      navSide(index < data.arc.length - 1 ? data.arc[index + 1] : null, 'next')
     ]);
   }
 
@@ -424,13 +350,11 @@
 
     each(targets, function (node) {
       var what = node.getAttribute('data-companion');
-      if (what === 'arc') {
-        renderArc(node, data);
-      } else if (what === 'versions') {
-        renderVersions(node, data);
+      if (what === 'chain') {
+        renderChain(node, data);
       } else if (what === 'arcnav') {
-        var current = node.getAttribute('data-study') ||
-          (document.body && document.body.getAttribute('data-study'));
+        var current = node.getAttribute('data-arc') ||
+          (document.body && document.body.getAttribute('data-arc'));
         if (current) { renderArcNav(node, data, current); }
       }
     });

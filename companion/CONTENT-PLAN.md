@@ -1,132 +1,248 @@
 # Companion Site — Content Plan
 
-Companion to `ARCHITECTURE.md`. This file holds the editorial substance: the study
-arc, the version inventory, the fictitious-setting outline, page templates, and
-reusable boilerplate. The **methods/studies here are expected to evolve**; the
-brief and source-material description are stable.
+Companion to `ARCHITECTURE.md`. This file holds the editorial substance: the
+design cycle, the station briefs, the fictitious-setting outline, page templates,
+and reusable boilerplate.
 
-Method selection follows the CS 356 Project 1 definition (canned IA mini-project,
-`cs356-rebuild/planning/cs356_three_project_structure.html`): contextual study →
-open card sort + taxonomy → spec → tree test → ship → five-user task test, with
-the fidelity ladder for prototyping and an external review closing the arc.
+**Restarted 2026-08-21** against the reworked Project 1 sequence (source:
+`cs356-rebuild/356 fall-2026-working-schedule 2.xlsx`, sheet "high level flow",
+and the "Project 1: From User Studies to a Final Prototype" diagram). The two
+big changes from the previous plan:
+
+1. **The arc is now one chain**: card sort → wireframe → tree test → functional
+   prototype v1 → talk-aloud task test → final prototype. Each build is tested
+   by the next study; each study feeds the next build. Dropped entirely:
+   contextual study, fidelity-ladder interlude, first-click testing, external
+   review, teardown/data-scheme, search spec (deferred), the
+   add-an-attribute-after-v1 requirement (deferred).
+2. **The fiction now runs forward.** The companion's studies and prototypes are
+   the actual design process for the *next* version of the deployed teaching
+   site. The current live site plays the role the course assigns to "an existing
+   version you're unimpressed by." The final prototype really ships. See §2.
 
 ---
 
-## 1. The study arc (initial set — five studies + one interlude)
+## 1. The design cycle (the arc)
 
-Each study page pairs a **method** with a **fictitious study** whose findings
-illustrate a **real design decision**, and links the **version(s)** where students
-can see the before/after. Real provenance is cited by commit so students can check.
+Six stations plus a graduation. Studies are fictitious; prototypes are real,
+working artifacts. The chain alternates: every prototype is grounded in the
+study before it, and tested by the study after it.
 
-| # | Study (slug) | Method | Fictitious core finding | Real decision it illustrates (provenance) | Linked versions |
-|---|---|---|---|---|---|
-| 1 | `contextual-study` | Contextual study / observation (NN/g-style, 1 session per participant) | A Primary teacher with a real lesson and a real problem ("my class won't sit still") spends 9 minutes on the church manual site and never finds a usable skill; she navigates by principle names that don't match her problem. | The redesign exists at all; the brief's claim that the IA (not the content) is the obstacle. (Site inception) | church site (external), `v1-hierarchy` |
-| 2 | `card-sort` | Open card sort, 21 verbatim skill cards — presented in the **graded-turn-in format** (see §3a): the real assignment text, the real rubric, and two invented example turn-ins (full-marks 60/60 with 5 solo sorts; weak 31/60 with 3 primed group sorts), each section followed by the grader's score and reasoning | Full-marks turn-in: nobody reproduces the 5 principles; piles form around *teaching situations* in teacher language. Weak turn-in: starter categories, over-claiming, and decisions that predate the data. | The 7 problem categories and teacher-language problem statements in `assets/problems-data.js`. (`e2bf223`) | `v1-hierarchy`, live site `problems.html` |
-| — | `fidelity-ladder` (interlude page, not a study) | Prototyping methods: sketch → wireframe → coded, per Buxton + the AI-era amendment | n/a — this page narrates the ladder itself: what each rung invited ("the sketch got strangers to propose reorganizations; the polished site got font comments") | The real `sketched` branch (de-fidelity experiment, `20bae25`); the coded first version (`782ddb5`) | `v-sketch`, `v-wireframe`, `v1-hierarchy` |
-| 3 | `tree-test` | Tree test, 10 fictitious participants, 4 lesson-drawn tasks; proposed structure vs church-site baseline | Problem-first tree wins on problem-shaped tasks (83% vs 41% pass) **but** assigned-topic tasks ("prepare something on symbols of Christ") still need the principle hierarchy — neither structure dominates. | Both paths coexist deliberately: browse-by-principle (`select.html`, `structure.html`) *and* problem-driven (`problems.html`); three equal home buttons. (`0dcf6c5`) | `v2-bilingual`, live site |
-| 4 | `task-test` | Five-user task test on the deployed site, recorded (fictitious) sessions on participants' own phones | Users type natural sentences into search — "learner isn't feeling god's love" — and strict all-words matching returns nothing; two users read the gold button as "the only real option". | Soft search: stemming, synonyms, IDF ranking, typo tolerance (`d476c8c`); uniform home buttons (`0dcf6c5`). | live site (search), `v3-pre-softsearch` *(optional snapshot)* |
-| 5 | `external-review` | External-reviewer study: two fictitious outside reviewers (an IA practitioner and a non-LDS UX designer) do independent walkthroughs, then a joint punch-list session | The IA holds; punch list targets copy tone, empty states, and the Spanish problem-content gap (chrome localizes, problem text doesn't). One "outsider" finding: the site assumes church vocabulary the newest teacher doesn't have. | Open future-work list (real, honest): Spanish problem content, onboarding path for brand-new teachers. | live site |
-
-Arc-level narrative rule: each page ends with "what changed because of this" and
-"what we'd do differently", so the arc reads as one continuous designer's notebook.
-
-## 2. Version inventory (initial)
-
-| Slug | Kind | Fidelity rung | Source / provenance | What students should notice |
+| # | Station (slug) | Kind | What it asks / builds | Feeds |
 |---|---|---|---|---|
-| `v-sketch` | real | 1 — sketch | branch `sketched` (`20bae25`): the Buxton de-fidelity theme | Same IA, hand-drawn finish; the critique it invites differs from the polished site |
-| `v-wireframe` | constructed | 2 — wireframe | authored for the companion | Grayscale boxes + real labels; IA visible, visual design withheld |
-| `v1-hierarchy` | real | 3 — first coded | `782ddb5` (initial commit): generator + select/summary + hierarchy browse, English-only | A faithful mirror of the manual's hierarchy; no problem-driven path yet |
-| `v2-bilingual` | real | 4 — shipped v2 | `52f8dda` (i18n complete, pre-problem-page) | i18n architecture; still navigable only by principle |
-| `v3-pre-softsearch` | real (optional) | 4.5 | snapshot at `e2bf223` (problem page present; immediately before the soft search in `d476c8c`) | Problem page exists but strict search fails natural sentences — pairs with study 4 |
-| *(live)* | live | 5 — current | `../` (never snapshotted) | Problem-driven + soft search + uniform buttons |
+| 1 | `card-sort` | study | Open card sort on the skill inventory: how do teachers group and label the basic information block (a single skill)? → categories, groups, labels — and *facet signals* (§3) | the wireframe's data scheme |
+| 2 | `wireframe` | prototype | 2–3 level clickable grayscale wireframe. Facets + values per PMEST/LATCH thinking; data scheme decoupled from display (single source, multiple views at wireframe fidelity) | the tree test's material |
+| 3 | `tree-test` | study | Tree test, run as a moderated think-aloud on the wireframe: how are the organization and the labeling broken? → refined categories, groups, labels | prototype v1 |
+| 4 | `prototype-v1` | prototype | First functional prototype. Visual design and color to direct precognitive attention; logs every click and the prompt that led to it | the task test's material |
+| 5 | `task-test` | study | Five-user task test (talk-aloud) on prototype v1: does the visual design work? where does navigation break? → final refinements | the final prototype |
+| 6 | `prototype-final` | prototype | Final functional prototype: brings it together on single source, multiple views, grounded in all three studies | **graduates to become the new live site** |
 
-## 3. Study-page template
+The through-line (verbatim course doctrine, and this companion's editorial
+spine): *deliberately avoid finding "the one true place" each item should go.*
+Design a data scheme — information blocks, each with a set of attributes — and
+make presentation a matter of selecting on attributes, decoupled from display,
+because attributes will be added and modified.
 
-Every `studies/NN-<slug>.html` follows this skeleton (keep the order; students
-learn the genre by repetition):
+Grading-emphasis questions each prototype must visibly answer (from the flow
+sheet; the companion's examples are the demonstrations of "yes"):
 
-1. **Scope note** (fiction banner is global; this is the per-page specifics):
-   what on this page is real, what is invented.
-2. **The method** — what it is, when to use it, 2–3 paragraph summary in course
-   vocabulary (self-contained; optional link to course material if public).
-3. **Study design** — research question, participants (fictitious, from the ward
-   roster), materials, protocol. Written as a reusable design students can copy.
-4. **Results** — the invented data, presented properly for the method **at the
-   sample size claimed** (for an 8-sort card sort: the raw group-name table and a
-   standardization table — *not* a dendrogram or similarity matrix, which
-   manufacture structure from too few observations and hide minority schemes;
-   pass–time–directness table for tree test…), every artifact stamped
-   `.fiction-badge`.
-5. **Discussion** — what the results mean, honestly including ambiguity.
-6. **Decisions** — the real design decisions, cited to commits/files.
-7. **See it in the site** — links to the linked version(s) + the live page.
-8. Prev/next arc navigation (rendered from the registry). Required hooks:
-   `<body data-study="<slug>">` and an empty `<nav data-companion="arcnav">`
-   element (companion.js fills it and adds the styling class).
+- **Wireframe:** does the organization follow from the card sort, and does it
+  have multiple facets per info block?
+- **Prototype v1:** does the organization follow from the card-sort results,
+  and is the requisite logging in place?
+- **Final:** is the IA grounded in all three studies, and does the visual
+  design intentionally direct attention somewhere useful?
 
-### 3a. Alternative template: the graded turn-in (adopted for study 2, 2026-08-19)
+## 2. The forward-fiction contract (what changed and why it is still honest)
 
-A study page may instead present the method **the way the grader sees it**:
+Previously the fiction was written *backwards* from decisions already shipped.
+Now it is written *forward into* decisions not yet made: the invented studies
+will genuinely determine the next version of the real, ward-facing site.
 
-1. **Scope note** (as above).
-2. **The assignment** — the real "what to turn in" text from the course.
-3. **The rubric** — the real banded criteria (`user-study-rubric.md`, repo root;
-   source of truth is `cs356-rebuild`), compact.
-4. **Two example turn-ins** for the same assignment: one full-marks, one weak.
-   Each follows the assignment's own element list, and **every element is
-   followed by a grader box** (red-pen styling) giving the rubric band, the
-   points, and why — concise, quoting the rubric's language. Each turn-in ends
-   with a scorecard.
-5. **"What separates the scores"** — a short closing synthesis.
-6. See-it-in-the-site links + arc nav (same hooks as above).
+That is a stronger claim and needs stronger rules:
 
-Rules: the full-marks turn-in's decisions must land on the *real* shipped
-decisions (grader box may cite commits, the turn-in itself cites only its data);
-the weak turn-in's errors are constructed to hit specific rubric bands and each
-grader box names the exact band language it applied. All fiction-marking rules
-from ARCHITECTURE §2 apply to both turn-ins.
+1. **Invented findings may only encode beliefs the instructor genuinely holds
+   about real teachers** — from years of teaching, observing, and talking with
+   them. The fiction contributes specificity, names, sessions, and numbers; it
+   must never contribute conviction the instructor doesn't have. If a finding
+   wouldn't survive being asked "do you actually believe real teachers are like
+   this?", it doesn't go in the data.
+2. **The shipped site must stand without the fiction.** Ward members get a site
+   whose design the instructor is prepared to defend as design judgment. The
+   studies are the *teaching dramatization of that judgment*, not its evidence.
+   `fiction.html` says this in so many words.
+3. **The data cannot surprise its author — say so.** The honest-limit statement
+   moves from "these studies were reverse-engineered" to "these studies are the
+   instructor's design judgment wearing participant costumes." Students still
+   learn form (how a study is designed, run, reported, converted into cited
+   decisions); surprise still only comes from real users.
+4. All marking machinery from ARCHITECTURE §2 stands unchanged: global banner,
+   `.fiction-badge` stamps, scope notes, `fiction.html`, SPECULATION variant
+   for the post-September-2026 ward setting.
 
-## 4. "Meet the Timpanogos Shadows Ward" (ward bible)
+## 3. Station brief: the card sort (detailed — next work session)
 
-**The extensive setting content will be authored by the instructor** — this
-outlines the container and the constraints so study pages can reference it
-consistently before it's final.
+**The real substrate.** Cards are drawn from the real 53-skill inventory
+(`assets/lang/eng/skills-data.js` at the site root: 5 manual sections — Focus on
+Jesus Christ 12, Love Those You Teach 11, Teach the Doctrine 10, Invite Diligent
+Learning 10, Teach By the Spirit 10). A card = one skill, verbatim from the
+manual. The deck is real content with authored presentation → it carries the
+"CONSTRUCTED DECK" badge variant with a traceability key, per ARCHITECTURE §2.
 
-- Invented Utah County unit; name checked to not collide with a real ward's
-  common usage. All members fictitious; names must not match real acquaintances.
-- Planned sections: ward geography & rhythm; demographics (families, students,
-  callings); the teaching corps (Primary/SS/YM/YW/EQ/RS/seminary, experience
-  levels, devices); the **participant roster** — the named fictitious members who
-  appear across studies (consistency: the same person keeps their calling, phone,
-  and personality across all studies); ward vocabulary quirks used in the
-  controlled-vocabulary work.
-- `ward.html` ships first as a skeleton with the roster stub the studies need;
-  instructor content replaces/extends it without changing participant IDs.
+**Study design (fictitious, from the ward roster).**
+- Open sort. N = 8 solo sorts, matching the course assignment ("teams recruit
+  N=8 over the weekend"). Participants from the ward bible roster, spanning
+  callings (Primary / SS / YM / YW / EQ / RS), experience, and comfort with the
+  manual. No group sorts, no starter categories — that's the weak-work
+  anti-pattern the rubric's Methods band punishes.
+- Participants also *label* their piles in their own words at the end of the
+  sort (the label harvest — source of wireframe link wording).
 
-## 5. Reusable boilerplate
+**Analysis plan (right-sized to n=8, per the rubric's calibration doctrine).**
+- Raw data appendix: every sorter's piles with their own labels, verbatim.
+- Group-name standardization table; per-card agreement counts.
+- Similarity matrix optional (the course teaches it in studio); dendrograms
+  treated skeptically at 8 sorts — judgment where data is ambiguous.
+- **Disagreement is the payload, not noise.** A card sort forces each card into
+  one pile. Where sorters split *systematically* — half place a skill by
+  teaching situation ("when nobody talks"), half by principle or by prep-phase —
+  that split is evidence the block needs **multiple facets**, not evidence that
+  one faction is wrong. This is how the card sort genuinely seeds the "no one
+  true place" doctrine and the wireframe's facet scheme.
 
-Global banner (injected by `companion.js` on every companion page):
+**What the results must deliver** (because the wireframe really builds on them):
+categories + groups in teacher language; harvested labels; facet signals — the
+2–4 candidate facets and their values (e.g. situation → {too loud, not enough
+participation, not enough time}); and an explicit statement of what the sort
+did *not* resolve (feeds the tree test's question).
 
-> **Fictitious teaching example.** All participants, quotes, and data on this page
-> are invented for CS 356. The site and its design decisions are real. *What's
-> real and what's not →* (`fiction.html`)
+**Decisions to make together in the work session (OPEN):**
+- Card count: all 53 vs a curated subset. Lean: **all 53** — the real redesign
+  must place every skill, and a subset would leave the new IA undetermined.
+- Card face wording: the verbatim skill names are full sentences — unsortable
+  on a card. Lean: short handles on the face, full sentence on request (a
+  real method decision worth demonstrating and defending in the write-up).
+- Whether to show a similarity matrix in the example or model restraint.
+- The invented results themselves: the piles, the labels, the facet signals —
+  i.e., the actual seed of the new IA. This is the substantive design work.
 
-Version banner (injected into every snapshot page):
+## 4. Station brief: the wireframe (detailed — built right after the sort)
 
-> **Archived teaching version — "<title>".** Part of the CS 356 companion, not
-> the live site. *View the live site →* · *Back to the case study →*
+**A real, working artifact** at `prototypes/wireframe/` — self-contained,
+grayscale, 2–3 levels deep, real labels from the (fictitious) label harvest.
+Own minimal banner + noindex; does not load companion.css/js (ARCHITECTURE §6).
+
+- **Its own single source:** `wireframe-data.js` — the 53 skills as info
+  blocks, each carrying the attributes/facets the card sort surfaced (e.g.
+  `situation: [...]`, `principle: ...`, plus whatever the sort seeds). Every
+  wireframe page renders by *selecting on attributes*. The decoupling is the
+  exhibit: same blocks, multiple views, no block hand-placed anywhere.
+- **Level structure:** L1 entry views (one per facet worth navigating by),
+  L2 category/group pages, L3 the skill block itself (wireframe-fidelity stub
+  that names the real skill and links to the real manual page).
+- **Deliberately withheld:** visual design, color, imagery (those are v1's
+  material — the wireframe must invite IA critique, not font comments).
+  No click logging at this rung: the tree test is a *moderated think-aloud*
+  with hand-recorded paths; instrumented logging arrives in v1 per the
+  turn-in diagram ("log every click").
+- **Freeze rule:** the moment the tree-test study "runs" against it, the
+  wireframe freezes (ARCHITECTURE §6). Refinements land in v1, so the study
+  page's citations stay checkable forever.
+
+## 5. Station briefs: the rest of the chain (sketch — detail later)
+
+- **Tree test (`tree-test`).** Moderated think-aloud on the frozen wireframe.
+  Tasks written from real teacher situations (the card sort's situation facet
+  is the task generator). Fictitious participants from the roster (fresh ones —
+  not the sorters). Results: per-task path tables, first-/wrong-turn analysis
+  in prose, refined categories + labels. Decisions feed v1.
+- **Prototype v1 (`prototype-v1`).** Functional, visually designed, click +
+  prompt logging built in. Story required for every color/layout choice
+  (precognitive attention). Frozen when the task test runs.
+- **Task test (`task-test`).** Five users, talk-aloud, on their own phones.
+  Task success, paths from the real logs (fictitiously generated), quotes.
+  Results: how navigation is broken → final refinement list.
+- **Final prototype (`prototype-final`).** All refinements landed; single
+  source, multiple views demonstrated end to end. Graduates: promoted to the
+  site root as the next deployed Principles of Teaching site (real redeploy,
+  real users). The companion keeps the frozen copy; the live root keeps zero
+  companion links.
+
+Deferred, may return: search spec; the add-a-new-attribute-after-v1
+architecture test (the course's proof that decoupling paid off).
+
+## 6. Study-page template (exemplary report)
+
+The graded-turn-in format (two turn-ins + grader boxes) is **retired**
+(recoverable at `4d4b177`). Each study page is now **one exemplary study
+report** — the thing a full-marks student would turn in, written in the
+designer's-notebook voice. The rubric (`user-study-rubric.md`, repo root) is
+the quality bar but wears no grader apparatus.
+
+Skeleton (keep the order):
+
+1. **Scope note** — what on this page is real, what is invented (per-page
+   specifics; the global banner is injected).
+2. **The method** — 2–3 paragraphs, course vocabulary, self-contained.
+3. **Study design** — question, participants (roster), materials, protocol.
+   Written to be copied by students.
+4. **Results** — presented properly for the method at the claimed sample size;
+   every invented artifact stamped `.fiction-badge`.
+5. **Analysis** — cross-participant synthesis; claims calibrated to the data;
+   ambiguity kept visible.
+6. **Design decisions** — every decision explicitly cites its finding; "keep"
+   decisions count; concrete enough to act on. These decisions are *live* —
+   the next prototype in the chain really implements them.
+7. **Raw data appendix** — on-page, stamped.
+8. **See it in the chain** — links to the prototype it tested and the
+   prototype its decisions produced.
+9. Arc navigation hooks: `<body data-arc="<slug>">` + empty
+   `<nav data-companion="arcnav">` (companion.js fills it).
+
+Prototype stations don't get long-form pages for now: the artifact is the
+example. The registry card carries "what to notice" and the neighboring study
+pages discuss it. (Open item: whether each prototype earns a short intro page.)
+
+## 7. "Meet the Timpanogos Shadows Ward" (ward bible)
+
+Unchanged by the restart; `ward.html` and its roster carry over as-is.
+
+- Invented Utah County unit; all members fictitious; names checked against
+  real-acquaintance collisions. Set November 2026 under the new Sunday
+  schedule — SPECULATION marking rules apply (ARCHITECTURE §2.3a).
+- The roster is the participant pool for all three studies. Consistency rule:
+  the same person keeps their calling, phone, and personality across studies;
+  sorters and tree-test participants don't overlap.
+- Instructor authors/extends the setting content; participant IDs are stable.
+
+## 8. Reusable boilerplate
+
+Global banner (injected by `companion.js` on every companion page — wording
+unchanged, still accurate under the forward contract):
+
+> **Fictitious teaching example.** All participants, quotes, and data on this
+> page are invented for CS 356. The site and its design decisions are real.
+> *What's real and what's not →* (`fiction.html`)
+
+Prototype banner (small, static, on every page of every prototype artifact):
+
+> **CS 356 companion prototype — "<title>".** A working design artifact from
+> the case study, not the live teaching site. *Live site →* · *Back to the
+> companion →*
 
 Scope-note opener (per study page, adapted):
 
-> Real: the artifact this study examines, and the design decision at the end.
+> Real: the skill inventory this study sorts, the prototype it tests, and the
+> design decisions at the end — decisions the next prototype really implements.
 > Invented: every participant, session, quote, and number in between.
 
-## 6. Open items (tracked as tasks)
+## 9. Open items
 
-- Ward bible content from the instructor (roster names/details) — blocks final
-  polish of studies 1–5, not scaffolding.
-- Whether `v3-pre-softsearch` earns a snapshot or study 4 just links the live
-  search with before/after examples.
-- If/when the course site goes public, add method-page links alongside the
-  self-contained summaries.
+- **Next session: the card-sort example** — settle §3's OPEN decisions and
+  author the invented results (this is the seed of the new IA).
+- Wireframe facet scheme — direct output of the above.
+- Instructor pass on ward bible roster (blocks final polish, not structure).
+- Whether prototypes earn short intro pages.
+- Deferred course elements: search spec; add-attribute-after-v1.
+- Eventually: the promotion mechanics for `prototype-final` → site root
+  (redeploy checklist, redirects if URLs change, i18n handling).
