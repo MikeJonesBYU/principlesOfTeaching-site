@@ -534,3 +534,63 @@ span.chip.is-pending .pill--pending {
 .inline-quote { font-style: italic; }
 .decision-list li { margin: 0 0 14px; }
 .decision-list code { font-size: .85em; }
+
+/* --- Graded-pair components (card sort v2, 2026-08-21) -------------------- */
+
+.report { border-top: 3px solid var(--rule-strong); margin-top: 34px; padding-top: 6px; }
+.report__el { margin-top: 26px; }
+
+/* Report B's own prose, framed as the submitted turn-in. */
+.turnin {
+  border: 1px solid var(--rule-strong);
+  border-left: 4px solid var(--rule-strong);
+  background: var(--panel-sunk);
+  padding: 12px 16px;
+  margin: 10px 0 12px;
+  font-family: Georgia, "Times New Roman", serif;
+}
+.turnin p { margin: 0 0 10px; }
+.turnin p:last-child { margin-bottom: 0; }
+.turnin__photos { color: var(--muted); font-style: italic; }
+
+/* The grader's red pen. */
+.grader {
+  border: 1px solid #b3392f;
+  border-left: 5px solid #b3392f;
+  background: #fdf3f2;
+  padding: 10px 14px;
+  margin: 14px 0 26px;
+}
+.grader__head {
+  margin: 0 0 6px;
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: #8f2d25;
+}
+.grader__pts { font-weight: 700; }
+.grader p { margin: 0 0 8px; font-size: .95rem; }
+.grader p:last-child { margin-bottom: 0; }
+
+.scorecard {
+  margin: 22px 0 6px;
+  border: 2px solid #8f2d25;
+  padding: 8px 14px 2px;
+  max-width: 32em;
+}
+.scorecard__title {
+  margin: 0 0 4px;
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: #8f2d25;
+  font-weight: 700;
+}
+.scorecard .study-table { margin: 0 0 8px; }
+.scorecard__pts { font-family: var(--mono); font-weight: 700; text-align: right; white-space: nowrap; }
+.scorecard__total td { border-top: 2px solid #8f2d25; border-bottom: none; font-weight: 700; }
+
+.rubric-table td { font-size: .88rem; }
+.rubric-note { font-weight: 400; font-size: .8rem; color: var(--muted); display: block; margin-top: 4px; }

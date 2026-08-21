@@ -171,15 +171,23 @@ Own minimal banner + noindex; does not load companion.css/js (ARCHITECTURE §6).
 Deferred, may return: search spec; the add-a-new-attribute-after-v1
 architecture test (the course's proof that decoupling paid off).
 
-## 6. Study-page template (exemplary report)
+## 6. Study-page template (graded pair — readopted 2026-08-21)
 
-The graded-turn-in format (two turn-ins + grader boxes) is **retired**
-(recoverable at `4d4b177`). Each study page is now **one exemplary study
-report** — the thing a full-marks student would turn in, written in the
-designer's-notebook voice. The rubric (`user-study-rubric.md`, repo root) is
-the quality bar but wears no grader apparatus.
+Each study page presents **the same study written up twice** — a full-marks
+report and a low-scoring report — with the grader's reasoning after every
+element, quoting the band language of the rubric (`user-study-rubric.md`,
+repo root; Canvas rubric 198046) it applies. Page order: scope note → method
+preface → the assignment's turn-in elements → compact rubric → Report A
+(full marks, elements + grader boxes + scorecard) → Report B (same
+participants, same sorts; points lost in capture, synthesis, and decisions —
+elements + grader boxes + scorecard) → "what separates the scores" → shared
+appendices (deck, standardization). Report A is **binding on the chain**: its
+categories/decisions are what the next prototype implements. Report B's
+errors are constructed to hit specific rubric bands (recap-not-synthesis,
+over-claiming cap, decisions that predate the data), and each grader box
+names the band it applied.
 
-Skeleton (keep the order):
+Report A's element skeleton (keep the order):
 
 1. **Scope note** — what on this page is real, what is invented (per-page
    specifics; the global banner is injected).
