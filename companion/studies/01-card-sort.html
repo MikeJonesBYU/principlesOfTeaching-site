@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Study 1: Open card sort — CS 356 Companion</title>
+  <meta name="description" content="Worked example of an open card sort: 24 verbatim skill cards, 9 participants from the Timpanogos Shadows Ward, and the categories, labels, and facet decisions that seed the site's redesign.">
+  <link rel="stylesheet" href="../assets/companion.css">
+</head>
+<body data-page="study" data-arc="card-sort">
+
+  <main class="wrap">
+
+    <header class="site-head">
+      <p class="kicker">CS 356 Companion &middot; Study 1 of 3</p>
+      <h1>Open card sort: how do teachers organize the skills?</h1>
+      <p class="lead">
+        The <a href="../../">live site</a> organizes 53 teaching skills the way
+        the manual does &mdash; five named principles. That is the structure
+        we&rsquo;re unimpressed by, and this is the first study of the redesign:
+        before we draw a single box of the new structure, we watch nine people
+        organize the raw material themselves.
+      </p>
+    </header>
+
+    <section class="panel panel--callout" aria-labelledby="scope">
+      <h2 id="scope">Scope note: what here is real</h2>
+      <p>
+        <strong>Real:</strong> the 24 cards &mdash; verbatim skills from the
+        Church&rsquo;s Teacher Development Skills manual, exactly as they appear
+        on the live site (see the <a href="#deck">deck appendix</a> for the
+        traceability key). Real too are the design decisions at the end: the
+        wireframe (next in the chain, not yet built) really implements them,
+        and the redesigned site that eventually ships really descends from them.
+      </p>
+      <p class="u-flush-bottom">
+        <strong>Invented:</strong> everything in between. The ward, the nine
+        participants, every session, every quote, every number. Nobody ran this
+        study. <a href="../fiction.html">What&rsquo;s real and what&rsquo;s not &rarr;</a>
+      </p>
+    </section>
+
+    <section aria-labelledby="method">
+      <h2 id="method">The method</h2>
+      <p>
+        An open card sort puts your content &mdash; one item per card &mdash; in
+        front of people from your real population and asks them to group it
+        however makes sense to them, then name each group. It answers five
+        questions:
+      </p>
+      <ul>
+        <li><strong>Schemes.</strong> What organizing principle do people reach
+          for &mdash; topic, task, audience, sequence? You may expect topic and
+          watch everyone sort by task.</li>
+        <li><strong>Vocabulary.</strong> What do they call these groups? The
+          labels they write are candidate navigation labels.</li>
+        <li><strong>Strong pairs.</strong> Which cards travel together in nearly
+          every sort? Those belong together in the IA, whatever else you
+          decide.</li>
+        <li><strong>Splitters.</strong> Which cards scatter, landing somewhere
+          different in every sort? Those items need a better name, multiple
+          homes, or a facet.</li>
+        <li><strong>Mental-model mismatch.</strong> Where does the
+          users&rsquo; grouping disagree with yours? The disagreement is the
+          finding.</li>
+      </ul>
+      <p>
+        It does <em>not</em> answer whether people can find things in the
+        structure you eventually build &mdash; that is the tree test, which is
+        the next study in this chain. Sort first, structure second, tree-test
+        third.
+      </p>
+      <p>
+        We ran it Spencer&rsquo;s way, compressed: pick cards from the content
+        inventory in plain language with no category names as cards; recruit
+        8&ndash;10 people from the real population, some sorting in pairs
+        (two people negotiating a grouping think aloud naturally, and the
+        negotiation is where mental models surface); open sort first
+        (&ldquo;group these however makes sense to you, then name each
+        group&rdquo; &mdash; no hints, no correcting); capture everything
+        &mdash; photograph the final sort, transcribe the group names verbatim,
+        note the sorting principle each participant seemed to use, and note
+        what they say while they hesitate, because a card someone holds for ten
+        seconds is data. Then analyze for patterns, not averages.
+      </p>
+    </section>
+
+    <section aria-labelledby="design">
+      <h2 id="design">Study design</h2>
+      <p>
+        <strong>Research question.</strong> How do the teachers this site is
+        for naturally group and label its basic block of information &mdash; a
+        single skill &mdash; and where do their groupings disagree with the
+        manual&rsquo;s five-principle structure, and with each other?
+      </p>
+      <p>
+        <strong>The deck.</strong> 24 cards drawn from the real 53-skill
+        inventory, sampled across all five manual sections
+        (5&nbsp;/&nbsp;5&nbsp;/&nbsp;5&nbsp;/&nbsp;5&nbsp;/&nbsp;4), each card
+        carrying one skill&rsquo;s wording <em>verbatim</em>. One deliberate
+        deviation from the method as taught, worth being honest about: Spencer
+        says 30&ndash;60 cards, and below 30 the patterns run thin. We sorted
+        24 because our sessions had to fit in the twenty-odd minutes a
+        volunteer has between meetings, and because a first-pass answer across
+        all five sections mattered more to us than a dense answer over three.
+        The cost is real &mdash; thinner patterns, and eleven skills per
+        section unheard from &mdash; and we accepted it with eyes open.
+      </p>
+      <p>
+        <strong>Participants.</strong> Nine members of the Timpanogos Shadows
+        Ward teaching corps, producing eight sorts &mdash; seven solo and one
+        pair. Recruited to span callings (Primary, Sunday School, Young Women,
+        Relief Society), tenure (8 months to 41 years), and age (24 to 74).
+      </p>
+      <p>
+        <strong>Protocol.</strong> Card sorts on the Relief Society room table
+        after church, one participant (or pair) at a time, 15&ndash;25 minutes
+        each. Physical cards, shuffled between sessions. Open sort; piles
+        named by the participant, in their words, written by them on a sticky
+        note; we photographed each finished sort, transcribed labels verbatim,
+        and kept running notes of hesitations and comments. No starter
+        categories, no hints, no correcting.
+      </p>
+    </section>
+
+    <section aria-labelledby="el1">
+      <h2 id="el1">The people in the study</h2>
+      <p class="fiction-note"><span class="fiction-badge">FICTITIOUS DATA</span>
+        Every participant is an invented member of an invented ward. Roster
+        details stay consistent across all companion studies &mdash;
+        <a href="../ward.html">meet the ward</a>.</p>
+      <table class="study-table">
+        <thead>
+          <tr><th>Sort</th><th>Participant</th><th>Calling</th><th>Tenure &amp; notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>S1</td><td>Margie Ostler (P01)</td><td>Primary, 10&ndash;11s</td><td>30 years in the ward; teaches her own grandchild</td></tr>
+          <tr><td>S2</td><td>Trent Larkin (P02)</td><td>Sunday School, adult class</td><td>11 years; reads ahead on the manual</td></tr>
+          <tr><td>S3</td><td>Whitney Kartchner (P04)</td><td>Young Women, 14&ndash;15s</td><td>4 years; preps in the gaps between nursing shifts</td></tr>
+          <tr><td>S4</td><td>Curtis Openshaw (P05)</td><td>Sunday School, 16&ndash;18s</td><td>38 years; the closest thing to a manual expert we had</td></tr>
+          <tr><td>S5</td><td>Jenae Rowley (P06)</td><td>Relief Society instructor</td><td>6 years; the only participant who outlines lessons in a document</td></tr>
+          <tr><td>S6</td><td>Kade &amp; Rylee Beckstrand (P07 + P08)</td><td>Primary, 7-year-olds (team)</td><td>3 years; sorted as a pair, negotiating aloud</td></tr>
+          <tr><td>S7</td><td>Lonnie Tolman (P13)</td><td>Primary, 4-year-olds</td><td>41 years; retired fifth-grade teacher &mdash; the only participant with classroom training</td></tr>
+          <tr><td>S8</td><td>Cami Sprague (P15)</td><td>Primary, 5-year-olds</td><td>8 months; called within a month of moving in</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section aria-labelledby="el2">
+      <h2 id="el2">The eight sorts</h2>
+      <p class="section-note">
+        Transcribed from the session photographs. Pile names are the
+        participants&rsquo; own words, verbatim. Cards are shown abbreviated
+        for legibility here; the <a href="#deck">deck appendix</a> has each
+        card&rsquo;s exact wording.
+      </p>
+
+              <figure class="sort-photo" id="sort-s1">
+          <figcaption class="sort-photo__head">
+            <span class="sort-photo__id">S1</span>
+            <span class="sort-photo__who">P01 Margie Ostler</span>
+            <span class="sort-photo__scheme">sorted by situations (Primary)</span>
+            <span class="fiction-badge">FICTITIOUS DATA</span>
+          </figcaption>
+          <div class="sort-photo__piles">
+          <div class="pile">
+            <p class="pile__label">&ldquo;Getting them to talk&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C09</span> Students are needed, not just welcome</li>
+            <li class="pile__card"><span class="pile__cardnum">C11</span> Check learning before moving on</li>
+            <li class="pile__card"><span class="pile__cardnum">C12</span> Listen, then ask follow-ups</li>
+            <li class="pile__card"><span class="pile__cardnum">C14</span> Pause: “what can I ask them?”</li>
+            <li class="pile__card"><span class="pile__cardnum">C16</span> Open-ended search questions</li>
+            <li class="pile__card"><span class="pile__cardnum">C19</span> Answer without speculating</li>
+            <li class="pile__card"><span class="pile__cardnum">C21</span> Resist answering everything yourself</li>
+            <li class="pile__card"><span class="pile__cardnum">C23</span> Students share with each other</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Keeping their attention&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C02</span> Pictures &amp; videos of Christ</li>
+            <li class="pile__card"><span class="pile__cardnum">C13</span> Use sacred music</li>
+            <li class="pile__card"><span class="pile__cardnum">C18</span> Choose media &amp; stories carefully</li>
+            <li class="pile__card"><span class="pile__cardnum">C20</span> Open with a personal circumstance</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Loving the kids&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C04</span> Statements: feel God’s love</li>
+            <li class="pile__card"><span class="pile__cardnum">C06</span> Ask about their interests</li>
+            <li class="pile__card"><span class="pile__cardnum">C07</span> Understand the real question</li>
+            <li class="pile__card"><span class="pile__cardnum">C08</span> Pray for students by name</li>
+            <li class="pile__card"><span class="pile__cardnum">C10</span> Positive message to a parent</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Teaching about Jesus&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C01</span> Connect learning to Christ’s example</li>
+            <li class="pile__card"><span class="pile__cardnum">C03</span> Symbols of Christ in scripture</li>
+            <li class="pile__card"><span class="pile__cardnum">C05</span> Invite: follow Christ personally</li>
+            <li class="pile__card"><span class="pile__cardnum">C15</span> Testify more often of Christ</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;My homework&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C17</span> Search scriptures for depth</li>
+            <li class="pile__card"><span class="pile__cardnum">C22</span> Opening invitation tied to outcome</li>
+            <li class="pile__card"><span class="pile__cardnum">C24</span> Follow up on past invitations</li>
+            </ul>
+          </div>
+          </div>
+        </figure>
+
+        <p class="session-note">Fastest sort of the eight (11 minutes); labels written without a pause. Filed C19 &mdash; answer without speculating &mdash; under Getting them to talk: <span class="inline-quote">&ldquo;That one&rsquo;s for when they <em>do</em> talk.&rdquo;</span> <span class="fiction-badge">INVENTED QUOTE</span></p>
+
+        <figure class="sort-photo" id="sort-s2">
+          <figcaption class="sort-photo__head">
+            <span class="sort-photo__id">S2</span>
+            <span class="sort-photo__who">P02 Trent Larkin</span>
+            <span class="sort-photo__scheme">sorted by tasks/problems (adult class)</span>
+            <span class="fiction-badge">FICTITIOUS DATA</span>
+          </figcaption>
+          <div class="sort-photo__piles">
+          <div class="pile">
+            <p class="pile__label">&ldquo;Running a discussion&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C11</span> Check learning before moving on</li>
+            <li class="pile__card"><span class="pile__cardnum">C12</span> Listen, then ask follow-ups</li>
+            <li class="pile__card"><span class="pile__cardnum">C14</span> Pause: “what can I ask them?”</li>
+            <li class="pile__card"><span class="pile__cardnum">C16</span> Open-ended search questions</li>
+            <li class="pile__card"><span class="pile__cardnum">C21</span> Resist answering everything yourself</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Handling questions&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C07</span> Understand the real question</li>
+            <li class="pile__card"><span class="pile__cardnum">C19</span> Answer without speculating</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Preparation&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C08</span> Pray for students by name</li>
+            <li class="pile__card"><span class="pile__cardnum">C17</span> Search scriptures for depth</li>
+            <li class="pile__card"><span class="pile__cardnum">C18</span> Choose media &amp; stories carefully</li>
+            <li class="pile__card"><span class="pile__cardnum">C22</span> Opening invitation tied to outcome</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Making it personal&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C01</span> Connect learning to Christ’s example</li>
+            <li class="pile__card"><span class="pile__cardnum">C04</span> Statements: feel God’s love</li>
+            <li class="pile__card"><span class="pile__cardnum">C05</span> Invite: follow Christ personally</li>
+            <li class="pile__card"><span class="pile__cardnum">C20</span> Open with a personal circumstance</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Class culture&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C06</span> Ask about their interests</li>
+            <li class="pile__card"><span class="pile__cardnum">C09</span> Students are needed, not just welcome</li>
+            <li class="pile__card"><span class="pile__cardnum">C23</span> Students share with each other</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Follow-through&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C10</span> Positive message to a parent</li>
+            <li class="pile__card"><span class="pile__cardnum">C24</span> Follow up on past invitations</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Christ-focused content&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C02</span> Pictures &amp; videos of Christ</li>
+            <li class="pile__card"><span class="pile__cardnum">C03</span> Symbols of Christ in scripture</li>
+            <li class="pile__card"><span class="pile__cardnum">C13</span> Use sacred music</li>
+            <li class="pile__card"><span class="pile__cardnum">C15</span> Testify more often of Christ</li>
+            </ul>
+          </div>
+          </div>
+        </figure>
+
+        <p class="session-note">The most piles of any sort (seven), and the only sorter to give follow-through its own pile. Held the music card the longest of anyone &mdash; the moment is in the analysis.</p>
+
+        <figure class="sort-photo" id="sort-s3">
+          <figcaption class="sort-photo__head">
+            <span class="sort-photo__id">S3</span>
+            <span class="sort-photo__who">P04 Whitney Kartchner</span>
+            <span class="sort-photo__scheme">sorted by situations (YW)</span>
+            <span class="fiction-badge">FICTITIOUS DATA</span>
+          </figcaption>
+          <div class="sort-photo__piles">
+          <div class="pile">
+            <p class="pile__label">&ldquo;Getting the girls talking&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C09</span> Students are needed, not just welcome</li>
+            <li class="pile__card"><span class="pile__cardnum">C11</span> Check learning before moving on</li>
+            <li class="pile__card"><span class="pile__cardnum">C14</span> Pause: “what can I ask them?”</li>
+            <li class="pile__card"><span class="pile__cardnum">C16</span> Open-ended search questions</li>
+            <li class="pile__card"><span class="pile__cardnum">C21</span> Resist answering everything yourself</li>
+            <li class="pile__card"><span class="pile__cardnum">C23</span> Students share with each other</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;When I don’t know what to say&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C07</span> Understand the real question</li>
+            <li class="pile__card"><span class="pile__cardnum">C12</span> Listen, then ask follow-ups</li>
+            <li class="pile__card"><span class="pile__cardnum">C19</span> Answer without speculating</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Knowing them&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C06</span> Ask about their interests</li>
+            <li class="pile__card"><span class="pile__cardnum">C08</span> Pray for students by name</li>
+            <li class="pile__card"><span class="pile__cardnum">C10</span> Positive message to a parent</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;About the Savior&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C01</span> Connect learning to Christ’s example</li>
+            <li class="pile__card"><span class="pile__cardnum">C02</span> Pictures &amp; videos of Christ</li>
+            <li class="pile__card"><span class="pile__cardnum">C03</span> Symbols of Christ in scripture</li>
+            <li class="pile__card"><span class="pile__cardnum">C04</span> Statements: feel God’s love</li>
+            <li class="pile__card"><span class="pile__cardnum">C05</span> Invite: follow Christ personally</li>
+            <li class="pile__card"><span class="pile__cardnum">C15</span> Testify more often of Christ</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Openers&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C13</span> Use sacred music</li>
+            <li class="pile__card"><span class="pile__cardnum">C20</span> Open with a personal circumstance</li>
+            <li class="pile__card"><span class="pile__cardnum">C22</span> Opening invitation tied to outcome</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Prep I should do&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C17</span> Search scriptures for depth</li>
+            <li class="pile__card"><span class="pile__cardnum">C18</span> Choose media &amp; stories carefully</li>
+            <li class="pile__card"><span class="pile__cardnum">C24</span> Follow up on past invitations</li>
+            </ul>
+          </div>
+          </div>
+        </figure>
+
+        <p class="session-note">Invented &ldquo;When I don&rsquo;t know what to say&rdquo; unprompted &mdash; a pile for the moments that happen <em>to</em> her rather than the ones she plans. Held C24 between piles: <span class="inline-quote">&ldquo;This one&rsquo;s really for next week, not this week.&rdquo;</span> <span class="fiction-badge">INVENTED QUOTE</span> It landed in prep.</p>
+
+        <figure class="sort-photo" id="sort-s4">
+          <figcaption class="sort-photo__head">
+            <span class="sort-photo__id">S4</span>
+            <span class="sort-photo__who">P05 Curtis Openshaw</span>
+            <span class="sort-photo__scheme">sorted by the manual’s principles (attempted)</span>
+            <span class="fiction-badge">FICTITIOUS DATA</span>
+          </figcaption>
+          <div class="sort-photo__piles">
+          <div class="pile">
+            <p class="pile__label">&ldquo;Center on Christ&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C01</span> Connect learning to Christ’s example</li>
+            <li class="pile__card"><span class="pile__cardnum">C02</span> Pictures &amp; videos of Christ</li>
+            <li class="pile__card"><span class="pile__cardnum">C03</span> Symbols of Christ in scripture</li>
+            <li class="pile__card"><span class="pile__cardnum">C04</span> Statements: feel God’s love</li>
+            <li class="pile__card"><span class="pile__cardnum">C05</span> Invite: follow Christ personally</li>
+            <li class="pile__card"><span class="pile__cardnum">C15</span> Testify more often of Christ</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Love the students&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C06</span> Ask about their interests</li>
+            <li class="pile__card"><span class="pile__cardnum">C07</span> Understand the real question</li>
+            <li class="pile__card"><span class="pile__cardnum">C08</span> Pray for students by name</li>
+            <li class="pile__card"><span class="pile__cardnum">C09</span> Students are needed, not just welcome</li>
+            <li class="pile__card"><span class="pile__cardnum">C10</span> Positive message to a parent</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;By the Spirit&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C13</span> Use sacred music</li>
+            <li class="pile__card"><span class="pile__cardnum">C14</span> Pause: “what can I ask them?”</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Teach the doctrine&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C16</span> Open-ended search questions</li>
+            <li class="pile__card"><span class="pile__cardnum">C17</span> Search scriptures for depth</li>
+            <li class="pile__card"><span class="pile__cardnum">C18</span> Choose media &amp; stories carefully</li>
+            <li class="pile__card"><span class="pile__cardnum">C19</span> Answer without speculating</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Get them learning&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C11</span> Check learning before moving on</li>
+            <li class="pile__card"><span class="pile__cardnum">C12</span> Listen, then ask follow-ups</li>
+            <li class="pile__card"><span class="pile__cardnum">C20</span> Open with a personal circumstance</li>
+            <li class="pile__card"><span class="pile__cardnum">C21</span> Resist answering everything yourself</li>
+            <li class="pile__card"><span class="pile__cardnum">C22</span> Opening invitation tied to outcome</li>
+            <li class="pile__card"><span class="pile__cardnum">C23</span> Students share with each other</li>
+            <li class="pile__card"><span class="pile__cardnum">C24</span> Follow up on past invitations</li>
+            </ul>
+          </div>
+          </div>
+        </figure>
+
+        <p class="session-note">The one deliberate attempt at the manual&rsquo;s structure: <span class="inline-quote">&ldquo;There&rsquo;s a right answer to this, you know.&rdquo;</span> <span class="fiction-badge">INVENTED QUOTE</span> His Love pile reproduced the manual&rsquo;s section exactly; his Spirit pile stalled at two cards; the last seven became a catch-all he named with a shrug.</p>
+
+        <figure class="sort-photo" id="sort-s5">
+          <figcaption class="sort-photo__head">
+            <span class="sort-photo__id">S5</span>
+            <span class="sort-photo__who">P06 Jenae Rowley</span>
+            <span class="sort-photo__scheme">sorted by lesson sequence</span>
+            <span class="fiction-badge">FICTITIOUS DATA</span>
+          </figcaption>
+          <div class="sort-photo__piles">
+          <div class="pile">
+            <p class="pile__label">&ldquo;During the week before&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C02</span> Pictures &amp; videos of Christ</li>
+            <li class="pile__card"><span class="pile__cardnum">C03</span> Symbols of Christ in scripture</li>
+            <li class="pile__card"><span class="pile__cardnum">C08</span> Pray for students by name</li>
+            <li class="pile__card"><span class="pile__cardnum">C16</span> Open-ended search questions</li>
+            <li class="pile__card"><span class="pile__cardnum">C17</span> Search scriptures for depth</li>
+            <li class="pile__card"><span class="pile__cardnum">C18</span> Choose media &amp; stories carefully</li>
+            <li class="pile__card"><span class="pile__cardnum">C22</span> Opening invitation tied to outcome</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Opening minutes&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C13</span> Use sacred music</li>
+            <li class="pile__card"><span class="pile__cardnum">C20</span> Open with a personal circumstance</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;The discussion itself&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C07</span> Understand the real question</li>
+            <li class="pile__card"><span class="pile__cardnum">C09</span> Students are needed, not just welcome</li>
+            <li class="pile__card"><span class="pile__cardnum">C11</span> Check learning before moving on</li>
+            <li class="pile__card"><span class="pile__cardnum">C12</span> Listen, then ask follow-ups</li>
+            <li class="pile__card"><span class="pile__cardnum">C14</span> Pause: “what can I ask them?”</li>
+            <li class="pile__card"><span class="pile__cardnum">C19</span> Answer without speculating</li>
+            <li class="pile__card"><span class="pile__cardnum">C21</span> Resist answering everything yourself</li>
+            <li class="pile__card"><span class="pile__cardnum">C23</span> Students share with each other</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Landing it&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C01</span> Connect learning to Christ’s example</li>
+            <li class="pile__card"><span class="pile__cardnum">C04</span> Statements: feel God’s love</li>
+            <li class="pile__card"><span class="pile__cardnum">C05</span> Invite: follow Christ personally</li>
+            <li class="pile__card"><span class="pile__cardnum">C15</span> Testify more often of Christ</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;After Sunday&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C06</span> Ask about their interests</li>
+            <li class="pile__card"><span class="pile__cardnum">C10</span> Positive message to a parent</li>
+            <li class="pile__card"><span class="pile__cardnum">C24</span> Follow up on past invitations</li>
+            </ul>
+          </div>
+          </div>
+        </figure>
+
+        <p class="session-note">Asked <span class="inline-quote">&ldquo;I sorted by when it happens &mdash; is that allowed?&rdquo;</span> <span class="fiction-badge">INVENTED QUOTE</span> (Answer: however makes sense to you.) The study&rsquo;s only fully sequential sort, and its biggest single pile &mdash; seven cards of &ldquo;During the week before.&rdquo;</p>
+
+        <figure class="sort-photo" id="sort-s6">
+          <figcaption class="sort-photo__head">
+            <span class="sort-photo__id">S6</span>
+            <span class="sort-photo__who">P07+P08 Kade &amp; Rylee Beckstrand (pair)</span>
+            <span class="sort-photo__scheme">sorted by situations (Primary, 7-year-olds)</span>
+            <span class="fiction-badge">FICTITIOUS DATA</span>
+          </figcaption>
+          <div class="sort-photo__piles">
+          <div class="pile">
+            <p class="pile__label">&ldquo;Keeping seven-year-olds alive&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C02</span> Pictures &amp; videos of Christ</li>
+            <li class="pile__card"><span class="pile__cardnum">C06</span> Ask about their interests</li>
+            <li class="pile__card"><span class="pile__cardnum">C13</span> Use sacred music</li>
+            <li class="pile__card"><span class="pile__cardnum">C20</span> Open with a personal circumstance</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Getting answers out of them&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C11</span> Check learning before moving on</li>
+            <li class="pile__card"><span class="pile__cardnum">C12</span> Listen, then ask follow-ups</li>
+            <li class="pile__card"><span class="pile__cardnum">C14</span> Pause: “what can I ask them?”</li>
+            <li class="pile__card"><span class="pile__cardnum">C16</span> Open-ended search questions</li>
+            <li class="pile__card"><span class="pile__cardnum">C21</span> Resist answering everything yourself</li>
+            <li class="pile__card"><span class="pile__cardnum">C23</span> Students share with each other</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Loving them&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C04</span> Statements: feel God’s love</li>
+            <li class="pile__card"><span class="pile__cardnum">C07</span> Understand the real question</li>
+            <li class="pile__card"><span class="pile__cardnum">C08</span> Pray for students by name</li>
+            <li class="pile__card"><span class="pile__cardnum">C09</span> Students are needed, not just welcome</li>
+            <li class="pile__card"><span class="pile__cardnum">C10</span> Positive message to a parent</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Jesus cards&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C01</span> Connect learning to Christ’s example</li>
+            <li class="pile__card"><span class="pile__cardnum">C03</span> Symbols of Christ in scripture</li>
+            <li class="pile__card"><span class="pile__cardnum">C05</span> Invite: follow Christ personally</li>
+            <li class="pile__card"><span class="pile__cardnum">C15</span> Testify more often of Christ</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Grown-up homework&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C17</span> Search scriptures for depth</li>
+            <li class="pile__card"><span class="pile__cardnum">C18</span> Choose media &amp; stories carefully</li>
+            <li class="pile__card"><span class="pile__cardnum">C19</span> Answer without speculating</li>
+            <li class="pile__card"><span class="pile__cardnum">C22</span> Opening invitation tied to outcome</li>
+            <li class="pile__card"><span class="pile__cardnum">C24</span> Follow up on past invitations</li>
+            </ul>
+          </div>
+          </div>
+        </figure>
+
+        <p class="session-note">The pair sort &mdash; and the negotiation was the data (see the analysis for the C21 argument, which Rylee won from practice). &ldquo;Grown-up homework&rdquo; was Kade&rsquo;s coinage; C19 went there with a verdict: <span class="inline-quote">&ldquo;That one&rsquo;s for Trent&rsquo;s class.&rdquo;</span> <span class="fiction-badge">INVENTED QUOTE</span></p>
+
+        <figure class="sort-photo" id="sort-s7">
+          <figcaption class="sort-photo__head">
+            <span class="sort-photo__id">S7</span>
+            <span class="sort-photo__who">P13 Lonnie Tolman</span>
+            <span class="sort-photo__scheme">sorted by classroom-teacher categories</span>
+            <span class="fiction-badge">FICTITIOUS DATA</span>
+          </figcaption>
+          <div class="sort-photo__piles">
+          <div class="pile">
+            <p class="pile__label">&ldquo;Engagement&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C02</span> Pictures &amp; videos of Christ</li>
+            <li class="pile__card"><span class="pile__cardnum">C09</span> Students are needed, not just welcome</li>
+            <li class="pile__card"><span class="pile__cardnum">C13</span> Use sacred music</li>
+            <li class="pile__card"><span class="pile__cardnum">C20</span> Open with a personal circumstance</li>
+            <li class="pile__card"><span class="pile__cardnum">C23</span> Students share with each other</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Questioning strategies&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C07</span> Understand the real question</li>
+            <li class="pile__card"><span class="pile__cardnum">C11</span> Check learning before moving on</li>
+            <li class="pile__card"><span class="pile__cardnum">C12</span> Listen, then ask follow-ups</li>
+            <li class="pile__card"><span class="pile__cardnum">C14</span> Pause: “what can I ask them?”</li>
+            <li class="pile__card"><span class="pile__cardnum">C16</span> Open-ended search questions</li>
+            <li class="pile__card"><span class="pile__cardnum">C19</span> Answer without speculating</li>
+            <li class="pile__card"><span class="pile__cardnum">C21</span> Resist answering everything yourself</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Relationships&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C04</span> Statements: feel God’s love</li>
+            <li class="pile__card"><span class="pile__cardnum">C06</span> Ask about their interests</li>
+            <li class="pile__card"><span class="pile__cardnum">C08</span> Pray for students by name</li>
+            <li class="pile__card"><span class="pile__cardnum">C10</span> Positive message to a parent</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;The content&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C01</span> Connect learning to Christ’s example</li>
+            <li class="pile__card"><span class="pile__cardnum">C03</span> Symbols of Christ in scripture</li>
+            <li class="pile__card"><span class="pile__cardnum">C05</span> Invite: follow Christ personally</li>
+            <li class="pile__card"><span class="pile__cardnum">C15</span> Testify more often of Christ</li>
+            <li class="pile__card"><span class="pile__cardnum">C17</span> Search scriptures for depth</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;Planning&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C18</span> Choose media &amp; stories carefully</li>
+            <li class="pile__card"><span class="pile__cardnum">C22</span> Opening invitation tied to outcome</li>
+            <li class="pile__card"><span class="pile__cardnum">C24</span> Follow up on past invitations</li>
+            </ul>
+          </div>
+          </div>
+        </figure>
+
+        <p class="session-note">Labeled in professional vocabulary throughout &mdash; the only participant with classroom training, and the only one whose labels sound like a curriculum office. She disowned them herself; the quote is in the analysis.</p>
+
+        <figure class="sort-photo" id="sort-s8">
+          <figcaption class="sort-photo__head">
+            <span class="sort-photo__id">S8</span>
+            <span class="sort-photo__who">P15 Cami Sprague</span>
+            <span class="sort-photo__scheme">sorted by relationship to herself</span>
+            <span class="fiction-badge">FICTITIOUS DATA</span>
+          </figcaption>
+          <div class="sort-photo__piles">
+          <div class="pile">
+            <p class="pile__label">&ldquo;I think I already do this&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C02</span> Pictures &amp; videos of Christ</li>
+            <li class="pile__card"><span class="pile__cardnum">C04</span> Statements: feel God’s love</li>
+            <li class="pile__card"><span class="pile__cardnum">C06</span> Ask about their interests</li>
+            <li class="pile__card"><span class="pile__cardnum">C09</span> Students are needed, not just welcome</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;I want to try this&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C11</span> Check learning before moving on</li>
+            <li class="pile__card"><span class="pile__cardnum">C12</span> Listen, then ask follow-ups</li>
+            <li class="pile__card"><span class="pile__cardnum">C13</span> Use sacred music</li>
+            <li class="pile__card"><span class="pile__cardnum">C20</span> Open with a personal circumstance</li>
+            <li class="pile__card"><span class="pile__cardnum">C22</span> Opening invitation tied to outcome</li>
+            <li class="pile__card"><span class="pile__cardnum">C23</span> Students share with each other</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;I should do this but don’t&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C01</span> Connect learning to Christ’s example</li>
+            <li class="pile__card"><span class="pile__cardnum">C05</span> Invite: follow Christ personally</li>
+            <li class="pile__card"><span class="pile__cardnum">C08</span> Pray for students by name</li>
+            <li class="pile__card"><span class="pile__cardnum">C10</span> Positive message to a parent</li>
+            <li class="pile__card"><span class="pile__cardnum">C15</span> Testify more often of Christ</li>
+            <li class="pile__card"><span class="pile__cardnum">C17</span> Search scriptures for depth</li>
+            <li class="pile__card"><span class="pile__cardnum">C21</span> Resist answering everything yourself</li>
+            </ul>
+          </div>
+          <div class="pile">
+            <p class="pile__label">&ldquo;I don’t know what this means&rdquo;</p>
+            <ul class="pile__cards">
+            <li class="pile__card"><span class="pile__cardnum">C03</span> Symbols of Christ in scripture</li>
+            <li class="pile__card"><span class="pile__cardnum">C07</span> Understand the real question</li>
+            <li class="pile__card"><span class="pile__cardnum">C14</span> Pause: “what can I ask them?”</li>
+            <li class="pile__card"><span class="pile__cardnum">C16</span> Open-ended search questions</li>
+            <li class="pile__card"><span class="pile__cardnum">C18</span> Choose media &amp; stories carefully</li>
+            <li class="pile__card"><span class="pile__cardnum">C19</span> Answer without speculating</li>
+            <li class="pile__card"><span class="pile__cardnum">C24</span> Follow up on past invitations</li>
+            </ul>
+          </div>
+          </div>
+        </figure>
+        <p class="session-note">The slowest sort (24 minutes) and the only one that never formed content categories at all &mdash; every pile describes her relationship to the card, not the card. Seven of 24 cards ended in &ldquo;I don&rsquo;t know what this means.&rdquo;</p>
+    </section>
+
+    <section aria-labelledby="el3">
+      <h2 id="el3">Analysis</h2>
+      <p class="fiction-note"><span class="fiction-badge">FICTITIOUS DATA</span>
+        The trends below are computed from the eight invented sorts above
+        &mdash; the numbers are internally consistent, but nothing here was
+        measured from real people.</p>
+
+      <h3>Trends</h3>
+      <p>
+        <strong>1. Situations beat structure.</strong> Five of eight sorts
+        organized by teaching situation or task (&ldquo;Getting them to
+        talk,&rdquo; &ldquo;Keeping their attention,&rdquo; &ldquo;Handling
+        questions&rdquo;). One sorted by lesson sequence, one by her own
+        relationship to each skill, and exactly one &mdash; Curtis, who knows
+        the manual best &mdash; tried to reproduce the manual&rsquo;s five
+        principles on purpose (&ldquo;there&rsquo;s a right answer to this, you
+        know&rdquo;). Even he managed it for only two sections: his
+        &ldquo;By&nbsp;the&nbsp;Spirit&rdquo; pile stalled at two of the five
+        Spirit-section cards in the deck, and his last seven cards became a
+        catch-all he shrugged at: <span class="inline-quote">&ldquo;These last
+        ones are all just&hellip; teaching.&rdquo;</span>
+        <span class="fiction-badge">INVENTED QUOTE</span>
+      </p>
+      <p>
+        <strong>2. The mismatch with the manual is precise, not total.</strong>
+        Two manual sections survived as mental categories in six of eight
+        sorts: <em>Teaching about Jesus Christ</em> and <em>knowing and loving
+        the students</em>. The other three &mdash; Teach By the Spirit, Teach
+        the Doctrine, Invite Diligent Learning &mdash; dissolved into
+        situations. A pattern worth saying carefully: the manual&rsquo;s
+        <em>who</em>-sections (about Christ, about the students) match how
+        teachers think; its <em>how</em>-sections do not. Only one sort in
+        eight produced a Spirit pile at all.
+      </p>
+      <p>
+        <strong>3. Strong pairs.</strong> Three clusters never (or almost
+        never) separated: the Christ-application cluster &mdash; C01+C05
+        together in 8 of 8 sorts, with C15 joining in 7; the
+        discussion cluster &mdash; C11, C12, C14, C21 pairwise together in 6
+        or 7 of 8; and the personal-ministry pair C08+C10 (pray for students /
+        message a parent), together in 6 of 8. Whatever we build, these travel
+        together.
+      </p>
+      <p>
+        <strong>4. Splitters &mdash; and what kind of splitters.</strong>
+        Seven cards landed in four or more different kinds of home across the
+        seven scheme-forming sorts; the worst was C19
+        (&ldquo;Answer without speculating&rdquo;) with five. But the
+        interesting case is C13 (sacred music) and C20 (open with a personal
+        circumstance): they sat in the <em>same pile</em> in six of eight
+        sorts while that pile&rsquo;s <em>meaning</em> changed under them
+        &mdash; &ldquo;Keeping their attention&rdquo; (S1),
+        &ldquo;Openers&rdquo; (S3), &ldquo;By the Spirit&rdquo; (S4),
+        &ldquo;Opening minutes&rdquo; (S5). Two organizing questions are
+        active in people&rsquo;s heads at once: <em>what problem does this
+        solve</em> and <em>when in the lesson does it happen</em>. That is not
+        noise to be averaged away; it is evidence that these cards need more
+        than one home.
+      </p>
+      <p>
+        <strong>5. Vocabulary.</strong> The harvested labels are plain,
+        situational, and second-person: people, talk, attention, ready,
+        Sunday. Nobody wrote &ldquo;principle,&rdquo; &ldquo;doctrine,&rdquo;
+        or &ldquo;diligent.&rdquo; The one exception proves the rule: Lonnie,
+        the retired schoolteacher, labeled in professional vocabulary
+        (&ldquo;Questioning strategies,&rdquo; &ldquo;Engagement&rdquo;) and
+        then disowned it herself: <span class="inline-quote">&ldquo;Twenty
+        years of faculty meetings, that&rsquo;s what those words
+        are.&rdquo;</span> <span class="fiction-badge">INVENTED QUOTE</span>
+      </p>
+
+      <h3>Isolated incidents</h3>
+      <ul>
+        <li>Trent held the music card for a long ten seconds &mdash;
+          <span class="inline-quote">&ldquo;We never sing in my class.
+          It still belongs somewhere, doesn&rsquo;t it?&rdquo;</span>
+          <span class="fiction-badge">INVENTED QUOTE</span> &mdash; before
+          filing it under content. A card can be real and still homeless in
+          one teacher&rsquo;s practice.</li>
+        <li>Two sorters independently invented a pile for hard moments
+          (Trent&rsquo;s &ldquo;Handling questions,&rdquo; Whitney&rsquo;s
+          &ldquo;When I don&rsquo;t know what to say&rdquo;) &mdash; and the
+          deck&rsquo;s biggest splitter, C19, is exactly that kind of card.
+          Two of eight is not a category; it is a flag we keep.</li>
+        <li>Cami, eight months into her first calling, put seven of the 24
+          cards in a pile named &ldquo;I don&rsquo;t know what this
+          means&rdquo; &mdash; <span class="inline-quote">&ldquo;I don&rsquo;t
+          know what a search question is. Is that a church word or a real
+          word?&rdquo;</span> <span class="fiction-badge">INVENTED QUOTE</span>
+          The newest teacher could not parse nearly a third of the
+          manual&rsquo;s own skill names.</li>
+        <li>In the pair sort, the negotiation was the data: Kade wanted
+          &ldquo;resist answering everything yourself&rdquo; filed under
+          grown-up theory; Rylee overruled him from practice:
+          <span class="inline-quote">&ldquo;If you don&rsquo;t answer a
+          seven-year-old, they&rsquo;ll answer themselves, and you will not
+          like it.&rdquo;</span> <span class="fiction-badge">INVENTED QUOTE</span>
+          It stayed in &ldquo;Getting answers out of them.&rdquo;</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="el4">
+      <h2 id="el4">The categories and labels we ended up with</h2>
+      <p>
+        Five categories, labels built from the participants&rsquo; own words,
+        plus one structural commitment that is not a category. (Spencer&rsquo;s
+        advice at this scale is to eyeball the standardized results rather than
+        compute a similarity matrix &mdash; and the patterns were loud. The
+        <a href="#std">standardization table</a> is in the appendix.)
+      </p>
+      <table class="study-table">
+        <thead>
+          <tr><th>Category (working label)</th><th>Support</th><th>Justification</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Getting people to talk</strong></td><td>6 of 8 sorts</td>
+            <td>The most consistent pile in the study; label harvested from Margie&rsquo;s and Whitney&rsquo;s wording. Holds the discussion cluster (C11/C12/C14/C21) intact.</td></tr>
+          <tr><td><strong>Knowing and loving the people you teach</strong></td><td>6 of 8</td>
+            <td>The manual&rsquo;s Love section survived contact with real sorters &mdash; every scheme-forming sort had this pile under some name.</td></tr>
+          <tr><td><strong>Teaching about Jesus Christ</strong></td><td>6 of 8</td>
+            <td>The other manual section that survived. Topical, not situational &mdash; and that&rsquo;s fine; the data says this is how people think about these cards (C01+C05 in 8/8, +C15 in 7/8).</td></tr>
+          <tr><td><strong>Getting ready before Sunday</strong></td><td>6 of 8</td>
+            <td>&ldquo;My homework,&rdquo; &ldquo;Prep I should do,&rdquo; &ldquo;Grown-up homework&rdquo; &mdash; different words, same pile, in six sorts.</td></tr>
+          <tr><td><strong>Keeping their attention</strong></td><td>3 of 8</td>
+            <td>Only three sorts &mdash; but all three are the Primary teachers, and half this ward&rsquo;s teaching corps teaches children. A category earned by who needs it, not by raw count.</td></tr>
+        </tbody>
+      </table>
+      <p>
+        <strong>And one thing that is deliberately not a category: the lesson
+        moment.</strong> Jenae&rsquo;s whole sort, Whitney&rsquo;s
+        &ldquo;Openers,&rdquo; and the C13/C20/C22 splitter pattern all say
+        the same thing &mdash; <em>when in the lesson</em> is a second way
+        teachers reach for a skill, cutting across every category above. We
+        are recording it as a facet on every skill (opening / during /
+        closing / after), not as a sixth box. One card, more than one home,
+        selected by attribute &mdash; not filed by hand.
+      </p>
+    </section>
+
+    <section aria-labelledby="el5">
+      <h2 id="el5">What we saw and are ignoring &mdash; for now, maybe forever</h2>
+      <ul>
+        <li><strong>Cami&rsquo;s whole scheme.</strong> &ldquo;Things I already
+          do / want to try / don&rsquo;t understand&rdquo; is a real mental
+          model &mdash; but it is an organization of <em>her relationship to
+          the skills</em>, not of the skills. A shared site can&rsquo;t ship
+          it as navigation. It could someday become personalization
+          (&ldquo;my skills&rdquo;); parked.</li>
+        <li><strong>A &ldquo;hard moments&rdquo; category.</strong> Two of
+          eight sorts, plus the C19 splitter. Not enough to act on; the tree
+          test carries the question forward.</li>
+        <li><strong>After-class follow-through.</strong> One explicit pile
+          (Trent&rsquo;s), C24 wandering in four kinds of home. The
+          lesson-moment facet&rsquo;s &ldquo;after&rdquo; value may absorb
+          this; watching, not building.</li>
+        <li><strong>Lonnie&rsquo;s labels.</strong> &ldquo;Questioning
+          strategies&rdquo; is a better-sounding label than &ldquo;Getting
+          people to talk&rdquo; &mdash; and it is exactly the label our
+          population does not use. We are ignoring our most articulate
+          labeler on purpose, and that discipline is the point of harvesting
+          vocabulary at all.</li>
+        <li><strong>The missing Spirit category.</strong> The boldest omission:
+          one sort in eight produced one. We are not forcing a category the
+          sorters didn&rsquo;t make &mdash; but this is the site for a
+          church whose teaching manual is organized around it, so the tree
+          test must probe whether people <em>look</em> for it even though
+          they don&rsquo;t <em>sort</em> by it. If they do, this decision
+          reopens.</li>
+        <li><strong>Age of audience as a facet.</strong> The Primary flavor of
+          three sorts hints at it. One facet at a time; deferred.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="decisions">
+      <h2 id="decisions">Design decisions feeding the wireframe</h2>
+      <p class="section-note">
+        These are live commitments, not summary &mdash; the
+        2&ndash;3 level wireframe (next in the chain &mdash; not yet built)
+        implements exactly this list, and nothing not on it.
+      </p>
+      <ol class="decision-list">
+        <li><strong>Because five categories emerged across six or more sorts
+          (three of them in teacher wording no manual section uses), the
+          wireframe&rsquo;s top level is those five categories, with the
+          harvested labels verbatim.</strong></li>
+        <li><strong>Because C13, C20, and C22 kept their pile-mates while
+          their pile&rsquo;s meaning changed &mdash; and one sorter organized
+          the entire deck by lesson sequence &mdash; every skill block gets
+          two attributes: <code>situation</code> and <code>moment</code>.
+          Pages select on attributes; no skill is filed anywhere by
+          hand.</strong> One source, multiple views, from the first rung.</li>
+        <li><strong>Because the Christ cluster held in 8 of 8 sorts and a
+          Christ pile appeared in 6 of 8, we KEEP a topical
+          Teaching-about-Jesus-Christ category</strong> &mdash; an
+          evidence-backed decision to preserve part of the manual&rsquo;s own
+          structure, not an oversight.</li>
+        <li><strong>Because the discussion cluster (C11/C12/C14/C21) and the
+          personal-ministry pair (C08/C10) almost never separated, they are
+          grouped as units inside their categories</strong> &mdash; the
+          wireframe may rearrange much, but not these.</li>
+        <li><strong>Because the newest teacher couldn&rsquo;t parse 7 of 24
+          skill names, category and group labels use only harvested
+          vocabulary; the verbatim skill names appear one level down,</strong>
+          where they arrive with context around them. Whether that is enough
+          &mdash; and whether anyone goes looking for the Spirit &mdash; are
+          the tree test&rsquo;s first two tasks.</li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="deck">
+      <h2 id="deck">Appendix A: the deck</h2>
+      <p class="fiction-note"><span class="fiction-badge">CONSTRUCTED DECK</span>
+        This instrument is <em>real content with authored presentation</em>:
+        every card is a skill quoted verbatim from the Teacher Development
+        Skills manual, as carried on the <a href="../../">live site</a>. The
+        selection of 24 from 53, and the C-numbers, are ours. The
+        <code>skill id</code> column is the traceability key into the
+        site&rsquo;s <code>skills-data.js</code> and the manual itself.</p>
+      <div class="table-scroll">
+        <table class="study-table deck-table">
+          <thead>
+            <tr><th>#</th><th>Card text (verbatim)</th><th>Manual section</th><th>Skill id</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="deck__num">C01</td><td class="deck__text">Help students connect what they are learning with how Christ exemplifies the principle.</td><td class="deck__sec">Focus on Jesus Christ</td><td class="deck__id"><code>004.title_number1</code></td></tr>
+            <tr><td class="deck__num">C02</td><td class="deck__text">Use pictures and videos of Jesus Christ to illustrate a gospel principle.</td><td class="deck__sec">Focus on Jesus Christ</td><td class="deck__id"><code>004.title_number2</code></td></tr>
+            <tr><td class="deck__num">C03</td><td class="deck__text">Ask questions that help students learn about Jesus Christ through symbols in the scriptures.</td><td class="deck__sec">Focus on Jesus Christ</td><td class="deck__id"><code>006.title_number1</code></td></tr>
+            <tr><td class="deck__num">C04</td><td class="deck__text">Statements that help students know and feel the love of Heavenly Father and Jesus Christ.</td><td class="deck__sec">Focus on Jesus Christ</td><td class="deck__id"><code>008.title_number1</code></td></tr>
+            <tr><td class="deck__num">C05</td><td class="deck__text">Invite students to look for ways to follow the example of Jesus Christ in their personal lives.</td><td class="deck__sec">Focus on Jesus Christ</td><td class="deck__id"><code>009.title_number2</code></td></tr>
+            <tr><td class="deck__num">C06</td><td class="deck__text">Observe and ask about students’ interests.</td><td class="deck__sec">Love Those You Teach</td><td class="deck__id"><code>012.intro2</code></td></tr>
+            <tr><td class="deck__num">C07</td><td class="deck__text">Seek to clarify and understand the real intent of students’ questions, feelings, and beliefs.</td><td class="deck__sec">Love Those You Teach</td><td class="deck__id"><code>012.title_number3</code></td></tr>
+            <tr><td class="deck__num">C08</td><td class="deck__text">Pray and ask how you can help your students and follow the promptings from the Holy Ghost.</td><td class="deck__sec">Love Those You Teach</td><td class="deck__id"><code>013.intro2</code></td></tr>
+            <tr><td class="deck__num">C09</td><td class="deck__text">Communicate that students are not only welcome but needed.</td><td class="deck__sec">Love Those You Teach</td><td class="deck__id"><code>014.title_number3</code></td></tr>
+            <tr><td class="deck__num">C10</td><td class="deck__text">Send a message to a student’s parent about something positive you have noticed about their child.</td><td class="deck__sec">Love Those You Teach</td><td class="deck__id"><code>015.title_number1</code></td></tr>
+            <tr><td class="deck__num">C11</td><td class="deck__text">Ask a question to assess learning before moving on in the lesson.</td><td class="deck__sec">Teach By the Spirit</td><td class="deck__id"><code>018.title_number1</code></td></tr>
+            <tr><td class="deck__num">C12</td><td class="deck__text">Listen to and observe students to ask follow-up questions.</td><td class="deck__sec">Teach By the Spirit</td><td class="deck__id"><code>018.title_number2</code></td></tr>
+            <tr><td class="deck__num">C13</td><td class="deck__text">Use sacred music. Invite students to identify lines and phrases in sacred music that connect with the truths they are learning.</td><td class="deck__sec">Teach By the Spirit</td><td class="deck__id"><code>019.title_number2</code></td></tr>
+            <tr><td class="deck__num">C14</td><td class="deck__text">Before responding to a student’s question or comment, pause and think, “What can I ask them?” or “What can I invite them to do?”</td><td class="deck__sec">Teach By the Spirit</td><td class="deck__id"><code>020.intro2</code></td></tr>
+            <tr><td class="deck__num">C15</td><td class="deck__text">Testify more frequently and more powerfully of Jesus Christ.</td><td class="deck__sec">Teach By the Spirit</td><td class="deck__id"><code>021.title_number2</code></td></tr>
+            <tr><td class="deck__num">C16</td><td class="deck__text">Create open-ended search questions that help learners discover gospel doctrine and principles for themselves and do not lead students to a specific response.</td><td class="deck__sec">Teach the Doctrine</td><td class="deck__id"><code>023.title_number1</code></td></tr>
+            <tr><td class="deck__num">C17</td><td class="deck__text">Search the scriptures and words of the prophets for deeper understanding.</td><td class="deck__sec">Teach the Doctrine</td><td class="deck__id"><code>023.title_number2</code></td></tr>
+            <tr><td class="deck__num">C18</td><td class="deck__text">Consider assessment questions to carefully choose media, personal stories, and object lessons.</td><td class="deck__sec">Teach the Doctrine</td><td class="deck__id"><code>025.title_number3</code></td></tr>
+            <tr><td class="deck__num">C19</td><td class="deck__text">Respond to questions in a way that avoids speculation and nondoctrinal personal ideas.</td><td class="deck__sec">Teach the Doctrine</td><td class="deck__id"><code>026.title_number3</code></td></tr>
+            <tr><td class="deck__num">C20</td><td class="deck__text">Start a learning activity by inviting students to ponder a personal circumstance.</td><td class="deck__sec">Teach the Doctrine</td><td class="deck__id"><code>027.title_number2</code></td></tr>
+            <tr><td class="deck__num">C21</td><td class="deck__text">Resist the tendency to respond to every comment and question and invite the class to respond.</td><td class="deck__sec">Invite Diligent Learning</td><td class="deck__id"><code>029.title_number1</code></td></tr>
+            <tr><td class="deck__num">C22</td><td class="deck__text">Create a meaningful invitation connected to the lesson outcome to be used at the beginning of each lesson.</td><td class="deck__sec">Invite Diligent Learning</td><td class="deck__id"><code>031.title_number2</code></td></tr>
+            <tr><td class="deck__num">C23</td><td class="deck__text">Prepare invitations for students to share with each other what they are learning.</td><td class="deck__sec">Invite Diligent Learning</td><td class="deck__id"><code>032.title_number3</code></td></tr>
+            <tr><td class="deck__num">C24</td><td class="deck__text">Plan to follow up on invitations given in a previous class and invite learners to share their experiences living what they learned.</td><td class="deck__sec">Invite Diligent Learning</td><td class="deck__id"><code>033.title_number1</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="std">
+      <h2 id="std">Appendix B: group-name standardization</h2>
+      <p class="fiction-note"><span class="fiction-badge">FICTITIOUS DATA</span>
+        How the participants&rsquo; verbatim pile names were folded into
+        standardized categories for analysis. Sequence-scheme piles fold into
+        lesson-moment buckets (the facet), not categories; Cami&rsquo;s
+        self-relevance piles are excluded from category counts and analyzed
+        separately.</p>
+      <div class="table-scroll">
+        <table class="study-table std-table">
+          <thead>
+            <tr><th>Standardized category</th><th>Sorts</th><th>Verbatim pile names folded in</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="std__cat">Getting people to talk</td><td class="std__n">6/8</td><td class="std__labels">&ldquo;Getting them to talk&rdquo; (S1); &ldquo;Running a discussion&rdquo; (S2); &ldquo;Getting the girls talking&rdquo; (S3); &ldquo;Get them learning&rdquo; (S4); &ldquo;Getting answers out of them&rdquo; (S6); &ldquo;Questioning strategies&rdquo; (S7)</td></tr>
+            <tr><td class="std__cat">Knowing &amp; loving the people you teach</td><td class="std__n">6/8</td><td class="std__labels">&ldquo;Loving the kids&rdquo; (S1); &ldquo;Class culture&rdquo; (S2); &ldquo;Knowing them&rdquo; (S3); &ldquo;Love the students&rdquo; (S4); &ldquo;Loving them&rdquo; (S6); &ldquo;Relationships&rdquo; (S7)</td></tr>
+            <tr><td class="std__cat">Teaching about Jesus Christ</td><td class="std__n">6/8</td><td class="std__labels">&ldquo;Teaching about Jesus&rdquo; (S1); &ldquo;Making it personal&rdquo; (S2); &ldquo;Christ-focused content&rdquo; (S2); &ldquo;About the Savior&rdquo; (S3); &ldquo;Center on Christ&rdquo; (S4); &ldquo;Jesus cards&rdquo; (S6); &ldquo;The content&rdquo; (S7)</td></tr>
+            <tr><td class="std__cat">Getting ready before Sunday</td><td class="std__n">6/8</td><td class="std__labels">&ldquo;My homework&rdquo; (S1); &ldquo;Preparation&rdquo; (S2); &ldquo;Prep I should do&rdquo; (S3); &ldquo;During the week before&rdquo; (S5); &ldquo;Grown-up homework&rdquo; (S6); &ldquo;Planning&rdquo; (S7)</td></tr>
+            <tr><td class="std__cat">Keeping their attention</td><td class="std__n">3/8</td><td class="std__labels">&ldquo;Keeping their attention&rdquo; (S1); &ldquo;Keeping seven-year-olds alive&rdquo; (S6); &ldquo;Engagement&rdquo; (S7)</td></tr>
+            <tr><td class="std__cat">Hard moments / handling questions</td><td class="std__n">2/8</td><td class="std__labels">&ldquo;Handling questions&rdquo; (S2); &ldquo;When I don’t know what to say&rdquo; (S3)</td></tr>
+            <tr><td class="std__cat">After class / follow-through</td><td class="std__n">1/8</td><td class="std__labels">&ldquo;Follow-through&rdquo; (S2)</td></tr>
+            <tr><td class="std__cat">By the Spirit</td><td class="std__n">1/8</td><td class="std__labels">&ldquo;By the Spirit&rdquo; (S4)</td></tr>
+            <tr><td class="std__cat">Teach the doctrine (manual’s term)</td><td class="std__n">1/8</td><td class="std__labels">&ldquo;Teach the doctrine&rdquo; (S4)</td></tr>
+            <tr><td class="std__cat">(self-relevance — Cami’s scheme)</td><td class="std__n">1/8</td><td class="std__labels">&ldquo;I think I already do this&rdquo; (S8); &ldquo;I want to try this&rdquo; (S8); &ldquo;I should do this but don’t&rdquo; (S8); &ldquo;I don’t know what this means&rdquo; (S8)</td></tr>
+            <tr><td class="std__cat">Lesson-moment piles (opening / during / closing / after)</td><td class="std__n">2/8</td><td class="std__labels">&ldquo;Openers&rdquo; (S3: opening); &ldquo;Opening minutes&rdquo; (S5: opening); &ldquo;The discussion itself&rdquo; (S5: during); &ldquo;Landing it&rdquo; (S5: closing); &ldquo;After Sunday&rdquo; (S5: after)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="chain">
+      <h2 id="chain">See it in the chain</h2>
+      <ul class="stack-list">
+        <li>
+          <strong>What this study starts from:</strong>
+          <a href="../../">the live site</a> &mdash; the five-principle
+          structure these 24 cards currently live in.
+        </li>
+        <li>
+          <strong>What these results build:</strong>
+          <span class="is-pending"><span class="is-pending__label">the
+          2&ndash;3 level wireframe</span>
+          <span class="pill pill--pending">Not built yet</span></span> &mdash;
+          five harvested categories, two attributes per skill, no card filed
+          by hand. The tree test runs on it.
+        </li>
+      </ul>
+    </section>
+
+    <nav data-companion="arcnav"></nav>
+
+    <footer class="site-foot">
+      <p><a href="../index.html">&larr; The whole chain</a></p>
+    </footer>
+
+  </main>
+
+  <script src="../assets/studies-data.js" defer></script>
+  <script src="../assets/companion.js" defer></script>
+</body>
+</html>

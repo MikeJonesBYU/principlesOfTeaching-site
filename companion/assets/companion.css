@@ -446,3 +446,91 @@ span.chip.is-pending .pill--pending {
 /* --- Prototype stations in the chain (restart 2026-08-21) ----------------- */
 .arc-item--prototype { background: var(--panel-sunk); }
 .arc-item--prototype .arc-item__marker { color: var(--muted); }
+
+/* --- Study-page components (card sort, 2026-08-21) ------------------------ */
+
+.study-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .92rem;
+  margin: 12px 0 20px;
+}
+.study-table th, .study-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--rule);
+}
+.study-table th {
+  font-family: var(--mono);
+  font-size: .7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 2px solid var(--rule-strong);
+}
+.table-scroll { overflow-x: auto; }
+.deck-table .deck__num, .deck-table .deck__id { font-family: var(--mono); font-size: .8rem; white-space: nowrap; }
+.deck-table .deck__sec { white-space: nowrap; }
+.std-table .std__n { font-family: var(--mono); white-space: nowrap; }
+.std-table .std__cat { font-weight: 600; min-width: 12em; }
+
+/* A transcribed "photograph" of one participant's finished sort. */
+.sort-photo {
+  margin: 22px 0;
+  border: 1px solid var(--rule-strong);
+  background: var(--panel-sunk);
+  padding: 0 0 6px;
+}
+.sort-photo__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--rule);
+}
+.sort-photo__id { font-family: var(--mono); font-weight: 700; color: var(--accent); }
+.sort-photo__who { font-weight: 600; }
+.sort-photo__scheme { color: var(--muted); font-style: italic; }
+.sort-photo__head .fiction-badge { margin-left: auto; }
+.sort-photo__piles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 14px 8px;
+}
+.pile {
+  flex: 1 1 160px;
+  min-width: 150px;
+  max-width: 230px;
+  background: var(--panel, #fff);
+  border: 1px solid var(--rule);
+  padding: 8px 10px;
+}
+.pile__label {
+  margin: 0 0 6px;
+  font-weight: 700;
+  font-size: .9rem;
+  border-bottom: 1px dashed var(--rule-strong);
+  padding-bottom: 5px;
+}
+.pile__cards { list-style: none; margin: 0; padding: 0; }
+.pile__card {
+  font-size: .8rem;
+  line-height: 1.35;
+  padding: 3px 0;
+  border-bottom: 1px dotted var(--rule);
+}
+.pile__card:last-child { border-bottom: none; }
+.pile__cardnum { font-family: var(--mono); font-size: .72rem; color: var(--muted); }
+
+.session-note {
+  margin: -10px 0 26px;
+  padding: 0 14px;
+  font-size: .95rem;
+  color: var(--muted);
+}
+.inline-quote { font-style: italic; }
+.decision-list li { margin: 0 0 14px; }
+.decision-list code { font-size: .85em; }

@@ -14,14 +14,14 @@
    Slugs are stable once public — students bookmark them. Never rename.
    ========================================================================== */
 window.CS356_COMPANION = {
-  version: "2026-08-21",
+  version: "2026-08-21b",
   arc: [
     {
       id: "card-sort",
       kind: "study",
       title: "Open card sort",
       method: "Open card sorting",
-      status: "draft",
+      status: "published",
       page: "studies/01-card-sort.html",
       question: "How do teachers naturally group and label the 53 skills — and where do their groupings disagree?",
       feeds: "wireframe",
