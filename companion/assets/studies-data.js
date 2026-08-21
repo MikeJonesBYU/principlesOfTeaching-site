@@ -122,10 +122,10 @@ window.CS356_COMPANION = {
       "order": 2,
       "kind": "study",
       "title": "Open card sort",
-      "method": "Open card sorting (21 cards, each one a skill name quoted verbatim from the 53-skill inventory; 5 solo remote sorts over Zoom using a free online card-sorting site, participants typing their own group titles after grouping; per-sort reading, no dendrogram at this sample size)",
+      "method": "Open card sorting (21 cards, each one a skill name quoted verbatim from the 53-skill inventory), presented as two graded example turn-ins — one full-marks (60/60), one weak (31/60) — with every section scored against the real course rubric",
       "status": "published",
       "page": "studies/02-card-sort.html",
-      "question": "How do teachers group the manual's skills when nobody gives them categories — and what words do they put at the top of a group?",
+      "question": "What does a full-marks card-sort turn-in look like next to a weak one — and where does the rubric actually spend its points?",
       "keyFinding": "Twenty-eight group titles across five sorts, and not one is a section name. Seventeen name a situation — “Getting them to talk”, “Running out of time (what to cut)”, “Do they feel like they belong?” — in the teacher's own words, never the manual's.",
       "decisions": [
         "Group by the teacher's situation, not the manual's section: the seven problem categories in problems.html, defined in assets/problems-data.js. (e2bf223)",

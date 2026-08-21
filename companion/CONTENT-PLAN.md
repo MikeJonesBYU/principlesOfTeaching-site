@@ -21,7 +21,7 @@ can see the before/after. Real provenance is cited by commit so students can che
 | # | Study (slug) | Method | Fictitious core finding | Real decision it illustrates (provenance) | Linked versions |
 |---|---|---|---|---|---|
 | 1 | `contextual-study` | Contextual study / observation (NN/g-style, 1 session per participant) | A Primary teacher with a real lesson and a real problem ("my class won't sit still") spends 9 minutes on the church manual site and never finds a usable skill; she navigates by principle names that don't match her problem. | The redesign exists at all; the brief's claim that the IA (not the content) is the obstacle. (Site inception) | church site (external), `v1-hierarchy` |
-| 2 | `card-sort` | Open card sort, 30 skill cards drawn from the real 53-skill inventory; 8 sorts / 10 fictitious ward participants (six solo, two pairs); group-name standardization + pattern reading, **no dendrogram** (see below) | Participants do **not** reproduce the 5 principles; piles form around *teaching problems* ("When nobody talks", "Hard questions"…), with one minority scheme sorting by lesson sequence. Controlled-vocabulary work: teachers say "challenge/problem", never "skill development". | The 7 problem categories and teacher-language problem statements in `assets/problems-data.js`. (`e2bf223`) | `v1-hierarchy`, live site `problems.html` |
+| 2 | `card-sort` | Open card sort, 21 verbatim skill cards — presented in the **graded-turn-in format** (see §3a): the real assignment text, the real rubric, and two invented example turn-ins (full-marks 60/60 with 5 solo sorts; weak 31/60 with 3 primed group sorts), each section followed by the grader's score and reasoning | Full-marks turn-in: nobody reproduces the 5 principles; piles form around *teaching situations* in teacher language. Weak turn-in: starter categories, over-claiming, and decisions that predate the data. | The 7 problem categories and teacher-language problem statements in `assets/problems-data.js`. (`e2bf223`) | `v1-hierarchy`, live site `problems.html` |
 | — | `fidelity-ladder` (interlude page, not a study) | Prototyping methods: sketch → wireframe → coded, per Buxton + the AI-era amendment | n/a — this page narrates the ladder itself: what each rung invited ("the sketch got strangers to propose reorganizations; the polished site got font comments") | The real `sketched` branch (de-fidelity experiment, `20bae25`); the coded first version (`782ddb5`) | `v-sketch`, `v-wireframe`, `v1-hierarchy` |
 | 3 | `tree-test` | Tree test, 10 fictitious participants, 4 lesson-drawn tasks; proposed structure vs church-site baseline | Problem-first tree wins on problem-shaped tasks (83% vs 41% pass) **but** assigned-topic tasks ("prepare something on symbols of Christ") still need the principle hierarchy — neither structure dominates. | Both paths coexist deliberately: browse-by-principle (`select.html`, `structure.html`) *and* problem-driven (`problems.html`); three equal home buttons. (`0dcf6c5`) | `v2-bilingual`, live site |
 | 4 | `task-test` | Five-user task test on the deployed site, recorded (fictitious) sessions on participants' own phones | Users type natural sentences into search — "learner isn't feeling god's love" — and strict all-words matching returns nothing; two users read the gold button as "the only real option". | Soft search: stemming, synonyms, IDF ranking, typo tolerance (`d476c8c`); uniform home buttons (`0dcf6c5`). | live site (search), `v3-pre-softsearch` *(optional snapshot)* |
@@ -64,6 +64,28 @@ learn the genre by repetition):
 8. Prev/next arc navigation (rendered from the registry). Required hooks:
    `<body data-study="<slug>">` and an empty `<nav data-companion="arcnav">`
    element (companion.js fills it and adds the styling class).
+
+### 3a. Alternative template: the graded turn-in (adopted for study 2, 2026-08-19)
+
+A study page may instead present the method **the way the grader sees it**:
+
+1. **Scope note** (as above).
+2. **The assignment** — the real "what to turn in" text from the course.
+3. **The rubric** — the real banded criteria (`user-study-rubric.md`, repo root;
+   source of truth is `cs356-rebuild`), compact.
+4. **Two example turn-ins** for the same assignment: one full-marks, one weak.
+   Each follows the assignment's own element list, and **every element is
+   followed by a grader box** (red-pen styling) giving the rubric band, the
+   points, and why — concise, quoting the rubric's language. Each turn-in ends
+   with a scorecard.
+5. **"What separates the scores"** — a short closing synthesis.
+6. See-it-in-the-site links + arc nav (same hooks as above).
+
+Rules: the full-marks turn-in's decisions must land on the *real* shipped
+decisions (grader box may cite commits, the turn-in itself cites only its data);
+the weak turn-in's errors are constructed to hit specific rubric bands and each
+grader box names the exact band language it applied. All fiction-marking rules
+from ARCHITECTURE §2 apply to both turn-ins.
 
 ## 4. "Meet the Timpanogos Shadows Ward" (ward bible)
 
