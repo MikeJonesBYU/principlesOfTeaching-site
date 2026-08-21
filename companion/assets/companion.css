@@ -594,3 +594,111 @@ span.chip.is-pending .pill--pending {
 
 .rubric-table td { font-size: .88rem; }
 .rubric-note { font-weight: 400; font-size: .8rem; color: var(--muted); display: block; margin-top: 4px; }
+
+/* --- "Written in Word" report sheets (card sort v3, 2026-08-21) -----------
+   The actual student-report content sits on white .docpage sheets styled to
+   read as a PDF exported from Word; everything between the sheets (grader
+   boxes, commentary) stays in companion chrome so report vs. grading is
+   legible at a glance. Report A used Word's Heading styles; Report B is the
+   Times New Roman + bold-underline school of formatting. */
+
+.docpage {
+  background: #fff;
+  border: 1px solid #c9c2b2;
+  border-radius: 2px;
+  box-shadow: 0 3px 10px rgba(60, 48, 25, .18);
+  padding: 40px 52px 34px;
+  margin: 16px 0 12px;
+  color: #141414;
+  position: relative;
+}
+.docpage::before {
+  content: "FROM THE TURNED-IN REPORT";
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .1em;
+  color: #a39a86;
+}
+.docpage a { color: #0563c1; }
+.docpage p { margin: 0 0 10px; }
+.doc-stamp { margin: 0 0 8px; }
+
+.doc-head { text-align: center; margin: 0 0 22px; }
+.doc-head p { margin: 0 0 2px; }
+.doc-title { font-size: 1.45em; }
+.doc-sub { font-size: .95em; color: #444; }
+
+/* Report A: default-Word look — Calibri body, blue Heading styles. */
+.docpage--a {
+  font-family: Calibri, "Segoe UI", Optima, Candara, Arial, sans-serif;
+  font-size: 15.5px;
+  line-height: 1.45;
+}
+.docpage--a .doc-title {
+  font-family: "Calibri Light", Calibri, "Segoe UI", Arial, sans-serif;
+  font-weight: 400;
+  color: #2f5496;
+}
+.docpage--a h3 {
+  font-family: "Calibri Light", Calibri, "Segoe UI", Arial, sans-serif;
+  font-weight: 400;
+  color: #2f5496;
+  font-size: 1.35em;
+  margin: 4px 0 10px;
+}
+.docpage--a h4 {
+  font-family: "Calibri Light", Calibri, "Segoe UI", Arial, sans-serif;
+  font-weight: 400;
+  color: #2e74b6;
+  font-size: 1.12em;
+  margin: 14px 0 6px;
+}
+
+/* Report B: the other classic — Times New Roman, bold underlined headings. */
+.docpage--b {
+  font-family: "Times New Roman", Times, Georgia, serif;
+  font-size: 16.5px;
+  line-height: 1.5;
+}
+.docpage--b .doc-title { font-weight: 700; }
+.docpage--b h3 {
+  font-family: inherit;
+  font-size: 1.05em;
+  font-weight: 700;
+  text-decoration: underline;
+  color: #141414;
+  margin: 4px 0 8px;
+}
+
+/* Word-grid tables inside a sheet (overrides the companion .study-table). */
+.docpage .study-table { font-size: .95em; margin: 8px 0 14px; }
+.docpage .study-table th,
+.docpage .study-table td {
+  border: 1px solid #8f8f8f;
+  padding: 5px 9px;
+}
+.docpage .study-table thead th {
+  font-family: inherit;
+  font-size: 1em;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #141414;
+  background: #d9e2f3;
+  border-bottom: 1px solid #8f8f8f;
+}
+
+/* Sort figures embedded in a sheet read as pasted-in photos. */
+.docpage .sort-photo { background: #f7f7f7; border: 1px solid #b5b5b5; margin: 16px 0; }
+.docpage .sort-photo__head { border-bottom: 1px solid #ccc; }
+.docpage .sort-photo__id { color: #444; }
+.docpage .sort-photo__scheme { color: #555; }
+.docpage .pile { background: #fff; border-color: #ccc; }
+.docpage .pile__label { border-bottom-color: #bbb; }
+.docpage .pile__card { border-bottom-color: #ddd; }
+.docpage .pile__cardnum { color: #777; }
+.docpage .session-note { color: #333; font-style: italic; margin: -8px 0 20px; padding: 0 6px; }
+.docpage .section-note { color: #444; }
+.docpage .fiction-note { color: #333; }
