@@ -15,10 +15,9 @@
      2. Fiction marking (banner, badge, frame)  <- the honest-fiction contract
      3. Layout and typography
      4. Pending / unlinked states               <- the no-dead-links rule
-     5. The study arc
-     6. The version gallery
-     7. Prev/next arc navigation
-     8. Responsive
+     5. Turn-ins and the chain          <- the four graded submissions
+     6. Prev/next arc navigation
+     7. Responsive
    ========================================================================== */
 
 /* -------------------------------------------------- 1. Tokens and base ----- */
@@ -250,12 +249,99 @@ code {
 .is-pending { color: var(--muted); }
 .is-pending__label { color: var(--ink-soft); font-weight: 600; }
 
-.arc-item--pending,
-.version-card--pending { background: var(--panel-sunk); }
-.arc-item--pending .arc-item__title,
-.version-card--pending .version-card__title { font-weight: 600; }
+/* A station that isn't built or written yet: same card, drained of color, so
+   it reads as a placeholder inside its turn-in rather than as a destination. */
+.arc-item--pending { background: var(--panel-sunk); border-style: dashed; }
+.arc-item--pending .arc-item__title { font-weight: 600; }
+.arc-item--pending .arc-item__marker { color: var(--muted); }
+.arc-item--prototype.arc-item--pending { border-left-style: solid; }
 
-/* ------------------------------------------------------ 5. The study arc --- */
+/* --------------------------------------------- 5. Turn-ins and the chain ---
+   The hub's chain is grouped by TURN-IN, not by station: turn-ins 2 and 3 each
+   hold a prototype AND the study that tests it, because those are handed in
+   together as one two-part report. The four color bands are lifted straight
+   from the Project 1 flow diagram so the hub and the diagram read as one
+   document — red, blue, green, gold, with the through-line on slate.
+
+   The color is a wayfinding cue only: every turn-in is also numbered and
+   titled in text, and each station card says "You build" or "User study" in
+   words. Nothing here depends on seeing the hue. ------------------------- */
+
+.turnin-list { list-style: none; margin: 0; padding: 0; }
+
+.turnin {
+  --bar:   var(--rule-strong);
+  --tint:  var(--panel-sunk);
+  --edge:  var(--rule-strong);
+  background: var(--tint);
+  border: 1px solid var(--edge);
+  border-radius: var(--radius-lg);
+  padding: 0 18px 18px;
+  margin: 0 0 34px;
+  position: relative;
+  overflow: hidden;
+}
+/* The four bands, in diagram order. */
+.turnin--1 { --bar: #a8443e; --tint: #f4dad7; --edge: #ddb2ad; }
+.turnin--2 { --bar: #3d5a98; --tint: #d9e3f6; --edge: #b0c1e3; }
+.turnin--3 { --bar: #4a7549; --tint: #dfebd7; --edge: #b6cfae; }
+.turnin--4 { --bar: #8a6d0c; --tint: #fbefc6; --edge: #e3d093; }
+
+/* The colored bar, full-bleed across the top of the panel. */
+.turnin__head {
+  margin: 0 -18px 16px;
+  padding: 9px 18px;
+  background: var(--bar);
+  color: #fff;
+}
+.turnin__num {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: .74rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.turnin__title {
+  margin: 2px 0 0;
+  font-size: 1.15rem;
+  line-height: 1.25;
+  color: #fff;
+  border: 0;
+  padding: 0;
+}
+
+.turnin__handin { margin: 0 0 10px; max-width: 72ch; }
+.turnin__graded { margin: 0 0 16px; }
+.pill--graded {
+  background: #fff;
+  border-color: var(--bar);
+  color: var(--bar);
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: none;
+  font-size: .72rem;
+  /* Long rubric strings must wrap on a phone rather than run off the panel,
+     so this pill is a rounded rectangle instead of a lozenge. */
+  white-space: normal;
+  border-radius: var(--radius);
+}
+
+/* "Produces X → carried into Turn-in N" — the diagram's arrow, in words. */
+.turnin__produces {
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 2px dashed var(--edge);
+  color: var(--bar);
+  font-size: .95rem;
+}
+.turnin__produces strong { color: var(--bar); }
+
+/* The panel's own "Produces … → carried into Turn-in N" row IS the diagram's
+   between-column arrow; the panels need no extra connector between them. */
+.turnin:last-child { margin-bottom: 22px; }
+
+/* -------------------------------------------------- station cards (arc) --- */
 .arc-list { list-style: none; margin: 0; padding: 0; }
 
 .arc-item {
@@ -263,28 +349,25 @@ code {
   gap: 18px;
   align-items: flex-start;
   background: var(--panel);
-  border: 1px solid var(--rule);
+  border: 1px solid var(--edge, var(--rule));
   border-radius: var(--radius-lg);
   padding: 16px 18px;
-  margin: 0 0 14px;
+  margin: 0 0 20px;
   position: relative;
 }
-/* The connector that makes the arc read as a walk, not a pile. */
+.arc-item:last-child { margin-bottom: 0; }
+
+/* The connector that makes a two-station turn-in read as "build, then test". */
 .arc-item::after {
   content: "";
   position: absolute;
   left: 46px;
-  bottom: -15px;
+  bottom: -21px;
   width: 2px;
-  height: 14px;
-  background: var(--rule-strong);
+  height: 20px;
+  background: var(--bar, var(--rule-strong));
 }
 .arc-item:last-child::after { display: none; }
-
-.arc-item--interlude {
-  background: var(--panel-sunk);
-  border-style: dashed;
-}
 
 .arc-item__marker {
   flex: 0 0 76px;
@@ -292,15 +375,27 @@ code {
   font-size: .7rem;
   letter-spacing: .08em;
   text-transform: uppercase;
-  color: var(--accent);
-  border-right: 2px solid var(--rule);
+  color: var(--bar, var(--accent));
+  border-right: 2px solid var(--edge, var(--rule));
   padding-right: 12px;
   min-height: 2.2em;
 }
-.arc-item--interlude .arc-item__marker { color: var(--muted); }
 
 .arc-item__body { flex: 1 1 auto; min-width: 0; }
-.arc-item__title { margin: 0 0 4px; font-size: 1.1rem; }
+
+/* The diagram's "YOU BUILD" / "USER STUDY" kicker. */
+.arc-item__role {
+  margin: 0 0 2px;
+  font-family: var(--mono);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.arc-item__role--build { color: #8a5a18; }
+.arc-item__role--study { color: #1c6b4c; }
+
+.arc-item__title { margin: 0 0 4px; font-size: 1.1rem; line-height: 1.3; }
 .arc-item__method {
   font-family: var(--mono);
   font-size: .78rem;
@@ -314,21 +409,19 @@ code {
   margin: 0 0 8px; color: var(--ink-soft);
   border-left: 3px dashed var(--accent, #9c3a1c); padding-left: 10px;
 }
-.arc-item__versions { margin-top: 8px; }
 .arc-item__links { margin-top: 8px; }
+.arc-item__aside { color: var(--muted); font-size: .85rem; }
 
-.chips { list-style: none; display: inline; margin: 0; padding: 0; }
-.chips__item { display: inline-block; margin: 3px 6px 3px 0; }
 .chip {
   display: inline-block;
   font-size: .82rem;
-  border: 1px solid var(--rule-strong);
+  border: 1px solid var(--edge, var(--rule-strong));
   border-radius: 999px;
   padding: 2px 10px;
-  background: var(--panel-sunk);
+  background: var(--tint, var(--panel-sunk));
 }
-a.chip { text-decoration: none; border-color: var(--accent); }
-a.chip:hover { background: var(--accent-tint); }
+a.chip { text-decoration: none; border-color: var(--bar, var(--accent)); }
+a.chip:hover { background: #fff; }
 span.chip.is-pending .is-pending__label { font-weight: 500; }
 span.chip.is-pending .pill--pending {
   border: 0;
@@ -337,58 +430,20 @@ span.chip.is-pending .pill--pending {
   font-size: .62rem;
 }
 
-/* ------------------------------------------------ 6. The version gallery --- */
-.version-gallery {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 14px;
-}
-
-.version-card {
-  background: var(--panel);
-  border: 1px solid var(--rule);
+/* The dark bar under the diagram, carried over verbatim. */
+.through-line {
+  background: #33414e;
+  color: #f2f4f6;
   border-radius: var(--radius-lg);
-  padding: 16px 18px;
-  display: flex;
-  flex-direction: column;
+  padding: 16px 20px;
+  margin: 4px 0 0;
+  font-size: .98rem;
+  line-height: 1.55;
 }
-.version-card--constructed { border-style: dashed; }
-.version-card--live { border-color: var(--accent); border-width: 2px; }
+.through-line strong { color: #fff; }
 
-.version-card__rung {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  margin-bottom: 8px;
-}
-.version-card__fidelity {
-  font-family: var(--mono);
-  font-size: .8rem;
-  font-weight: 700;
-  color: var(--panel);
-  background: var(--accent);
-  border-radius: 4px;
-  padding: 1px 7px;
-}
-.version-card__rung-name {
-  font-family: var(--mono);
-  font-size: .72rem;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.version-card__title { margin: 0 0 8px; }
-.version-card__kind { margin: 0 0 10px; }
-.version-card__source,
-.version-card__shows { font-size: .92rem; margin: 0 0 10px; }
-.version-card__source { color: var(--muted); }
-.version-card__shows { color: var(--ink-soft); }
-.version-card__studies { margin-top: auto; padding-top: 6px; }
 
-/* ------------------------------------------- 7. Prev/next arc navigation --- */
+/* ------------------------------------------- 6. Prev/next arc navigation --- */
 .arcnav {
   display: flex;
   gap: 14px;
@@ -411,7 +466,7 @@ span.chip.is-pending .pill--pending {
   white-space: nowrap;
 }
 
-/* ---------------------------------------------------------- 8. Responsive -- */
+/* ---------------------------------------------------------- 7. Responsive -- */
 @media (max-width: 720px) {
   body { font-size: 16px; }
   h1 { font-size: 1.6rem; }
@@ -429,7 +484,9 @@ span.chip.is-pending .pill--pending {
     min-height: 0;
   }
 
-  .version-gallery { grid-template-columns: 1fr; }
+  .turnin { padding: 0 13px 14px; }
+  .turnin__head { margin: 0 -13px 14px; padding: 8px 13px; }
+  .turnin__title { font-size: 1.05rem; }
 
   .arcnav { flex-direction: column; align-items: flex-start; gap: 10px; }
   .arcnav__side, .arcnav__side--next {
@@ -443,9 +500,10 @@ span.chip.is-pending .pill--pending {
   .fiction-badge { letter-spacing: .06em; }
 }
 
-/* --- Prototype stations in the chain (restart 2026-08-21) ----------------- */
-.arc-item--prototype { background: var(--panel-sunk); }
-.arc-item--prototype .arc-item__marker { color: var(--muted); }
+/* --- Prototype vs. study station cards ------------------------------------
+   Both sit on white inside a tinted turn-in panel, as in the diagram; the
+   prototype card carries a heavier left edge so "you build" reads first. */
+.arc-item--prototype { border-left: 4px solid var(--bar, var(--rule-strong)); }
 
 /* --- Study-page components (card sort, 2026-08-21) ------------------------ */
 
@@ -540,18 +598,11 @@ span.chip.is-pending .pill--pending {
 .report { border-top: 3px solid var(--rule-strong); margin-top: 34px; padding-top: 6px; }
 .report__el { margin-top: 26px; }
 
-/* Report B's own prose, framed as the submitted turn-in. */
-.turnin {
-  border: 1px solid var(--rule-strong);
-  border-left: 4px solid var(--rule-strong);
-  background: var(--panel-sunk);
-  padding: 12px 16px;
-  margin: 10px 0 12px;
-  font-family: Georgia, "Times New Roman", serif;
-}
-.turnin p { margin: 0 0 10px; }
-.turnin p:last-child { margin-bottom: 0; }
-.turnin__photos { color: var(--muted); font-style: italic; }
+/* NOTE (2026-08-22): a `.turnin` block used to live here — an unused frame for
+   quoting report prose. `.turnin` now means "one of the four graded turn-ins"
+   (§5) and nothing else. The only survivor of the old block is the
+   placeholder-photo line inside a report sheet, renamed to match .docpage. */
+.docpage__photos { color: var(--muted); font-style: italic; }
 
 /* The grader's red pen. */
 .grader {

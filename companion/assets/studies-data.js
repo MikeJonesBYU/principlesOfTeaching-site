@@ -6,6 +6,18 @@
    The arc is ONE CHAIN, in order: each build is tested by the next study, and
    each study feeds the next build (CONTENT-PLAN §1).
 
+   TWO GROUPINGS OF THE SAME STATIONS (single source, multiple views — the
+   course doctrine this companion is about, practiced on itself):
+
+     arc[]      the six stations in chain order (what happens, in sequence)
+     turnins[]  the four things a team actually hands in (what is graded)
+
+   A turn-in owns one or two consecutive stations. Turn-ins 2 and 3 each own a
+   prototype AND the study that tests it, because those are submitted together
+   as one two-part report. Stations point at their turn-in with `turnin`;
+   companion.js groups the chain by walking arc[] in order — the arc stays the
+   single ordering source, turnins[] carries only the metadata.
+
    kind: "study"     status: draft | published | retired
    kind: "prototype" status: planned | built | frozen | shipped
    Only published studies and built/frozen/shipped prototypes render as links
@@ -14,11 +26,52 @@
    Slugs are stable once public — students bookmark them. Never rename.
    ========================================================================== */
 window.CS356_COMPANION = {
-  version: "2026-08-22a",
+  version: "2026-08-22b",
+
+  /* The through-line, printed under the chain. Verbatim course doctrine. */
+  throughLine: "Every prototype must be grounded in the studies before it — facets and attributes stay decoupled from display, so each cycle is a richer view of the same single source.",
+
+  /* --------------------------------------------------------------- turn-ins
+     `n` drives the color band (turnin--1 … turnin--4), matching the Project 1
+     flow diagram. `handIn` is what leaves your hands; `graded` is the
+     instrument; `produces` is what the next turn-in is allowed to build on. */
+  turnins: [
+    {
+      n: 1,
+      title: "Card sort report",
+      handIn: "One user-study report on the card sort: your participants, a picture of every finished sort, a page of analysis separating trends from isolated incidents, a page of categories and labels justified from the results, and half a page on what you are choosing to ignore.",
+      graded: "User Study Rubric — 60 pts",
+      produces: "categories, groups & labels"
+    },
+    {
+      n: 2,
+      title: "Wireframe + tree test",
+      handIn: "One report in two parts, submitted together. Part 1: the clickable 2–3 level wireframe you built, plus its design rationale. Part 2: the moderated think-aloud tree test you ran on that same wireframe, with ten or more participants.",
+      graded: "Prototype Rubric 60 + User Study Rubric 60 = 120 pts",
+      produces: "refined groups & labels"
+    },
+    {
+      n: 3,
+      title: "Prototype v1 + task test",
+      handIn: "One report in two parts, submitted together. Part 1: the first functional prototype — visual design and color doing real work, every click and its prompt logged. Part 2: the five-user talk-aloud task test you ran on it.",
+      graded: "Prototype Rubric 60 + User Study Rubric 60 = 120 pts",
+      produces: "final refinements"
+    },
+    {
+      n: 4,
+      title: "Final prototype",
+      handIn: "The final functional prototype on its own: one source, multiple views, an information architecture grounded in all three studies, and a stated story for every visual choice.",
+      graded: "Final prototype rubric",
+      produces: "the next deployed version of the site"
+    }
+  ],
+
+  /* ------------------------------------------------------------------- arc */
   arc: [
     {
       id: "card-sort",
       kind: "study",
+      turnin: 1,
       title: "Open card sort",
       method: "Open card sorting",
       status: "published",
@@ -30,6 +83,7 @@ window.CS356_COMPANION = {
     {
       id: "wireframe",
       kind: "prototype",
+      turnin: 2,
       title: "2–3 level wireframe",
       fidelity: "wireframe",
       status: "frozen",
@@ -40,6 +94,7 @@ window.CS356_COMPANION = {
     {
       id: "tree-test",
       kind: "study",
+      turnin: 2,
       title: "Tree test",
       method: "Tree testing, run as a moderated think-aloud on the wireframe",
       status: "published",
@@ -51,6 +106,7 @@ window.CS356_COMPANION = {
     {
       id: "prototype-v1",
       kind: "prototype",
+      turnin: 3,
       title: "First functional prototype",
       fidelity: "functional",
       status: "planned",
@@ -61,6 +117,7 @@ window.CS356_COMPANION = {
     {
       id: "task-test",
       kind: "study",
+      turnin: 3,
       title: "Five-user task test",
       method: "Five-user task test (talk-aloud), on participants' own phones",
       status: "draft",
@@ -72,6 +129,7 @@ window.CS356_COMPANION = {
     {
       id: "prototype-final",
       kind: "prototype",
+      turnin: 4,
       title: "Final functional prototype",
       fidelity: "final",
       status: "planned",

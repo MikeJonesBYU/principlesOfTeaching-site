@@ -139,10 +139,23 @@ own data file.
 ```js
 window.CS356_COMPANION = {
   version: "YYYY-MM-DD",
+  throughLine: "…the course doctrine, printed under the chain…",
+  // The four graded submissions. A turn-in owns one or two CONSECUTIVE arc
+  // stations; turn-ins 2 and 3 each own a prototype AND the study that tests
+  // it, because those are handed in together as one two-part report.
+  turnins: [
+    { n: 1,                        // drives the color band, turnin--1 … --4
+      title: "Card sort report",
+      handIn: "…what physically leaves your hands…",
+      graded: "User Study Rubric — 60 pts",
+      produces: "…what the next turn-in may build on…" },
+    …
+  ],
   arc: [
     // Stations in chain order. kind: "study" | "prototype".
     { id: "card-sort",             // stable slug (students bookmark; never rename)
       kind: "study",
+      turnin: 1,                    // which turn-in this station is handed in with
       title: "Open card sort",
       method: "Open card sorting",  // studies: method name as taught
       status: "draft",              // studies: draft | published | retired
@@ -152,6 +165,7 @@ window.CS356_COMPANION = {
       shows: "…one-line 'what to notice'…" },
     { id: "wireframe",
       kind: "prototype",
+      turnin: 2,
       title: "2–3 level wireframe",
       fidelity: "wireframe",        // prototypes: wireframe | functional | final
       status: "planned",            // prototypes: planned | built | frozen | shipped
@@ -163,11 +177,28 @@ window.CS356_COMPANION = {
 };
 ```
 
-**What renders from the registry:** the hub's chain, per-page prev/next arc
-navigation, and cross-links between studies and prototypes. **What does not:**
-the study pages' long-form prose — hand-authored HTML documents (they are the
-worked example itself). Adding/retiring a station is: write/remove the page or
-artifact, edit one registry entry.
+**Two groupings of the same stations (added 2026-08-22).** `arc[]` is the
+sequence — what happens, in order. `turnins[]` is the packaging — what is
+actually submitted and graded. They are deliberately different shapes over one
+set of stations: the companion practices its own doctrine on itself. The hub
+renders the chain grouped by turn-in by walking `arc[]` in order and cutting a
+new group wherever `turnin` changes, so **`arc[]` stays the single ordering
+source** and `turnins[]` carries only metadata. A turn-in's stations must
+therefore be consecutive in `arc[]`.
+
+The four turn-ins carry the color bands of the Project 1 flow diagram (red,
+blue, green, gold, with the through-line on slate) so the hub and the diagram
+read as one document. Color is a wayfinding cue only — every turn-in is also
+numbered and titled in text, and each station card says "You build" or "User
+study" in words.
+
+**What renders from the registry:** the hub's chain grouped into turn-ins,
+per-page prev/next arc navigation (which names each neighbor's turn-in, and
+says "same turn-in" for the other half of a two-part report), and cross-links
+between studies and prototypes. **What does not:** the study pages' long-form
+prose — hand-authored HTML documents (they are the worked example itself).
+Adding/retiring a station is: write/remove the page or artifact, edit one
+registry entry.
 
 **No-dead-links rule:** stations that aren't finished render as clearly
 labeled, unlinked "in progress" items. Only `status: "published"` studies and
@@ -205,6 +236,11 @@ exported from git history:
 - The companion gets its **own visual identity** (`companion.css`) — clearly
   not the teaching site's brand, so screenshots and embedded views of the
   teaching site and prototypes read as *specimens* inside a lab notebook.
+- **One exception to that identity (2026-08-22):** the hub's turn-in panels use
+  the four color bands of the Project 1 flow diagram, so a student who has the
+  diagram in front of them recognizes the hub as the same document. That is the
+  only place the companion borrows a palette; the lab-notebook paper, the
+  red-pen accent, and the monospace metadata voice are unchanged around it.
 - Voice (decided): **designer's notebook** — first-person-plural instructor
   voice ("we ran…", "this convinced us…"), with the honest-fiction contract
   visible. Fictional named individuals appear only as *participants*, never as

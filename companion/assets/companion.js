@@ -7,7 +7,12 @@
      1. Injects the global fiction banner at the top of <body>. Every companion
         page gets it, always, with no per-page markup required.
      2. Renders registry-driven views into placeholder elements, when present:
-          <div data-companion="chain">    the design cycle (hub)
+          <div data-companion="chain">    the design cycle (hub), grouped into
+                                          the four TURN-INS — turn-ins 2 and 3
+                                          each hold a prototype AND the study
+                                          that tests it, because those are
+                                          handed in together as one two-part
+                                          report
           <nav data-companion="arcnav">   prev/next arc nav (study pages; the
                                           page identifies itself with
                                           <body data-arc="card-sort">)
@@ -41,6 +46,13 @@
     retired: 'Retired',
     frozen: 'Frozen',
     shipped: 'Shipped',
+    build: 'You build',
+    study: 'User study',
+    handIn: 'You hand in',
+    graded: 'Graded on',
+    produces: 'Produces',
+    testedBelow: 'Tested below by',
+    sameTurnin: 'in this same turn-in',
     noRegistry: 'The companion registry did not load, so this section is empty.'
   };
 
@@ -209,9 +221,14 @@
   }
 
   /* ------------------------------------------------------------ the chain ---
-     One list, chain order: Study 1, Prototype 1, Study 2, … Studies and
-     prototypes are numbered separately, so markers read "Study 2" and
-     "Prototype 2" without either renumbering the other. ------------------- */
+     The chain renders as FOUR TURN-INS in order, each holding the one or two
+     consecutive stations a team hands in together. Turn-ins 2 and 3 each hold
+     a prototype AND the study that tests it — those are one two-part report,
+     not two assignments.
+
+     Stations are still numbered as stations, and studies and prototypes are
+     numbered separately, so markers read "Study 2" and "Prototype 2" without
+     either renumbering the other. ------------------------------------------ */
 
   function stationNumbers(data) {
     var map = {};
@@ -223,13 +240,42 @@
     return map;
   }
 
+  function turninMeta(data, n) {
+    if (!isArray(data.turnins)) { return null; }
+    for (var i = 0; i < data.turnins.length; i++) {
+      if (data.turnins[i].n === n) { return data.turnins[i]; }
+    }
+    return null;
+  }
+
+  /* Walk arc[] in order and cut it wherever `turnin` changes. The arc stays the
+     single ordering source; turnins[] carries only the metadata. Stations with
+     no `turnin` fall into a group of their own rather than vanishing. */
+  function groupByTurnin(data) {
+    var groups = [];
+    var current = null;
+    each(data.arc, function (st) {
+      if (!current || current.n !== st.turnin) {
+        current = { n: st.turnin, meta: turninMeta(data, st.turnin), stations: [] };
+        groups.push(current);
+      }
+      current.stations.push(st);
+    });
+    return groups;
+  }
+
   function chainItem(data, station, numbers) {
     var isProto = station.kind === 'prototype';
     var live = stationIsLive(station);
-    var classes = 'arc-item' + (isProto ? ' arc-item--prototype' : '') +
+    var classes = 'arc-item' +
+      (isProto ? ' arc-item--prototype' : ' arc-item--study') +
       (live ? '' : ' arc-item--pending');
 
-    var head = h('h3', { 'class': 'arc-item__title' }, [
+    var role = h('p', {
+      'class': 'arc-item__role arc-item__role--' + (isProto ? 'build' : 'study')
+    }, isProto ? LABELS.build : LABELS.study);
+
+    var head = h('h4', { 'class': 'arc-item__title' }, [
       linkOrPending(live, resolve(stationHref(station)), station.title,
         pendingLabel(station))
     ]);
@@ -247,17 +293,25 @@
       ]) : null
     ];
 
-    /* Cross-link: what this station feeds, or the study that tests it. */
+    /* Cross-link. A prototype names the study that tests it — usually the very
+       next card, inside this same turn-in. A study names the turn-in its
+       findings are allowed to drive. */
     var partnerId = isProto ? station.testedBy : station.feeds;
     var partner = partnerId ? stationById(data, partnerId) : null;
     if (partner) {
-      body.push(h('p', { 'class': 'arc-item__links' }, [
-        h('span', { 'class': 'micro-label' },
-          isProto ? 'Tested by' : 'Feeds'),
+      var same = partner.turnin === station.turnin;
+      var line = [
+        h('span', { 'class': 'micro-label' }, isProto
+          ? (same ? LABELS.testedBelow : 'Tested by')
+          : ('Feeds Turn-in ' + partner.turnin)),
         ' ',
         linkOrPending(stationIsLive(partner), resolve(stationHref(partner)),
           partner.title, pendingLabel(partner), 'chip')
-      ]));
+      ];
+      if (isProto && same) {
+        line.push(h('span', { 'class': 'arc-item__aside' }, ' ' + LABELS.sameTurnin));
+      }
+      body.push(h('p', { 'class': 'arc-item__links' }, line));
     }
     if (isProto && station.status === 'frozen') {
       body.push(h('p', { 'class': 'arc-item__links' }, [
@@ -272,18 +326,58 @@
 
     return h('li', { 'class': classes }, [
       h('div', { 'class': 'arc-item__marker' }, numbers[station.id]),
-      h('div', { 'class': 'arc-item__body' }, [head].concat(body))
+      h('div', { 'class': 'arc-item__body' }, [role, head].concat(body))
     ]);
+  }
+
+  function turninGroup(data, group, numbers, nextGroup) {
+    var meta = group.meta;
+    var kids = [];
+
+    kids.push(h('div', { 'class': 'turnin__head' }, [
+      h('p', { 'class': 'turnin__num' },
+        group.n ? 'Turn-in ' + group.n : 'Not yet assigned to a turn-in'),
+      meta && meta.title ? h('h3', { 'class': 'turnin__title' }, meta.title) : null
+    ]));
+
+    if (meta && meta.handIn) {
+      kids.push(h('p', { 'class': 'turnin__handin' }, [
+        h('span', { 'class': 'micro-label' }, LABELS.handIn), ' ', meta.handIn
+      ]));
+    }
+    if (meta && meta.graded) {
+      kids.push(h('p', { 'class': 'turnin__graded' }, [
+        h('span', { 'class': 'micro-label' }, LABELS.graded), ' ',
+        h('span', { 'class': 'pill pill--graded' }, meta.graded)
+      ]));
+    }
+
+    var list = h('ol', { 'class': 'arc-list' });
+    each(group.stations, function (station) {
+      list.appendChild(chainItem(data, station, numbers));
+    });
+    kids.push(list);
+
+    if (meta && meta.produces) {
+      kids.push(h('p', { 'class': 'turnin__produces' }, [
+        h('span', { 'class': 'micro-label' }, LABELS.produces), ' ',
+        h('strong', null, meta.produces),
+        nextGroup ? ' → carried into Turn-in ' + nextGroup.n : null
+      ]));
+    }
+
+    return h('li', { 'class': 'turnin turnin--' + (group.n || 'x') }, kids);
   }
 
   function renderChain(container, data) {
     var numbers = stationNumbers(data);
-    var list = h('ol', { 'class': 'arc-list' });
-    each(data.arc, function (station) {
-      list.appendChild(chainItem(data, station, numbers));
+    var groups = groupByTurnin(data);
+    var list = h('ol', { 'class': 'turnin-list' });
+    each(groups, function (group, i) {
+      list.appendChild(turninGroup(data, group, numbers, groups[i + 1] || null));
     });
-    clear(container);
-    append(container, [
+
+    var kids = [
       h('p', { 'class': 'fiction-note' }, [
         badge('FICTITIOUS DATA'), ' ',
         'The study questions, findings, and participant details below are ' +
@@ -292,12 +386,24 @@
         'the next prototype in the chain.'
       ]),
       list
-    ]);
+    ];
+    if (data.throughLine) {
+      kids.push(h('p', { 'class': 'through-line' }, [
+        h('strong', null, 'The through-line: '), data.throughLine
+      ]));
+    }
+
+    clear(container);
+    append(container, kids);
   }
+
 
   /* ------------------------------------------------------- prev/next arc nav */
 
-  function navSide(station, direction) {
+  /* `currentTurnin` lets the label distinguish "the other half of the report
+     you are reading" from "a different assignment entirely" — the whole point
+     of grouping the chain by turn-in. */
+  function navSide(station, direction, currentTurnin) {
     var label = direction === 'prev' ? 'Previous' : 'Next';
     var classes = 'arcnav__side arcnav__side--' + direction;
     if (!station) {
@@ -307,8 +413,14 @@
           direction === 'prev' ? 'Start of the chain' : 'End of the chain')
       ]);
     }
+    var where = '';
+    if (station.turnin) {
+      where = station.turnin === currentTurnin
+        ? ' — same turn-in'
+        : ' — turn-in ' + station.turnin;
+    }
     return h('span', { 'class': classes }, [
-      h('span', { 'class': 'micro-label' }, label),
+      h('span', { 'class': 'micro-label' }, label + where),
       linkOrPending(stationIsLive(station), resolve(stationHref(station)),
         station.title, pendingLabel(station), 'arcnav__title')
     ]);
@@ -324,12 +436,13 @@
     if ((' ' + container.className + ' ').indexOf(' arcnav ') < 0) {
       container.className = (container.className ? container.className + ' ' : '') + 'arcnav';
     }
+    var here = data.arc[index].turnin;
     clear(container);
     append(container, [
-      navSide(index > 0 ? data.arc[index - 1] : null, 'prev'),
+      navSide(index > 0 ? data.arc[index - 1] : null, 'prev', here),
       h('a', { 'class': 'arcnav__hub', 'href': resolve('index.html') },
-        'The whole chain'),
-      navSide(index < data.arc.length - 1 ? data.arc[index + 1] : null, 'next')
+        here ? 'The whole chain — you are in turn-in ' + here : 'The whole chain'),
+      navSide(index < data.arc.length - 1 ? data.arc[index + 1] : null, 'next', here)
     ]);
   }
 

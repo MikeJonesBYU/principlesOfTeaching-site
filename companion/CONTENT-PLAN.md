@@ -28,14 +28,24 @@ Six stations plus a graduation. Studies are fictitious; prototypes are real,
 working artifacts. The chain alternates: every prototype is grounded in the
 study before it, and tested by the study after it.
 
-| # | Station (slug) | Kind | What it asks / builds | Feeds |
-|---|---|---|---|---|
-| 1 | `card-sort` | study | Open card sort on the skill inventory: how do teachers group and label the basic information block (a single skill)? → categories, groups, labels — and *facet signals* (§3) | the wireframe's data scheme |
-| 2 | `wireframe` | prototype | 2–3 level clickable grayscale wireframe. Facets + values per PMEST/LATCH thinking; data scheme decoupled from display (single source, multiple views at wireframe fidelity) | the tree test's material |
-| 3 | `tree-test` | study | Tree test, run as a moderated think-aloud on the wireframe: how are the organization and the labeling broken? → refined categories, groups, labels | prototype v1 |
-| 4 | `prototype-v1` | prototype | First functional prototype. Visual design and color to direct precognitive attention; logs every click and the prompt that led to it | the task test's material |
-| 5 | `task-test` | study | Five-user task test (talk-aloud) on prototype v1: does the visual design work? where does navigation break? → final refinements | the final prototype |
-| 6 | `prototype-final` | prototype | Final functional prototype: brings it together on single source, multiple views, grounded in all three studies | **graduates to become the new live site** |
+| # | Station (slug) | Kind | Turn-in | What it asks / builds | Feeds |
+|---|---|---|---|---|---|
+| 1 | `card-sort` | study | **1** | Open card sort on the skill inventory: how do teachers group and label the basic information block (a single skill)? → categories, groups, labels — and *facet signals* (§3) | the wireframe's data scheme |
+| 2 | `wireframe` | prototype | **2** | 2–3 level clickable grayscale wireframe. Facets + values per PMEST/LATCH thinking; data scheme decoupled from display (single source, multiple views at wireframe fidelity) | the tree test's material |
+| 3 | `tree-test` | study | **2** | Tree test, run as a moderated think-aloud on the wireframe: how are the organization and the labeling broken? → refined categories, groups, labels | prototype v1 |
+| 4 | `prototype-v1` | prototype | **3** | First functional prototype. Visual design and color to direct precognitive attention; logs every click and the prompt that led to it | the task test's material |
+| 5 | `task-test` | study | **3** | Five-user task test (talk-aloud) on prototype v1: does the visual design work? where does navigation break? → final refinements | the final prototype |
+| 6 | `prototype-final` | prototype | **4** | Final functional prototype: brings it together on single source, multiple views, grounded in all three studies | **graduates to become the new live site** |
+
+**Six stations, four turn-ins (settled 2026-08-22).** Students do not hand in
+six things. Turn-ins 2 and 3 each bundle a prototype *and* the study that tests
+it into one two-part report — Part 1 graded on the Prototype Rubric (60), Part 2
+on the User Study Rubric (60), 120 points combined — because a prototype you
+have not tested is not finished. Turn-in 1 is the card-sort report alone (60);
+turn-in 4 is the final prototype alone. The companion hub renders the chain
+grouped this way, in the flow diagram's four colors; the grouping is registry
+data (`turnin` on each station, `turnins[]` for the metadata — ARCHITECTURE §5),
+not markup.
 
 The through-line (verbatim course doctrine, and this companion's editorial
 spine): *deliberately avoid finding "the one true place" each item should go.*
