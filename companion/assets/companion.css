@@ -253,7 +253,7 @@ code {
    it reads as a placeholder inside its turn-in rather than as a destination. */
 .arc-item--pending { background: var(--panel-sunk); border-style: dashed; }
 .arc-item--pending .arc-item__title { font-weight: 600; }
-.arc-item--pending .arc-item__marker { color: var(--muted); }
+.arc-item--pending .arc-marker { opacity: .6; }
 .arc-item--prototype.arc-item--pending { border-left-style: solid; }
 
 /* --------------------------------------------- 5. Turn-ins and the chain ---
@@ -361,7 +361,7 @@ code {
 .arc-item::after {
   content: "";
   position: absolute;
-  left: 46px;
+  left: 60px;
   bottom: -21px;
   width: 2px;
   height: 20px;
@@ -369,17 +369,44 @@ code {
 }
 .arc-item:last-child::after { display: none; }
 
+/* ------------------------------------------------- the station marker ---
+   The marker is the diagram's numbered node, so it is drawn as one: the kind
+   over the numeral, boxed, in the build/study colors the kicker underneath
+   already uses. It was caption-sized text before, which made "Prototype 1"
+   and "Study 2" the hardest things on the card to find. Kind and number are
+   both words — the box and the hue only make them faster to spot. */
 .arc-item__marker {
-  flex: 0 0 76px;
-  font-family: var(--mono);
-  font-size: .7rem;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--bar, var(--accent));
+  flex: 0 0 100px;
   border-right: 2px solid var(--edge, var(--rule));
   padding-right: 12px;
   min-height: 2.2em;
+  text-align: center;
 }
+.arc-marker {
+  display: inline-block;
+  min-width: 76px;
+  padding: 7px 6px 6px;
+  border: 2px solid;
+  border-radius: var(--radius);
+  background: #fff;
+}
+.arc-marker__kind {
+  display: block;
+  font-family: var(--mono);
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.arc-marker__n {
+  display: block;
+  font-family: var(--mono);
+  font-size: 1.55rem;
+  font-weight: 700;
+  line-height: 1.05;
+}
+.arc-marker--build { color: #8a5a18; border-color: #d9b478; background: #fdf5e8; }
+.arc-marker--study { color: #1c6b4c; border-color: #a6cbb8; background: #e9f4ee; }
 
 .arc-item__body { flex: 1 1 auto; min-width: 0; }
 
@@ -410,7 +437,6 @@ code {
   border-left: 3px dashed var(--accent, #9c3a1c); padding-left: 10px;
 }
 .arc-item__links { margin-top: 8px; }
-.arc-item__aside { color: var(--muted); font-size: .85rem; }
 
 .chip {
   display: inline-block;
@@ -476,13 +502,19 @@ span.chip.is-pending .pill--pending {
 
   .arc-item { flex-direction: column; gap: 8px; padding: 14px; }
   .arc-item::after { left: 22px; }
+  .arc-item--paired-up::before { left: 15px; }
   .arc-item__marker {
     flex: none;
     border-right: 0;
     border-bottom: 2px solid var(--rule);
     padding: 0 0 6px;
     min-height: 0;
+    text-align: left;
   }
+  .arc-marker { padding: 5px 9px 4px; }
+  .arc-marker__kind, .arc-marker__n { display: inline; }
+  .arc-marker__n { font-size: 1.1rem; margin-left: 6px; }
+  .arc-pairbar { padding: 7px 9px; }
 
   .turnin { padding: 0 13px 14px; }
   .turnin__head { margin: 0 -13px 14px; padding: 8px 13px; }
@@ -504,6 +536,63 @@ span.chip.is-pending .pill--pending {
    Both sit on white inside a tinted turn-in panel, as in the diagram; the
    prototype card carries a heavier left edge so "you build" reads first. */
 .arc-item--prototype { border-left: 4px solid var(--bar, var(--rule-strong)); }
+
+/* --- The pair: a build and the study that runs on it -----------------------
+   Turn-ins 2 and 3 are one build plus the study that tests it, handed in
+   together. That relationship is the point of those turn-ins, so both cards
+   are bound to the band color, the connector between them grows an arrowhead
+   into the study, and each card carries a band naming the other half. The
+   bands say it in words; the arrow only makes it quicker to see. */
+.arc-item--paired { border-color: var(--bar, var(--rule-strong)); }
+.arc-item--paired-down::after { width: 3px; height: 22px; bottom: -23px; }
+.arc-item--paired-up::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 53px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 10px solid var(--bar, var(--rule-strong));
+}
+
+.arc-pairbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 7px;
+  margin: 12px 0 0;
+  padding: 8px 11px;
+  background: var(--tint, var(--panel-sunk));
+  border: 1px solid var(--edge, var(--rule));
+  border-left: 4px solid var(--bar, var(--rule-strong));
+  border-radius: var(--radius);
+}
+/* On the study card the band sits under the title, pointing back at the build. */
+.arc-pairbar--up { margin: 6px 0 10px; }
+.arc-pairbar__arrow {
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--bar, var(--accent));
+}
+.arc-pairbar__label {
+  font-family: var(--mono);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--bar, var(--accent));
+}
+.arc-pairbar__who {
+  font-family: var(--mono);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.arc-pairbar .chip { background: #fff; }
+.arc-pairbar__note { color: var(--muted); font-size: .86rem; }
 
 /* --- Study-page components (card sort, 2026-08-21) ------------------------ */
 

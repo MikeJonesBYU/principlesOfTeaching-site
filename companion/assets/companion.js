@@ -52,7 +52,9 @@
     graded: 'Graded on',
     produces: 'Produces',
     testedBelow: 'Tested below by',
-    sameTurnin: 'in this same turn-in',
+    runsOn: 'Runs on',
+    pairDown: 'that study runs on this exact build',
+    pairUp: 'the build above, in this same turn-in',
     noRegistry: 'The companion registry did not load, so this section is empty.'
   };
 
@@ -228,16 +230,54 @@
 
      Stations are still numbered as stations, and studies and prototypes are
      numbered separately, so markers read "Study 2" and "Prototype 2" without
-     either renumbering the other. ------------------------------------------ */
+     either renumbering the other. Each marker renders as a boxed badge (kind
+     over numeral) and each half of a pair carries a band naming the other
+     half, so "this build is what that study ran on" is drawn, not inferred.
+     ------------------------------------------------------------------------ */
 
   function stationNumbers(data) {
     var map = {};
     var s = 0, p = 0;
     each(data.arc, function (st) {
-      if (st.kind === 'prototype') { p += 1; map[st.id] = 'Prototype ' + p; }
-      else { s += 1; map[st.id] = 'Study ' + s; }
+      if (st.kind === 'prototype') { p += 1; map[st.id] = { kind: 'Prototype', n: p }; }
+      else { s += 1; map[st.id] = { kind: 'Study', n: s }; }
     });
     return map;
+  }
+
+  /* "Prototype 1" / "Study 2" as one string, for prose and for the pair bars
+     that name the other half of a two-part turn-in. */
+  function markerText(num) {
+    return num ? num.kind + ' ' + num.n : '';
+  }
+
+  /* The build a study runs on: the prototype whose `testedBy` names it. The
+     registry already states the pairing in one direction; reading it back the
+     other way is what lets the study card say what it was run against. */
+  function buildTestedBy(data, station) {
+    if (station.kind !== 'study') { return null; }
+    for (var i = 0; i < data.arc.length; i++) {
+      if (data.arc[i].kind === 'prototype' && data.arc[i].testedBy === station.id) {
+        return data.arc[i];
+      }
+    }
+    return null;
+  }
+
+  /* The band that draws the pair: on the build card pointing down at the study
+     that tests it, on the study card pointing back up at the build it ran on.
+     Turn-ins 2 and 3 are exactly this pair, so the chain shows it rather than
+     leaving it to be inferred from two adjacent cards. */
+  function pairBar(dir, other, numbers, label, note) {
+    return h('p', { 'class': 'arc-pairbar arc-pairbar--' + dir }, [
+      h('span', { 'class': 'arc-pairbar__arrow', 'aria-hidden': 'true' },
+        dir === 'down' ? '\u2193' : '\u2191'),
+      h('span', { 'class': 'arc-pairbar__label' }, label),
+      h('span', { 'class': 'arc-pairbar__who' }, markerText(numbers[other.id])),
+      linkOrPending(stationIsLive(other), resolve(stationHref(other)),
+        other.title, pendingLabel(other), 'chip'),
+      h('span', { 'class': 'arc-pairbar__note' }, '\u2014 ' + note)
+    ]);
   }
 
   function turninMeta(data, n) {
@@ -267,9 +307,22 @@
   function chainItem(data, station, numbers) {
     var isProto = station.kind === 'prototype';
     var live = stationIsLive(station);
+
+    /* Is this station half of a build-and-its-test pair inside one turn-in?
+       A build points down at the study that tests it; that study points back
+       up at the build it ran on. */
+    var tester = isProto && station.testedBy
+      ? stationById(data, station.testedBy) : null;
+    var pairedDown = !!(tester && tester.turnin === station.turnin);
+    var ranOn = buildTestedBy(data, station);
+    var pairedUp = !!(ranOn && ranOn.turnin === station.turnin);
+
     var classes = 'arc-item' +
       (isProto ? ' arc-item--prototype' : ' arc-item--study') +
-      (live ? '' : ' arc-item--pending');
+      (live ? '' : ' arc-item--pending') +
+      (pairedDown || pairedUp ? ' arc-item--paired' : '') +
+      (pairedDown ? ' arc-item--paired-down' : '') +
+      (pairedUp ? ' arc-item--paired-up' : '');
 
     var role = h('p', {
       'class': 'arc-item__role arc-item__role--' + (isProto ? 'build' : 'study')
@@ -281,6 +334,7 @@
     ]);
 
     var body = [
+      pairedUp ? pairBar('up', ranOn, numbers, LABELS.runsOn, LABELS.pairUp) : null,
       h('p', { 'class': 'arc-item__method' },
         isProto ? ('Prototype — ' + (station.fidelity || '') + ' fidelity')
                 : (station.method || '')),
@@ -293,25 +347,25 @@
       ]) : null
     ];
 
-    /* Cross-link. A prototype names the study that tests it — usually the very
-       next card, inside this same turn-in. A study names the turn-in its
-       findings are allowed to drive. */
-    var partnerId = isProto ? station.testedBy : station.feeds;
-    var partner = partnerId ? stationById(data, partnerId) : null;
-    if (partner) {
-      var same = partner.turnin === station.turnin;
-      var line = [
-        h('span', { 'class': 'micro-label' }, isProto
-          ? (same ? LABELS.testedBelow : 'Tested by')
-          : ('Feeds Turn-in ' + partner.turnin)),
-        ' ',
-        linkOrPending(stationIsLive(partner), resolve(stationHref(partner)),
-          partner.title, pendingLabel(partner), 'chip')
-      ];
-      if (isProto && same) {
-        line.push(h('span', { 'class': 'arc-item__aside' }, ' ' + LABELS.sameTurnin));
+    /* Cross-link. A build paired with its test inside this turn-in gets the
+       pair band; anything else — a build tested in a later turn-in, or a study
+       naming the turn-in its findings are allowed to drive — gets the plain
+       line. */
+    if (pairedDown) {
+      body.push(pairBar('down', tester, numbers, LABELS.testedBelow, LABELS.pairDown));
+    } else {
+      var partnerId = isProto ? station.testedBy : station.feeds;
+      var partner = partnerId ? stationById(data, partnerId) : null;
+      if (partner) {
+        body.push(h('p', { 'class': 'arc-item__links' }, [
+          h('span', { 'class': 'micro-label' }, isProto
+            ? 'Tested by'
+            : ('Feeds Turn-in ' + partner.turnin)),
+          ' ',
+          linkOrPending(stationIsLive(partner), resolve(stationHref(partner)),
+            partner.title, pendingLabel(partner), 'chip')
+        ]));
       }
-      body.push(h('p', { 'class': 'arc-item__links' }, line));
     }
     if (isProto && station.status === 'frozen') {
       body.push(h('p', { 'class': 'arc-item__links' }, [
@@ -324,8 +378,18 @@
       ]));
     }
 
+    var num = numbers[station.id] || null;
+    var marker = h('div', { 'class': 'arc-item__marker' }, [
+      h('span', {
+        'class': 'arc-marker arc-marker--' + (isProto ? 'build' : 'study')
+      }, [
+        h('span', { 'class': 'arc-marker__kind' }, num ? num.kind : ''),
+        h('span', { 'class': 'arc-marker__n' }, num ? String(num.n) : '')
+      ])
+    ]);
+
     return h('li', { 'class': classes }, [
-      h('div', { 'class': 'arc-item__marker' }, numbers[station.id]),
+      marker,
       h('div', { 'class': 'arc-item__body' }, [role, head].concat(body))
     ]);
   }

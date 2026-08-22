@@ -192,6 +192,22 @@ read as one document. Color is a wayfinding cue only — every turn-in is also
 numbered and titled in text, and each station card says "You build" or "User
 study" in words.
 
+**Station markers and the build/test pair (added 2026-08-22).** Two things the
+diagram has to say out loud, because both were previously left to inference:
+
+- Each station's marker ("Prototype 1", "Study 2") renders as a boxed badge —
+  kind over numeral, in the build/study colors the card's own kicker uses —
+  rather than as caption-sized text in the gutter. The numbering itself is
+  unchanged: studies and prototypes are counted separately, so neither
+  renumbers the other.
+- Where a turn-in holds a build *and* the study that tests it (turn-ins 2 and
+  3), both cards are bound to the band color, the connector between them grows
+  an arrowhead into the study, and each card carries a band naming the other
+  half: the build points down at the study that runs on it, the study points
+  back up at the build it ran on. The pairing is derived from `testedBy`, read
+  in both directions — the registry states it once. Everything the drawing says
+  is also written in the bands, so nothing depends on seeing the arrow.
+
 **What renders from the registry:** the hub's chain grouped into turn-ins,
 per-page prev/next arc navigation (which names each neighbor's turn-in, and
 says "same turn-in" for the other half of a two-part report), and cross-links
