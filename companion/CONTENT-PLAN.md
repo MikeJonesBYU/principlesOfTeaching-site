@@ -173,13 +173,16 @@ architecture test (the course's proof that decoupling paid off).
 
 ## 6. Study-page template (graded pair — readopted 2026-08-21)
 
-Each study page presents **the same study written up twice** — a full-marks
-report and a low-scoring report — with the grader's reasoning after every
-element, quoting the band language of the rubric (`user-study-rubric.md`,
+Each study page presents **two contrasting turn-ins for the same
+assignment** — a full-marks report and a low-scoring report (its own weaker
+study: short recruitment, primed sorts, a negotiated group sort, a deck that
+changed mid-study) — with the grader's reasoning after every element,
+quoting the band language of the rubric (`user-study-rubric.md`,
 repo root; Canvas rubric 198046) it applies. Page order: scope note → method
 preface → the assignment's turn-in elements → compact rubric → Report A
-(full marks, elements + grader boxes + scorecard) → Report B (same
-participants, same sorts; points lost in capture, synthesis, and decisions —
+(full marks, elements + grader boxes + scorecard) → Report B (a separate, weaker
+study — 5 of 8–10 recruited, primed with starter examples, one three-person
+negotiated sort, three cards pulled mid-study, group session unphotographed —
 elements + grader boxes + scorecard) → "what separates the scores" → shared
 appendices (deck, standardization). Report A is **binding on the chain**: its
 categories/decisions are what the next prototype implements. Report B's
