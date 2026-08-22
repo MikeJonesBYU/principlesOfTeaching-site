@@ -126,28 +126,42 @@ did *not* resolve (feeds the tree test's question).
 - The invented results themselves: the piles, the labels, the facet signals —
   i.e., the actual seed of the new IA. This is the substantive design work.
 
-## 4. Station brief: the wireframe (detailed — built right after the sort)
+## 4. Station brief: the wireframe (updated 2026-08-21 to the settled assignment spec)
 
-**A real, working artifact** at `prototypes/wireframe/` — self-contained,
-grayscale, 2–3 levels deep, real labels from the (fictitious) label harvest.
-Own minimal banner + noindex; does not load companion.css/js (ARCHITECTURE §6).
+**Two real, working artifacts** — the graded-pair pattern (§6) extended to
+prototypes: `prototypes/wireframe/team-a/` (the strong team, binding on the
+chain) and `prototypes/wireframe/team-b/` (the middle-of-the-road team, flaws
+engineered against the prototype-rubric bands), with a plain chooser page at
+`prototypes/wireframe/index.html`. Self-contained, grayscale, own minimal
+banner + noindex; do not load companion.css/js (ARCHITECTURE §6).
 
-- **Its own single source:** `wireframe-data.js` — the 53 skills as info
-  blocks, each carrying the attributes/facets the card sort surfaced (e.g.
-  `situation: [...]`, `principle: ...`, plus whatever the sort seeds). Every
-  wireframe page renders by *selecting on attributes*. The decoupling is the
-  exhibit: same blocks, multiple views, no block hand-placed anywhere.
-- **Level structure:** L1 entry views (one per facet worth navigating by),
-  L2 category/group pages, L3 the skill block itself (wireframe-fidelity stub
-  that names the real skill and links to the real manual page).
-- **Deliberately withheld:** visual design, color, imagery (those are v1's
-  material — the wireframe must invite IA critique, not font comments).
-  No click logging at this rung: the tree test is a *moderated think-aloud*
-  with hand-recorded paths; instrumented logging arrives in v1 per the
-  turn-in diagram ("log every click").
-- **Freeze rule:** the moment the tree-test study "runs" against it, the
-  wireframe freezes (ARCHITECTURE §6). Refinements land in v1, so the study
-  page's citations stay checkable forever.
+The governing assignment spec (settled with the instructor; memory:
+wireframe-assignment-spec): true wireframe fidelity (black & white, one font,
+generic boxes); every information block from the team's card sort present with
+labeled placeholder leaves; **two categorizations** of the same blocks (single
+source, multiple views; PMEST offered as a lens); ≥2 levels of hierarchy;
+click-through to a clear end state; **click recording with an exportable
+JSON/CSV log** (this supersedes the earlier "no logging at this rung" note);
+bonus credit for a 10-scenario randomized, timed, persistent test mode.
+Grading instrument: the generic prototype rubric (Functional 18 / Visual 13 /
+IA 13 / Grounded 16).
+
+- **Team A** — single source `wireframe-data.js`: all 53 skills as info
+  blocks with `category` (the five harvested categories; deliberately no
+  Spirit), `group` (harvested L2 labels), `moment: [opening|during|closing|
+  after]`. Every page renders by *selecting on attributes*; no block
+  hand-placed. Views: by category (3 levels) and by lesson moment. Verbatim
+  skill names appear only at L3, linking to the real manual page. Ships the
+  full bonus test mode — which becomes the tree test's instrument.
+- **Team B** — hand-authored multi-page HTML (the anti-pattern): 21 of their
+  24 deck cards (the three pulled mid-study never returned), their seven
+  primed categories incl. a Misc dump, second view = the manual's sections
+  (which their own analysis rejected) missing two blocks, two fonts and
+  default-blue links creeping in, click log that resets on every page load,
+  no bonus mode. Earnest, not parody.
+- **Freeze rule:** the moment the tree-test study "runs" against Team A's
+  wireframe, both artifacts freeze (ARCHITECTURE §6). Refinements land in v1,
+  so the study page's citations stay checkable forever.
 
 ## 5. Station briefs: the rest of the chain (sketch — detail later)
 

@@ -14,7 +14,7 @@
    Slugs are stable once public — students bookmark them. Never rename.
    ========================================================================== */
 window.CS356_COMPANION = {
-  version: "2026-08-21b",
+  version: "2026-08-21c",
   arc: [
     {
       id: "card-sort",
@@ -32,10 +32,10 @@ window.CS356_COMPANION = {
       kind: "prototype",
       title: "2–3 level wireframe",
       fidelity: "wireframe",
-      status: "planned",
+      status: "built",
       path: "prototypes/wireframe/",
       testedBy: "tree-test",
-      shows: "A grayscale, clickable IA built from the card-sort results: one data file of 53 skill blocks with facets, every page rendered by selecting on attributes — no skill hand-placed anywhere."
+      shows: "Two example turn-ins for the same assignment. Team A: one data file of 53 skill blocks with facets, every page rendered by selecting on attributes — no skill hand-placed anywhere — plus the bonus test mode. Team B: a hand-built wireframe worth studying closely."
     },
     {
       id: "tree-test",
