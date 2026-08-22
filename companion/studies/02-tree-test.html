@@ -12,6 +12,21 @@
     .grader ul { margin: 0 0 8px; padding-left: 1.35em; font-size: .95rem; }
     .grader li { margin: 0 0 7px; }
     .grader li:last-child { margin-bottom: 0; }
+
+    /* Marked-up IA outlines inside the report sheets. Plain monospaced text
+       that scrolls on its own, so a narrow screen never scrolls the page. */
+    .ia-outline {
+      font-family: var(--mono);
+      font-size: .74rem;
+      line-height: 1.6;
+      white-space: pre;
+      overflow-x: auto;
+      margin: 10px 0 12px;
+      padding: 14px 16px;
+      border: 1px solid #c9c2b2;
+      background: #fbfaf7;
+      color: #141414;
+    }
   </style>
 </head>
 <body data-page="study" data-arc="tree-test">
@@ -44,8 +59,8 @@
         first clicks, the participants, a results table, half a page of
         listening notes, an analysis that goes past the pass rate, design
         decisions in the form &ldquo;Because&nbsp;[result], we
-        will&nbsp;[decision],&rdquo; what you are ignoring, and a link to the
-        raw log. Part&nbsp;1 is graded on the 60-point prototype rubric and
+        will&nbsp;[decision]&rdquo; ending in a marked-up outline of the
+        revised hierarchy, what you are ignoring, and a link to the raw log. Part&nbsp;1 is graded on the 60-point prototype rubric and
         Part&nbsp;2 on the 60-point user-study rubric, for 120 points total.
       </p>
 
@@ -731,6 +746,66 @@
             view</strong> &mdash; not on the aggregate 95.5% (element 7).
           </li>
         </ol>
+
+        <h4>The revised hierarchy, marked up</h4>
+        <p>
+          Here is v1&rsquo;s tree with every change from the six decisions
+          marked; anything unmarked is staying exactly as it is.
+        </p>
+<pre class="ia-outline">1. Teaching about Jesus Christ
+   |- Making it about their own life
+   |- Finding Him in the scriptures
+   |     `- Let them handle something that points to Christ
+   |            <b>[RENAMED</b> from &ldquo;A sensory experience with scriptural objects&rdquo; &mdash; <b>D2]</b>
+   |            <b>[ALSO FILED here</b> &mdash; same block as under Keeping their attention &rsaquo; Something they do, not watch &mdash; <b>D2]</b>
+   |- Bearing witness in class
+   |     `- Statements that help them recognize the Holy Ghost
+   |            <b>[ALSO FILED</b> under the trial branch below; the block stays here &mdash; <b>D1]</b>
+   `- What the prophets say
+
+2. Keeping their attention
+   |- Something they can see or hear
+   `- Something they do, not watch
+         `- Let them handle something that points to Christ
+                <b>[RENAMED</b> from &ldquo;A sensory experience with scriptural objects&rdquo; &mdash; <b>D2]</b>
+                <b>[ALSO FILED</b> under Teaching about Jesus Christ &rsaquo; Finding Him in the scriptures &mdash; <b>D2]</b>
+
+3. Knowing and loving the people you teach
+   |- Making the room safe to speak up
+   |- Getting to know them
+   `- Caring about them during the week
+
+4. Getting ready before Sunday
+   |- Getting yourself ready &mdash; you, before Sunday
+   |        <b>[RENAMED</b> &middot; subtitle added &mdash; <b>D3]</b>
+   |- Planning what happens in class
+   |        <b>[RENAMED</b> from &ldquo;Planning the lesson&rdquo; &mdash; <b>D3]</b>
+   `- Invitations they take home
+
+5. Getting people to talk
+   |- Not answering it yourself
+   |- Getting them talking to each other
+   `- Asking so you get a real answer
+         |- When you want them to find it themselves
+         |        <b>[RENAMED</b> from &ldquo;create open-ended search questions&rdquo; &mdash; <b>D4]</b>
+         |- When you want them to say the principle out loud
+         |        <b>[RENAMED</b> from &ldquo;ask questions that help students state converting principles&rdquo; &mdash; <b>D4]</b>
+         |- When you do not know the answer
+         |        <b>[RENAMED</b> from &ldquo;respond to questions in a way that avoids speculation&rdquo; &mdash; <b>D4]</b>
+         `- When you want their home study in the room
+                  <b>[RENAMED</b> from &ldquo;connect personal and family scripture study to class&rdquo; &mdash; <b>D4]</b>
+
+6. What it feels like
+        <b>[NEW &mdash; TRIAL, D1]</b> The label is the thing v1&rsquo;s study has to test,
+        not a settled answer. Built to be tested, and dropped if it does not earn its place.
+   `- Statements that help them recognize the Holy Ghost
+          <b>[ALSO FILED</b> &mdash; cross-listed, not moved; the block stays filed under
+          Teaching about Jesus Christ &rsaquo; Bearing witness in class &mdash; <b>D1]</b>
+
+The five L1 categories are themselves unmarked &mdash; none renamed, none moved,
+none removed. That is decision 5, shown rather than asserted.
+By-moment view: <b>unchanged (D6)</b>. No block changes its moment, so the four
+moment pages render exactly as they do now.</pre>
       </div>
 
       <div class="docpage docpage--a">
@@ -798,6 +873,19 @@
           <li><strong>Element 7 carries no points and is load-bearing
           anyway.</strong> Refusing your own 95.5% there is what keeps
           element 6 honest.</li>
+          <li><strong>The outline makes every one of these checkable.</strong>
+          Every mark on that tree traces to a because-clause above it, and
+          nothing in the tree moves that the six decisions did not argue for
+          &mdash; the five categories carry no marks at all, which is
+          decision 5 shown instead of asserted. I can hold the outline against
+          the decisions and audit both in about a minute, which is exactly
+          what this element is for.</li>
+          <li><strong>And the trial tag is doing calibration work.</strong>
+          The Spirit branch is marked <em>NEW &mdash; TRIAL</em> with its label
+          named as the thing v1&rsquo;s study has to test rather than as a
+          settled answer. That is the difference between &ldquo;we
+          decided&rdquo; and &ldquo;we are going to find out,&rdquo; and it is
+          the honest version given the evidence you have.</li>
         </ul>
         <p>Nothing here to fix.</p>
       </aside>
@@ -1324,6 +1412,26 @@
           confused everybody.</li>
           <li>Add color in the next prototype to make it look better.</li>
         </ul>
+        <p>We also did the outline part. Here is what our categories will look
+        like next time:</p>
+<pre class="ia-outline">Teaching Fundamentals
+
+Spiritual Teaching
+    C02 - pictures and videos of Christ   (moved here from Misc)
+
+Keeping Them Engaged
+
+Asking Great Questions   (renamed)
+
+Preparation
+    C22 - opening invitation for the lesson   (moved here from Misc)
+
+Love
+
+Misc   (removed)
+
+Search</pre>
+        <p>That is everything we are changing. The rest stays the same.</p>
       </div>
 
       <div class="docpage docpage--b">
@@ -1374,6 +1482,37 @@
         growth. Now go one step further and ask <em>why</em> B07 was
         unanswerable &mdash; the answer is in your own Part 1, and it is not
         a wording problem.</p>
+        <p>The outline at the end is the most useful thing in this section
+        and I want to say so before I take it apart: drawing the tree is
+        right, and it is the reason I can now show you four things that were
+        invisible while these were still sentences.</p>
+        <p><strong>C13 is not in it.</strong> Misc is marked removed, C02 goes
+        to Spiritual Teaching, C22 goes to Preparation &mdash; and the third
+        block that was in Misc is simply not on the page. Not refiled, not
+        listed, gone. You have just done to C13 exactly what your wireframe
+        did to C18, and C18 is why B07 scored 0 of 6: a block that exists in
+        no view cannot be found by anybody. That is the mistake that broke
+        B07, made a second time in the plan for fixing it &mdash; and this
+        time the outline caught it, which is the argument for outlines.
+        <strong>&ldquo;Asking Great Questions (renamed)&rdquo; carries a mark
+        and no reason.</strong> The only thing standing behind it is
+        &ldquo;make the labels catchier,&rdquo; which cites nothing; a mark
+        with no because is a change you cannot defend in a room.
+        <strong>&ldquo;Keeping Them Engaged&rdquo; carries a reason and no
+        mark</strong> &mdash; it is Engagement under a new name, and nothing
+        in the outline says so, so a reader who never saw the old tree cannot
+        tell a rename from a category that was always there. And
+        <strong>&ldquo;Search&rdquo; is in the tree as though it were a
+        branch.</strong> Search is not a category; it is a different way of
+        reaching the categories you already have, and drawing it as a box is
+        how a maybe from a decision list turns into architecture nobody
+        chose.</p>
+        <p>Here is the lesson, and it is the reason this element exists: an
+        outline is where vague decisions get found out. &ldquo;Make the labels
+        catchier&rdquo; survived fine as a sentence; the moment you had to
+        draw it, it became one rename you cannot justify and one you did not
+        mark. Draw the tree first next time and the decisions will write
+        themselves.</p>
       </aside>
 
       <div class="docpage docpage--b">
