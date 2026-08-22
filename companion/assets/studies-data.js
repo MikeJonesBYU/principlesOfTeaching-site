@@ -14,7 +14,7 @@
    Slugs are stable once public — students bookmark them. Never rename.
    ========================================================================== */
 window.CS356_COMPANION = {
-  version: "2026-08-21c",
+  version: "2026-08-22a",
   arc: [
     {
       id: "card-sort",
@@ -32,7 +32,7 @@ window.CS356_COMPANION = {
       kind: "prototype",
       title: "2–3 level wireframe",
       fidelity: "wireframe",
-      status: "built",
+      status: "frozen",
       path: "prototypes/wireframe/",
       testedBy: "tree-test",
       shows: "Two example turn-ins for the same assignment. Team A: one data file of 53 skill blocks with facets, every page rendered by selecting on attributes — no skill hand-placed anywhere — plus the bonus test mode. Team B: a hand-built wireframe worth studying closely."
@@ -42,11 +42,11 @@ window.CS356_COMPANION = {
       kind: "study",
       title: "Tree test",
       method: "Tree testing, run as a moderated think-aloud on the wireframe",
-      status: "draft",
+      status: "published",
       page: "studies/02-tree-test.html",
       question: "Working from real teacher situations, can people find the right skill in the new structure — and where do the organization and the labels break?",
       feeds: "prototype-v1",
-      shows: "Per-task path tables and wrong-turn analysis; refined categories, groups, and labels."
+      shows: "Two complete two-part reports — each team's wireframe turn-in graded on the prototype rubric and its tree test graded on the study rubric — with per-task first-click tables, wrong-turn analysis, and the decisions that bind prototype v1."
     },
     {
       id: "prototype-v1",

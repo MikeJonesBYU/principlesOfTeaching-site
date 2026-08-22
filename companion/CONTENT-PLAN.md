@@ -191,18 +191,30 @@ Each study page presents **two contrasting turn-ins for the same
 assignment** — a full-marks report and a low-scoring report (its own weaker
 study: short recruitment, primed sorts, a negotiated group sort, a deck that
 changed mid-study) — with the grader's reasoning after every element,
-quoting the band language of the rubric (`user-study-rubric.md`,
-repo root; Canvas rubric 198046) it applies. Page order: scope note → method
-preface → the assignment's turn-in elements → compact rubric → Report A
-(full marks, elements + grader boxes + scorecard) → Report B (a separate, weaker
-study — 5 of 8–10 recruited, primed with starter examples, one three-person
-negotiated sort, three cards pulled mid-study, group session unphotographed —
+quoting the band language of the rubric it applies — studies use
+`user-study-rubric.md` (repo root; Canvas rubric 198046), prototype turn-ins
+use the Prototype Rubric (Canvas rubric 198705). Page order (settled at
+card-sort v5, reused by the tree-test page): scope note → a **3-sentence**
+assignment summary → Report A (full marks, elements + grader boxes +
+scorecard) → Report B (a separate, weaker study — its errors engineered
+against rubric bands and disclosed innocently in the work itself —
 elements + grader boxes + scorecard) → "what separates the scores" → shared
 appendices (deck, standardization). Report A is **binding on the chain**: its
 categories/decisions are what the next prototype implements. Report B's
 errors are constructed to hit specific rubric bands (recap-not-synthesis,
 over-claiming cap, decisions that predate the data), and each grader box
 names the band it applied.
+
+**Two-part reports (added 2026-08-22).** When an assignment is a combined
+turn-in — the wireframe + tree test report is the model
+(`studies/02-tree-test.html`) — each team's report carries Part 1 (the
+prototype turn-in, graded on the Prototype Rubric, 60) and Part 2 (the study
+turn-in, graded on the study rubric, 60) with a scorecard per part and a
+combined 120-pt line. The study's raw data ships as a real committed file in
+the study's real export format (e.g. `02-tree-test-raw-team-a.csv`), invented
+by a committed data script (`02-tree-test-data.py`) that parses the real
+prototypes rather than hard-coding them, so every number on the page is
+re-derivable by a stranger.
 
 Report A's element skeleton (keep the order):
 
