@@ -60,7 +60,11 @@
         listening notes, an analysis that goes past the pass rate, design
         decisions in the form &ldquo;Because&nbsp;[result], we
         will&nbsp;[decision]&rdquo; ending in a marked-up outline of the
-        revised hierarchy, what you are ignoring, and a link to the raw log. Part&nbsp;1 is graded on the 60-point prototype rubric and
+        revised hierarchy, then a complete outline of the information
+        hierarchy <em>as you tested it</em> &mdash; every level, every
+        block, every view, verbose on purpose, so the grader can see exactly
+        how you organized things without opening the artifact &mdash; then
+        what you are ignoring, and a link to the raw log. Part&nbsp;1 is graded on the 60-point prototype rubric and
         Part&nbsp;2 on the 60-point user-study rubric, for 120 points total.
       </p>
 
@@ -743,7 +747,7 @@
             seven-year-olds by moment reached the correct block in two clicks
             while the category view split five ways, <strong>v1 keeps
             <code>moment</code> on every block and keeps the by-moment
-            view</strong> &mdash; not on the aggregate 95.5% (element 7).
+            view</strong> &mdash; not on the aggregate 95.5% (element 8).
           </li>
         </ol>
 
@@ -808,8 +812,339 @@ By-moment view: <b>unchanged (D6)</b>. No block changes its moment, so the four
 moment pages render exactly as they do now.</pre>
       </div>
 
+
       <div class="docpage docpage--a">
-        <h3>7. What we are choosing to ignore</h3>
+        <h3>7. The full hierarchy, as tested</h3>
+        <p>
+          This element is real, not invented: it is the complete information
+          hierarchy of the frozen wireframe &mdash; every level, every block,
+          both views, nothing elided. We generated it from
+          <code>wireframe-data.js</code>, the single source every page
+          renders from, so this is the tree the eleven participants actually
+          walked, not a diagram of our intentions. It is long on purpose:
+          the spec asks for the hierarchy verbose, so that a reader can see
+          how we organized things without opening the artifact.
+        </p>
+        <p>
+          Block ids are the prototype&rsquo;s own, the same ids that appear
+          in <code>expectedSkillId</code> and <code>endpointSkillId</code>
+          in the raw log (element&nbsp;9), so every endpoint in the results
+          table can be located in this outline by searching for its id. The
+          braces after each block are its <code>moment</code> values, which
+          are what generate View&nbsp;2. Element&nbsp;6&rsquo;s marked-up
+          outline shows what v1 will change; this one is the as-is that
+          those marks were made against.
+        </p>
+        <h4>View 1 &mdash; by category (the tree the test ran against)</h4>
+<pre class="ia-outline">1. Getting people to talk   [12 blocks]
+   |- Not answering it yourself   [5]
+   |     |- 018.title_number1  Ask a question to assess learning before moving on in the
+   |     |                          lesson.  {during}
+   |     |- 018.title_number2  Listen to and observe students to ask follow-up
+   |     |                          questions.  {during}
+   |     |- 020.intro2  Before responding to a student’s question or comment, pause and
+   |     |                   think, “What can I ask them?” or “What can I invite them to
+   |     |                   do?”  {during}
+   |     |- 029.title_number1  Resist the tendency to respond to every comment and
+   |     |                          question and invite the class to respond.  {during}
+   |     `- 029.title_number2  Focus on what the learner can do in class that the
+   |                                teacher typically does.  {during}
+   |- Asking so you get a real answer   [4]
+   |     |- 023.title_number1  Create open-ended search questions that help learners
+   |     |                          discover gospel doctrine and principles for
+   |     |                          themselves and do not lead students to a specific
+   |     |                          response.  {during}
+   |     |- 026.intro2  Ask questions that help students identify and state converting
+   |     |                   principles.  {during}
+   |     |- 026.title_number3  Respond to questions in a way that avoids speculation and
+   |     |                          nondoctrinal personal ideas.  {during}
+   |     `- 030.title_number3  Develop and ask questions that help learners connect what
+   |                                they have learned in their personal and family
+   |                                scripture study to the classroom experience.
+   |                                {opening, during}
+   `- Getting them talking to each other   [3]
+         |- 021.title_number1  Create prompts that help students verbalize their
+         |                          feelings, experiences, and testimony.  {during,
+         |                          closing}
+         |- 032.intro2  Help students create or begin gospel conversations.  {during,
+         |                   after}
+         `- 032.title_number3  Prepare invitations for students to share with each other
+                                    what they are learning.  {during}
+
+2. Knowing and loving the people you teach   [12 blocks]
+   |- Getting to know them   [4]
+   |     |- 011.title_number1  Study recent prophetic messages to understand how
+   |     |                          Heavenly Father sees young people.  {after}
+   |     |- 011.title_number2  “Think celestial” about your students to help you see
+   |     |                          them as God does.  {opening, after}
+   |     |- 012.intro2  Observe and ask about students’ interests.  {opening, after}
+   |     `- 012.title_number3  Seek to clarify and understand the real intent of
+   |                                students’ questions, feelings, and beliefs.
+   |                                {during}
+   |- Caring about them during the week   [4]
+   |     |- 012.title_number4  Pause, reflect, and answer questions we ask ourselves
+   |     |                          that invite a Christlike spirit of discernment,
+   |     |                          love, and empathy in our interactions.  {during,
+   |     |                          after}
+   |     |- 013.intro2  Pray and ask how you can help your students and follow the
+   |     |                   promptings from the Holy Ghost.  {after}
+   |     |- 015.title_number1  Send a message to a student’s parent about something
+   |     |                          positive you have noticed about their child.
+   |     |                          {after}
+   |     `- 015.title_number2  Testify of God’s love when it is hard for you to feel or
+   |                                express love to those you teach.  {during}
+   `- Making the room safe to speak up   [4]
+         |- 009.title_number1  Observe Christlike attributes in students and share what
+         |                          you’ve noticed in ways that inspire them to continue
+         |                          to be like Him.  {during, after}
+         |- 013.intro3  Invite students to pray for other students.  {opening, closing}
+         |- 014.intro2  Communicate that you value students before they comment or as
+         |                   they raise their hand to comment.  {during}
+         `- 014.title_number3  Communicate that students are not only welcome but
+                                    needed.  {opening, during}
+
+3. Teaching about Jesus Christ   [14 blocks]
+   |- Making it about their own life   [3]
+   |     |- 004.title_number1  Help students connect what they are learning with how
+   |     |                          Christ exemplifies the principle.  {during}
+   |     |- 007.title_number2  Give invitations that help learners recognize the Lord’s
+   |     |                          love, power, and mercy in their own experiences.
+   |     |                          {closing}
+   |     `- 009.title_number2  Invite students to look for ways to follow the example of
+   |                                Jesus Christ in their personal lives.  {closing}
+   |- Finding Him in the scriptures   [5]
+   |     |- 005.p16  Create search questions to help students identify roles, titles,
+   |     |                symbols, attributes, and characteristics of Jesus Christ.
+   |     |                {during}
+   |     |- 005.title_number17  Ask questions that allow students to identify roles
+   |     |                           Jesus Christ can have in their lives.  {during}
+   |     |- 006.title_number1  Ask questions that help students learn about Jesus Christ
+   |     |                          through symbols in the scriptures.  {during}
+   |     |- 008.title_number2  Ask questions that help students find examples of
+   |     |                          Heavenly Father’s love in the scripture passage.
+   |     |                          {during}
+   |     `- 033.title_number2  Ask search questions that help learners consider who God
+   |                                is and blessings He offers them.  {during}
+   |- Bearing witness in class   [4]
+   |     |- 007.title_number1  Ask questions that focus on connecting the Lord’s power,
+   |     |                          mercy, and influence to the truths being taught.
+   |     |                          {during}
+   |     |- 008.title_number1  Statements that help students know and feel the love of
+   |     |                          Heavenly Father and Jesus Christ.  {during, closing}
+   |     |- 020.title_number3  Share statements that help students recognize when the
+   |     |                          Holy Ghost is performing His role or function.
+   |     |                          {during}
+   |     `- 021.title_number2  Testify more frequently and more powerfully of Jesus
+   |                                Christ.  {during, closing}
+   `- What the prophets say   [2]
+         |- 024.title_number1  Prepare invitations that help students connect truths
+         |                          found in the scriptures to what living prophets are
+         |                          saying.  {during}
+         `- 024.title_number2  Express your love for and testimony of prophets as their
+                                    words are shared in class.  {during}
+
+4. Getting ready before Sunday   [11 blocks]
+   |- Getting yourself ready   [3]
+   |     |- 017.title_number1  Use the document “Improving as a Christlike Teacher—A
+   |     |                          Personal Evaluation” to invite the Holy Ghost to
+   |     |                          help you refine your preparations to teach.  {after}
+   |     |- 017.title_number2  Ask questions to assess your own experience and testimony
+   |     |                          with Jesus Christ and the doctrine and principles in
+   |     |                          the lesson.  {after}
+   |     `- 023.title_number2  Search the scriptures and words of the prophets for
+   |                                deeper understanding.  {after}
+   |- Planning the lesson   [5]
+   |     |- 019.intro1  Create student self-evaluations about a doctrine, truth, or
+   |     |                   principle.  {during, after}
+   |     |- 025.intro2  Create student self-evaluations that help them recognize their
+   |     |                   current understanding and abilities about scripture study
+   |     |                   skills.  {during, after}
+   |     |- 025.title_number3  Consider assessment questions to carefully choose media,
+   |     |                          personal stories, and object lessons.  {after}
+   |     |- 027.title_number1  Prepare invitations and prompts that help students find
+   |     |                          personal relevance to a scripture block.  {during,
+   |     |                          after}
+   |     `- 031.title_number2  Create a meaningful invitation connected to the lesson
+   |                                outcome to be used at the beginning of each lesson.
+   |                                {opening}
+   `- Invitations they take home   [3]
+         |- 030.intro2  Assist students in creating a daily scripture study goal.
+         |                   {closing, after}
+         |- 031.title_number1  Create invitations that help learners prepare for the
+         |                          next learning experience.  {closing, after}
+         `- 033.title_number1  Plan to follow up on invitations given in a previous
+                                    class and invite learners to share their experiences
+                                    living what they learned.  {opening, after}
+
+5. Keeping their attention   [4 blocks]
+   |- Something they can see or hear   [2]
+   |     |- 004.title_number2  Use pictures and videos of Jesus Christ to illustrate a
+   |     |                          gospel principle.  {opening, during}
+   |     `- 019.title_number2  Use sacred music. Invite students to identify lines and
+   |                                phrases in sacred music that connect with the truths
+   |                                they are learning.  {opening, during}
+   `- Something they do, not watch   [2]
+         |- 006.title_number2  Help students have a sensory experience with scriptural
+         |                          objects that symbolize Jesus Christ.  {during}
+         `- 027.title_number2  Start a learning activity by inviting students to ponder
+                                    a personal circumstance.  {opening}
+
+[5 categories, 15 groups, 53 blocks; every block filed exactly once]</pre>
+        <h4>View 2 &mdash; by lesson moment (generated from the same blocks)</h4>
+<pre class="ia-outline">A. The first few minutes   [10 blocks]
+   |- 004.title_number2  Use pictures and videos of Jesus Christ to illustrate a gospel
+   |                        principle.
+   |- 011.title_number2  “Think celestial” about your students to help you see them as
+   |                        God does.
+   |- 012.intro2  Observe and ask about students’ interests.
+   |- 013.intro3  Invite students to pray for other students.
+   |- 014.title_number3  Communicate that students are not only welcome but needed.
+   |- 019.title_number2  Use sacred music. Invite students to identify lines and phrases
+   |                        in sacred music that connect with the truths they are
+   |                        learning.
+   |- 027.title_number2  Start a learning activity by inviting students to ponder a
+   |                        personal circumstance.
+   |- 030.title_number3  Develop and ask questions that help learners connect what they
+   |                        have learned in their personal and family scripture study to
+   |                        the classroom experience.
+   |- 031.title_number2  Create a meaningful invitation connected to the lesson outcome
+   |                        to be used at the beginning of each lesson.
+   `- 033.title_number1  Plan to follow up on invitations given in a previous class and
+                            invite learners to share their experiences living what they
+                            learned.
+
+B. In the middle of the lesson   [36 blocks]
+   |- 004.title_number1  Help students connect what they are learning with how Christ
+   |                        exemplifies the principle.
+   |- 004.title_number2  Use pictures and videos of Jesus Christ to illustrate a gospel
+   |                        principle.
+   |- 005.p16  Create search questions to help students identify roles, titles, symbols,
+   |              attributes, and characteristics of Jesus Christ.
+   |- 005.title_number17  Ask questions that allow students to identify roles Jesus
+   |                         Christ can have in their lives.
+   |- 006.title_number1  Ask questions that help students learn about Jesus Christ
+   |                        through symbols in the scriptures.
+   |- 006.title_number2  Help students have a sensory experience with scriptural objects
+   |                        that symbolize Jesus Christ.
+   |- 007.title_number1  Ask questions that focus on connecting the Lord’s power, mercy,
+   |                        and influence to the truths being taught.
+   |- 008.title_number1  Statements that help students know and feel the love of
+   |                        Heavenly Father and Jesus Christ.
+   |- 008.title_number2  Ask questions that help students find examples of Heavenly
+   |                        Father’s love in the scripture passage.
+   |- 009.title_number1  Observe Christlike attributes in students and share what you’ve
+   |                        noticed in ways that inspire them to continue to be like
+   |                        Him.
+   |- 012.title_number4  Pause, reflect, and answer questions we ask ourselves that
+   |                        invite a Christlike spirit of discernment, love, and empathy
+   |                        in our interactions.
+   |- 012.title_number3  Seek to clarify and understand the real intent of students’
+   |                        questions, feelings, and beliefs.
+   |- 014.intro2  Communicate that you value students before they comment or as they
+   |                 raise their hand to comment.
+   |- 014.title_number3  Communicate that students are not only welcome but needed.
+   |- 015.title_number2  Testify of God’s love when it is hard for you to feel or
+   |                        express love to those you teach.
+   |- 018.title_number1  Ask a question to assess learning before moving on in the
+   |                        lesson.
+   |- 018.title_number2  Listen to and observe students to ask follow-up questions.
+   |- 019.intro1  Create student self-evaluations about a doctrine, truth, or principle.
+   |- 019.title_number2  Use sacred music. Invite students to identify lines and phrases
+   |                        in sacred music that connect with the truths they are
+   |                        learning.
+   |- 020.intro2  Before responding to a student’s question or comment, pause and think,
+   |                 “What can I ask them?” or “What can I invite them to do?”
+   |- 020.title_number3  Share statements that help students recognize when the Holy
+   |                        Ghost is performing His role or function.
+   |- 021.title_number1  Create prompts that help students verbalize their feelings,
+   |                        experiences, and testimony.
+   |- 021.title_number2  Testify more frequently and more powerfully of Jesus Christ.
+   |- 023.title_number1  Create open-ended search questions that help learners discover
+   |                        gospel doctrine and principles for themselves and do not
+   |                        lead students to a specific response.
+   |- 024.title_number1  Prepare invitations that help students connect truths found in
+   |                        the scriptures to what living prophets are saying.
+   |- 024.title_number2  Express your love for and testimony of prophets as their words
+   |                        are shared in class.
+   |- 025.intro2  Create student self-evaluations that help them recognize their current
+   |                 understanding and abilities about scripture study skills.
+   |- 026.intro2  Ask questions that help students identify and state converting
+   |                 principles.
+   |- 026.title_number3  Respond to questions in a way that avoids speculation and
+   |                        nondoctrinal personal ideas.
+   |- 027.title_number1  Prepare invitations and prompts that help students find
+   |                        personal relevance to a scripture block.
+   |- 029.title_number1  Resist the tendency to respond to every comment and question
+   |                        and invite the class to respond.
+   |- 029.title_number2  Focus on what the learner can do in class that the teacher
+   |                        typically does.
+   |- 030.title_number3  Develop and ask questions that help learners connect what they
+   |                        have learned in their personal and family scripture study to
+   |                        the classroom experience.
+   |- 032.intro2  Help students create or begin gospel conversations.
+   |- 032.title_number3  Prepare invitations for students to share with each other what
+   |                        they are learning.
+   `- 033.title_number2  Ask search questions that help learners consider who God is and
+                            blessings He offers them.
+
+C. The last few minutes   [8 blocks]
+   |- 007.title_number2  Give invitations that help learners recognize the Lord’s love,
+   |                        power, and mercy in their own experiences.
+   |- 008.title_number1  Statements that help students know and feel the love of
+   |                        Heavenly Father and Jesus Christ.
+   |- 009.title_number2  Invite students to look for ways to follow the example of Jesus
+   |                        Christ in their personal lives.
+   |- 013.intro3  Invite students to pray for other students.
+   |- 021.title_number1  Create prompts that help students verbalize their feelings,
+   |                        experiences, and testimony.
+   |- 021.title_number2  Testify more frequently and more powerfully of Jesus Christ.
+   |- 030.intro2  Assist students in creating a daily scripture study goal.
+   `- 031.title_number1  Create invitations that help learners prepare for the next
+                            learning experience.
+
+D. After class and during the week   [18 blocks]
+   |- 009.title_number1  Observe Christlike attributes in students and share what you’ve
+   |                        noticed in ways that inspire them to continue to be like
+   |                        Him.
+   |- 011.title_number1  Study recent prophetic messages to understand how Heavenly
+   |                        Father sees young people.
+   |- 011.title_number2  “Think celestial” about your students to help you see them as
+   |                        God does.
+   |- 012.intro2  Observe and ask about students’ interests.
+   |- 012.title_number4  Pause, reflect, and answer questions we ask ourselves that
+   |                        invite a Christlike spirit of discernment, love, and empathy
+   |                        in our interactions.
+   |- 013.intro2  Pray and ask how you can help your students and follow the promptings
+   |                 from the Holy Ghost.
+   |- 015.title_number1  Send a message to a student’s parent about something positive
+   |                        you have noticed about their child.
+   |- 017.title_number1  Use the document “Improving as a Christlike Teacher—A Personal
+   |                        Evaluation” to invite the Holy Ghost to help you refine your
+   |                        preparations to teach.
+   |- 017.title_number2  Ask questions to assess your own experience and testimony with
+   |                        Jesus Christ and the doctrine and principles in the lesson.
+   |- 019.intro1  Create student self-evaluations about a doctrine, truth, or principle.
+   |- 023.title_number2  Search the scriptures and words of the prophets for deeper
+   |                        understanding.
+   |- 025.intro2  Create student self-evaluations that help them recognize their current
+   |                 understanding and abilities about scripture study skills.
+   |- 025.title_number3  Consider assessment questions to carefully choose media,
+   |                        personal stories, and object lessons.
+   |- 027.title_number1  Prepare invitations and prompts that help students find
+   |                        personal relevance to a scripture block.
+   |- 030.intro2  Assist students in creating a daily scripture study goal.
+   |- 031.title_number1  Create invitations that help learners prepare for the next
+   |                        learning experience.
+   |- 032.intro2  Help students create or begin gospel conversations.
+   `- 033.title_number1  Plan to follow up on invitations given in a previous class and
+                            invite learners to share their experiences living what they
+                            learned.
+
+[72 filings of the 53 blocks; a block appears once per moment it carries]</pre>
+      </div>
+
+      <div class="docpage docpage--a">
+        <h3>8. What we are choosing to ignore</h3>
         <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span></p>
         <ul>
           <li><strong>The moment view&rsquo;s 95.5% success rate.</strong> 22
@@ -870,16 +1205,26 @@ moment pages render exactly as they do now.</pre>
           <li><strong>Decision 3 is the one most teams would never
           make</strong>, because nothing failed &mdash; you priced a defect in
           seconds and fixed it anyway.</li>
-          <li><strong>Element 7 carries no points and is load-bearing
+          <li><strong>Element 8 carries no points and is load-bearing
           anyway.</strong> Refusing your own 95.5% there is what keeps
           element 6 honest.</li>
-          <li><strong>The outline makes every one of these checkable.</strong>
+          <li><strong>The marked-up outline makes every one of these checkable.</strong>
           Every mark on that tree traces to a because-clause above it, and
           nothing in the tree moves that the six decisions did not argue for
           &mdash; the five categories carry no marks at all, which is
           decision 5 shown instead of asserted. I can hold the outline against
           the decisions and audit both in about a minute, which is exactly
           what this element is for.</li>
+          <li><strong>And the as-tested outline (element 7) is the other half
+          of that audit.</strong> Marks only mean something against a
+          baseline, and you gave me the baseline exact: both views, all 53
+          blocks, generated from the artifact&rsquo;s own data file rather
+          than typed from memory, with the raw log&rsquo;s ids attached. I
+          spot-checked six blocks against the wireframe and every endpoint
+          in your T09 row against the tree, and it holds. It is also what
+          let me verify &ldquo;16 of the 21 misses ended inside the correct
+          category&rdquo; without opening the wireframe once &mdash; a
+          verbose outline is not padding, it is the grader&rsquo;s map.</li>
           <li><strong>And the trial tag is doing calibration work.</strong>
           The Spirit branch is marked <em>NEW &mdash; TRIAL</em> with its label
           named as the thing v1&rsquo;s study has to test rather than as a
@@ -891,7 +1236,7 @@ moment pages render exactly as they do now.</pre>
       </aside>
 
       <div class="docpage docpage--a">
-        <h3>8. Raw log</h3>
+        <h3>9. Raw log</h3>
         <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span> The CSV is a real, downloadable file in this repository; every row in it is invented.</p>
         <p>
           <a href="02-tree-test-raw-team-a.csv">
@@ -964,7 +1309,7 @@ moment pages render exactly as they do now.</pre>
           <tbody>
             <tr><td>Methods</td><td>Full Marks &mdash; 11 recruited, all fresh, randomized order, give-up recorded</td><td class="scorecard__pts">15</td></tr>
             <tr><td>Results &amp; Analysis</td><td>Full Marks &mdash; synthesis, first-click diagnosis, calibrated claims, derivable raw log</td><td class="scorecard__pts">20</td></tr>
-            <tr><td>Design Decisions</td><td>Full Marks &mdash; every decision cited; two evidence-backed keeps</td><td class="scorecard__pts">25</td></tr>
+            <tr><td>Design Decisions</td><td>Full Marks &mdash; every decision cited; two evidence-backed keeps; both hierarchy outlines exact to the artifact</td><td class="scorecard__pts">25</td></tr>
             <tr class="scorecard__total"><td>Part 2 total</td><td></td><td class="scorecard__pts">60/60</td></tr>
           </tbody>
         </table>
@@ -1435,7 +1780,70 @@ Search</pre>
       </div>
 
       <div class="docpage docpage--b">
-        <h3>Part 2.7: What we are ignoring</h3>
+        <h3>Part 2.7: Our full outline</h3>
+        <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span></p>
+        <p>The spec also wants the whole hierarchy written out even if it is
+        long, so here is everything in our wireframe, all 21 blocks. We
+        typed this up Sunday night along with the notes doc. We know where
+        everything is since we built it, so we did it from memory instead of
+        clicking through all the pages again.</p>
+<pre class="ia-outline">OUR CATEGORIES (all 21 blocks)
+
+Teaching Fundamentals
+  C11 - Check learning before moving on
+  C21 - Resist answering everything yourself
+
+Spiritual Teaching
+  C01 - Connect learning to Christ&rsquo;s example
+  C05 - Invite: follow Christ personally
+  C15 - Testify more often of Christ
+
+Engagement
+  C09 - Students are needed, not just welcome
+  C23 - Students share with each other
+
+Questions
+   C07 - Understand the real question
+   C12 - Listen, then ask follow-ups
+   C14 - Pause: &ldquo;what can I ask them?&rdquo;
+   C16 - Open-ended search questions
+   C19 - Open with a personal circumstance
+   C21 - Resist answering everything yourself
+
+Preparation
+  C06 - Ask about their interests
+  C08 - Pray for students by name
+  C17 - Search scriptures for depth
+
+Love
+  C04 - Statements: feel God&rsquo;s love
+  C10 - Positive message to a parent
+
+Misc
+  C02 - Pictures and videos of Christ
+  C13 - Use sacred music
+  C22 - Opening invitation tied to outcome
+
+THE MANUAL SECTIONS (the second way to browse)
+Same 21 blocks, just the manual&rsquo;s order, so we only put the numbers.
+
+Focus on Jesus Christ
+  C01, C05, C02, C04
+Teach by the Spirit
+  C11, C12, C14, C15, C13
+Teach the Doctrine
+  C20, C16, C17
+Invite Diligent Learning
+  C24, C21, C23
+Love Those You Teach
+  C06, C08, C09, C07, C10</pre>
+        <p>That is the whole site. It comes out to 21 both ways which
+        matches the 21 block pages, so we are confident the outline is
+        complete.</p>
+      </div>
+
+      <div class="docpage docpage--b">
+        <h3>Part 2.8: What we are ignoring</h3>
         <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span></p>
         <p>Not that much really. The main thing is the two bad tasks, which
         we are counting as our fault and not the wireframe&rsquo;s. Kenzie
@@ -1473,7 +1881,7 @@ Search</pre>
         shape &mdash; <strong>Because [result], we will [decision]</strong>
         &mdash; is the whole criterion. You have the results. Two of your
         five decisions are one rewrite away from earning real points.</p>
-        <p>And element 7 is the same tell I flagged on your card sort:
+        <p>And element 8 is the same tell I flagged on your card sort:
         &ldquo;not that much really&hellip; the test pretty much went how we
         thought it would.&rdquo; A study that confirms what you expected is a
         study you have not looked at yet. But notice what you <em>did</em>
@@ -1482,10 +1890,10 @@ Search</pre>
         growth. Now go one step further and ask <em>why</em> B07 was
         unanswerable &mdash; the answer is in your own Part 1, and it is not
         a wording problem.</p>
-        <p>The outline at the end is the most useful thing in this section
-        and I want to say so before I take it apart: drawing the tree is
-        right, and it is the reason I can now show you four things that were
-        invisible while these were still sentences.</p>
+        <p>The revised outline at the end of 2.6 is the most useful thing
+        in this section and I want to say so before I take it apart: drawing
+        the tree is right, and it is the reason I can now show you four
+        things that were invisible while these were still sentences.</p>
         <p><strong>C13 is not in it.</strong> Misc is marked removed, C02 goes
         to Spiritual Teaching, C22 goes to Preparation &mdash; and the third
         block that was in Misc is simply not on the page. Not refiled, not
@@ -1507,6 +1915,30 @@ Search</pre>
         reaching the categories you already have, and drawing it as a box is
         how a maybe from a decision list turns into architecture nobody
         chose.</p>
+        <p><strong>Then I put your full outline (2.7) next to your actual
+        wireframe, page by page, and they are not the same site.</strong>
+        Four discrepancies in 21 blocks. C24 &mdash; Follow up on past
+        invitations &mdash; has a page under Preparation and is not in your
+        category outline, though your own section list three inches lower
+        remembers it. C21 is in your outline twice, under Teaching
+        Fundamentals and again under Questions; the wireframe files it once.
+        The block you call C19 is C20 &mdash; C19 is one of the three cards
+        you pulled mid-sort, an id that points at nothing in your artifact,
+        and your own section list says C20 correctly a few lines later. And
+        your section list files C10 under Love Those You Teach, where your
+        wireframe does not file it at all: in the artifact, C10 and C22 are
+        reachable only through the category view, a real gap your outline
+        papers over instead of surfacing. Notice that your total still
+        &ldquo;comes out to 21&rdquo; &mdash; because the double-listed
+        block and the dropped block cancel, and your section list is
+        actually 20, which nobody counted. &ldquo;It matches so we are
+        confident&rdquo; is exactly the sentence an audit exists to test.
+        You told me how this happened, in writing: you typed it from memory
+        on Sunday night. An outline typed from memory is a measurement of
+        your memory. This element is the grader&rsquo;s map of how you
+        organized things, and yours shows me a site that does not exist
+        &mdash; generate it from the artifact, or walk the pages with the
+        outline in hand, and it becomes the audit trail it is for.</p>
         <p>Here is the lesson, and it is the reason this element exists: an
         outline is where vague decisions get found out. &ldquo;Make the labels
         catchier&rdquo; survived fine as a sentence; the moment you had to
@@ -1516,7 +1948,7 @@ Search</pre>
       </aside>
 
       <div class="docpage docpage--b">
-        <h3>Part 2.8: Our raw data</h3>
+        <h3>Part 2.9: Our raw data</h3>
         <p>We don&rsquo;t have an exported log because our click log
         doesn&rsquo;t save between pages, so this is our notes doc that we
         typed up from the papers on Sunday night. The table in 2.3 comes from
@@ -1595,7 +2027,7 @@ Kenzie	B10	Misc	C13	90ish
           <tbody>
             <tr><td>Methods</td><td>Developing &mdash; 6 of 10+; half the sample primed; fixed order; no give-up; two tasks broken at the key</td><td class="scorecard__pts">10</td></tr>
             <tr><td>Results &amp; Analysis</td><td>Developing &mdash; over-claiming on the label-echo tasks (capped); first clicks captured for 40 of 60 cells</td><td class="scorecard__pts">13</td></tr>
-            <tr><td>Design Decisions</td><td>Beginning &mdash; decisions untethered; one contradicts the data outright</td><td class="scorecard__pts">8</td></tr>
+            <tr><td>Design Decisions</td><td>Beginning &mdash; decisions untethered; one contradicts the data outright; full outline disagrees with the artifact in four places</td><td class="scorecard__pts">8</td></tr>
             <tr class="scorecard__total"><td>Part 2 total</td><td></td><td class="scorecard__pts">31/60</td></tr>
           </tbody>
         </table>
@@ -1664,7 +2096,11 @@ Kenzie	B10	Misc	C13	90ish
         need the answer</strong>: Team A&rsquo;s give-up button, randomized
         order, persisted runs and CSV export are why their table can be
         re-derived by a stranger, and Team B&rsquo;s page-local click log is
-        why theirs cannot. <strong>Go past the pass rate</strong>: T01 passed
+        why theirs cannot. The two full-hierarchy outlines are the same
+        habit in miniature: Team A generated theirs from the
+        artifact&rsquo;s own data file and it survived an audit; Team B
+        typed theirs from memory on a Sunday night and it disagrees with
+        their own wireframe in four places. <strong>Go past the pass rate</strong>: T01 passed
         10 of 11 and still had a defect, priced in seconds rather than
         errors; three label-echo tasks passed 18 of 18 and proved nothing at
         all. <strong>Cite the finding in the decision</strong> &mdash;

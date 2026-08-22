@@ -226,6 +226,19 @@ by a committed data script (`02-tree-test-data.py`) that parses the real
 prototypes rather than hard-coding them, so every number on the page is
 re-derivable by a stranger.
 
+**Full-hierarchy element (added 2026-08-22).** Immediately after the design
+decisions, each report presents a complete outline of its information
+hierarchy *as tested* — every level, every block, every view, verbose on
+purpose (the instructor wants to see how each team organized things without
+opening the artifact). Distinct from the marked-up *revised* outline that
+ends the design-decisions element: this is the unmarked baseline the marks
+were made against. Report A models the practice (generated from
+`wireframe-data.js`, raw-log ids attached, both views exact); Report B's is
+hand-typed from memory with four engineered discrepancies against its own
+artifact (a duplicated block, a phantom card id, a dropped block, a phantom
+filing in the second view) that the grader box catches. Nine elements total
+in Part 2 (the ignore element and raw log renumbered to 8 and 9).
+
 Report A's element skeleton (keep the order):
 
 1. **Scope note** — what on this page is real, what is invented (per-page
