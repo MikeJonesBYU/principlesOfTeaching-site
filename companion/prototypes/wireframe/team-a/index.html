@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>2&ndash;3 level wireframe &mdash; Team A</title>
+  <meta name="description" content="Grayscale clickable wireframe of a reorganized Principles of Teaching site. Two views over one source: by problem, and by lesson moment.">
+  <link rel="stylesheet" href="wireframe.css">
+</head>
+<body>
+
+  <!-- Prototype banner (companion chrome, not part of the wireframe) -->
+  <div class="proto-banner">
+    <p>
+      <strong>CS 356 companion prototype &mdash; &ldquo;2&ndash;3 level wireframe &mdash; Team A.&rdquo;</strong>
+      A working design artifact from the case study, not the live teaching site.
+      <a href="../../../../index.html">Live site &rarr;</a> &middot;
+      <a href="../../../index.html">Back to the companion &rarr;</a>
+    </p>
+  </div>
+
+  <div class="frame">
+
+    <header class="topbar">
+      <a class="topbar__home" id="top-home" href="#/" data-label="Home (title bar)">Principles of Teaching</a>
+      <nav class="topbar__util" id="util-nav" aria-label="Prototype instruments">
+        <a href="#/log" data-label="Click log">Click log</a>
+        <a href="#/test" data-label="Test mode">Test mode</a>
+        <a href="#/results" data-label="Test results">Results</a>
+      </nav>
+    </header>
+
+    <div class="testbar" id="testbar" hidden></div>
+
+    <main id="app" class="page" tabindex="-1"></main>
+
+    <footer class="footfine">
+      <p>Wireframe. Grays and boxes stand in for real page content &mdash;
+         layout, wording and structure only.</p>
+    </footer>
+
+  </div>
+
+  <script src="wireframe-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
