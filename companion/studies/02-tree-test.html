@@ -6,6 +6,13 @@
   <title>Study 2: Wireframe + tree test, graded — CS 356 Companion</title>
   <meta name="description" content="Two example two-part turn-ins for the wireframe + tree test assignment — a 120/120 report and a 65/120 report — with the grader's reasoning after every element of both parts.">
   <link rel="stylesheet" href="../assets/companion.css">
+  <style>
+    /* The grader boxes on this page read as a teacher's marked list. Keep the
+       bullets on the same type scale as the grader's prose. */
+    .grader ul { margin: 0 0 8px; padding-left: 1.35em; font-size: .95rem; }
+    .grader li { margin: 0 0 7px; }
+    .grader li:last-child { margin-bottom: 0; }
+  </style>
 </head>
 <body data-page="study" data-arc="tree-test">
 
@@ -29,24 +36,17 @@
 
       <p class="lead">
         This assignment is turned in as one report in two parts: Part&nbsp;1
-        is the wireframe itself &mdash; a link to the working artifact plus a
-        paragraph of design rationale &mdash; and Part&nbsp;2 is a moderated
-        think-aloud tree test your team runs on that same wireframe, using
-        its ten built-in scenarios, with ten or more participants from your
-        real user population and the task order randomized per session.
-        Part&nbsp;2 has eight elements: the ten tasks with their correct
-        information blocks and your predicted first clicks, the participants
-        and how you recruited them, a results table (first click, final
-        destination, success, give-ups, average time), half a page of
-        listening notes, an analysis that goes past the pass rate to
-        first-click diagnosis, design decisions in the form
-        &ldquo;Because&nbsp;[result], we will&nbsp;[decision],&rdquo; what
-        you are choosing to ignore, and a link to the raw log the table is
-        derivable from. Part&nbsp;1 is graded on the 60-point prototype
-        rubric (Functional&nbsp;18, Visual&nbsp;13, IA&nbsp;13,
-        Grounded&nbsp;16) and Part&nbsp;2 on the 60-point user-study rubric
-        (Methods&nbsp;15, Results&nbsp;&amp;&nbsp;Analysis&nbsp;20, Design
-        Decisions&nbsp;25), for 120 points total.
+        is the wireframe &mdash; the working artifact plus a paragraph of
+        design rationale &mdash; and Part&nbsp;2 is a moderated think-aloud
+        tree test your team runs on that same wireframe, using its ten
+        built-in scenarios with ten or more participants and the task order
+        randomized. Part&nbsp;2 turns in the ten tasks with your predicted
+        first clicks, the participants, a results table, half a page of
+        listening notes, an analysis that goes past the pass rate, design
+        decisions in the form &ldquo;Because&nbsp;[result], we
+        will&nbsp;[decision],&rdquo; what you are ignoring, and a link to the
+        raw log. Part&nbsp;1 is graded on the 60-point prototype rubric and
+        Part&nbsp;2 on the 60-point user-study rubric, for 120 points total.
       </p>
 
       <p class="section-note">
@@ -85,141 +85,152 @@
           information block, 53 of them, each carrying a
           <code>category</code>, a <code>group</code>, and a
           <code>moment</code> list. No skill is written into any page. Every
-          screen is produced by selecting on those attributes, which is why
-          both views reach all 53 blocks without us filing anything twice.
+          screen is produced by selecting on those attributes, so all 53
+          blocks are filed and none of them is filed twice.
         </p>
 
         <h3>Part 1.2 &mdash; Design rationale</h3>
         <p>
-          <strong>The five categories are the card sort&rsquo;s, not
-          ours.</strong> &ldquo;Getting people to talk,&rdquo; &ldquo;Knowing
-          and loving the people you teach,&rdquo; &ldquo;Teaching about Jesus
-          Christ,&rdquo; and &ldquo;Getting ready before Sunday&rdquo; each
-          came out of six of our eight sorts; &ldquo;Keeping their
-          attention&rdquo; came out of three, and we kept it because all
-          three of those sorters were the Primary teachers and half this
-          ward&rsquo;s teaching corps teaches children. The L1 and L2 labels
-          are built out of words participants actually wrote on their sticky
-          notes &mdash; &ldquo;Getting them talking to each other,&rdquo;
-          &ldquo;Not answering it yourself,&rdquo; &ldquo;Getting yourself
-          ready&rdquo; &mdash; because the newest teacher in our sort
-          couldn&rsquo;t parse 7 of the 24 official skill names. The verbatim
-          manual wording appears only at level&nbsp;3, where there is context
-          around it, and each L3 page links out to the real manual page it
-          came from.
+          <strong>The five categories are the card sort&rsquo;s.</strong> Four
+          of them each came out of six of eight sorts. &ldquo;Keeping their
+          attention&rdquo; came out of three, all Primary teachers, and half
+          this ward teaches children, so we kept it.
+        </p>
+        <p>
+          <strong>The labels are participants&rsquo; words.</strong> L1 and L2
+          use their sticky-note wording &mdash; &ldquo;Not answering it
+          yourself&rdquo; &mdash; because our newest teacher could not parse 7
+          of the 24 official skill names.
+          Verbatim manual wording appears only at L3, linked to its manual
+          page.
         </p>
         <p>
           <strong>There is deliberately no Spirit category.</strong> One sort
-          in eight made one. We wrote in our card-sort report that this was
-          our riskiest call and named the condition that would reopen it: if
-          people <em>look</em> for what they do not <em>sort</em> by, we
-          reopen it. That condition is a tree-test question, which is why
-          task&nbsp;T09 exists.
+          in eight made one. Our card-sort report called it our riskiest call
+          and named what would reopen it &mdash; people looking for what they
+          do not sort by &mdash; which is what <strong>T09&nbsp;&middot; Is it
+          the Spirit?</strong> tests.
         </p>
         <p>
           <strong>The second view is an attribute, not a sixth box.</strong>
           Our sort produced one fully sequential sorter, an
-          &ldquo;Openers&rdquo; pile, and a splitter pattern where the same
-          two cards sat together in six of eight sorts while the pile&rsquo;s
-          <em>meaning</em> changed around them. Our read was that people are
-          answering two questions at once &mdash; <em>what problem does this
-          solve</em> and <em>when in the lesson does it happen</em> &mdash;
-          so <code>moment</code> (the first few minutes / in the middle of
-          the lesson / the last few minutes / after class and during the
-          week) is a value on every block rather than a category. The
-          by-moment view is rendered from that attribute alone. A block with
-          two moments appears under both, and nothing about the category view
-          changes.
+          &ldquo;Openers&rdquo; pile, and the same two cards together in six of
+          eight sorts while the pile&rsquo;s <em>meaning</em> changed around
+          them: people asking two questions at once, what problem is this and
+          when in the lesson. So <code>moment</code> is a value on every block,
+          not a category; the by-moment view renders from it alone. All 53
+          blocks are filed.
         </p>
         <p>
-          <strong>The clusters our sort said never separate stayed
-          together.</strong> The four discussion cards live in one category;
-          the two Christ cards that co-occurred in 8 of 8 sorts share a
-          group; praying for a student and messaging a parent are both under
-          &ldquo;Caring about them during the week.&rdquo;
+          <strong>The clusters that never separated stayed together:</strong>
+          the four discussion cards in one category, the two Christ cards that
+          co-occurred in 8 of 8 sorts in one group, praying for a student and
+          messaging a parent both under &ldquo;Caring about them during the
+          week.&rdquo;
         </p>
         <p>
-          <strong>Logging.</strong> Every click is recorded with the page it
-          happened on and the route it produced, and the log exports as JSON
-          or CSV. We also built the bonus test mode: ten scenarios, order
-          shuffled per run, timed to a tenth of a second, stored so a run
-          survives a reload, with an &ldquo;I would give up&rdquo; button
-          because a participant quitting is a result and we wanted to be able
-          to record it. Part&nbsp;2 of this report is a tree test we ran
-          inside that mode.
+          <strong>Logging.</strong> Every click is logged with its page and
+          route; the log exports as JSON or CSV. Bonus test mode: ten scenarios
+          shuffled per run, timed to a tenth of a second, surviving a reload,
+          with an &ldquo;I would give up&rdquo; button. Part&nbsp;2 ran inside
+          it.
         </p>
       </div>
 
       <aside class="grader" aria-label="Grader comment">
         <p class="grader__head">Grader &middot; 1. Met the functional spec &middot; <span class="grader__pts">18/18 &mdash; Skilled</span></p>
         <p>I opened this and went looking for the seams. There aren&rsquo;t
-        any. Both categorizations reach all 53 blocks; the category view is
-        three levels deep and the moment view two; every path ends on a real
-        leaf with a working link out to the manual page it quotes; the click
-        log exports in both formats and the exports actually parse. So:
-        <em>&ldquo;the prototype meets every functional requirement in the
-        assignment spec, and the functionality works reliably: a user can
-        exercise each required behavior without workarounds, errors, or
-        coaching.&rdquo;</em> Full marks.</p>
-        <p>The bonus is where you went past the assignment. Ten scenarios,
-        shuffled per run, timed, persisted across a reload &mdash; and two
-        details I want to point at, because they are the difference between
-        building a feature and building an <em>instrument</em>. First, the
-        give-up button: most teams treat abandonment as missing data, and you
-        made it a recordable outcome. Second, the interrupted-run handling
-        &mdash; reload mid-session and it offers to resume at the situation
-        you were on, instead of silently starting over and quietly
-        contaminating your timings. Bonus credit awarded. And then you turned
-        the thing on yourselves and used it to run Part&nbsp;2, which is the
-        best argument for the bonus I have seen.</p>
+        any.</p>
+        <ul>
+          <li><strong>Every required behavior works.</strong> The category
+          view is three levels deep and the moment view two; all 53 blocks are
+          filed; every path ends on a real leaf with a working link out to the
+          manual page it quotes; the click log exports in both formats and the
+          exports actually parse. <em>&ldquo;The prototype meets every
+          functional requirement in the assignment spec, and the functionality
+          works reliably: a user can exercise each required behavior without
+          workarounds, errors, or coaching.&rdquo;</em></li>
+          <li><strong>The bonus went past the assignment.</strong> Ten
+          scenarios, shuffled per run, timed, persisted across a reload.</li>
+          <li><strong>The give-up button is the tell.</strong> Most teams
+          treat abandonment as missing data; you made it a recordable
+          outcome.</li>
+          <li><strong>So is the interrupted-run handling.</strong> Reload
+          mid-session and it offers to resume at the situation you were on,
+          instead of silently starting over and quietly contaminating your
+          timings. Those two details are the difference between building a
+          feature and building an <em>instrument</em>.</li>
+        </ul>
+        <p>Bonus credit awarded &mdash; and then you turned the thing on
+        yourselves and used it to run Part&nbsp;2, which is the best argument
+        for the bonus I have seen.</p>
       </aside>
 
       <aside class="grader" aria-label="Grader comment">
         <p class="grader__head">Grader &middot; 2. Met the visual design spec &middot; <span class="grader__pts">13/13 &mdash; Skilled</span></p>
-        <p>True wireframe fidelity, held all the way down: one typeface, no
-        color, no imagery, boxes that are obviously boxes. What earns the top
-        band is that the layout is still doing work. The same three-zone
-        structure &mdash; where you are, what is inside it, where you can go
-        &mdash; repeats on every screen at every level, so depth is legible
-        without a single decorative cue, and the L3 leaf reads as an end
-        state rather than another list. <em>&ldquo;At wireframe fidelity,
-        layout and visual hierarchy do the work and clearly support the
-        user&rsquo;s goals.&rdquo;</em> That is this band, exactly.</p>
+        <p>True wireframe fidelity, held all the way down &mdash; and the
+        layout is still doing work.</p>
+        <ul>
+          <li><strong>The discipline holds.</strong> One typeface, no color,
+          no imagery, boxes that are obviously boxes.</li>
+          <li><strong>The three-zone structure repeats.</strong> Where you
+          are, what is inside it, where you can go &mdash; on every screen at
+          every level, so depth is legible without a single decorative
+          cue.</li>
+          <li><strong>The L3 leaf reads as an end state</strong>, not as
+          another list.</li>
+        </ul>
+        <p><em>&ldquo;At wireframe fidelity, layout and visual hierarchy do
+        the work and clearly support the user&rsquo;s goals.&rdquo;</em> That
+        is this band, exactly.</p>
       </aside>
 
       <aside class="grader" aria-label="Grader comment">
         <p class="grader__head">Grader &middot; 3. Met the information architecture spec &middot; <span class="grader__pts">13/13 &mdash; Skilled</span></p>
-        <p><em>&ldquo;There are multiple reasonable ways to find things, and
-        each way makes sense for the content and the users. Categories hold
-        together; the hierarchy reflects deliberate design decisions.&rdquo;</em>
-        Both of your views are real ways in, not one real one and one alibi:
-        the category view answers &ldquo;what problem am I having,&rdquo; the
-        moment view answers &ldquo;where am I in the lesson,&rdquo; and both
-        reach all 53 blocks. The architectural decision underneath is the one
-        this course is actually about, so let me name it out loud for
-        everyone reading: <em>you did not decide where each skill really
-        goes.</em> You gave every block a set of attributes and made each
-        page a selection over them. That is why adding the moment view cost
-        you nothing structurally, and it is why the next attribute will cost
-        you nothing either.</p>
+        <p>Both of your views are real ways in, not one real one and one
+        alibi.</p>
+        <ul>
+          <li><strong>Two questions, two doors.</strong> The category view
+          answers &ldquo;what problem am I having,&rdquo; the moment view
+          answers &ldquo;where am I in the lesson,&rdquo; and each is a
+          sensible way to look for this content. <em>&ldquo;There are multiple
+          reasonable ways to find things, and each way makes sense for the
+          content and the users. Categories hold together; the hierarchy
+          reflects deliberate design decisions.&rdquo;</em></li>
+          <li><strong>You did not decide where each skill really
+          goes.</strong> Let me name that out loud for everyone reading,
+          because it is the architectural decision this course is actually
+          about: you gave every block a set of attributes and made each page a
+          selection over them.</li>
+          <li><strong>That is why the moment view cost you nothing
+          structurally</strong> &mdash; and why the next attribute will cost
+          you nothing either.</li>
+        </ul>
+        <p>Top band, without an argument.</p>
       </aside>
 
       <aside class="grader" aria-label="Grader comment">
         <p class="grader__head">Grader &middot; 4. Grounded in the previous study &middot; <span class="grader__pts">16/16 &mdash; Skilled</span></p>
         <p>I checked your rationale against the artifact line by line, and
-        <em>&ldquo;the words and the artifact agree.&rdquo;</em> You said the
-        labels come from participants&rsquo; own wording &mdash; they do, and
-        they are the same strings your card-sort standardization table
-        harvested. You said the verbatim manual names would appear only at
-        L3 because your newest teacher couldn&rsquo;t parse them &mdash; they
-        do. You said the co-occurrence clusters would stay together &mdash;
-        they did. And the strongest move is the one that is hardest to
-        defend in a meeting: you left out the Spirit category because your
-        data didn&rsquo;t support one, said out loud that this was your
-        riskiest call, and then <em>built the test for it into the
-        prototype</em>. <em>&ldquo;The information architecture is not just
-        reasonable; it is demonstrably grounded in the needs of your
-        users.&rdquo;</em> Full marks.</p>
+        <em>&ldquo;the words and the artifact agree.&rdquo;</em></p>
+        <ul>
+          <li><strong>Labels from participants&rsquo; own wording</strong>
+          &mdash; they are, and they are the same strings your card-sort
+          standardization table harvested.</li>
+          <li><strong>Verbatim manual names only at L3</strong>, because your
+          newest teacher couldn&rsquo;t parse them &mdash; that is exactly
+          what the artifact does.</li>
+          <li><strong>The co-occurrence clusters stayed together</strong>
+          &mdash; they did.</li>
+          <li><strong>You left out the Spirit category.</strong> The hardest
+          move to defend in a meeting: your data didn&rsquo;t support one, you
+          said out loud that this was your riskiest call, and then you
+          <em>built the test for it into the prototype</em> as
+          T09&nbsp;&middot; Is it the Spirit?</li>
+        </ul>
+        <p><em>&ldquo;The information architecture is not just reasonable; it
+        is demonstrably grounded in the needs of your users.&rdquo;</em> Full
+        marks.</p>
       </aside>
 
       <div class="scorecard">
@@ -262,16 +273,16 @@
             <tr><th>#</th><th>Scenario (verbatim)</th><th>Correct information block</th><th>Predicted first click</th></tr>
           </thead>
           <tbody>
-            <tr><td>T01</td><td>It is Saturday night and you have not opened the manual yet. You want one thing you can do tonight to get yourself ready to teach tomorrow.</td><td><code>017.title_number2</code> &mdash; &ldquo;Ask questions to assess your own experience and testimony&hellip;&rdquo;<br><em>Getting ready before Sunday &rsaquo; Getting yourself ready</em></td><td>By moment: After class and during the week</td></tr>
-            <tr><td>T02</td><td>You ask the class a question. Nobody answers. You wait. Still nothing. Find something you could try instead.</td><td><code>023.title_number1</code> &mdash; &ldquo;Create open-ended search questions&hellip;&rdquo;<br><em>Getting people to talk &rsaquo; Asking so you get a real answer</em></td><td>Getting people to talk</td></tr>
-            <tr><td>T03</td><td>A teenager asks you a question about the temple and you genuinely do not know the answer. Find advice on what to say.</td><td><code>026.title_number3</code> &mdash; &ldquo;Respond to questions in a way that avoids speculation&hellip;&rdquo;<br><em>Getting people to talk &rsaquo; Asking so you get a real answer</em></td><td>Getting people to talk</td></tr>
-            <tr><td>T04</td><td>You teach seven-year-olds and you are losing them ten minutes in. Find something to do with your hands instead of talking.</td><td><code>006.title_number2</code> &mdash; &ldquo;Help students have a sensory experience with scriptural objects&hellip;&rdquo;<br><em>Keeping their attention &rsaquo; Something they do, not watch</em></td><td>Keeping their attention</td></tr>
-            <tr><td>T05</td><td>Last week you invited your class to try something at home. It is Sunday again. Find how to follow up on it.</td><td><code>033.title_number1</code> &mdash; &ldquo;Plan to follow up on invitations given in a previous class&hellip;&rdquo;<br><em>Getting ready before Sunday &rsaquo; Invitations they take home</em></td><td>Getting ready before Sunday</td></tr>
-            <tr><td>T06</td><td>One boy sits at the back and never says a word, and you think he believes the class would run fine without him. Find something to do about that.</td><td><code>014.title_number3</code> &mdash; &ldquo;Communicate that students are not only welcome but needed.&rdquo;<br><em>Knowing and loving the people you teach &rsaquo; Making the room safe to speak up</em></td><td>Knowing and loving the people you teach</td></tr>
-            <tr><td>T07</td><td>You noticed something good about a girl in your class this week and you want to do something with what you noticed.</td><td><code>015.title_number1</code> &mdash; &ldquo;Send a message to a student&rsquo;s parent about something positive&hellip;&rdquo;<br><em>Knowing and loving the people you teach &rsaquo; Caring about them during the week</em></td><td>Knowing and loving the people you teach</td></tr>
-            <tr><td>T08</td><td>Your lesson on honesty is turning into a school lesson. Find how to bring Jesus Christ into it.</td><td><code>004.title_number1</code> &mdash; &ldquo;Help students connect what they are learning with how Christ exemplifies the principle.&rdquo;<br><em>Teaching about Jesus Christ &rsaquo; Making it about their own life</em></td><td>Teaching about Jesus Christ</td></tr>
-            <tr><td>T09</td><td>A woman in your class says she can never tell whether a feeling is the Spirit or just her own thoughts. Find something that would help her.</td><td><code>020.title_number3</code> &mdash; &ldquo;Share statements that help students recognize when the Holy Ghost is performing His role or function.&rdquo;<br><em>Teaching about Jesus Christ &rsaquo; Bearing witness in class</em></td><td>Knowing and loving the people you teach</td></tr>
-            <tr><td>T10</td><td>You want the first two minutes of your lesson to actually land instead of being announcements. Find something to open with.</td><td><code>027.title_number2</code> &mdash; &ldquo;Start a learning activity by inviting students to ponder a personal circumstance.&rdquo;<br><em>Keeping their attention &rsaquo; Something they do, not watch</em></td><td>Keeping their attention</td></tr>
+            <tr><td><strong>T01</strong>&nbsp;&middot; Saturday-night prep</td><td>It is Saturday night and you have not opened the manual yet. You want one thing you can do tonight to get yourself ready to teach tomorrow.</td><td>&ldquo;Ask questions to assess your own experience and testimony&hellip;&rdquo;<br><em>Getting ready before Sunday &rsaquo; Getting yourself ready</em></td><td>By moment: After class and during the week</td></tr>
+            <tr><td><strong>T02</strong>&nbsp;&middot; Nobody answers</td><td>You ask the class a question. Nobody answers. You wait. Still nothing. Find something you could try instead.</td><td>&ldquo;Create open-ended search questions&hellip;&rdquo;<br><em>Getting people to talk &rsaquo; Asking so you get a real answer</em></td><td>Getting people to talk</td></tr>
+            <tr><td><strong>T03</strong>&nbsp;&middot; A question you can&rsquo;t answer</td><td>A teenager asks you a question about the temple and you genuinely do not know the answer. Find advice on what to say.</td><td>&ldquo;Respond to questions in a way that avoids speculation&hellip;&rdquo;<br><em>Getting people to talk &rsaquo; Asking so you get a real answer</em></td><td>Getting people to talk</td></tr>
+            <tr><td><strong>T04</strong>&nbsp;&middot; Losing the seven-year-olds</td><td>You teach seven-year-olds and you are losing them ten minutes in. Find something to do with your hands instead of talking.</td><td>&ldquo;Help students have a sensory experience with scriptural objects&hellip;&rdquo;<br><em>Keeping their attention &rsaquo; Something they do, not watch</em></td><td>Keeping their attention</td></tr>
+            <tr><td><strong>T05</strong>&nbsp;&middot; Following up an invitation</td><td>Last week you invited your class to try something at home. It is Sunday again. Find how to follow up on it.</td><td>&ldquo;Plan to follow up on invitations given in a previous class&hellip;&rdquo;<br><em>Getting ready before Sunday &rsaquo; Invitations they take home</em></td><td>Getting ready before Sunday</td></tr>
+            <tr><td><strong>T06</strong>&nbsp;&middot; The boy who never talks</td><td>One boy sits at the back and never says a word, and you think he believes the class would run fine without him. Find something to do about that.</td><td>&ldquo;Communicate that students are not only welcome but needed.&rdquo;<br><em>Knowing and loving the people you teach &rsaquo; Making the room safe to speak up</em></td><td>Knowing and loving the people you teach</td></tr>
+            <tr><td><strong>T07</strong>&nbsp;&middot; Noticed something good</td><td>You noticed something good about a girl in your class this week and you want to do something with what you noticed.</td><td>&ldquo;Send a message to a student&rsquo;s parent about something positive&hellip;&rdquo;<br><em>Knowing and loving the people you teach &rsaquo; Caring about them during the week</em></td><td>Knowing and loving the people you teach</td></tr>
+            <tr><td><strong>T08</strong>&nbsp;&middot; Making it about Christ</td><td>Your lesson on honesty is turning into a school lesson. Find how to bring Jesus Christ into it.</td><td>&ldquo;Help students connect what they are learning with how Christ exemplifies the principle.&rdquo;<br><em>Teaching about Jesus Christ &rsaquo; Making it about their own life</em></td><td>Teaching about Jesus Christ</td></tr>
+            <tr><td><strong>T09</strong>&nbsp;&middot; Is it the Spirit?</td><td>A woman in your class says she can never tell whether a feeling is the Spirit or just her own thoughts. Find something that would help her.</td><td>&ldquo;Share statements that help students recognize when the Holy Ghost is performing His role or function.&rdquo;<br><em>Teaching about Jesus Christ &rsaquo; Bearing witness in class</em></td><td>Knowing and loving the people you teach</td></tr>
+            <tr><td><strong>T10</strong>&nbsp;&middot; The first two minutes</td><td>You want the first two minutes of your lesson to actually land instead of being announcements. Find something to open with.</td><td>&ldquo;Start a learning activity by inviting students to ponder a personal circumstance.&rdquo;<br><em>Keeping their attention &rsaquo; Something they do, not watch</em></td><td>Keeping their attention</td></tr>
           </tbody>
         </table>
         </div>
@@ -283,16 +294,19 @@
           none of them quotes one of our own category or group labels, since
           a task that echoes a label tests reading, not structure. Two of the
           ten are deliberate probes rather than coverage.
-          <strong>T09</strong> is the Spirit question our card-sort report
-          left open: the answer is filed under &ldquo;Teaching about Jesus
-          Christ,&rdquo; and if people go looking for a Spirit branch that
-          does not exist, we will see it here. <strong>T04</strong> probes
-          the one filing decision we argued about longest &mdash;
-          <code>006.title_number2</code> is a Christ-symbols skill by content
-          but a hands-on activity by use, and we filed it under
-          &ldquo;Keeping their attention&rdquo; because of what a teacher is
-          trying to solve when they need it. T09 and T04 are the two tasks
-          we expected to lose runs on, and we would rather know.
+          <strong>T09&nbsp;&middot; Is it the Spirit?</strong> is the Spirit
+          question our card-sort report left open: the answer is filed under
+          &ldquo;Teaching about Jesus Christ,&rdquo; and if people go looking
+          for a Spirit branch that does not exist, we will see it here.
+          <strong>T04&nbsp;&middot; Losing the seven-year-olds</strong> probes
+          the one filing decision we argued about longest &mdash; &ldquo;a
+          sensory experience with scriptural objects&rdquo; is a
+          Christ-symbols skill by content but a hands-on activity by use, and
+          we filed it under &ldquo;Keeping their attention&rdquo; because of
+          what a teacher is trying to solve when they need it.
+          T09&nbsp;&middot; Is it the Spirit? and T04&nbsp;&middot; Losing the
+          seven-year-olds are the two tasks we expected to lose runs on, and
+          we would rather know.
         </p>
       </div>
 
@@ -356,319 +370,252 @@
 
       <aside class="grader" aria-label="Grader comment">
         <p class="grader__head">Grader &middot; Methods &middot; <span class="grader__pts">15/15 &mdash; Full Marks</span></p>
-        <p>Eleven participants against an ask of ten or more, all from the
-        real user population, all of them fresh &mdash; you listed the nine
-        card sorters by ID so I could check the overlap myself, and there
-        isn&rsquo;t any. The task order is genuinely randomized per run
-        rather than rotated, so no task carries a systematic position
-        effect. The protocol is a clean moderated tree test: no answers from
-        the moderator, no category list shown up front, the
-        &ldquo;it&rsquo;s the structure on trial, not you&rdquo; framing
-        stated to every participant, and a give-up option that makes
-        abandonment a measurement instead of a hole. <em>&ldquo;Followed the
-        standard methods for this kind of study, with at most a minor error
-        or two and no major ones.&rdquo;</em></p>
-        <p>Two things worth the whole class&rsquo;s attention. Recruiting
-        Wes deliberately &mdash; the one person who has not had this
-        vocabulary since he was four &mdash; is sampling for the edge of
-        your population on purpose rather than for convenience. And
-        photographing your predicted first clicks before the first session
-        is a small piece of research hygiene almost nobody does: you made it
-        impossible to quietly become right afterward. Full marks.</p>
+        <p>A clean moderated tree test, run by people who thought in advance
+        about what would contaminate it.</p>
+        <ul>
+          <li><strong>Eleven participants against an ask of ten or
+          more</strong>, all from the real user population, all of them fresh
+          &mdash; you listed the nine card sorters by ID so I could check the
+          overlap myself, and there isn&rsquo;t any.</li>
+          <li><strong>The task order is genuinely randomized per run</strong>
+          rather than rotated, so no task carries a systematic position
+          effect.</li>
+          <li><strong>The protocol held.</strong> No answers from the
+          moderator, no category list shown up front, the &ldquo;it&rsquo;s
+          the structure on trial, not you&rdquo; framing stated to every
+          participant, and a give-up option that makes abandonment a
+          measurement instead of a hole. <em>&ldquo;Followed the standard
+          methods for this kind of study, with at most a minor error or two
+          and no major ones.&rdquo;</em></li>
+          <li><strong>Recruiting Wes deliberately</strong> &mdash; the one
+          person who has not had this vocabulary since he was four &mdash; is
+          sampling for the edge of your population on purpose rather than for
+          convenience.</li>
+          <li><strong>Photographing your predicted first clicks before the
+          first session</strong> is a small piece of research hygiene almost
+          nobody does: you made it impossible to quietly become right
+          afterward.</li>
+        </ul>
+        <p>Full marks.</p>
       </aside>
 
       <div class="docpage docpage--a">
         <h3>3. Results</h3>
         <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span></p>
         <p>
-          110 runs: eleven participants &times; ten tasks, no missing cells.
-          Percentages are of eleven. &ldquo;First click&rdquo; is the most
-          common single first click and how many runs made it;
-          &ldquo;destination&rdquo; is the block the most runs ended on,
-          which is not always the correct one.
+          110 runs &mdash; eleven participants &times; ten tasks, no missing
+          cells. Percentages are of eleven. Each task&rsquo;s predicted first
+          click is repeated from element&nbsp;1 so the comparison is on one
+          line, and &ldquo;where they ended&rdquo; is the block the most runs
+          finished on, which is not always the intended one.
         </p>
         <div class="table-scroll">
         <table class="study-table">
           <thead>
-            <tr><th>#</th><th>First click (most common)</th><th>Final destination (most common)</th><th>Success</th><th>Give-ups</th><th>Avg time</th></tr>
+            <tr><th>Task</th><th>Expected first click</th><th>Actual first click</th><th>Intended destination</th><th>Where they ended</th><th>Success</th><th>Gave up</th><th>Avg</th></tr>
           </thead>
           <tbody>
-            <tr><td>T01</td><td>Getting ready before Sunday &mdash; 9/11 (81.8%)</td><td><code>017.title_number2</code> &mdash; 10/11 (correct)</td><td>10/11 &middot; 90.9%</td><td>0</td><td>31.1s</td></tr>
-            <tr><td>T02</td><td>Getting people to talk &mdash; 10/11 (90.9%)</td><td><code>023.title_number1</code> &mdash; 10/11 (correct)</td><td>10/11 &middot; 90.9%</td><td>0</td><td>19.8s</td></tr>
-            <tr><td>T03</td><td>Getting people to talk &mdash; 7/11 (63.6%)</td><td><code>026.title_number3</code> &mdash; 8/11 (correct)</td><td>8/11 &middot; 72.7%</td><td>0</td><td>30.8s</td></tr>
-            <tr><td>T04</td><td>Teaching about Jesus Christ &mdash; 5/11 (45.5%)</td><td><code>006.title_number2</code> &mdash; 7/11 (correct)</td><td>7/11 &middot; 63.6%</td><td>1</td><td>36.3s</td></tr>
-            <tr><td>T05</td><td>Getting ready before Sunday &mdash; 8/11 (72.7%)</td><td><code>033.title_number1</code> &mdash; 10/11 (correct)</td><td>10/11 &middot; 90.9%</td><td>0</td><td>24.4s</td></tr>
-            <tr><td>T06</td><td>Knowing and loving the people you teach &mdash; 9/11 (81.8%)</td><td><code>014.title_number3</code> &mdash; 9/11 (correct)</td><td>9/11 &middot; 81.8%</td><td>0</td><td>24.6s</td></tr>
-            <tr><td>T07</td><td>Knowing and loving the people you teach &mdash; 10/11 (90.9%)</td><td><code>015.title_number1</code> &mdash; 11/11 (correct)</td><td>11/11 &middot; 100%</td><td>0</td><td>15.6s</td></tr>
-            <tr><td>T08</td><td>Teaching about Jesus Christ &mdash; 9/11 (81.8%)</td><td><code>004.title_number1</code> &mdash; 9/11 (correct)</td><td>9/11 &middot; 81.8%</td><td>0</td><td>25.4s</td></tr>
-            <tr><td>T09</td><td>Teaching about Jesus Christ &mdash; 6/11 (54.5%)</td><td><strong>No modal destination.</strong> 3 reached <code>020.title_number3</code> (correct) / 3 gave up. The other 5 runs ended on four different wrong blocks.</td><td>3/11 &middot; 27.3%</td><td>3</td><td>88.8s</td></tr>
-            <tr><td>T10</td><td>Keeping their attention &mdash; 6/11 (54.5%)</td><td><code>027.title_number2</code> &mdash; 8/11 (correct)</td><td>8/11 &middot; 72.7%</td><td>0</td><td>26.2s</td></tr>
+            <tr><td><strong>T01</strong>&nbsp;&middot; Saturday-night prep</td><td>By moment: After class and during the week</td><td>Getting ready before Sunday &mdash; 9/11 <strong>&mdash; MISS</strong> <em>(we predicted: After class and during the week)</em></td><td>Assess your own experience and testimony</td><td>Same &mdash; 10/11</td><td>10/11 &middot; 90.9%</td><td>0</td><td>31.1s</td></tr>
+            <tr><td><strong>T02</strong>&nbsp;&middot; Nobody answers</td><td>Getting people to talk</td><td>Getting people to talk &mdash; 10/11 <strong>&mdash; MATCH</strong></td><td>Create open-ended search questions</td><td>Same &mdash; 10/11</td><td>10/11 &middot; 90.9%</td><td>0</td><td>19.8s</td></tr>
+            <tr><td><strong>T03</strong>&nbsp;&middot; A question you can&rsquo;t answer</td><td>Getting people to talk</td><td>Getting people to talk &mdash; 7/11 <strong>&mdash; MATCH</strong><br><em>spread over 3 branches (7 &middot; 2 &middot; 2)</em></td><td>Answer without speculating</td><td>Same &mdash; 8/11</td><td>8/11 &middot; 72.7%</td><td>0</td><td>30.8s</td></tr>
+            <tr><td><strong>T04</strong>&nbsp;&middot; Losing the seven-year-olds</td><td>Keeping their attention</td><td>Teaching about Jesus Christ &mdash; 5/11 <strong>&mdash; MISS</strong> <em>(we predicted: Keeping their attention)</em><br><em>spread over 3 branches (5 &middot; 4 &middot; 2)</em></td><td>A sensory experience with scriptural objects</td><td>Same &mdash; 7/11</td><td>7/11 &middot; 63.6%</td><td>1</td><td>36.3s</td></tr>
+            <tr><td><strong>T05</strong>&nbsp;&middot; Following up an invitation</td><td>Getting ready before Sunday</td><td>Getting ready before Sunday &mdash; 8/11 <strong>&mdash; MATCH</strong></td><td>Follow up on last week&rsquo;s invitation</td><td>Same &mdash; 10/11</td><td>10/11 &middot; 90.9%</td><td>0</td><td>24.4s</td></tr>
+            <tr><td><strong>T06</strong>&nbsp;&middot; The boy who never talks</td><td>Knowing and loving the people you teach</td><td>Knowing and loving the people you teach &mdash; 9/11 <strong>&mdash; MATCH</strong></td><td>Students are needed, not just welcome</td><td>Same &mdash; 9/11</td><td>9/11 &middot; 81.8%</td><td>0</td><td>24.6s</td></tr>
+            <tr><td><strong>T07</strong>&nbsp;&middot; Noticed something good</td><td>Knowing and loving the people you teach</td><td>Knowing and loving the people you teach &mdash; 10/11 <strong>&mdash; MATCH</strong></td><td>Message a parent about something positive</td><td>Same &mdash; 11/11</td><td>11/11 &middot; 100%</td><td>0</td><td>15.6s</td></tr>
+            <tr><td><strong>T08</strong>&nbsp;&middot; Making it about Christ</td><td>Teaching about Jesus Christ</td><td>Teaching about Jesus Christ &mdash; 9/11 <strong>&mdash; MATCH</strong></td><td>Connect what they&rsquo;re learning to Christ&rsquo;s example</td><td>Same &mdash; 9/11</td><td>9/11 &middot; 81.8%</td><td>0</td><td>25.4s</td></tr>
+            <tr><td><strong>T09</strong>&nbsp;&middot; Is it the Spirit?</td><td>Knowing and loving the people you teach</td><td>Teaching about Jesus Christ &mdash; 6/11 <strong>&mdash; MISS</strong> <em>(we predicted: Knowing and loving the people you teach)</em><br><em>spread over 3 branches (6 &middot; 3 &middot; 2)</em></td><td>Statements that help them recognize the Holy Ghost</td><td><strong>No agreement</strong> &mdash; 3 reached it, 3 gave up, 5 ended on four different wrong blocks.</td><td>3/11 &middot; 27.3%</td><td>3</td><td>88.8s</td></tr>
+            <tr><td><strong>T10</strong>&nbsp;&middot; The first two minutes</td><td>Keeping their attention</td><td>Keeping their attention &mdash; 6/11 <strong>&mdash; MATCH</strong><br><em>spread over 3 branches (6 &middot; 4 &middot; 1)</em></td><td>Open with a personal circumstance</td><td>Same &mdash; 8/11</td><td>8/11 &middot; 72.7%</td><td>0</td><td>26.2s</td></tr>
           </tbody>
         </table>
         </div>
         <p>
           <strong>Overall:</strong> 85 of 110 runs succeeded (77.3%), 4
-          give-ups, mean 32.3 seconds and 3.4 clicks per run. We are
-          reporting T09&rsquo;s destination row as a tie because it is one:
-          three participants reached the right block and three quit, and
-          picking either number as &ldquo;the&rdquo; destination would be us
-          choosing the story.
+          give-ups, mean 32.3 seconds and 3.4 clicks per run. We report
+          T09&nbsp;&middot; Is it the Spirit? as having no modal destination
+          because it has none &mdash; three participants reached the right
+          block and three quit, and picking either number as
+          &ldquo;the&rdquo; destination would be us choosing the story.
         </p>
       </div>
 
       <div class="docpage docpage--a">
         <h3>4. Listening notes</h3>
-        <p class="doc-stamp"><span class="fiction-badge">INVENTED QUOTE</span></p>
+        <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span> Every quotation is invented; each is stamped where it appears.</p>
         <p>
-          The log records where people went. It does not record that on T09
-          six of the eleven said some version of the same sentence out loud
-          before their second click, and it is the sentence that decided what
-          we do next.
+          The log records where people went. It does not record that six of
+          the eleven said some version of the same sentence out loud on
+          T09&nbsp;&middot; Is it the Spirit? before their second click.
         </p>
-        <p>
-          <strong>People hunted for a word that is not on the screen.</strong>
-          Marlo Wheeler read our five category names top to bottom twice and
-          then said <span class="inline-quote">&ldquo;I keep waiting for the
-          one that says Spirit.&rdquo;</span> She opened
-          &ldquo;Teaching about Jesus Christ&rdquo; and worked through two
-          groups inside it, came back to the home screen, opened one group
-          under &ldquo;Knowing and loving the people you teach,&rdquo; came
-          back to the home screen again and gave up there. Tessa
-          Bingham, on her way to the same ending, said
-          <span class="inline-quote">&ldquo;None of these headings are about
-          what it feels like. They&rsquo;re all about what I
-          do.&rdquo;</span> Aubrey Delgado did reach &ldquo;Bearing witness
-          in class&rdquo; and stopped on the wrong block inside the right
-          group, and told us why:
-          <span class="inline-quote">&ldquo;This is the closest thing in
-          here. It&rsquo;s still not what she asked me.&rdquo;</span> The log
-          scores that as a miss and nothing else; the room heard a person
-          settling.
-        </p>
-        <p>
-          <strong>Wes Purdy was reading the site, not navigating it.</strong>
-          On T01 he reached the right group and then stopped on the wrong
-          block, because the wrong one mentions a document by name:
-          <span class="inline-quote">&ldquo;Is that a paper you have to fill
-          out? Is that what getting ready means?&rdquo;</span> On T03 he
-          spent a while on the word &ldquo;speculation&rdquo; before deciding
-          it probably meant guessing. He was the slowest participant in the
-          study (56.1s average) and it was never the structure slowing him
-          down, it was the vocabulary in the leaf text &mdash; which is
-          quoted from the manual and which we are not going to rewrite. What
-          this tells us is where a definition would be worth more than a
-          better label. Our card sort already flagged this with Cami; Wes is
-          the second instance of the same thing, from the other end of the
-          age range.
-        </p>
-        <p>
-          <strong>Garrett Nakamura was fast and confident and often
-          wrong.</strong> Four of ten, at an average of 20.1 seconds &mdash;
-          the second fastest participant in the study (Bryce Tuckett was
-          quicker at 18.1s and got ten of ten) and the second least
-          accurate. On T02 he opened &ldquo;Getting people to talk,&rdquo;
-          opened &ldquo;Not answering it yourself,&rdquo; took a block from it
-          and said <span class="inline-quote">&ldquo;That&rsquo;s it. Next
-          one.&rdquo;</span> in 9.8 seconds. He backed out of a group exactly
-          once in ten tasks &mdash; on T01, along with three other people
-          &mdash; and on the other nine he never said he was unsure and never
-          checked the block text against the scenario. A pass-rate table cannot tell you the
-          difference between someone who searched carefully and got it wrong
-          and someone who stopped at the first plausible label &mdash; and
-          those two people need different things from a design.
-        </p>
-        <p>
-          <strong>Two more things we would not have known.</strong> Several
-          participants read our group labels as questions being asked of them
-          and answered out loud before clicking (&ldquo;am I asking so I get
-          a real answer? &hellip; no, I&rsquo;m not&rdquo;), which is a good
-          sign for label wording that a click log cannot show. And on T01,
-          the four people who opened &ldquo;Planning the lesson&rdquo; before
-          crossing over to &ldquo;Getting yourself ready&rdquo; did not look
-          confused while doing it &mdash; they looked like they thought both
-          labels meant roughly the same thing and had picked one. Nobody
-          said so. We only know because we watched.
-        </p>
+        <ul>
+          <li>
+            <strong>People hunted for a word that is not on the
+            screen.</strong> Marlo Wheeler read our five category names twice
+            &mdash; <span class="inline-quote">&ldquo;I keep waiting for the
+            one that says Spirit.&rdquo;</span>
+            <span class="fiction-badge">INVENTED QUOTE</span> &mdash; toured
+            two categories and gave up on the home screen. Tessa Bingham, on
+            her way to the same ending:
+            <span class="inline-quote">&ldquo;None of these headings are about
+            what it feels like. They&rsquo;re all about what I do.&rdquo;</span>
+            <span class="fiction-badge">INVENTED QUOTE</span> Aubrey Delgado
+            did reach &ldquo;Bearing witness in class,&rdquo; then settled for
+            the wrong block in it:
+            <span class="inline-quote">&ldquo;This is the closest thing in
+            here. It&rsquo;s still not what she asked me.&rdquo;</span>
+            <span class="fiction-badge">INVENTED QUOTE</span>
+          </li>
+          <li>
+            <strong>Wes Purdy was reading the site, not navigating it.</strong>
+            On T01&nbsp;&middot; Saturday-night prep he stopped on the wrong
+            block in the right group, because that one names a document:
+            <span class="inline-quote">&ldquo;Is that a paper you have to fill
+            out?&rdquo;</span>
+            <span class="fiction-badge">INVENTED QUOTE</span> Slowest
+            participant at 56.1s, and never the structure slowing him down: it
+            was the manual vocabulary in the leaf text, which we are not
+            rewriting.
+          </li>
+          <li>
+            <strong>Garrett Nakamura was fast, confident and often
+            wrong.</strong> Four of ten at 20.1 seconds; he finished
+            T02&nbsp;&middot; Nobody answers on a wrong block in 9.8 seconds
+            with <span class="inline-quote">&ldquo;That&rsquo;s it. Next
+            one.&rdquo;</span>
+            <span class="fiction-badge">INVENTED QUOTE</span> A pass rate
+            cannot tell a careful searcher who got it wrong from someone who
+            stopped at the first plausible label, and those two need different
+            things from a design.
+          </li>
+          <li>
+            <strong>Two things the log could not show.</strong> Several people
+            answered our group labels out loud before clicking them
+            (<span class="inline-quote">&ldquo;am I asking so I get a real
+            answer? &hellip; no, I&rsquo;m not&rdquo;</span>
+            <span class="fiction-badge">INVENTED QUOTE</span>), a good sign for
+            label wording. And on T01&nbsp;&middot; Saturday-night prep the
+            four who crossed over from &ldquo;Planning the lesson&rdquo; did
+            not look confused; they looked like they thought both labels meant
+            the same thing. We only know because we watched.
+          </li>
+        </ul>
       </div>
 
       <div class="docpage docpage--a">
         <h3>5. Analysis</h3>
         <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span></p>
-
-        <h4>Our three misses are exactly our three findings</h4>
-        <p>
-          We predicted the modal first click on 7 of 10 tasks. We missed on
-          T01, T04, and T09 &mdash; and every one of the three things this
-          study taught us is sitting inside one of those three misses. That
-          is the argument for writing predictions down: the tasks where we
-          were right told us the structure works, and the tasks where we were
-          wrong told us what to change. A 70% hit rate is not a grade on us;
-          it is a map of where our model of these teachers was incomplete.
-        </p>
-        <div class="table-scroll">
-        <table class="study-table">
-          <thead>
-            <tr><th>#</th><th>We predicted</th><th>They did</th><th></th></tr>
-          </thead>
-          <tbody>
-            <tr><td>T01</td><td>By moment: After class and during the week</td><td>Getting ready before Sunday (9/11)</td><td><strong>miss</strong></td></tr>
-            <tr><td>T02</td><td>Getting people to talk</td><td>Getting people to talk (10/11)</td><td>hit</td></tr>
-            <tr><td>T03</td><td>Getting people to talk</td><td>Getting people to talk (7/11)</td><td>hit</td></tr>
-            <tr><td>T04</td><td>Keeping their attention</td><td>Teaching about Jesus Christ (5/11)</td><td><strong>miss</strong></td></tr>
-            <tr><td>T05</td><td>Getting ready before Sunday</td><td>Getting ready before Sunday (8/11)</td><td>hit</td></tr>
-            <tr><td>T06</td><td>Knowing and loving the people you teach</td><td>Knowing and loving the people you teach (9/11)</td><td>hit</td></tr>
-            <tr><td>T07</td><td>Knowing and loving the people you teach</td><td>Knowing and loving the people you teach (10/11)</td><td>hit</td></tr>
-            <tr><td>T08</td><td>Teaching about Jesus Christ</td><td>Teaching about Jesus Christ (9/11)</td><td>hit</td></tr>
-            <tr><td>T09</td><td>Knowing and loving the people you teach</td><td>Teaching about Jesus Christ (6/11)</td><td><strong>miss</strong></td></tr>
-            <tr><td>T10</td><td>Keeping their attention</td><td>Keeping their attention (6/11)</td><td>hit</td></tr>
-          </tbody>
-        </table>
-        </div>
-
-        <h4>T09: this is not a labeling problem</h4>
-        <p>
-          T09 is the worst result in the study and the only one where the
-          first click does not explain the failure. 6 of 11 opened
-          &ldquo;Teaching about Jesus Christ&rdquo; &mdash; the category that
-          actually contains the answer &mdash; and only 3 of those 11 runs
-          ended on it. 3 of 11 opened &ldquo;Knowing and loving the people
-          you teach,&rdquo; and all three of those runs failed. 2 entered by
-          moment. So the first click scattered three ways and none of the
-          three ways was reliably wrong, which is the signature of something
-          other than a mislabeled branch.
-        </p>
-        <p>
-          The rest of the numbers say the same thing louder. Three
-          participants gave up, and <em>all three gave up standing on the
-          home screen</em> after having been inside two or three categories
-          &mdash; they did not quit lost in a subtree, they quit back at the
-          top, having looked at our five category names again. T09 collected
-          19 backtracks across 7 runs; the other nine tasks collected 20
-          between them. Average time was 88.8 seconds against a study-wide
-          32.3. People searched hard, searched broadly, came home, and
-          stopped.
-        </p>
-        <p>
-          Our card sort said one sorter in eight made a Spirit pile, and we
-          concluded that a Spirit category was not what people sorted by. We
-          still think that is what the sort showed. T09 shows the other half:
-          it is what people <em>look</em> for. Those are different questions,
-          and this is the exact condition our card-sort report named as the
-          one that would reopen the decision.
-        </p>
-
-        <h4>T04: the answer depends on which door you came in</h4>
-        <p>
-          T04 succeeded 7 of 11, and the split is almost perfectly clean by
-          entry view. All 4 participants who entered by lesson moment reached
-          the block <em>in two clicks</em> &mdash; the moment page put the
-          answer in front of them, and none of them hesitated. Of the 7 who
-          entered by category, 3 reached it, 3 stopped on a wrong block, and
-          1 gave up after 7 clicks and 96.4 seconds.
-        </p>
-        <p>
-          The wrong blocks say what happened. 2 of the 3 misses ended on
-          <code>006.title_number1</code>, which is the skill immediately
-          adjacent in the manual to the correct answer
-          <code>006.title_number2</code>, and which we filed under
-          &ldquo;Teaching about Jesus Christ &rsaquo; Finding Him in the
-          scriptures&rdquo; because it is about symbols. The correct answer
-          is the same manual page&rsquo;s other half and we filed it under
-          &ldquo;Keeping their attention &rsaquo; Something they do, not
-          watch&rdquo; because it is a hands-on activity. Both filings are
-          defensible. That is the problem: 5 of 11 first-clicked
-          &ldquo;Teaching about Jesus Christ,&rdquo; found a Christ-symbols
-          skill there, and reasonably stopped. This is precisely the case our
-          card sort predicted &mdash; a block that people reach for from two
-          different questions &mdash; and we filed it once anyway.
-        </p>
-
-        <h4>T01: the first click hid the finding</h4>
-        <p>
-          T01 succeeded 10 of 11, and by pass rate it is one of our best
-          tasks. The second click is where it goes wrong. Of the 9
-          participants who first clicked &ldquo;Getting ready before
-          Sunday,&rdquo; 5 opened &ldquo;Getting yourself ready&rdquo; and
-          found the answer; the other 4 opened &ldquo;Planning the
-          lesson&rdquo; first, and <em>all four</em> backed out and crossed
-          over. The five who went straight there averaged 20.1 seconds; the
-          four who crossed over averaged 47.9 &mdash; more than twice as
-          long, for the same task, ending in the same place.
-        </p>
-        <p>
-          Nobody failed, so nothing in the results table flags this. But two
-          sibling labels that half the room cannot tell apart is a real
-          defect, and the cost is currently being paid in seconds instead of
-          in errors. It is also why we predicted this task wrong: we assumed
-          people would reach for &ldquo;Saturday night&rdquo; as a moment and
-          they reached for it as a phase of preparation.
-        </p>
+        <ul>
+          <li>
+            <strong>Our three misses are exactly our three findings.</strong>
+            We predicted the modal first click on 7 of 10 tasks (70%) and
+            missed on T01&nbsp;&middot; Saturday-night prep,
+            T04&nbsp;&middot; Losing the seven-year-olds and
+            T09&nbsp;&middot; Is it the Spirit?
+          </li>
+          <li>
+            <strong>T09&nbsp;&middot; Is it the Spirit? is not a labeling
+            problem.</strong> The first click scattered three ways with none of
+            them reliably wrong: 6 of 11 opened &ldquo;Teaching about Jesus
+            Christ,&rdquo; which contains the answer; 3 opened &ldquo;Knowing
+            and loving the people you teach&rdquo; and all three failed; 2
+            entered by moment.
+          </li>
+          <li>
+            <strong>All three give-ups happened on the home screen</strong>,
+            not lost in a subtree &mdash; each had been inside two or three
+            categories first. The task collected 19
+            backtracks across 7 runs against 20 for the other nine combined, at
+            88.8 seconds against a study-wide 32.3.
+          </li>
+          <li>
+            <strong>The sort and the test asked different questions.</strong>
+            One sorter in eight made a Spirit pile: the sort measured what
+            people group by, the tree test measured what they look for &mdash;
+            the exact condition our card-sort report named as reopening the
+            decision.
+          </li>
+          <li>
+            <strong>T04&nbsp;&middot; Losing the seven-year-olds splits by
+            which door you came in.</strong> All 4 who entered by lesson moment
+            reached the block <em>in two clicks</em>. Of the 7 who entered by
+            category, 3 reached it, 3 stopped on a wrong block, and 1 gave up
+            after 7 clicks and 96.4 seconds.
+          </li>
+          <li>
+            <strong>Both filings of that block are defensible, which is the
+            problem.</strong> 2 of the 3 misses ended on &ldquo;questions about
+            Christ&rsquo;s symbols,&rdquo; the adjacent skill on the same
+            manual page, filed under Christ&nbsp;&rsaquo; Finding Him in the
+            scriptures for its symbolism, while the answer &mdash; the same
+            page&rsquo;s other half &mdash; sits under Keeping their
+            attention&nbsp;&rsaquo; Something they do, not watch. 5 of 11 first-clicked Christ, found a Christ-symbols
+            skill and reasonably stopped. Our card sort predicted this &mdash;
+            a block people reach for from two questions &mdash; and we filed it
+            once anyway.
+          </li>
+          <li>
+            <strong>T01&nbsp;&middot; Saturday-night prep passed 10 of 11 and
+            still hid a defect.</strong> Of the 9 who first clicked
+            &ldquo;Getting ready before Sunday,&rdquo; 5 opened &ldquo;Getting
+            yourself ready&rdquo;; the other 4 opened &ldquo;Planning the
+            lesson&rdquo; and <em>all four</em> backed out and crossed over
+            &mdash; 47.9 seconds against 20.1.
+          </li>
+          <li>
+            <strong>Nothing in the results table flags that</strong> &mdash; a
+            defect priced in seconds, not errors. It is also why we predicted
+            the task wrong: we expected &ldquo;Saturday night&rdquo; to read as
+            a moment; it read as a phase of preparation.
+          </li>
+          <li>
+            <strong>The failures cluster at the last step.</strong> 16 of the
+            21 non-give-up misses ended inside the correct <em>category</em>,
+            8 of those inside the correct <em>group</em>: our L1 holds, and
+            what fails is telling sibling leaves or sibling groups apart
+            &mdash; a wording problem at L2 and L3. The exception is T09&nbsp;&middot; Is it the Spirit?, where the failure
+            is at L1.
+          </li>
+          <li>
+            <strong>The moment-view aggregate, with its caveat attached.</strong>
+            22 of the 110 runs entered by moment and succeeded 95.5% at a mean
+            of 27.9 seconds; the 88 category-view runs succeeded 72.7% at 33.4
+            seconds. That looks like a large effect and we are not claiming it
+            is one: Nathan Kim went 10 for 10 entering by moment on all ten of
+            his tasks, Sydnee Hafen on six, and the remaining six runs are
+            spread across three people. 22 self-selected runs against 88
+            compares participants, not views &mdash; a hypothesis for
+            v1&rsquo;s logs, not a finding.
+          </li>
+          <li>
+            <strong>That T04&nbsp;&middot; Losing the seven-year-olds result is
+            the moment view&rsquo;s whole case</strong> &mdash; one task, 4
+            runs, stated as such, and the reason the attribute survives into
+            v1.
+          </li>
+        </ul>
 
         <h4>Where the wrong turns went</h4>
-        <p>
-          For every task that lost more than one run, the block or branch
-          that took the most of them:
-        </p>
+        <p>For every task that lost more than one run, the branch or block that took the most of them:</p>
         <div class="table-scroll">
         <table class="study-table">
           <thead>
-            <tr><th>#</th><th>Runs lost</th><th>Most seductive wrong turn</th></tr>
+            <tr><th>Task</th><th>Runs lost</th><th>Most seductive wrong turn</th></tr>
           </thead>
           <tbody>
-            <tr><td>T03</td><td>3</td><td><code>023.title_number1</code>, 2 of 3 &mdash; a sibling <em>in the correct group</em>. The branch was right and the two leaf labels were not distinguishable.</td></tr>
-            <tr><td>T04</td><td>4 (incl. 1 give-up)</td><td><em>Teaching about Jesus Christ &rsaquo; Finding Him in the scriptures</em> &mdash; 2 of 3 misses ended on <code>006.title_number1</code> there.</td></tr>
-            <tr><td>T06</td><td>2</td><td>Both stayed inside the correct category; one stopped at <code>014.intro2</code>, a sibling in the correct group, one at <code>011.title_number2</code> under &ldquo;Getting to know them.&rdquo;</td></tr>
-            <tr><td>T08</td><td>2</td><td>Both stayed inside &ldquo;Teaching about Jesus Christ&rdquo; and picked a different group &mdash; <code>005.title_number17</code> and <code>007.title_number1</code>.</td></tr>
-            <tr><td>T09</td><td>8 (incl. 3 give-ups)</td><td>Two different pulls: <em>Knowing and loving the people you teach</em> took 3 first clicks and lost all 3; inside the correct group, <code>021.title_number2</code> (&ldquo;Testify more frequently&hellip;&rdquo;) took 2 runs.</td></tr>
-            <tr><td>T10</td><td>3</td><td><em>Keeping their attention &rsaquo; Something they can see or hear</em> &mdash; 2 of 3, the sibling group one row up from the answer.</td></tr>
+            <tr><td><strong>T03</strong>&nbsp;&middot; A question you can&rsquo;t answer</td><td>3</td><td>&ldquo;Create open-ended search questions,&rdquo; 2 of 3 &mdash; a sibling <em>in the correct group</em>; the leaf labels were not distinguishable.</td></tr>
+            <tr><td><strong>T04</strong>&nbsp;&middot; Losing the seven-year-olds</td><td>4 (incl. 1 give-up)</td><td><em>Christ &rsaquo; Finding Him in the scriptures</em> &mdash; 2 of 3 misses stopped on &ldquo;questions about Christ&rsquo;s symbols.&rdquo;</td></tr>
+            <tr><td><strong>T06</strong>&nbsp;&middot; The boy who never talks</td><td>2</td><td>Both stayed in the correct category: &ldquo;show you value them before they comment&rdquo; (sibling in the correct group) and &ldquo;think celestial about your students&rdquo; under &ldquo;Getting to know them.&rdquo;</td></tr>
+            <tr><td><strong>T08</strong>&nbsp;&middot; Making it about Christ</td><td>2</td><td>Both stayed in &ldquo;Teaching about Jesus Christ&rdquo; but picked a different group &mdash; &ldquo;roles Christ can have in their lives&rdquo; and &ldquo;connect the Lord&rsquo;s power and mercy.&rdquo;</td></tr>
+            <tr><td><strong>T09</strong>&nbsp;&middot; Is it the Spirit?</td><td>8 (incl. 3 give-ups)</td><td>Two pulls: <em>Knowing and loving the people you teach</em> took 3 first clicks and lost all 3; inside the correct group, &ldquo;testify more frequently of Jesus Christ&rdquo; took 2 runs.</td></tr>
+            <tr><td><strong>T10</strong>&nbsp;&middot; The first two minutes</td><td>3</td><td><em>Keeping their attention &rsaquo; Something they can see or hear</em> &mdash; 2 of 3, the sibling group one row up from the answer.</td></tr>
           </tbody>
         </table>
         </div>
         <p>
-          T01, T02 and T05 each lost exactly one run. T01 and T05 lost theirs
-          to a neighbour in the correct group; T02 lost its one run to
-          <code>029.title_number1</code>, one group over in the correct
-          category (Garrett, at 9.8 seconds). One run is one run; we are not
-          building anything on those three.
-        </p>
-
-        <h4>The pattern across the wrong turns</h4>
-        <p>
-          Count the failures by where they stopped and the shape is
-          consistent: 16 of the 21 non-give-up misses in the whole study
-          ended inside the correct <em>category</em>, and 8 of those ended
-          inside the correct <em>group</em>. Our L1 is doing its job. What
-          is failing is the last step &mdash; distinguishing two sibling
-          leaves, or two sibling groups, once you are already in the right
-          neighbourhood. That is a labeling and wording problem at L2 and
-          L3, and it is a much cheaper problem than a category problem. The
-          one exception is T09, where the failure is at L1 and is not a
-          wording problem at all.
-        </p>
-
-        <h4>The moment view, and what we are not claiming about it</h4>
-        <p>
-          22 of the 110 runs were entered through the by-moment view. Those
-          22 succeeded 95.5% of the time at a mean of 27.9 seconds; the 88
-          category-view runs succeeded 72.7% at 33.4 seconds. That looks like
-          a large effect and we are not claiming it is one. Those 22 runs are
-          not a random sample of runs &mdash; they are mostly one person.
-          Nathan Kim entered by moment on all ten of his tasks and went
-          10 for 10; Sydnee Hafen did on six; the remaining six moment runs
-          are spread across three people. A comparison of 22 self-selected
-          runs against 88 is a comparison of participants, not of views, and
-          22 runs from effectively three or four people cannot support a
-          claim about a population of teachers. We are recording the number
-          and treating it as a hypothesis for v1&rsquo;s logs, not as a
-          finding.
-        </p>
-        <p>
-          What the moment view <em>did</em> demonstrably do is carry T04:
-          every one of the 4 people who came in that way reached the answer
-          in two clicks while the category view was splitting five ways on
-          the same task. That claim is about one task and 4 runs, it is
-          stated as such, and it is the specific reason the moment attribute
-          survives into v1.
+          T01&nbsp;&middot; Saturday-night prep and T05&nbsp;&middot;
+          Following up an invitation each lost one run to a neighbour in the
+          correct group; T02&nbsp;&middot; Nobody answers lost its one to
+          &ldquo;don&rsquo;t answer every comment yourself,&rdquo; one group
+          over (Garrett, 9.8 seconds). We are not building on those three.
         </p>
       </div>
 
@@ -678,122 +625,110 @@
         representative quotes). Analysis synthesizes across participants
         &mdash; patterns, agreements, disagreements &mdash; not
         session-by-session recaps. Claims are calibrated to what the data
-        supports.&rdquo;</em> All of that is here, so let me spend the space
-        on the three things I want other teams to copy.</p>
-        <p><strong>You reported a tie as a tie.</strong> T09&rsquo;s
-        destination cell says &ldquo;3 reached the right block, 3 gave up, no
-        modal destination&rdquo; instead of quietly promoting one of them to
-        &ldquo;most common.&rdquo; A cleaner-looking table was one keystroke
-        away and it would have been a small lie. <strong>You refused your own
-        best number.</strong> The moment-view comparison is the most
-        flattering result in your report and you took it apart yourself
-        &mdash; 22 runs, mostly one participant, therefore a comparison of
-        people and not of views &mdash; and then made the narrow claim you
-        actually earned about T04. That is what calibration means, and the
-        rubric caps over-claiming at Developing precisely because most teams
-        do the opposite here. <strong>And your analysis goes past the pass
-        rate.</strong> T01 passed 10 of 11 and you found the defect anyway,
-        in the second click, priced in seconds; T09 failed and you diagnosed
-        <em>where</em> it failed &mdash; scatter, give-ups on the home
-        screen, 19 backtracks &mdash; instead of concluding &ldquo;T09 was
-        hard.&rdquo; The named wrong turn per failed task is the table I will
-        be showing next semester.</p>
-        <p>One small thing to keep doing: 16-of-21-misses-inside-the-correct
-        -category is the sentence that turns a list of failures into a
-        diagnosis of which level is broken. That is synthesis.</p>
+        supports.&rdquo;</em> All of that is here, so let me spend the space on
+        the four things I want other teams to copy.</p>
+        <ul>
+          <li><strong>You reported a tie as a tie.</strong> The
+          T09&nbsp;&middot; Is it the Spirit? destination cell says <em>no
+          agreement</em> &mdash; 3 reached the block, 3 gave up, 5 ended on
+          four different wrong blocks &mdash; instead of quietly promoting one
+          of them to &ldquo;most common.&rdquo; A cleaner-looking table was one
+          keystroke away and it would have been a small lie.</li>
+          <li><strong>You refused your own best number.</strong> The
+          moment-view comparison is the most flattering result in your report
+          and you took it apart yourself &mdash; 22 runs, mostly one
+          participant, therefore a comparison of people and not of views
+          &mdash; then made the narrow claim you actually earned about
+          T04&nbsp;&middot; Losing the seven-year-olds. The rubric caps
+          over-claiming at Developing precisely because most teams do the
+          opposite here.</li>
+          <li><strong>Your analysis goes past the pass rate.</strong>
+          T01&nbsp;&middot; Saturday-night prep passed 10 of 11 and you found
+          the defect anyway, in the second click, priced in seconds;
+          T09&nbsp;&middot; Is it the Spirit? failed and you diagnosed
+          <em>where</em> it failed &mdash; scatter, give-ups on the home
+          screen, 19 backtracks &mdash; instead of concluding that the task was
+          hard.</li>
+          <li><strong>The named wrong turn per failed task</strong> is the
+          table I will be showing next semester.</li>
+        </ul>
+        <p>One small thing to keep doing: 16 of the 21 misses landing inside
+        the correct category is the sentence that turns a list of failures into
+        a diagnosis of which level is broken. That is synthesis.</p>
       </aside>
 
       <div class="docpage docpage--a">
         <h3>6. Design decisions</h3>
         <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span></p>
         <p>
-          Six decisions. The wireframe is frozen as of this test, so all six
-          land in prototype v1.
+          Six decisions, all landing in prototype v1; the wireframe is frozen
+          as of this test.
         </p>
         <ol class="decision-list">
           <li>
             <strong>We are reopening the Spirit question.</strong> Because
-            T09 succeeded in only 3 of 11 runs with 3 give-ups, because all
-            three give-ups happened on the home screen after the participant
-            had already been inside two or three categories, because T09
-            collected 19 backtracks against 20 for the other nine tasks
-            combined, and because the first click scattered across three
-            different branches with none of them reliably wrong &mdash; and
-            because our card-sort report named this exact condition as the
-            one that would reopen the decision &mdash; <strong>we will build
-            a sixth top-level branch for it into v1 and test it there.</strong>
-            We are not claiming the card sort was wrong: one sorter in eight
-            made a Spirit pile and that is still true. We are saying the sort
-            measured what people group by and the tree test measured what
-            they look for, and those turned out to be different. The working
-            label will not be &ldquo;Teach by the Spirit&rdquo; &mdash; it
-            will come from what participants said while hunting (&ldquo;what
-            it feels like,&rdquo; &ldquo;how do I know if it&rsquo;s the
-            Spirit&rdquo;), and the label itself is the thing v1&rsquo;s
-            study has to test.
+            T09&nbsp;&middot; Is it the Spirit? succeeded in only 3 of 11 with
+            3 give-ups, all three on the home screen; because it collected 19
+            backtracks against 20 for the other nine tasks combined; because
+            its first click scattered across three branches, none reliably
+            wrong; and because our card-sort report named this condition as
+            reopening the decision &mdash; <strong>we will build a
+            sixth top-level branch for it into v1 and test it there.</strong>
+            The card sort is not overturned (element 5). Its label will come
+            from participants&rsquo; own hunting language (&ldquo;what it feels
+            like&rdquo;) and is itself what v1 must test.
           </li>
           <li>
-            <strong>We are giving <code>006.title_number2</code> a second
+            <strong>We are giving the sensory-objects block a second
             category.</strong> Because 5 of 11 first-clicked &ldquo;Teaching
-            about Jesus Christ&rdquo; on T04 and 2 of the 3 misses stopped on
-            <code>006.title_number1</code> &mdash; the adjacent skill on the
-            same manual page, filed in that category &mdash; while all 4
-            people who came in by moment reached the answer in two clicks, we
-            will make <code>category</code> a list rather than a single
-            value and give this block both &ldquo;Keeping their
-            attention&nbsp;&rsaquo; Something they do, not watch&rdquo; and
-            &ldquo;Teaching about Jesus Christ&nbsp;&rsaquo; Finding Him in
-            the scriptures.&rdquo; This costs us nothing structurally
-            &mdash; pages already render by selecting on attributes &mdash;
-            and it is the &ldquo;no one true place&rdquo; principle applied
-            to the one block that demonstrably needed it. We will also
-            relabel the leaf to lead with the doing (&ldquo;Let them handle
-            something&hellip;&rdquo;) rather than with the symbolism.
+            about Jesus Christ&rdquo; on T04&nbsp;&middot; Losing the
+            seven-year-olds, 2 of the 3 misses stopped on the adjacent
+            Christ-symbols skill, and all 4 who came in by moment reached the
+            answer in two clicks, <strong>we will make <code>category</code> a
+            list rather than a single value</strong> and file &ldquo;a sensory
+            experience with scriptural objects&rdquo; under both &ldquo;Keeping
+            their attention&nbsp;&rsaquo; Something they do, not watch&rdquo;
+            and &ldquo;Teaching about Jesus Christ&nbsp;&rsaquo; Finding Him in
+            the scriptures.&rdquo; We will also relabel the leaf to lead with
+            the doing, not the symbolism.
           </li>
           <li>
             <strong>We are relabeling the two preparation groups.</strong>
-            Because all 4 participants who opened &ldquo;Planning the
-            lesson&rdquo; first on T01 backed out and crossed over to
-            &ldquo;Getting yourself ready,&rdquo; and because that crossover
-            cost 47.9 seconds against 20.1 for the 5 who went straight there,
-            we will rename them so the difference is on the label instead of
-            in the participant&rsquo;s head: &ldquo;Getting yourself
-            ready&rdquo; becomes <em>&ldquo;Getting yourself ready&rdquo;</em>
-            with the subtitle &ldquo;you, before Sunday,&rdquo; and
-            &ldquo;Planning the lesson&rdquo; becomes <em>&ldquo;Planning
-            what happens in class.&rdquo;</em> The current pair costs no
-            failures and about 28 seconds a head, which is exactly the kind
-            of defect a pass-rate table hides.
+            Because all 4 who opened &ldquo;Planning the lesson&rdquo; first on
+            T01&nbsp;&middot; Saturday-night prep crossed over to &ldquo;Getting
+            yourself ready,&rdquo; at 47.9 seconds against 20.1 for the 5 who
+            went straight there, <strong>we will rename them:</strong>
+            &ldquo;Getting yourself ready&rdquo; gains the subtitle &ldquo;you,
+            before Sunday,&rdquo; and &ldquo;Planning the lesson&rdquo; becomes
+            <em>&ldquo;Planning what happens in class.&rdquo;</em> The pair
+            costs no failures and about 28 seconds a head.
           </li>
           <li>
             <strong>We are rewriting the leaf labels inside &ldquo;Asking so
-            you get a real answer.&rdquo;</strong> Because 2 of the 3 runs
-            lost on T03 stopped on <code>023.title_number1</code>, a sibling
-            in the correct group, and because 16 of the 21 misses in the
-            whole study ended inside the correct category with 8 of them
-            inside the correct group, the last step is where we are losing
-            people. v1&rsquo;s leaf labels will name the situation the skill
-            is for, not restate the manual sentence.
+            you get a real answer.&rdquo;</strong> Because 2 of the 3 runs lost
+            on T03&nbsp;&middot; A question you can&rsquo;t answer stopped on
+            &ldquo;create open-ended search questions,&rdquo; and because 16 of
+            the 21 misses ended inside the correct category with 8 of them
+            inside the correct group,
+            <strong>v1&rsquo;s leaf labels will name the situation the skill is
+            for</strong>, not restate the manual sentence.
           </li>
           <li>
             <strong>We are keeping the five categories.</strong> Because 9 of
             10 tasks had the intended category as their most common first
-            click (T04 is the only one that did not), because 85 of 110 runs
-            ended on the correct block, and because 16 of the 21 misses
-            stayed inside the correct category
-            &mdash; the L1 is not what is breaking. Adding the Spirit branch
-            in decision 1 is an addition to this structure, not a
-            replacement of it, and we want to be explicit that we considered
-            reorganizing and the data does not support it.
+            click, because 85 of 110 runs ended on the correct block, and
+            because 16 of the 21 misses stayed inside the correct category,
+            <strong>the L1 is not what is breaking and we will not reorganize
+            it.</strong> The Spirit branch in decision 1 adds to this structure
+            rather than replacing it.
           </li>
           <li>
             <strong>We are keeping the lesson-moment attribute.</strong>
-            Because every one of the 4 participants who entered T04 by moment
-            reached the correct block in two clicks while the category view
-            split five ways on the same task, the second view earns its place
-            on evidence rather than on the aggregate 95.5% we are refusing to
-            lean on (see element 7). v1 keeps <code>moment</code> on every
-            block and keeps the by-moment view.
+            Because all 4 who entered T04&nbsp;&middot; Losing the
+            seven-year-olds by moment reached the correct block in two clicks
+            while the category view split five ways, <strong>v1 keeps
+            <code>moment</code> on every block and keeps the by-moment
+            view</strong> &mdash; not on the aggregate 95.5% (element 7).
           </li>
         </ol>
       </div>
@@ -802,43 +737,32 @@
         <h3>7. What we are choosing to ignore</h3>
         <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span></p>
         <ul>
-          <li><strong>The moment view&rsquo;s 95.5% success rate.</strong>
-            Our most quotable number and we are not acting on it. 22 runs
-            against 88, and most of the 22 belong to one participant, so it
-            compares people rather than views. v1 logs every click and every
-            prompt; if the effect is real it will show up there at a sample
-            size that can carry it. Watching, not building.</li>
+          <li><strong>The moment view&rsquo;s 95.5% success rate.</strong> 22
+            runs against 88, most belonging to one participant: it compares
+            people, not views. If the effect is real, v1&rsquo;s logs will show
+            it at a size that can carry it.</li>
           <li><strong>Wes&rsquo;s vocabulary trouble, beyond what we already
-            knew.</strong> Our card sort had already told us the official
-            skill names are unparseable to a new teacher, and that is why
-            they live at L3. Wes is a second instance, not a new finding, and
-            we are not going to rewrite manual text on the strength of one
-            sixteen-year-old. What we are writing down for v1 is the
-            narrower version: a definition-on-demand for words like
-            &ldquo;speculation&rdquo; would probably be worth more than any
-            label change.</li>
-          <li><strong>Garrett&rsquo;s speed.</strong> One participant who
-            stops at the first plausible label at 20.1 seconds and 4 of 10 is
-            an interesting person, not a pattern. If v1&rsquo;s logs show a
-            population of fast-and-confident wrong finishers, that is a
-            design problem worth solving. One person is not.</li>
-          <li><strong>Backtrack counts on the other nine tasks.</strong> They
-            total 20 across 99 runs and are noise at this size. We are only
-            citing T09&rsquo;s 19 because they are concentrated in 7 runs of
+            knew.</strong> Our card sort had already told us the official skill
+            names are unparseable to a new teacher. Wes is a second instance,
+            not a new finding. For v1:
+            definition-on-demand for words like &ldquo;speculation,&rdquo; not
+            a label change.</li>
+          <li><strong>Garrett&rsquo;s speed.</strong> One participant at 20.1
+            seconds and 4 of 10 is a person, not a pattern. If v1&rsquo;s logs
+            show a population of them, that is worth solving.</li>
+          <li><strong>Backtrack counts on the other nine tasks.</strong> 20
+            across 99 runs, noise at this size. We cite T09&nbsp;&middot; Is it
+            the Spirit?&rsquo;s 19 only because they concentrate in 7 runs of
             one task.</li>
-          <li><strong>&ldquo;What the prophets say.&rdquo;</strong> This
-            group was opened twice in 110 runs, and neither visit was a
-            person who wanted it: Aubrey Delgado looked in on T03, left, and
-            found her answer under &ldquo;Getting people to talk,&rdquo; and
-            Reed Mangum ended a lost T09 run inside it. Two exploratory
-            visits and no successful ones could mean the group is badly
-            named, or it could mean none of our ten tasks needed it &mdash;
-            and with 10 tasks we cannot tell the difference. Parked for v1,
-            where the task set is different.</li>
+          <li><strong>&ldquo;What the prophets say.&rdquo;</strong> Opened
+            twice in 110 runs and wanted by neither visitor &mdash; one
+            exploratory look on T03&nbsp;&middot; A question you can&rsquo;t
+            answer, one lost T09&nbsp;&middot; Is it the Spirit? run ending
+            inside it. Badly named, or not needed by our ten tasks &mdash; at
+            this size we cannot tell. Parked for v1.</li>
           <li><strong>Whether people would use two views at all if we
-            hadn&rsquo;t put both on the home screen.</strong> Real question,
-            wrong study. A tree test cannot answer it because we control the
-            home screen. Deferred.</li>
+            hadn&rsquo;t put both on the home screen.</strong> A tree test
+            cannot answer it. Deferred.</li>
         </ul>
       </div>
 
@@ -847,30 +771,35 @@
         <p><em>&ldquo;Every decision explicitly cites its finding&hellip;
         Most decisions concrete enough to act on&hellip; Evidence-backed
         decisions to KEEP something unchanged count fully.&rdquo;</em> Six
-        decisions, every one of them with its evidence attached and its
-        counts intact, and two of them are keeps that you argued for as hard
-        as the changes. No padding.</p>
-        <p>Decision 1 is the best thing on either of these pages and I want
-        to be precise about why. Your card-sort report made a risky call
-        &mdash; no Spirit category &mdash; wrote down the exact condition
-        that would reverse it, and built the probe for that condition into
-        the prototype as T09. The tree test met the condition. The decision
-        reopens. That is a design chain doing what a design chain is for, and
-        the discipline is in the sequencing: you did not hedge in the card
-        sort, and you did not defend the call once the data arrived. Notice
-        too that you reopened the question without disowning the card sort
-        &mdash; &ldquo;the sort measured what people group by, the tree test
-        measured what they look for&rdquo; is a genuine distinction, not a
-        face-saving one, and it is the sentence that makes both studies
-        usable.</p>
-        <p>Decision 2 is the course&rsquo;s central doctrine landing on a
-        real block: you had one item two different questions reach for, and
-        instead of adjudicating which category it &ldquo;really&rdquo;
-        belongs to, you made the attribute multi-valued. Decision 3 is the
-        one most teams would never have made, because nothing failed &mdash;
-        you priced a defect in seconds and fixed it anyway. And element 7
-        carries no points but is doing load-bearing work again: refusing your
-        own 95.5% there is what keeps element 6 honest.</p>
+        decisions, every one with its evidence attached and its counts intact,
+        and two of them are keeps you argued for as hard as the changes. No
+        padding.</p>
+        <ul>
+          <li><strong>Decision 1 is the best thing on either of these
+          pages.</strong> Your card-sort report made a risky call &mdash; no
+          Spirit category &mdash; wrote down the exact condition that would
+          reverse it, and built the probe for that condition into the prototype
+          as T09&nbsp;&middot; Is it the Spirit? The tree test met the
+          condition. The decision reopens. That is a design chain doing what a
+          design chain is for.</li>
+          <li><strong>And you reopened it without disowning the card
+          sort.</strong> &ldquo;The sort measured what people group by, the
+          tree test measured what they look for&rdquo; is a genuine
+          distinction, not a face-saving one, and it is the sentence that makes
+          both studies usable.</li>
+          <li><strong>Decision 2 is the course&rsquo;s central doctrine landing
+          on a real block.</strong> You had one item that two different
+          questions reach for, and instead of adjudicating which category it
+          &ldquo;really&rdquo; belongs to, you made the attribute
+          multi-valued.</li>
+          <li><strong>Decision 3 is the one most teams would never
+          make</strong>, because nothing failed &mdash; you priced a defect in
+          seconds and fixed it anyway.</li>
+          <li><strong>Element 7 carries no points and is load-bearing
+          anyway.</strong> Refusing your own 95.5% there is what keeps
+          element 6 honest.</li>
+        </ul>
+        <p>Nothing here to fix.</p>
       </aside>
 
       <div class="docpage docpage--a">
@@ -888,7 +817,10 @@
         <p>
           <code>runId</code> is one participant&rsquo;s whole session (eleven
           of them, in the session order listed in element 2);
-          <code>asFiled</code> is <code>hit</code> or <code>miss</code>; a
+          <code>expectedSkillId</code> and <code>endpointSkillId</code> hold
+          the prototype&rsquo;s own block ids, e.g.
+          <code>020.title_number3</code>; <code>asFiled</code> is
+          <code>hit</code> or <code>miss</code>; a
           give-up is a <code>miss</code> row with an <em>empty</em>
           <code>endpointSkillId</code>, because the run ended on a branch page
           rather than on a block (there are 4 of them, and
@@ -918,19 +850,24 @@
 
       <aside class="grader" aria-label="Grader comment">
         <p class="grader__head">Grader &middot; Results &amp; Analysis (raw data) &middot; <span class="grader__pts">appendix requirement met</span></p>
-        <p>I re-derived your T09 row from the CSV and it holds &mdash; three
-        <code>hit</code> rows, three rows with an empty
-        <code>endpointSkillId</code>, and five miss rows spread over four
-        distinct wrong endpoints (<code>021.title_number2</code> takes two of
-        them). That is the whole point of this requirement: not that raw
-        data <em>exists</em>, but that your table is <em>checkable</em>
-        against it. You even wrote down which column produces which number,
-        which means a reader can audit you without guessing.</p>
-        <p>And the UTC note is the kind of thing that separates a submitted
-        artifact from a usable one. The easy move was to silently rewrite the
-        timestamps to Mountain time and have the file agree with your prose.
-        You left the export unedited and explained the discrepancy instead.
-        Do that for the rest of your career.</p>
+        <p>The point of this requirement is not that raw data <em>exists</em>
+        but that your table is <em>checkable</em> against it. Yours is.</p>
+        <ul>
+          <li><strong>I re-derived your T09&nbsp;&middot; Is it the Spirit?
+          row from the CSV and it holds</strong> &mdash; three <code>hit</code>
+          rows, three rows with an empty <code>endpointSkillId</code>, and five
+          miss rows spread over four distinct wrong endpoints, with
+          &ldquo;testify more frequently of Jesus Christ&rdquo; taking two of
+          them.</li>
+          <li><strong>You wrote down which column produces which
+          number</strong>, which means a reader can audit you without
+          guessing.</li>
+          <li><strong>The UTC note separates a submitted artifact from a usable
+          one.</strong> The easy move was to silently rewrite the timestamps to
+          Mountain time and have the file agree with your prose; you left the
+          export unedited and explained the discrepancy instead.</li>
+        </ul>
+        <p>Do that for the rest of your career.</p>
       </aside>
 
       <div class="scorecard">
@@ -1018,17 +955,14 @@
         <p>Now the three gaps, and they are load-bearing ones.
         <strong>Coverage.</strong> The spec asks for every information block
         from your card sort. Three of them &mdash; C03, C18, C19 &mdash; have
-        no page at all. I understand why; that is your card sort&rsquo;s
+        no page at all, in either view. I understand why; that is your card sort&rsquo;s
         mid-study deck change following you into the next assignment, which
-        is worth noticing on its own. <strong>The second view does not reach
-        everything.</strong> The spec asks that both categorizations reach
-        every block. Your section view reaches 19 of the 21 you built: C10
-        and C22 exist in the category view and are unreachable from the
-        manual-sections side. And the block pages have exactly one way out
-        &mdash; a single &ldquo;&lt; Back to&nbsp;[category]&rdquo; link
-        &mdash; so a user who arrived from a section page is silently handed
-        off into the other categorization and cannot get back to where they
-        were. <strong>The click log.</strong> <code>clickLog</code> is a
+        is worth noticing on its own. <strong>The block pages dead-end.</strong>
+        They have exactly one way out &mdash; a single
+        &ldquo;&lt; Back to&nbsp;[category]&rdquo; link &mdash; so a user who
+        arrived from a section page is silently handed off into the other
+        categorization and cannot get back to where they were. Every route
+        in should have a route back to where it came from. <strong>The click log.</strong> <code>clickLog</code> is a
         plain array that is created fresh on every page load, and the export
         button exists only on the home page. So the log records clicks on
         one page and then discards them the moment the user navigates, which
@@ -1092,11 +1026,12 @@
         task Misc could not answer.</p>
         <p>You do have a second path, so this is not the
         &ldquo;single path&rdquo; half of the band &mdash; but it does not
-        rescue you, for two reasons you can check yourself. It does not
-        reach every block (C10, C22), and your own card-sort analysis
-        concluded that nobody understands the manual&rsquo;s organization,
-        which makes shipping it as a way in a decision your evidence argues
-        against. The rubric wants alternate paths that <em>genuinely help
+        rescue you. Your own card-sort analysis concluded that nobody
+        understands the manual&rsquo;s organization, which makes shipping it
+        as a way in a decision your own evidence argues against. (That two
+        blocks sit in the category view and not in this one is <em>not</em>
+        the problem &mdash; a second view does not have to reach everything,
+        so long as every block is reachable from one view or another.) The rubric wants alternate paths that <em>genuinely help
         users find things</em>. Ask of any second view: what question does
         this one answer that the first one doesn&rsquo;t?</p>
       </aside>
@@ -1134,7 +1069,7 @@
         <p class="scorecard__title">Report B &middot; Part 1 scorecard (prototype rubric)</p>
         <table class="study-table">
           <tbody>
-            <tr><td>Met the functional spec</td><td>Beginning &mdash; 3 blocks absent, second view misses 2 more, click log resets every page</td><td class="scorecard__pts">9</td></tr>
+            <tr><td>Met the functional spec</td><td>Beginning &mdash; 3 blocks absent entirely, block pages dead-end, click log resets every page</td><td class="scorecard__pts">9</td></tr>
             <tr><td>Met the visual design spec</td><td>Competent &mdash; two fonts, default link color, inconsistent boxes and margins</td><td class="scorecard__pts">10</td></tr>
             <tr><td>Met the IA design spec</td><td>Beginning &mdash; Misc dump, arbitrary filings, alternate path incomplete and unsupported</td><td class="scorecard__pts">7</td></tr>
             <tr><td>Grounded in the previous study</td><td>Beginning &mdash; no findings cited; two categories are the priming echo</td><td class="scorecard__pts">8</td></tr>
