@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Search &mdash; Prototype v1 (Team B)</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="p-search">
+
+<div class="proto-banner">
+  <strong>CS 356 companion prototype &mdash; &ldquo;First functional prototype&rdquo;.</strong>
+  A working design artifact from the case study, not the live teaching site.
+  <a href="../../../../">Live site &rarr;</a> &middot;
+  <a href="../../../index.html">Back to the companion &rarr;</a>
+</div>
+
+<nav class="sitenav">
+  <a href="index.html">Home</a>
+  <a href="search.html">Search</a>
+</nav>
+
+  <div class="page">
+    <div class="page-head">
+      <h1>Search</h1>
+    </div>
+    <p class="lede">Type part of the name of a skill and we will show you the
+    ones that have it in the title.</p>
+
+    <form class="searchbar" id="search-form" action="#">
+      <input type="text" id="q" name="q" placeholder="e.g. questions"
+             aria-label="Search block titles" autocomplete="off">
+      <button type="submit">Search</button>
+    </form>
+
+    <div id="results-area"></div>
+
+    <p class="narrow">narrow down:</p>
+    <div class="facets">
+      <a class="facet" href="cat-teaching-fundamentals.html">Teaching Fundamentals</a>
+      <a class="facet" href="cat-spiritual-teaching.html">Spiritual Teaching</a>
+      <a class="facet" href="cat-engagement.html">Keeping Them Engaged</a>
+      <a class="facet" href="cat-questions.html">Asking Great Questions</a>
+      <a class="facet" href="cat-preparation.html">Preparation</a>
+      <a class="facet" href="cat-love.html">Love</a>
+    </div>
+  </div>
+
+<footer class="logbar">
+  <div class="inner">
+    <h2>Our click log</h2>
+    <p>Clicks recorded so far: <span id="log-count">0</span> &mdash; this keeps
+    counting as you move between pages.</p>
+    <div class="btns">
+      <button type="button" id="log-copy">copy our log</button>
+      <button type="button" id="log-reset">start over</button>
+    </div>
+    <textarea id="log-out" rows="12" readonly></textarea>
+  </div>
+</footer>
+
+<script src="searchdata.js"></script>
+<script>
+/* Our search. It looks for what you typed inside the block titles, and it is
+   not case sensitive. */
+function runSearch(query) {
+  var q = query.replace(/^\s+|\s+$/g, "").toLowerCase();
+  var area = document.getElementById("results-area");
+  if (!q) {
+    area.innerHTML = "";
+    return;
+  }
+  var hits = [];
+  for (var i = 0; i < SEARCH_BLOCKS.length; i++) {
+    var b = SEARCH_BLOCKS[i];
+    if (b.title.toLowerCase().indexOf(q) !== -1) {
+      hits.push(b);
+    }
+  }
+  if (typeof logRecordSearch === "function") {
+    logRecordSearch(query, hits.length);
+  }
+  if (hits.length === 0) {
+    area.innerHTML = "<p>No results.</p>";
+    return;
+  }
+  var html = '<ul class="results">';
+  for (var j = 0; j < hits.length; j++) {
+    html += '<li><a href="' + hits[j].page + '">' + hits[j].title + '</a>' +
+            '<span class="in">in ' + hits[j].cat + '</span></li>';
+  }
+  html += "</ul>";
+  area.innerHTML = html;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  var form = document.getElementById("search-form");
+  var box = document.getElementById("q");
+  form.onsubmit = function (e) {
+    e.preventDefault();
+    runSearch(box.value);
+  };
+});
+</script>
+<script src="log.js"></script>
+</body>
+</html>

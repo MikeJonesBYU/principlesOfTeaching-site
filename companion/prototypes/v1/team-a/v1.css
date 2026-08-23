@@ -1,0 +1,567 @@
+/* ==========================================================================
+   Team A — prototype v1 stylesheet.
+
+   PALETTE — "Sunday Blue". Monochromatic on one hue plus one complementary
+   accent, per the assignment. Base hue is 217deg; the accent is its
+   complement at 37deg. Neutrals are desaturated blue, not gray, so the page
+   reads as one temperature.
+
+     Blue ramp (the whole interface)
+       --ink          #0F1B2D   near-black, body text
+       --blue-900     #12253F   headings
+       --blue-700     #1B3A6B   BASE — the hue everything else is derived from
+       --blue-500     #2E5C9E   links, active state, focus ring
+       --blue-300     #8AA8D2   TINT — quiet rules, disabled type
+       --blue-100     #DCE6F5   tint fills: chips, tags, tinted panels
+       --blue-050     #F1F5FB   page ground behind the white surface
+       --shade        #0B1626   SHADE — used only in shadows
+
+     Accent (complement, 37deg) — attention, and nothing else
+       --accent-700   #8F4705   filled-control hover (6.8:1 behind white text)
+       --accent-600   #B45C07   filled-control ground, and accent text on white.
+                                White text on it computes 4.7:1, so the one
+                                filled CTA on each screen clears WCAG AA at
+                                every size we set it in.
+       --accent-500   #D9800F   NON-TEXT accent only — the you-are-here rule.
+                                Too light to carry white text (3.0:1), so
+                                nothing typed ever sits on it.
+
+     Neutrals
+       --paper        #FFFFFF   the primary surface
+       --gray-600     #57606E   secondary type
+       --gray-200     #DDE2E9   hairlines
+
+   ACCENT DISCIPLINE — the point of the exercise. The accent appears exactly
+   ONCE per screen, on the one thing the eye should reach first. Everything
+   else, including all navigation and all chips, lives in the blue ramp.
+   app.js sets body[data-focus] per route; the rules at the bottom of this
+   file are the only places the accent is spent:
+
+       data-focus="search"  home + search results  -> the search button
+       data-focus="here"    hierarchy pages        -> the you-are-here marker
+       data-focus="manual"  a block page           -> "Read it in the manual"
+       data-focus="export"  the log                -> the primary export
+
+   FIGURE-GROUND: one white surface, raised by a soft shade shadow, floating
+   on the pale blue ground. GESTALT: proximity does the grouping (space
+   between groups, hairlines only where space cannot reach); a single 4px
+   spacing scale keeps every left edge on the same line.
+
+   TYPE: one family everywhere, with a single exception — the clipboard
+   fallback textarea uses a monospace stack, because what is in it is log
+   data being read as data. Seven sizes carry the levels on desktop
+   (0.75 / 0.8125 / 0.875 / 0.9375 / 1.0625 / 1.5 / 1.75rem, against a 16px
+   root), plus two narrow-screen overrides that step the two largest down
+   (1.375 and 1.25rem). Three weights: the family's normal, 600, and 700.
+   ========================================================================== */
+
+:root {
+  --ink: #0F1B2D;
+  --blue-900: #12253F;
+  --blue-700: #1B3A6B;
+  --blue-500: #2E5C9E;
+  --blue-300: #8AA8D2;
+  --blue-100: #DCE6F5;
+  --blue-050: #F1F5FB;
+  --shade: #0B1626;
+
+  --accent-700: #8F4705;
+  --accent-600: #B45C07;
+  --accent-500: #D9800F;
+
+  --paper: #FFFFFF;
+  --gray-600: #57606E;
+  --gray-200: #DDE2E9;
+
+  /* 4px scale — every margin, pad and gap is a step on it. */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+
+  --radius: 6px;
+  --lift: 0 1px 2px rgba(11, 22, 38, 0.06), 0 8px 24px rgba(11, 22, 38, 0.07);
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--blue-050);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+a { color: var(--blue-500); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--blue-500);
+  outline-offset: 2px;
+}
+
+h1, h2, h3 { color: var(--blue-900); line-height: 1.25; margin: 0; }
+h1 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.0625rem; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; }
+h3 { font-size: 1.0625rem; font-weight: 600; }
+p  { margin: 0; }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------- companion chrome (banner) */
+/* Not part of the prototype: the case-study frame around it. Kept in the
+   quietest tint on the ramp so it never competes with the artifact. */
+.proto-banner {
+  background: var(--blue-100);
+  color: var(--blue-900);
+  border-bottom: 1px solid var(--blue-300);
+  padding: var(--sp-2) var(--sp-4);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+.proto-banner a { color: var(--blue-700); text-decoration: underline; }
+
+/* ------------------------------------------------------------- the header */
+.site {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--paper);
+  border-bottom: 1px solid var(--gray-200);
+}
+.site__inner {
+  max-width: 66rem;
+  margin: 0 auto;
+  padding: var(--sp-3) var(--sp-4);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+.brand {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--blue-900);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.brand:hover { text-decoration: none; color: var(--blue-700); }
+
+.search {
+  display: flex;
+  flex: 1 1 20rem;
+  min-width: 0;
+  gap: var(--sp-2);
+}
+.search__field {
+  flex: 1 1 auto;
+  min-width: 0;
+  font: inherit;
+  font-size: 0.9375rem;
+  color: var(--ink);
+  background: var(--blue-050);
+  border: 1px solid var(--blue-300);
+  border-radius: var(--radius);
+  padding: var(--sp-2) var(--sp-3);
+  min-height: 40px;
+}
+.search__field::placeholder { color: var(--gray-600); }
+.search__go {
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  padding: var(--sp-2) var(--sp-4);
+  min-height: 40px;
+  border-radius: var(--radius);
+  /* default (unfocused screens): monochrome */
+  color: var(--blue-700);
+  background: var(--paper);
+  border: 1px solid var(--blue-300);
+}
+.search__go:hover { background: var(--blue-050); }
+
+.site__util {
+  font-size: 0.8125rem;
+  color: var(--gray-600);
+  white-space: nowrap;
+}
+.site__util a { color: var(--blue-700); }
+
+/* -------------------------------------------------------------- the page */
+.shell {
+  max-width: 66rem;
+  margin: 0 auto;
+  padding: var(--sp-6) var(--sp-4) var(--sp-8);
+}
+.surface {
+  background: var(--paper);
+  border-radius: 10px;
+  box-shadow: var(--lift);
+  padding: var(--sp-6);
+}
+
+.crumbs {
+  font-size: 0.8125rem;
+  color: var(--gray-600);
+  margin-bottom: var(--sp-4);
+}
+.crumbs a { color: var(--blue-700); }
+.crumbs .sep { color: var(--blue-300); padding: 0 var(--sp-1); }
+
+/* You-are-here marker. Monochrome by default; the accent lands on it only
+   on the hierarchy screens, where locating yourself is the first job. */
+.here {
+  border-left: 4px solid var(--blue-300);
+  padding-left: var(--sp-4);
+  margin-bottom: var(--sp-5);
+}
+.here__kicker {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+  margin-bottom: var(--sp-1);
+}
+.here__sub { color: var(--gray-600); font-size: 0.9375rem; margin-top: var(--sp-2); }
+
+.lede {
+  font-size: 1.0625rem;
+  color: var(--blue-900);
+  max-width: 46rem;
+  margin-top: var(--sp-3);
+}
+.meta { color: var(--gray-600); font-size: 0.875rem; margin-top: var(--sp-2); }
+
+.section { margin-top: var(--sp-7); }
+.section > h2 { color: var(--gray-600); margin-bottom: var(--sp-4); }
+
+/* --------------------------------------------------------------- tiles */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: var(--sp-3);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.tile {
+  display: block;
+  height: 100%;
+  padding: var(--sp-4);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+}
+.tile:hover {
+  text-decoration: none;
+  border-color: var(--blue-500);
+  background: var(--blue-050);
+}
+.tile__name { display: block; font-weight: 600; color: var(--blue-900); }
+.tile__sub { display: block; margin-top: var(--sp-1); font-size: 0.8125rem; color: var(--gray-600); }
+.tile--trial { border-style: dashed; border-color: var(--blue-300); }
+
+.trial-note {
+  margin-top: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--blue-050);
+  border-left: 3px solid var(--blue-300);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 0.875rem;
+  color: var(--blue-900);
+}
+.trial-note strong { letter-spacing: 0.02em; }
+
+/* ------------------------------------------------------- block listings */
+.blocks { list-style: none; margin: var(--sp-4) 0 0; padding: 0; }
+.blocks > li + li { margin-top: var(--sp-2); }
+.block-item {
+  display: block;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  color: var(--ink);
+}
+.block-item:hover { text-decoration: none; border-color: var(--blue-500); background: var(--blue-050); }
+.block-item__title { display: block; font-weight: 600; color: var(--blue-900); }
+.block-item__verbatim { display: block; margin-top: var(--sp-1); font-size: 0.875rem; color: var(--gray-600); }
+.block-item__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  align-items: center;
+  margin-top: var(--sp-2);
+  font-size: 0.75rem;
+  color: var(--gray-600);
+}
+.why {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--blue-700);
+  background: var(--blue-100);
+  border-radius: var(--radius);
+  padding: 2px var(--sp-2);
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: var(--blue-700);
+  background: var(--blue-050);
+  border: 1px solid var(--blue-100);
+  border-radius: 999px;
+  padding: 1px var(--sp-2);
+}
+
+/* -------------------------------------------------------------- chips */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-top: var(--sp-3);
+  list-style: none;
+  padding: 0;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font: inherit;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  padding: 6px var(--sp-3);
+  min-height: 32px;
+  border-radius: 999px;
+  border: 1px solid var(--blue-300);
+  background: var(--paper);
+  color: var(--blue-700);
+}
+.chip:hover { background: var(--blue-050); }
+.chip__n { color: var(--gray-600); font-variant-numeric: tabular-nums; }
+.chip--on {
+  background: var(--blue-700);
+  border-color: var(--blue-700);
+  color: var(--paper);
+}
+.chip--on .chip__n { color: var(--blue-100); }
+.chip--on:hover { background: var(--blue-900); }
+.chips__legend {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+  margin-top: var(--sp-5);
+}
+
+/* ------------------------------------------------------- the block page */
+.block-head { margin-bottom: var(--sp-5); }
+.block-head__label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--blue-500);
+  margin-bottom: var(--sp-2);
+}
+.block-head h1 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; max-width: 42rem; }
+
+.facts { margin-top: var(--sp-5); }
+.fact { padding: var(--sp-3) 0; border-top: 1px solid var(--gray-200); }
+.fact__key {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+  margin-bottom: var(--sp-2);
+}
+.trail { font-size: 0.9375rem; }
+.trail + .trail { margin-top: var(--sp-2); }
+.trail .sep { color: var(--blue-300); padding: 0 var(--sp-2); }
+
+.stub {
+  margin-top: var(--sp-5);
+  padding: var(--sp-4);
+  background: var(--blue-050);
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  color: var(--gray-600);
+}
+.stub strong { color: var(--blue-900); }
+
+.manual-btn {
+  display: inline-block;
+  margin-top: var(--sp-5);
+  font-weight: 600;
+  padding: var(--sp-3) var(--sp-5);
+  min-height: 44px;
+  border-radius: var(--radius);
+  /* default (any screen that is not a block page): monochrome */
+  color: var(--blue-700);
+  background: var(--paper);
+  border: 1px solid var(--blue-300);
+}
+.manual-btn:hover { text-decoration: none; background: var(--blue-050); }
+
+/* --------------------------------------------------------- search results */
+.results__head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  align-items: baseline;
+  justify-content: space-between;
+}
+.noresults { margin-top: var(--sp-5); }
+.noresults__q {
+  font-size: 1.0625rem;
+  color: var(--blue-900);
+}
+.suggests { list-style: none; margin: var(--sp-3) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.suggests button {
+  font: inherit;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  padding: 6px var(--sp-3);
+  min-height: 32px;
+  border-radius: 999px;
+  border: 1px solid var(--blue-300);
+  background: var(--paper);
+  color: var(--blue-700);
+}
+.suggests button:hover { background: var(--blue-050); }
+
+/* -------------------------------------------------------------- the log */
+.tools { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
+.btn {
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: var(--sp-2) var(--sp-4);
+  min-height: 40px;
+  border-radius: var(--radius);
+  color: var(--blue-700);
+  background: var(--paper);
+  border: 1px solid var(--blue-300);
+}
+.btn:hover { background: var(--blue-050); }
+
+.scrollx { overflow-x: auto; margin-top: var(--sp-5); }
+.logtable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+.logtable th, .logtable td {
+  text-align: left;
+  padding: var(--sp-2) var(--sp-3);
+  border-bottom: 1px solid var(--gray-200);
+}
+.logtable th {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+}
+.logtable td { color: var(--ink); }
+.logtable .num { font-variant-numeric: tabular-nums; color: var(--gray-600); }
+.copybox {
+  width: 100%;
+  min-height: 8rem;
+  margin-top: var(--sp-2);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.75rem;
+  border: 1px solid var(--blue-300);
+  border-radius: var(--radius);
+  padding: var(--sp-2);
+}
+.hint { font-size: 0.8125rem; color: var(--gray-600); margin-top: var(--sp-2); }
+.empty {
+  margin-top: var(--sp-5);
+  padding: var(--sp-6);
+  text-align: center;
+  color: var(--gray-600);
+  background: var(--blue-050);
+  border-radius: var(--radius);
+}
+
+.backnav { margin-top: var(--sp-6); font-size: 0.875rem; display: flex; flex-wrap: wrap; gap: var(--sp-4); }
+
+.footfine {
+  max-width: 66rem;
+  margin: 0 auto;
+  padding: 0 var(--sp-4) var(--sp-7);
+  font-size: 0.75rem;
+  color: var(--gray-600);
+}
+
+/* ==========================================================================
+   THE ACCENT. Four rules, one per screen type. Nothing else in this file
+   may use the accent tokens.
+
+   Anything filled that carries white text uses --accent-600 (4.7:1) and
+   darkens to --accent-700 on hover (6.8:1). --accent-500 is reserved for the
+   one accent that is a rule and not a label.
+   ========================================================================== */
+
+[data-focus="search"] .search__go {
+  color: var(--paper);
+  background: var(--accent-600);
+  border-color: var(--accent-600);
+}
+[data-focus="search"] .search__go:hover { background: var(--accent-700); border-color: var(--accent-700); }
+
+[data-focus="here"] .here { border-left-color: var(--accent-500); }
+[data-focus="here"] .here__kicker { color: var(--accent-600); }
+
+[data-focus="manual"] .manual-btn {
+  color: var(--paper);
+  background: var(--accent-600);
+  border-color: var(--accent-600);
+}
+[data-focus="manual"] .manual-btn:hover { background: var(--accent-700); border-color: var(--accent-700); }
+
+[data-focus="export"] .btn--primary {
+  color: var(--paper);
+  background: var(--accent-600);
+  border-color: var(--accent-600);
+}
+[data-focus="export"] .btn--primary:hover { background: var(--accent-700); border-color: var(--accent-700); }
+
+/* -------------------------------------------------------------- narrow */
+@media (max-width: 40rem) {
+  .site__inner { gap: var(--sp-2); }
+  .brand { flex: 1 1 auto; }
+  .site__util { order: 2; }
+  .search { order: 3; flex: 1 1 100%; }
+  .shell { padding: var(--sp-4) var(--sp-3) var(--sp-7); }
+  .surface { padding: var(--sp-4); border-radius: 8px; }
+  h1 { font-size: 1.375rem; }
+  .block-head h1 { font-size: 1.25rem; }
+  .grid { grid-template-columns: 1fr; }
+  .manual-btn { display: block; text-align: center; }
+}

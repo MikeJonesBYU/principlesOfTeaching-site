@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>First functional prototype &mdash; Team A</title>
+  <meta name="description" content="Functional prototype of a reorganized Principles of Teaching site. One data file, three views: by problem, by lesson moment, and search.">
+  <link rel="stylesheet" href="v1.css">
+</head>
+<body data-focus="search">
+
+  <!-- Prototype banner (companion chrome, not part of the prototype) -->
+  <div class="proto-banner">
+    <strong>CS 356 companion prototype &mdash; &ldquo;First functional prototype.&rdquo;</strong>
+    A working design artifact from the case study, not the live teaching site.
+    <a href="../../../../index.html">Live site &rarr;</a> &middot;
+    <a href="../../../index.html">Back to the companion &rarr;</a>
+  </div>
+
+  <header class="site">
+    <div class="site__inner">
+      <a class="brand" href="#/" data-label="Home (title bar)">Principles of Teaching</a>
+      <form class="search" id="search-form" role="search">
+        <label class="visually-hidden" for="search-field">Search the skills</label>
+        <input class="search__field" id="search-field" type="search" autocomplete="off"
+               placeholder="What is going wrong on Sunday?">
+        <button class="search__go" type="submit">Search</button>
+      </form>
+      <p class="site__util"><a href="#/log" data-label="Session log">Session log</a></p>
+    </div>
+  </header>
+
+  <main class="shell">
+    <div class="surface" id="app" tabindex="-1"></div>
+  </main>
+
+  <footer class="footfine">
+    <p>Prototype v1. Every screen renders from one data file; the skill wording
+       and the links out are the manual&rsquo;s own. Written guidance on each
+       skill lands in the final prototype.</p>
+  </footer>
+
+  <noscript>
+    <p class="footfine">This prototype renders its pages from a single data
+    file in the browser, so it needs JavaScript enabled.</p>
+  </noscript>
+
+  <script src="v1-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

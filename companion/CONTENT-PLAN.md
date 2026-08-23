@@ -180,9 +180,37 @@ IA 13 / Grounded 16).
   is the task generator). Fictitious participants from the roster (fresh ones —
   not the sorters). Results: per-task path tables, first-/wrong-turn analysis
   in prose, refined categories + labels. Decisions feed v1.
-- **Prototype v1 (`prototype-v1`).** Functional, visually designed, click +
-  prompt logging built in. Story required for every color/layout choice
-  (precognitive attention). Frozen when the task test runs.
+- **Prototype v1 (`prototype-v1`).** Spec settled with the instructor
+  2026-08-22 (memory: v1-prototype-spec); two real artifacts at
+  `prototypes/v1/team-a|team-b/` + chooser, same graded-pair pattern as the
+  wireframe. The governing assignment spec:
+  - **IA inherited, not invented** — the hierarchy IS the revised hierarchy
+    from the team's own tree test (their marked-up outline); both wireframe
+    views survive; coverage rule unchanged. Single source, multiple views now
+    has teeth: hierarchy views AND search results render from one data file,
+    and info blocks render through ONE information-designed template, never
+    hard-coded per block. Blocks hold structured stubs (title + summary);
+    full content waits for the final prototype.
+  - **Visual design for precognitive attention** — required color system:
+    monochromatic on a single hue (base + tint + shade) plus ONE
+    complementary accent used sparingly, only where the eye should go first;
+    neutrals free. Type hierarchy, alignment grid, shape language now in
+    play. Gestalt grounding named in the rationale: figure-ground (accent,
+    shape, white space, occasional elevation) and alignment/proximity. The
+    turn-in states the palette's exact values.
+  - **Search, invented but not from nothing** — grounded in think-aloud
+    vocabulary from the card sort and tree test, no dedicated study, no AI:
+    literal keyword baseline PLUS a hand-built, committed concept/synonym
+    layer defensible term by term; results are another view of the single
+    source; facet-narrowing buttons on results; designed no-results state;
+    search reachable from every page.
+  - **Logging is the task test's instrument** — every click and every search
+    query, result-clicks tied to the query that produced them, persistent,
+    exportable JSON/CSV.
+  - **Bonus: test mode** (wireframe-style scenarios) — optional; full marks
+    attainable without it. Team A deliberately skips it.
+  - Graded on the Prototype Rubric (Canvas 198705) as Part 1 of turn-in 3.
+    Frozen when the task test runs.
 - **Task test (`task-test`).** Five users, talk-aloud, on their own phones.
   Task success, paths from the real logs (fictitiously generated), quotes.
   Results: how navigation is broken → final refinement list.

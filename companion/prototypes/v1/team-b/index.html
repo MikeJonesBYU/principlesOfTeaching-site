@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Principles of Teaching &mdash; Prototype v1 (Team B)</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="p-home">
+
+<div class="proto-banner">
+  <strong>CS 356 companion prototype &mdash; &ldquo;First functional prototype&rdquo;.</strong>
+  A working design artifact from the case study, not the live teaching site.
+  <a href="../../../../">Live site &rarr;</a> &middot;
+  <a href="../../../index.html">Back to the companion &rarr;</a>
+</div>
+
+<nav class="sitenav">
+  <a href="index.html">Home</a>
+  <a href="search.html">Search</a>
+</nav>
+
+  <div class="page">
+    <div class="page-head">
+      <h1>Principles of Teaching</h1>
+    </div>
+    <p class="lede">This is our first working version of the teaching site. Every
+    information block from our card sort has its own page, and there are three
+    ways to get to one: our six categories, the manual&rsquo;s sections, or the
+    search box. We feel like most people will start with the categories.</p>
+
+    <h2>Browse by category</h2>
+    <div class="tiles">
+      <a class="tile" href="cat-teaching-fundamentals.html">
+        <h2>Teaching Fundamentals</h2>
+        <p>2 skills</p>
+      </a>
+      <a class="tile" href="cat-spiritual-teaching.html">
+        <h2>Spiritual Teaching</h2>
+        <p>4 skills</p>
+      </a>
+      <a class="tile" href="cat-engagement.html">
+        <h2>Keeping Them Engaged</h2>
+        <p>2 skills</p>
+      </a>
+      <a class="tile" href="cat-questions.html">
+        <h2>Asking Great Questions</h2>
+        <p>5 skills</p>
+      </a>
+      <a class="tile" href="cat-preparation.html">
+        <h2>Preparation</h2>
+        <p>5 skills</p>
+      </a>
+      <a class="tile" href="cat-love.html">
+        <h2>Love</h2>
+        <p>2 skills</p>
+      </a>
+      <a class="tile" href="search.html">
+        <h2>Search</h2>
+        <p>look up a skill by name</p>
+      </a>
+    </div>
+
+    <h2>Browse by manual section</h2>
+    <ul class="seclist">
+        <li><a href="sec-focus-on-jesus-christ.html">Focus on Jesus Christ</a></li>
+        <li><a href="sec-teach-by-the-spirit.html">Teach By the Spirit</a></li>
+        <li><a href="sec-teach-the-doctrine.html">Teach the Doctrine</a></li>
+        <li><a href="sec-invite-diligent-learning.html">Invite Diligent Learning</a></li>
+        <li><a href="sec-love-those-you-teach.html">Love Those You Teach</a></li>
+    </ul>
+  </div>
+
+<footer class="logbar">
+  <div class="inner">
+    <h2>Our click log</h2>
+    <p>Clicks recorded so far: <span id="log-count">0</span> &mdash; this keeps
+    counting as you move between pages.</p>
+    <div class="btns">
+      <button type="button" id="log-copy">copy our log</button>
+      <button type="button" id="log-reset">start over</button>
+    </div>
+    <textarea id="log-out" rows="12" readonly></textarea>
+  </div>
+</footer>
+
+<script src="log.js"></script>
+</body>
+</html>

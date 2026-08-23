@@ -26,7 +26,7 @@
    Slugs are stable once public — students bookmark them. Never rename.
    ========================================================================== */
 window.CS356_COMPANION = {
-  version: "2026-08-22b",
+  version: "2026-08-22c",
 
   /* The through-line, printed under the chain. Verbatim course doctrine. */
   throughLine: "Every prototype must be grounded in the studies before it — facets and attributes stay decoupled from display, so each cycle is a richer view of the same single source.",
@@ -109,10 +109,10 @@ window.CS356_COMPANION = {
       turnin: 3,
       title: "First functional prototype",
       fidelity: "functional",
-      status: "planned",
+      status: "built",
       path: "prototypes/v1/",
       testedBy: "task-test",
-      shows: "Visual design and color used to direct precognitive attention, with a stated story for every choice — and click + prompt logging built in."
+      shows: "Two example turn-ins again. Both teams add color, layout, and a search feature invented from study vocabulary — one steers attention with a single sparing accent, one doesn't. Every click and every search query is logged for the task test."
     },
     {
       id: "task-test",
