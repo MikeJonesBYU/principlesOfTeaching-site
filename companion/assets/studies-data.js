@@ -26,7 +26,7 @@
    Slugs are stable once public — students bookmark them. Never rename.
    ========================================================================== */
 window.CS356_COMPANION = {
-  version: "2026-08-22c",
+  version: "2026-08-24a",
 
   /* The through-line, printed under the chain. Verbatim course doctrine. */
   throughLine: "Every prototype must be grounded in the studies before it — facets and attributes stay decoupled from display, so each cycle is a richer view of the same single source.",
@@ -112,7 +112,7 @@ window.CS356_COMPANION = {
       status: "built",
       path: "prototypes/v1/",
       testedBy: "task-test",
-      shows: "Two example turn-ins again. Both teams add color, layout, and a search feature invented from study vocabulary — one steers attention with a single sparing accent, one doesn't. Every click and every search query is logged for the task test."
+      shows: "Two example turn-ins again. Both teams add color, layout, and a search feature invented from study vocabulary — one steers attention with a single sparing accent, one doesn't. Every click and every search query is logged for the task test. Plus an instructor-built alternative of Team A's prototype: the same data and views, with the search grown into a precomputed meaning index — it matches what you meant, still with no server and no AI call at lookup time."
     },
     {
       id: "task-test",
