@@ -211,6 +211,16 @@ IA 13 / Grounded 16).
     attainable without it. Team A deliberately skips it.
   - Graded on the Prototype Rubric (Canvas 198705) as Part 1 of turn-in 3.
     Frozen when the task test runs.
+- **Prototype v1, alternate build (2026-08-24).** An instructor exploration
+  at `prototypes/v1/semantic/`: Team A's build loading Team A's own data file
+  and stylesheet by reference, with the search grown into a precomputed
+  meaning index (`tools/build_semantic_index.py`; committed vocabulary kept
+  authoritative as anchors; authored situation sentences per branch; twin
+  Python test harness, 18-query suite). Reported to the Part 1 spec and
+  graded on the prototype rubric at `companion/semantic-build-report.html`
+  (57/60 — deductions on provenance: authored sentences, bent no-AI rule).
+  Outside the graded chain: not binding, no Part 2; linked from the hub's
+  prototype-v1 station via the registry's `alt` field.
 - **Task test (`task-test`).** Five users, talk-aloud, on their own phones.
   Task success, paths from the real logs (fictitiously generated), quotes.
   Results: how navigation is broken → final refinement list.

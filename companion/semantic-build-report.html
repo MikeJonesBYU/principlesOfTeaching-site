@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The semantic build, reported and graded — CS 356 Companion</title>
+  <meta name="description" content="A turn-in-shaped report on the alternative build of prototype v1 — the semantic search engine — written to the Part 1 assignment spec and graded on the prototype rubric: 57/60.">
+  <link rel="stylesheet" href="assets/companion.css">
+  <style>
+    .grader ul { margin: 0 0 8px; padding-left: 1.35em; font-size: .95rem; }
+    .grader li { margin: 0 0 7px; }
+    .grader li:last-child { margin-bottom: 0; }
+
+    .ia-outline {
+      font-family: var(--mono);
+      font-size: .74rem;
+      line-height: 1.6;
+      white-space: pre;
+      overflow-x: auto;
+      margin: 10px 0 12px;
+      padding: 14px 16px;
+      border: 1px solid #c9c2b2;
+      background: #fbfaf7;
+      color: #141414;
+    }
+
+    /* Palette swatches inside the report sheet: ink on paper, values exact. */
+    .palette { margin: 10px 0 12px; padding: 0; list-style: none;
+               font-family: var(--mono); font-size: .78rem; line-height: 1.7; }
+    .palette li { display: flex; align-items: center; gap: 10px; }
+    .palette .chip-sw { width: 30px; height: 14px; border: 1px solid #999;
+                        flex: none; }
+  </style>
+</head>
+<body data-page="report">
+
+  <main class="wrap">
+
+    <header class="site-head">
+      <p class="kicker">CS 356 Companion &middot; Prototype 2, alternative build</p>
+      <h1>The semantic build: a turn-in-shaped report, graded</h1>
+
+      <p class="fiction-note"><span class="fiction-badge">FICTITIOUS DATA</span>
+        <strong>Scope note.</strong> Almost everything on this page is real:
+        the <a href="prototypes/v1/semantic/">build</a>, every structural and
+        numerical claim made about it, the tools that produced it, the report
+        below, and the grading. Invented: the studies the design rationale is
+        grounded in &mdash; the card sort and tree test, their participants,
+        and every quote and count from them &mdash; which are the companion&rsquo;s
+        standing fiction. <a href="fiction.html">What&rsquo;s real and
+        what&rsquo;s not &rarr;</a></p>
+
+      <p class="lead">
+        The prototype v1 assignment is turned in as one report in two parts:
+        Part&nbsp;1 is the functional prototype &mdash; the working artifact
+        plus its design rationale, with the visual system stated in exact
+        values, the search defended term by term, and a complete outline of
+        the information hierarchy as built &mdash; and Part&nbsp;2 is the
+        five-user talk-aloud task test your team runs on it. Part&nbsp;1 is
+        graded on the 60-point prototype rubric, Part&nbsp;2 on the 60-point
+        user-study rubric. This page is a <strong>Part&nbsp;1 only</strong>:
+        the alternative build is an instructor exploration that sits outside
+        the graded chain, so there is no team, no Part&nbsp;2, and nothing
+        here is binding on the chain &mdash; Team&nbsp;A&rsquo;s build remains
+        the one the task test runs on.
+      </p>
+
+      <p class="section-note">
+        The white page below is the report, written the way a strong team
+        would have to write it &mdash; same elements, same order, same
+        obligations. Everything in red is the grader. One rule of the
+        assignment brief is knowingly bent in this build; the report
+        discloses it, and the grade shows what that disclosure buys and what
+        it doesn&rsquo;t.
+      </p>
+    </header>
+
+    <!-- ================================================================ -->
+    <!-- THE REPORT                                                       -->
+    <!-- ================================================================ -->
+    <section aria-labelledby="report-sem" class="report report--a">
+      <h2 id="report-sem">The semantic build &mdash; Part 1 &middot; 57/60</h2>
+
+      <div class="docpage docpage--a">
+        <div class="doc-head">
+          <p class="doc-title">First Functional Prototype &mdash; Alternative Build Report</p>
+          <p class="doc-sub">CS 356 &middot; Project 1 &middot; Principles of Teaching redesign &middot; instructor exploration &middot; November 2026</p>
+        </div>
+
+        <h3>Part 1.1 &mdash; The prototype</h3>
+        <p>
+          <strong>Link:</strong>
+          <a href="prototypes/v1/semantic/">the semantic build &mdash;
+          <code>prototypes/v1/semantic/</code></a>. It is Team&nbsp;A&rsquo;s
+          prototype v1 with exactly one subsystem replaced. The data file is
+          not a copy &mdash; the page loads
+          <code>../team-a/v1-data.js</code> itself, so the 53 blocks, the
+          revised hierarchy, both views, and the one block template are
+          Team&nbsp;A&rsquo;s own, byte for byte. The stylesheet is loaded the
+          same way. What is new: <code>semantic-index.js</code> (a 594&nbsp;KB
+          precomputed meaning index), the search layer in <code>app.js</code>
+          that reads it, and an &ldquo;About this search&rdquo; page inside
+          the prototype that explains the engine to anyone who asks it.
+        </p>
+        <p>
+          The one-sentence version of the change: the original build answers
+          <em>the words you typed</em>; this build also answers <em>the thing
+          you meant</em> &mdash; and it does it with no server, no model in
+          the browser, and no AI call at lookup time. Search is dictionary
+          lookups and addition, and works offline.
+        </p>
+
+        <h3>Part 1.2 &mdash; Design rationale</h3>
+
+        <p>
+          <strong>The information architecture is inherited, not invented
+          &mdash; and inherited by reference.</strong> The assignment says the
+          hierarchy is the one the tree test produced, and it is: all six
+          committed decisions (D1&ndash;D6), the trial &ldquo;What it feels
+          like&rdquo; branch, the multi-filing of
+          <code>006.title_number2</code>, the situation labels, both views.
+          Because the build loads Team&nbsp;A&rsquo;s data file rather than
+          copying it, the claim &ldquo;same IA&rdquo; is not a promise kept by
+          discipline; it is a property of the architecture. There is nothing
+          to drift.
+        </p>
+
+        <p>
+          <strong>The visual system is inherited the same way, and this
+          report restates it in exact values as the spec requires.</strong>
+          Monochromatic on one hue &mdash; base 217&deg; &mdash; with its
+          complement at 37&deg; as the single accent, neutrals free:
+        </p>
+        <ul class="palette">
+          <li><span class="chip-sw" style="background:#0F1B2D"></span>--ink&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#0F1B2D &mdash; body text</li>
+          <li><span class="chip-sw" style="background:#12253F"></span>--blue-900&nbsp;&nbsp;#12253F &mdash; headings</li>
+          <li><span class="chip-sw" style="background:#1B3A6B"></span>--blue-700&nbsp;&nbsp;#1B3A6B &mdash; BASE</li>
+          <li><span class="chip-sw" style="background:#2E5C9E"></span>--blue-500&nbsp;&nbsp;#2E5C9E &mdash; links, active, focus</li>
+          <li><span class="chip-sw" style="background:#8AA8D2"></span>--blue-300&nbsp;&nbsp;#8AA8D2 &mdash; TINT, quiet rules</li>
+          <li><span class="chip-sw" style="background:#DCE6F5"></span>--blue-100&nbsp;&nbsp;#DCE6F5 &mdash; chips, tags, panels</li>
+          <li><span class="chip-sw" style="background:#F1F5FB"></span>--blue-050&nbsp;&nbsp;#F1F5FB &mdash; page ground</li>
+          <li><span class="chip-sw" style="background:#0B1626"></span>--shade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#0B1626 &mdash; SHADE, shadows only</li>
+          <li><span class="chip-sw" style="background:#8F4705"></span>--accent-700 #8F4705 &mdash; filled-control hover</li>
+          <li><span class="chip-sw" style="background:#B45C07"></span>--accent-600 #B45C07 &mdash; filled control &amp; accent text (4.7:1 under white)</li>
+          <li><span class="chip-sw" style="background:#D9800F"></span>--accent-500 #D9800F &mdash; non-text accent only</li>
+          <li><span class="chip-sw" style="background:#FFFFFF"></span>--paper&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#FFFFFF &middot; <span class="chip-sw" style="background:#57606E;display:inline-block;vertical-align:middle"></span> --gray-600 #57606E &middot; <span class="chip-sw" style="background:#DDE2E9;display:inline-block;vertical-align:middle"></span> --gray-200 #DDE2E9</li>
+        </ul>
+        <p>
+          The accent discipline survives unchanged: the accent is spent once
+          per screen, routed by <code>body[data-focus]</code>, and this build
+          adds no new accent sites. The one visual addition is a small
+          &ldquo;semantic build&rdquo; pill beside the wordmark, drawn in
+          <code>currentColor</code> at reduced opacity &mdash; it identifies
+          the variant without spending color, because a person comparing the
+          two builds side by side must never wonder which tab is which. The
+          Gestalt grounding is Team&nbsp;A&rsquo;s: figure-ground from the one
+          raised surface, alignment and proximity from the shared grid.
+        </p>
+
+        <p>
+          <strong>The search: what the brief asked, and the question this
+          build adds.</strong> The brief asks for a literal keyword baseline
+          plus a hand-built, committed concept layer &mdash; vocabulary
+          harvested from the card sort and tree test, defensible term by
+          term. The original build does exactly that, and its committed
+          vocabulary is genuinely good: 35 concepts, 175 phrases counting
+          variants, every one traceable to a participant. But a committed
+          vocabulary has a boundary, and the boundary is exactly where a
+          teacher stands at 8 PM on Saturday: <em>&ldquo;kids are noisy&rdquo;</em>
+          is not in it. <em>&ldquo;teenagers on their phones&rdquo;</em> is not
+          in it. The question this build asks is: what should the search box
+          do with the words nobody wrote down?
+        </p>
+
+        <p>
+          <strong>The answer is a meaning index, computed once, ahead of
+          time.</strong> At build time, a script
+          (<a href="https://github.com/MikeJonesBYU/principlesOfTeaching-site/blob/master/tools/build_semantic_index.py"><code>tools/build_semantic_index.py</code></a>)
+          assembles 638 passages &mdash; every block&rsquo;s situation label,
+          its verbatim manual sentence, the sentences of its manual
+          &ldquo;Define&rdquo; text, the names of every branch it is filed
+          under &mdash; and compares 11,869 candidate words and phrases
+          against all of them with a sentence-embedding model
+          (all-MiniLM-L6-v2) running locally. The candidates come from five
+          places: a 9,884-word common-English list; every content word and
+          bigram in the corpus itself; the words participants used in the two
+          studies; the committed concept vocabulary; and a hand-written seed
+          lexicon of classroom-situation words. The 9,121 that turn out to
+          mean something near a skill &mdash; 7,812 words, 1,309 phrases
+          &mdash; ship as a static lookup table:
+          <code>term &rarr; [skill, weight 1&ndash;100, passage]</code>.
+          The model never ships. The browser looks things up.
+        </p>
+
+        <p>
+          <strong>The shaping is stated so it can be argued with.</strong>
+          A single word runs cooler against a sentence than a phrase does, so
+          each term length gets its own floor and scale: single words
+          0.22&ndash;0.55 cosine, two-word phrases 0.30&ndash;0.68, longer
+          0.34&ndash;0.75; anything under its floor is dropped &mdash; that is
+          the whole filter between 11,869 candidates and 9,121 survivors. A
+          term that is close to <em>everything</em> (&ldquo;students&rdquo;)
+          carries little information, so scores shrink toward the term&rsquo;s
+          own mean before the floor is applied. A hit on a branch a block is
+          merely filed under is worth 0.7 of a hit on the block&rsquo;s own
+          words. Each term keeps its top eight skills.
+        </p>
+
+        <p>
+          <strong>One kind of content is genuinely new, and it is authored,
+          not harvested.</strong> The manual describes teacher actions
+          (&ldquo;Use pictures and videos&hellip;&rdquo;); teachers search in
+          classroom situations (&ldquo;kids are noisy&rdquo;). No amount of
+          embedding bridges text that simply is not there. So each of the 21
+          branches of the hierarchy &mdash; 6 categories, 15 groups &mdash;
+          carries one written situation sentence, in teacher language:
+          <em>&ldquo;The class is bored and restless &mdash; phones out, eyes
+          wandering, side conversations starting. You are losing
+          them.&rdquo;</em> The model generalizes each sentence to words
+          nobody wrote down &mdash; &ldquo;rowdy&rdquo; lands on it without
+          appearing in it. These sentences are the same design move as the
+          tree test&rsquo;s D4 situation labels, extended from blocks to
+          branches; but where D4&rsquo;s labels were justified from
+          participant wording, these are written from my own conviction about
+          how teachers talk. That is a grounding difference, not a footnote,
+          and it is called out again under &ldquo;what I am ignoring.&rdquo;
+        </p>
+
+        <p>
+          <strong>The committed vocabulary stays authoritative.</strong>
+          All 175 committed phrases keep their hand-built targets, at weights
+          that echo the original layer&rsquo;s ordering (a committed block
+          target outranks a committed group target outranks a committed
+          category), and a committed target always beats the model&rsquo;s
+          opinion of the same phrase. The model only speaks where the studies
+          were silent. The result line says which happened, in words:
+          <em>&ldquo;our studies mapped &lsquo;was that the spirit&rsquo;
+          here&rdquo;</em> versus <em>&ldquo;your &lsquo;phones&rsquo; is
+          close in meaning to &lsquo;Phones out, eyes
+          wandering&hellip;&rsquo;&rdquo;</em>.
+        </p>
+
+        <p>
+          <strong>Ranking is still one addition, and the ordering can still
+          be said out loud.</strong> The literal layer is unchanged: label 6,
+          manual sentence 4, branch names 2, moment names 1, word-prefix
+          matching. A semantic hit contributes weight/100&nbsp;&times;&nbsp;6
+          &mdash; so typing a skill&rsquo;s exact meaning is worth exactly a
+          label match, and a loose synonym is worth less than the
+          manual&rsquo;s own words, never more. The query is cut into every
+          phrase and word the index knows (longest first; the words inside a
+          known phrase still count, since they point at the same meaning),
+          and each known term adds its list. One tuning change to the literal
+          layer is disclosed: the stoplist grew by the pronouns and question
+          words &mdash; &ldquo;their,&rdquo; &ldquo;how,&rdquo;
+          &ldquo;was&rdquo; &mdash; that were matching half the manual by
+          prefix and drowning the ranking in noise.
+        </p>
+
+        <p>
+          <strong>The search is honest about its edges.</strong> Words the
+          index does not know are named on the results screen &mdash;
+          <em>&ldquo;Words this search did not recognize: are. They
+          contributed nothing to the ranking&rdquo;</em> &mdash; so a teacher
+          is never left guessing which half of their sentence did the work.
+          The no-results state reports the real size of the vocabulary it
+          searched. And the prototype carries an &ldquo;About this
+          search&rdquo; page that explains the whole mechanism &mdash; where
+          the meaning comes from, when it was computed, what never leaves the
+          browser &mdash; in the same voice as the rest of the site.
+        </p>
+
+        <p>
+          <strong>Testing: the ranking has a twin, and the twin has a
+          suite.</strong>
+          <a href="https://github.com/MikeJonesBYU/principlesOfTeaching-site/blob/master/tools/test_semantic_search.py"><code>tools/test_semantic_search.py</code></a>
+          replicates the browser&rsquo;s scoring math in Python &mdash; same
+          stoplist, same weights, same segmentation &mdash; against the same
+          shipped index, and runs an 18-query meaning suite: &ldquo;kids are
+          noisy,&rdquo; &ldquo;how do i know it was the spirit,&rdquo;
+          &ldquo;shy class,&rdquo; &ldquo;follow up during the week,&rdquo;
+          plus literal regressions that exact wording still wins. 18/18, and
+          the suite ran after every tuning change, which is how two bad ideas
+          (an auto-split of the situation sentences; a template trick for
+          single words) were caught and reverted before they shipped.
+        </p>
+
+        <p>
+          <strong>Logging: the instrument is inherited, and the two builds
+          cannot contaminate each other.</strong> Same schema, same
+          exports, result rows still tied to the query that produced them.
+          The variant logs under its own storage key and exports under its
+          own filename prefix, so a future task test can run either build
+          &mdash; or both, between subjects &mdash; without one build&rsquo;s
+          sessions leaking into the other&rsquo;s data.
+        </p>
+
+        <p>
+          <strong>Cost, stated plainly.</strong> The index is 594&nbsp;KB
+          &mdash; about forty times Team&nbsp;A&rsquo;s hand-built concept
+          layer &mdash; loaded once and cached. Rebuilding it requires Python
+          and one local model on the maintainer&rsquo;s machine; the deployed
+          site remains static files with zero dependencies. And one rule of
+          the brief is bent, knowingly: the assignment says the search is
+          built with <em>no AI</em>. No AI runs at lookup time &mdash; the
+          browser does arithmetic &mdash; but a model did run once, at build
+          time, the way a compiler runs. Whether that honors the rule or
+          evades it is the grader&rsquo;s call, not mine, and the build is
+          designed so the call is easy to make: everything the model decided
+          is inspectable in the shipped index, term by term.
+        </p>
+
+        <h3>Part 1.3 &mdash; The full hierarchy, as built</h3>
+        <p>
+          As the spec requires: every level, every block, every view, verbose
+          on purpose. This outline is not pasted &mdash; it renders below
+          from <code>prototypes/v1/team-a/v1-data.js</code>, the same file
+          the prototype itself renders from, so the outline and the artifact
+          cannot disagree.
+        </p>
+        <div class="ia-outline" id="ia-outline">Rendering the outline from v1-data.js requires JavaScript.</div>
+
+        <h3>Part 1.4 &mdash; What I am ignoring</h3>
+        <p>
+          <strong>Antonyms cluster.</strong> Embedding models place
+          &ldquo;noisy&rdquo; near &ldquo;the quiet ones&rdquo; &mdash; they
+          live in the same neighborhood of meaning. One situation clause was
+          removed during tuning for exactly this (&ldquo;noisy&rdquo; was
+          landing on the quiet-student sentence), but the failure mode is
+          structural and will surface again somewhere else.
+        </p>
+        <p>
+          <strong>Rare single words are weak.</strong> The model has almost
+          no useful signal for &ldquo;wiggly.&rdquo; The index simply does
+          not contain it, and the results screen will say so, but a teacher
+          who types only that word gets nothing where a human librarian
+          would do fine.
+        </p>
+        <p>
+          <strong>Meaning is added, never composed.</strong> The engine sums
+          evidence per term. &ldquo;Not the teacher talking&rdquo; scores the
+          same as &ldquo;the teacher talking&rdquo; &mdash; negation,
+          scope, and word order are invisible to a lookup table. This is the
+          honest ceiling of no-model-at-lookup-time, and I would rather state
+          the ceiling than pretend the table understands syntax.
+        </p>
+        <p>
+          <strong>Nobody has used it.</strong> Every claim above is
+          structural or self-tested. Whether meaning-matching actually helps
+          a teacher at 8&nbsp;PM on Saturday &mdash; or whether the why-lines
+          just add reading &mdash; is an empirical question, and the
+          five-user task test that could answer it belongs to the graded
+          chain, not to this exploration.
+        </p>
+
+        <p>
+          <strong>Raw artifacts:</strong>
+          <a href="prototypes/v1/semantic/semantic-index.js">the shipped
+          index</a> &middot;
+          <a href="https://github.com/MikeJonesBYU/principlesOfTeaching-site/blob/master/tools/build_semantic_index.py">build
+          script</a> &middot;
+          <a href="https://github.com/MikeJonesBYU/principlesOfTeaching-site/blob/master/tools/test_semantic_search.py">test
+          suite</a>.
+        </p>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- GRADER                                                         -->
+      <!-- ============================================================== -->
+      <aside class="grader" aria-label="Grader comment">
+        <p class="grader__head">Grader &middot; 1. Met the functional spec &middot; <span class="grader__pts">18/18 &mdash; Skilled</span></p>
+        <p>I went looking for the seam between the two builds and found
+        exactly one, which is the one advertised.</p>
+        <ul>
+          <li><strong>Every required behavior works.</strong> Both hierarchy
+          views, the multi-filed block, search from every screen, facet
+          narrowing, the designed no-results state, the log exporting in both
+          formats &mdash; and the whole thing still works with the network
+          cable pulled, which is the strongest possible reading of
+          &ldquo;no server.&rdquo; <em>&ldquo;The prototype meets every
+          functional requirement in the assignment spec, and the
+          functionality works reliably.&rdquo;</em></li>
+          <li><strong>The twin test harness is the detail I will show other
+          teams.</strong> A second implementation of the ranking math,
+          against the same shipped index, with an 18-query suite that ran on
+          every tuning change. That is the difference between &ldquo;it
+          seemed better&rdquo; and &ldquo;it measurably stopped being
+          worse&rdquo; &mdash; a prototype whose search can be regression
+          tested is an instrument, not a demo.</li>
+          <li><strong>The two builds cannot contaminate each other&rsquo;s
+          logs.</strong> Separate storage keys, separate export prefixes.
+          Someone was thinking about the study this artifact exists to
+          serve.</li>
+        </ul>
+        <p>Full marks, without an argument.</p>
+      </aside>
+
+      <aside class="grader" aria-label="Grader comment">
+        <p class="grader__head">Grader &middot; 2. Met the visual design spec &middot; <span class="grader__pts">12/13 &mdash; Skilled, one off</span></p>
+        <p>Inheriting a visual system is a legitimate design decision when
+        the point of the build is a controlled comparison, and the report
+        restates the system in exact values rather than waving at it. The
+        pill is the right move: identification without spending color.</p>
+        <ul>
+          <li><strong>The accent discipline survives contact with a new
+          feature.</strong> The semantic layer added result annotations,
+          a meta line, and a whole explanatory page, and none of them spent
+          the accent. That is harder than it sounds.</li>
+          <li><strong>But the why-lines cost you a point.</strong> On a
+          phone, a result item is now a situation label, a verbatim manual
+          sentence, moment tags, <em>and</em> a quoted why-line that wraps to
+          three lines &mdash; the longest element in the card, set in the
+          smallest type. The eye should land on the block title first;
+          on narrow screens it lands in the middle of the quote.
+          <em>&ldquo;Visual hierarchy clearly supports the user&rsquo;s
+          goals&rdquo;</em> is the band language, and the why-line works
+          against it exactly where this site will actually be used. Truncate
+          it, or reveal it on demand.</li>
+        </ul>
+      </aside>
+
+      <aside class="grader" aria-label="Grader comment">
+        <p class="grader__head">Grader &middot; 3. Met the information architecture spec &middot; <span class="grader__pts">13/13 &mdash; Skilled</span></p>
+        <p>The IA is inherited by reference, which is the strongest form of
+        &ldquo;inherited, not invented&rdquo; this assignment has seen.</p>
+        <ul>
+          <li><strong>Loading the other team&rsquo;s data file is the
+          architectural argument of the course, made physical.</strong> Single
+          source, multiple views now includes: two builds. The hierarchy
+          cannot drift between them because there is nothing to drift
+          &mdash; and the report&rsquo;s own outline renders from that same
+          file, so the required element cannot disagree with the artifact
+          either. <em>&ldquo;The hierarchy reflects deliberate design
+          decisions&rdquo;</em> &mdash; here the deliberate decision is that
+          there is exactly one of it.</li>
+          <li><strong>Search results remain a selection over the single
+          source</strong> &mdash; a third door into the same 53 blocks, with
+          the facet chips still computed from the result set on screen.</li>
+        </ul>
+        <p>Top band.</p>
+      </aside>
+
+      <aside class="grader" aria-label="Grader comment">
+        <p class="grader__head">Grader &middot; 4. Grounded in the previous study &middot; <span class="grader__pts">14/16 &mdash; Skilled, two held back</span></p>
+        <p>The anchor design is the best answer I have seen to &ldquo;how do
+        you add machinery without orphaning your evidence&rdquo;: everything
+        the studies committed keeps its hand-built targets, the model is
+        only allowed to speak where the studies were silent, and the result
+        line tells the user which voice they are hearing. That is grounding
+        taken seriously. Two points are held back anyway, and I want the
+        reasons on the record because they are the teaching content of this
+        page.</p>
+        <ul>
+          <li><strong>The situation sentences are conviction, not
+          evidence.</strong> The report says so itself, plainly, and D4 gives
+          the move a pedigree &mdash; but D4&rsquo;s labels were defended
+          from participant wording and these 21 sentences are defended from
+          the author&rsquo;s ear. They are load-bearing: most of the
+          headline queries land <em>because</em> of them. A team that ships
+          load-bearing vocabulary should harvest it, or test it.
+          <em>&ldquo;Demonstrably grounded in the needs of your
+          users&rdquo;</em> is the band; &ldquo;plausibly grounded in the
+          instructor&rsquo;s model of the users&rdquo; is what these
+          sentences are.</li>
+          <li><strong>The no-AI rule was bent, and disclosure is not the
+          same as compliance.</strong> The compiler argument is a good
+          argument &mdash; nothing intelligent runs at lookup time, and
+          every model opinion is inspectable in the shipped index. I accept
+          it for an instructor exploration. I would not accept it silently
+          from a team, and the point held back here is what makes that
+          precedent legible: read the brief as written, and when you decide
+          to argue with it, price the argument in.</li>
+        </ul>
+        <p>This is what a near-miss looks like when the work is excellent:
+        both deductions are about <em>provenance</em>, not quality.</p>
+      </aside>
+
+      <div class="scorecard">
+        <p class="scorecard__title">The semantic build &middot; Part 1 scorecard (prototype rubric)</p>
+        <table>
+          <tbody>
+            <tr><td>Met the functional spec</td><td>Skilled &mdash; every behavior works offline; twin test harness; contamination-proof logs</td><td class="scorecard__pts">18</td></tr>
+            <tr><td>Met the visual design spec</td><td>Skilled &mdash; system inherited and restated exactly; one off for the why-lines&rsquo; weight on phones</td><td class="scorecard__pts">12</td></tr>
+            <tr><td>Met the IA design spec</td><td>Skilled &mdash; IA inherited by reference; outline renders from the artifact&rsquo;s own data file</td><td class="scorecard__pts">13</td></tr>
+            <tr><td>Grounded in the previous study</td><td>Skilled &mdash; committed vocabulary stays authoritative; two back for authored sentences and the bent no-AI rule</td><td class="scorecard__pts">14</td></tr>
+            <tr class="scorecard__total"><td>Part 1 total</td><td></td><td class="scorecard__pts">57/60</td></tr>
+          </tbody>
+        </table>
+        <p class="section-note">There is no Part 2. The five-user task test
+        belongs to the graded chain and runs on Team&nbsp;A&rsquo;s build;
+        this exploration would only earn one if it, too, were put in front
+        of five real hands.</p>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- WHY NOT 60                                                       -->
+    <!-- ================================================================ -->
+    <section aria-labelledby="why-not">
+      <h2 id="why-not">Why not 60</h2>
+      <p>
+        Both deductions are provenance, not craft &mdash; and that is the
+        lesson worth the three points. The build&rsquo;s cleverest machinery
+        (the situation sentences, the meaning index) is exactly the machinery
+        that is hardest to ground in a study, because it was invented to
+        cover the places the studies never reached. When your best feature
+        outruns your evidence, the rubric does not ask you to slow down;
+        it asks you to say so &mdash; this report does &mdash; and then it
+        prices the distance. A perfect score here would have required either
+        harvesting the 21 situation sentences from participants, or running
+        the brief as written and building without the model. Both were
+        available. Neither was chosen, for stated reasons. 57/60 is what
+        stated reasons buy.
+      </p>
+    </section>
+
+    <footer class="site-foot">
+      <p><a href="index.html">&larr; The whole chain</a> &middot;
+         <a href="prototypes/v1/semantic/">Open the semantic build &rarr;</a> &middot;
+         <a href="prototypes/v1/">All prototype v1 builds &rarr;</a></p>
+    </footer>
+
+  </main>
+
+  <script src="prototypes/v1/team-a/v1-data.js"></script>
+  <script>
+  /* Render Part 1.3 from the prototype's own data file — the outline and the
+     artifact cannot disagree, because they are the same bytes. */
+  (function () {
+    var D = window.V1_DATA;
+    var el = document.getElementById('ia-outline');
+    if (!D || !el) { return; }
+    var out = [];
+    function blocksWhere(f) { return D.skills.filter(f); }
+    function momName(k) {
+      for (var i = 0; i < D.moments.length; i++) {
+        if (D.moments[i].key === k) { return D.moments[i].name; }
+      }
+      return k;
+    }
+    out.push('VIEW 1 — BY PROBLEM (categories → groups → blocks)');
+    D.categories.forEach(function (c) {
+      var n = blocksWhere(function (s) {
+        return s.filings.some(function (f) { return f.category === c.slug; });
+      }).length;
+      out.push('');
+      out.push(c.name.toUpperCase() + (c.trial ? '   [TRIAL BRANCH — D1]' : '') + '   (' + n + ' blocks)');
+      var groups = D.groups.filter(function (g) { return g.category === c.slug; });
+      if (!groups.length) {
+        blocksWhere(function (s) {
+          return s.filings.some(function (f) { return f.category === c.slug; });
+        }).forEach(function (s) {
+          out.push('    · ' + (s.label ? s.label + '  —  ' : '') + s.name +
+                   '   [' + s.id + '] (' + s.moment.map(momName).join(', ') + ')');
+        });
+        return;
+      }
+      groups.forEach(function (g) {
+        var mine = blocksWhere(function (s) {
+          return s.filings.some(function (f) { return f.group === g.slug; });
+        });
+        out.push('  ' + g.name + (g.subtitle ? ' (' + g.subtitle + ')' : '') +
+                 '   (' + mine.length + ')');
+        mine.forEach(function (s) {
+          var cross = s.filings.length > 1 ? '   [CROSS-FILED — D2]' : '';
+          out.push('    · ' + (s.label ? s.label + '  —  ' : '') + s.name +
+                   '   [' + s.id + '] (' + s.moment.map(momName).join(', ') + ')' + cross);
+        });
+      });
+    });
+    out.push('');
+    out.push('VIEW 2 — BY LESSON MOMENT (attribute, not category — D6)');
+    D.moments.forEach(function (m) {
+      var mine = blocksWhere(function (s) { return s.moment.indexOf(m.key) !== -1; });
+      out.push('');
+      out.push(m.name.toUpperCase() + '   (' + mine.length + ' blocks)');
+      mine.forEach(function (s) {
+        out.push('    · ' + (s.label || s.name) + '   [' + s.id + ']');
+      });
+    });
+    out.push('');
+    out.push('VIEW 3 — SEARCH (literal + meaning index; every result is a selection over the same ' + D.skills.length + ' blocks)');
+    out.push('');
+    out.push('Total blocks: ' + D.skills.length);
+    el.textContent = out.join('\n');
+  })();
+  </script>
+  <script src="assets/studies-data.js" defer></script>
+  <script src="assets/companion.js" defer></script>
+</body>
+</html>

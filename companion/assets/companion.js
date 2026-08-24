@@ -52,6 +52,8 @@
     graded: 'Graded on',
     produces: 'Produces',
     testedBelow: 'Tested below by',
+    altVersion: 'Alternate version',
+    altReport: 'Graded report',
     runsOn: 'Runs on',
     pairDown: 'that study runs on this exact build',
     pairUp: 'the build above, in this same turn-in',
@@ -375,6 +377,24 @@
     if (isProto && station.status === 'shipped') {
       body.push(h('p', { 'class': 'arc-item__links' }, [
         h('span', { 'class': 'pill pill--kind' }, LABELS.shipped)
+      ]));
+    }
+
+    /* An alternate version of a build: outside the graded chain, linked from
+       the same station so the comparison is one click. Registry shape:
+       alt: { title, path, report?, note? }. */
+    if (isProto && station.alt && station.alt.path) {
+      body.push(h('p', { 'class': 'arc-item__links' }, [
+        h('span', { 'class': 'micro-label' }, LABELS.altVersion),
+        ' ',
+        h('a', { 'class': 'chip', 'href': resolve(station.alt.path) },
+          station.alt.title || 'Alternate build'),
+        station.alt.report ? ' ' : null,
+        station.alt.report
+          ? h('a', { 'class': 'chip', 'href': resolve(station.alt.report) },
+              LABELS.altReport)
+          : null,
+        station.alt.note ? ' \u2014 ' + station.alt.note : null
       ]));
     }
 
