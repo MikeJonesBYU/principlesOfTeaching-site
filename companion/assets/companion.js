@@ -39,6 +39,30 @@
     link: "What's real and what's not →"
   };
 
+  /* --- The masthead (redesign 2026-08-26, "effective Canvas site" idiom):
+         one banner graphic carried on every page, and a pared-down centered
+         row of button links under it. The graphic does not exist yet, so the
+         masthead renders a labeled placeholder describing the imagined
+         picture; when the real art arrives, swap this block for an <img> (or
+         a CSS background) in ONE place — here. ------------------------------ */
+  var MASTHEAD_ART = {
+    tag: 'Image placeholder — same banner on every page',
+    desc: 'Imagined picture: a wide, warm, flat-style illustration of a small ' +
+      'ward classroom mid-lesson — a teacher at a chalkboard sketching a ' +
+      'diagram, a mixed-age class leaning in, one hand up mid-question. ' +
+      'Quiet colors, no text in the image. Roughly 4:1; the hub shows it ' +
+      'tall, interior pages show a slim strip of the same art.'
+  };
+
+  /* The button row. `page` matches <body data-page="…">, so the current
+     page's button reads as selected. Hrefs are relative to companion/. */
+  var NAV = [
+    { page: 'hub',     href: 'index.html',   label: 'Home' },
+    { page: 'fiction', href: 'fiction.html', label: 'What’s real & what’s not' },
+    { page: 'ward',    href: 'ward.html',    label: 'The ward' },
+    { page: null,      href: '../',          label: 'The live site' }
+  ];
+
   var LABELS = {
     inProgress: 'In progress',
     studyPending: 'Page not written yet',
@@ -171,6 +195,40 @@
     if (document.body.getAttribute('data-companion-banner') === 'done') { return; }
     document.body.insertBefore(buildBanner(), document.body.firstChild);
     document.body.setAttribute('data-companion-banner', 'done');
+  }
+
+  /* ----------------------------------------------------------- the masthead */
+
+  function buildMasthead() {
+    var current = document.body.getAttribute('data-page') || '';
+
+    var art = h('div', { 'class': 'img-slot masthead__art', 'role': 'img',
+                         'aria-label': 'Placeholder for the companion banner illustration' }, [
+      h('span', { 'class': 'img-slot__tag' }, MASTHEAD_ART.tag),
+      h('p', { 'class': 'img-slot__desc' }, MASTHEAD_ART.desc)
+    ]);
+
+    var nav = h('nav', { 'class': 'masthead__nav',
+                         'aria-label': 'Companion sections' });
+    each(NAV, function (item) {
+      var attrs = { 'class': 'btn', 'href': resolve(item.href) };
+      if (item.page && item.page === current) { attrs['aria-current'] = 'page'; }
+      nav.appendChild(h('a', attrs, item.label));
+    });
+
+    return h('header', { 'class': 'masthead' }, [
+      h('div', { 'class': 'masthead__inner' }, [art, nav])
+    ]);
+  }
+
+  function injectMasthead() {
+    if (!document.body) { return; }
+    if (document.body.getAttribute('data-companion-masthead') === 'done') { return; }
+    /* Directly under the fiction banner (which start() injects first). */
+    var banner = document.body.firstChild;
+    var anchor = banner && banner.nextSibling ? banner.nextSibling : null;
+    document.body.insertBefore(buildMasthead(), anchor);
+    document.body.setAttribute('data-companion-masthead', 'done');
   }
 
   /* ------------------------------------------------------ registry accessors */
@@ -559,6 +617,7 @@
 
   function start() {
     injectBanner();
+    injectMasthead();
     renderAll();
   }
 

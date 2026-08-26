@@ -251,12 +251,33 @@ exported from git history:
 
 - The companion gets its **own visual identity** (`companion.css`) — clearly
   not the teaching site's brand, so screenshots and embedded views of the
-  teaching site and prototypes read as *specimens* inside a lab notebook.
-- **One exception to that identity (2026-08-22):** the hub's turn-in panels use
-  the four color bands of the Project 1 flow diagram, so a student who has the
-  diagram in front of them recognizes the hub as the same document. That is the
-  only place the companion borrows a palette; the lab-notebook paper, the
-  red-pen accent, and the monospace metadata voice are unchanged around it.
+  teaching site and prototypes read as *specimens* on a neutral page.
+- **Redesigned 2026-08-26** to the "effective Canvas course site" idiom
+  (model: U-M School of Public Health, *Effective Canvas Sites*,
+  sph.umich.edu/instructional-services/canvas-sites.html). The earlier
+  lab-notebook look (ruled paper, warm tints, mono metadata voice) was judged
+  cluttered and is retired. The new rules, drawn from that page's praised
+  examples:
+  - Clean white page, cool near-black ink, one link blue, generous whitespace.
+  - **One banner graphic carried on every page** (the HMP 626 cohesion move).
+    Until real art exists, `companion.js` renders a labeled `.img-slot`
+    placeholder describing the imagined picture; swap it for the real image in
+    that one place. Tall on the hub, a slim strip on interior pages.
+  - **A pared-down centered row of button links** under the banner (the
+    Canvas "Modules / Assignments / Syllabus" row), injected by `companion.js`
+    on every companion page: Home, What's real & what's not, The ward, The
+    live site. Everything important reachable from anywhere; nothing else.
+  - Centered page titles over left-set reading text; simple sections under
+    thin rules; "everything the students need and nothing more."
+  - Pictures that don't exist yet are `.img-slot` placeholders: a dashed box
+    naming itself a placeholder plus an italic description of the imagined
+    image, so art can be sourced later without redesign.
+- **One exception to that identity (2026-08-22):** the hub's turn-in panels
+  keep the four color bands of the Project 1 flow diagram — now as thin color
+  caps on white cards — so a student who has the diagram in front of them
+  recognizes the hub as the same document. The fiction banner and the
+  grader's red pen keep their warning red; that red is reserved for the
+  honest-fiction contract and grading, never navigation or decoration.
 - Voice (decided): **designer's notebook** — first-person-plural instructor
   voice ("we ran…", "this convinced us…"), with the honest-fiction contract
   visible. Fictional named individuals appear only as *participants*, never as

@@ -1,39 +1,54 @@
 /* ============================================================================
    companion.css — the CS 356 companion's own look.
 
-   DELIBERATELY NOT the teaching site's brand. The teaching site is cool teal +
-   gold on gray; this is a lab notebook: warm paper, dark warm ink, a red-pen
-   accent, and a monospace voice for every piece of metadata. When a screenshot
-   or an embedded view of the teaching site appears inside these pages, it should
-   read unmistakably as a SPECIMEN sitting on a notebook page.
+   REDESIGNED 2026-08-26 to the "effective Canvas course site" idiom (model:
+   U-M School of Public Health, "Effective Canvas Sites" — sph.umich.edu):
+   clean white page, one banner graphic carried on every page, a centered row
+   of button links under it, a centered page title, generous whitespace, and
+   pared-down navigation. The earlier lab-notebook look (ruled paper, tinted
+   panels, mono metadata voice) was judged cluttered and is retired.
 
-   Self-contained: system fonts only, no @import, no web fonts, no images,
-   zero network requests.
+   Still DELIBERATELY NOT the teaching site's brand: the companion is a site
+   ABOUT that site, and screenshots or embedded views of the teaching site and
+   prototypes must read as specimens on a neutral page.
+
+   Self-contained: system fonts only, no @import, no web fonts. The only
+   "image" is the labeled placeholder slot (.img-slot) awaiting real art.
 
    Contents
      1. Tokens and base
      2. Fiction marking (banner, badge, frame)  <- the honest-fiction contract
-     3. Layout and typography
-     4. Pending / unlinked states               <- the no-dead-links rule
-     5. Turn-ins and the chain          <- the four graded submissions
-     6. Prev/next arc navigation
-     7. Responsive
+     3. Masthead: banner art + button nav       <- injected by companion.js
+     4. Layout and typography
+     5. Pending / unlinked states               <- the no-dead-links rule
+     6. Turn-ins and the chain                  <- the four graded submissions
+     7. Prev/next arc navigation
+     8. Responsive
+     9. Study-page components (tables, sort photos, grader, docpage sheets)
    ========================================================================== */
 
 /* -------------------------------------------------- 1. Tokens and base ----- */
 :root {
-  --paper:        #f4efe4;   /* page ground: warm oatmeal */
-  --panel:        #fffdf7;   /* cards and panels: notebook stock */
-  --panel-sunk:   #f9f4e9;
-  --ink:          #29241f;   /* warm near-black */
-  --ink-soft:     #4b433b;
-  --muted:        #6f665b;
-  --rule:         #ded3bf;   /* ruled-line color */
-  --rule-strong:  #c8bba1;
+  --paper:        #ffffff;   /* page ground: clean white */
+  --panel:        #ffffff;   /* cards and panels */
+  --panel-sunk:   #f5f7f9;   /* quiet recessed surfaces */
+  --ink:          #2d3b45;   /* cool near-black (Canvas ink) */
+  --ink-soft:     #46545f;
+  --muted:        #64717c;
+  --rule:         #e2e7ec;   /* hairline borders */
+  --rule-strong:  #c9d2da;
 
-  --accent:       #9c3a1c;   /* the one accent: red pen */
-  --accent-deep:  #6f2712;
-  --accent-tint:  #f7e7df;
+  --link:         #0b6aa9;   /* the one link blue */
+  --link-deep:    #084f7e;
+
+  --slate:        #33414e;   /* buttons and the through-line bar */
+  --slate-deep:   #22303c;
+
+  /* The fiction/grading red. Reserved for the honesty contract and the
+     grader's pen — never for navigation or decoration. */
+  --accent:       #a63a2a;
+  --accent-deep:  #7c2a1e;
+  --accent-tint:  #faeeec;
 
   --flag-bg:      #7a1d0e;   /* fiction banner */
   --flag-ink:     #fff4ea;
@@ -41,7 +56,7 @@
 
   --radius: 6px;
   --radius-lg: 10px;
-  --maxw: 940px;
+  --maxw: 900px;
 
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
@@ -53,20 +68,17 @@ html { -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
-  background-color: var(--paper);
-  /* Faint ruled lines. Pure CSS — no image request. */
-  background-image: linear-gradient(to bottom, rgba(160,140,105,.13) 1px, transparent 1px);
-  background-size: 100% 2rem;
+  background: var(--paper);
   color: var(--ink);
   font-family: var(--sans);
   font-size: 17px;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
-a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
-a:hover { color: var(--accent-deep); }
+a { color: var(--link); text-decoration: underline; text-underline-offset: 2px; }
+a:hover { color: var(--link-deep); }
 a:focus-visible,
-:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+:focus-visible { outline: 3px solid var(--link); outline-offset: 2px; }
 
 /* ------------------------------------------------- 2. Fiction marking ------ */
 /* The banner is injected by companion.js at the top of <body> on EVERY page.
@@ -74,19 +86,19 @@ a:focus-visible,
 .fiction-banner {
   background: var(--flag-bg);
   color: var(--flag-ink);
-  border-bottom: 4px solid var(--flag-line);
-  font-size: .95rem;
+  border-bottom: 3px solid var(--flag-line);
+  font-size: .92rem;
   line-height: 1.45;
 }
 .fiction-banner__inner {
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: 12px 20px;
+  padding: 10px 20px;
+  text-align: center;
 }
 .fiction-banner__flag {
-  font-family: var(--mono);
   font-weight: 700;
-  letter-spacing: .04em;
+  letter-spacing: .02em;
   margin-right: .25em;
 }
 .fiction-banner__text { color: #f6e2d5; }
@@ -132,40 +144,129 @@ a:focus-visible,
   font-size: .92rem;
   color: var(--ink-soft);
   background: var(--panel-sunk);
-  border: 1px dashed var(--rule-strong);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--accent);
   border-radius: var(--radius);
   padding: 10px 14px;
   margin: 0 0 20px;
+  text-align: left;
 }
 
-/* -------------------------------------------- 3. Layout and typography ----- */
-.wrap { max-width: var(--maxw); margin: 0 auto; padding: 28px 20px 80px; }
+/* ------------------------------- 3. Masthead: banner art + button nav ------
+   Injected by companion.js under the fiction banner on every companion page.
+   One graphic carried on all pages (the Canvas-site cohesion move) and a
+   pared-down centered row of button links: everything important reachable
+   from anywhere, nothing else. ---------------------------------------------- */
+.masthead {
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+}
+.masthead__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 20px 20px 22px;
+}
+.masthead__nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+.btn {
+  display: inline-block;
+  background: var(--slate);
+  color: #fff;
+  font-size: .92rem;
+  font-weight: 600;
+  line-height: 1.2;
+  padding: 8px 18px;
+  border-radius: var(--radius);
+  text-decoration: none;
+}
+.btn:hover { background: var(--slate-deep); color: #fff; }
+.btn[aria-current="page"] {
+  background: var(--paper);
+  color: var(--slate);
+  box-shadow: inset 0 0 0 2px var(--slate);
+}
+
+/* A labeled stand-in for a real picture. The tag says it is a placeholder;
+   the description says what picture is imagined there, so the real art can
+   be sourced later and dropped in. */
+.img-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 130px;
+  padding: 20px 24px;
+  background: #eef1f4;
+  border: 2px dashed #b9c3cc;
+  border-radius: var(--radius-lg);
+  color: var(--muted);
+  text-align: center;
+}
+.img-slot__tag {
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #85939e;
+}
+.img-slot__desc {
+  margin: 0;
+  font-style: italic;
+  font-size: .92rem;
+  line-height: 1.5;
+  max-width: 56ch;
+}
+/* The hub gets the full-height hero; interior pages carry a slimmer strip of
+   the same (future) graphic. */
+body[data-page="hub"] .masthead .img-slot { min-height: 230px; }
+
+/* -------------------------------------------- 4. Layout and typography ----- */
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 34px 20px 80px; }
 
 .kicker {
-  font-family: var(--mono);
   font-size: .78rem;
-  letter-spacing: .16em;
+  font-weight: 700;
+  letter-spacing: .14em;
   text-transform: uppercase;
-  color: var(--accent);
-  margin: 0 0 8px;
+  color: var(--muted);
+  margin: 0 0 10px;
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 2.05rem;
   line-height: 1.15;
   letter-spacing: -.01em;
-  margin: 0 0 10px;
+  margin: 0 0 12px;
 }
 h2 {
-  font-size: 1.3rem;
+  font-size: 1.32rem;
   line-height: 1.25;
-  margin: 44px 0 6px;
+  margin: 48px 0 10px;
   padding-bottom: 8px;
-  border-bottom: 2px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule-strong);
 }
 h3 { font-size: 1.05rem; margin: 0 0 6px; line-height: 1.3; }
 
-.lead { font-size: 1.12rem; color: var(--ink-soft); max-width: 62ch; }
+/* Page header: centered identity over left-set reading text, the way the
+   model Canvas sites center the welcome block. */
+.site-head { margin: 0 0 30px; text-align: center; }
+.site-head .lead,
+.site-head .section-note,
+.site-head .fiction-note { text-align: left; }
+
+.lead {
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+  max-width: 66ch;
+  margin-left: auto;
+  margin-right: auto;
+}
 .section-note { color: var(--muted); max-width: 68ch; margin-top: 8px; }
 p { margin: 0 0 14px; }
 
@@ -175,18 +276,17 @@ p { margin: 0 0 14px; }
   border-radius: var(--radius-lg);
   padding: 20px 22px;
   margin: 22px 0;
-  box-shadow: 0 1px 0 var(--rule);
 }
 .panel > :first-child { margin-top: 0; }
 .panel > :last-child { margin-bottom: 0; }
 
-.panel--callout { border-left: 5px solid var(--accent); }
+.panel--callout { border-left: 4px solid var(--accent); background: var(--panel-sunk); }
 
 .micro-label {
   display: inline-block;
-  font-family: var(--mono);
-  font-size: .68rem;
-  letter-spacing: .12em;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .1em;
   text-transform: uppercase;
   color: var(--muted);
   margin-right: .45em;
@@ -194,12 +294,12 @@ p { margin: 0 0 14px; }
 
 .pill {
   display: inline-block;
-  font-family: var(--mono);
-  font-size: .68rem;
-  letter-spacing: .06em;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .04em;
   text-transform: uppercase;
   border-radius: 999px;
-  padding: 2px 9px;
+  padding: 2px 10px;
   border: 1px solid var(--rule-strong);
   background: var(--panel-sunk);
   color: var(--muted);
@@ -208,9 +308,9 @@ p { margin: 0 0 14px; }
 .pill--kind { border-color: var(--rule-strong); }
 .pill--optional { border-style: dashed; margin-left: 6px; }
 .pill--pending {
-  border-color: var(--accent);
-  color: var(--accent-deep);
-  background: var(--accent-tint);
+  border-color: var(--rule-strong);
+  color: var(--ink-soft);
+  background: #fff;
 }
 
 code {
@@ -230,21 +330,20 @@ code {
 .stack-list { list-style: none; margin: 0; padding: 0; }
 .stack-list > li {
   border-top: 1px solid var(--rule);
-  padding: 12px 0;
+  padding: 14px 0;
 }
 .stack-list > li:last-child { border-bottom: 1px solid var(--rule); }
 
-.site-head { margin: 0 0 28px; }
-
 .site-foot {
-  margin-top: 56px;
-  padding-top: 16px;
-  border-top: 2px solid var(--rule-strong);
+  margin-top: 60px;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule-strong);
   font-size: .9rem;
   color: var(--muted);
+  text-align: center;
 }
 
-/* --------------------------------------- 4. Pending / unlinked states ------ */
+/* --------------------------------------- 5. Pending / unlinked states ------ */
 /* Nothing unfinished is ever a link. Unfinished things say so, in place. */
 .is-pending { color: var(--muted); }
 .is-pending__label { color: var(--ink-soft); font-weight: 600; }
@@ -254,14 +353,14 @@ code {
 .arc-item--pending { background: var(--panel-sunk); border-style: dashed; }
 .arc-item--pending .arc-item__title { font-weight: 600; }
 .arc-item--pending .arc-marker { opacity: .6; }
-.arc-item--prototype.arc-item--pending { border-left-style: solid; }
 
-/* --------------------------------------------- 5. Turn-ins and the chain ---
+/* --------------------------------------------- 6. Turn-ins and the chain ---
    The hub's chain is grouped by TURN-IN, not by station: turn-ins 2 and 3 each
    hold a prototype AND the study that tests it, because those are handed in
-   together as one two-part report. The four color bands are lifted straight
-   from the Project 1 flow diagram so the hub and the diagram read as one
-   document — red, blue, green, gold, with the through-line on slate.
+   together as one two-part report. The four colors are lifted from the
+   Project 1 flow diagram so the hub and the diagram read as one document —
+   red, blue, green, gold, with the through-line on slate — but each color is
+   now only a thin cap on a white card, not a tinted panel.
 
    The color is a wayfinding cue only: every turn-in is also numbered and
    titled in text, and each station card says "You build" or "User study" in
@@ -273,38 +372,39 @@ code {
   --bar:   var(--rule-strong);
   --tint:  var(--panel-sunk);
   --edge:  var(--rule-strong);
-  background: var(--tint);
+  background: var(--panel);
   border: 1px solid var(--edge);
   border-radius: var(--radius-lg);
-  padding: 0 18px 18px;
-  margin: 0 0 34px;
+  padding: 0 20px 20px;
+  margin: 0 0 30px;
   position: relative;
   overflow: hidden;
 }
-/* The four bands, in diagram order. */
-.turnin--1 { --bar: #a8443e; --tint: #f4dad7; --edge: #ddb2ad; }
-.turnin--2 { --bar: #3d5a98; --tint: #d9e3f6; --edge: #b0c1e3; }
-.turnin--3 { --bar: #4a7549; --tint: #dfebd7; --edge: #b6cfae; }
-.turnin--4 { --bar: #8a6d0c; --tint: #fbefc6; --edge: #e3d093; }
+/* The four bands, in diagram order — bar strong, tint pale, edge between. */
+.turnin--1 { --bar: #a8443e; --tint: #f6e4e2; --edge: #cf948f; }
+.turnin--2 { --bar: #3d5a98; --tint: #e2e9f6; --edge: #93a7cd; }
+.turnin--3 { --bar: #4a7549; --tint: #e3eee1; --edge: #98b997; }
+.turnin--4 { --bar: #8a6d0c; --tint: #f7eec9; --edge: #c7b25e; }
 
-/* The colored bar, full-bleed across the top of the panel. */
+/* The colored band IS the turn-in's identity: solid bar, white text —
+   the Canvas-button treatment, applied to the group header. */
 .turnin__head {
-  margin: 0 -18px 16px;
-  padding: 9px 18px;
+  margin: 0 -20px 16px;
+  padding: 12px 20px;
   background: var(--bar);
-  color: #fff;
+  border-bottom: 0;
 }
 .turnin__num {
   margin: 0;
-  font-family: var(--mono);
-  font-size: .74rem;
+  font-size: .72rem;
   font-weight: 700;
-  letter-spacing: .16em;
+  letter-spacing: .14em;
   text-transform: uppercase;
+  color: rgba(255, 255, 255, .85);
 }
 .turnin__title {
   margin: 2px 0 0;
-  font-size: 1.15rem;
+  font-size: 1.18rem;
   line-height: 1.25;
   color: #fff;
   border: 0;
@@ -314,13 +414,13 @@ code {
 .turnin__handin { margin: 0 0 10px; max-width: 72ch; }
 .turnin__graded { margin: 0 0 16px; }
 .pill--graded {
-  background: #fff;
+  background: var(--tint);
   border-color: var(--bar);
   color: var(--bar);
   font-weight: 700;
-  letter-spacing: .04em;
+  letter-spacing: .02em;
   text-transform: none;
-  font-size: .72rem;
+  font-size: .74rem;
   /* Long rubric strings must wrap on a phone rather than run off the panel,
      so this pill is a rounded rectangle instead of a lozenge. */
   white-space: normal;
@@ -329,13 +429,15 @@ code {
 
 /* "Produces X → carried into Turn-in N" — the diagram's arrow, in words. */
 .turnin__produces {
-  margin: 14px 0 0;
-  padding-top: 12px;
-  border-top: 2px dashed var(--edge);
-  color: var(--bar);
+  margin: 16px -20px -20px;
+  padding: 10px 20px 12px;
+  background: var(--tint);
+  border-top: 1px solid var(--edge);
+  color: var(--ink-soft);
   font-size: .95rem;
 }
-.turnin__produces strong { color: var(--bar); }
+.turnin__produces strong { color: var(--ink); }
+.turnin__produces .micro-label { color: var(--bar); }
 
 /* The panel's own "Produces … → carried into Turn-in N" row IS the diagram's
    between-column arrow; the panels need no extra connector between them. */
@@ -361,7 +463,7 @@ code {
 .arc-item::after {
   content: "";
   position: absolute;
-  left: 60px;
+  left: 54px;
   bottom: -21px;
   width: 2px;
   height: 20px;
@@ -370,29 +472,19 @@ code {
 .arc-item:last-child::after { display: none; }
 
 /* ------------------------------------------------- the station marker ---
-   The marker is the diagram's numbered node, so it is drawn as one: the kind
-   over the numeral, boxed, in the build/study colors the kicker underneath
-   already uses. It was caption-sized text before, which made "Prototype 1"
-   and "Study 2" the hardest things on the card to find. Kind and number are
-   both words — the box and the hue only make them faster to spot. */
+   "Prototype 1" / "Study 2" as a quiet two-line label in the card's gutter:
+   kind in small caps over a large numeral. Kind and number are words and
+   digits — the hue only makes them faster to tell apart. */
 .arc-item__marker {
-  flex: 0 0 100px;
-  border-right: 2px solid var(--edge, var(--rule));
-  padding-right: 12px;
+  flex: 0 0 88px;
+  border-right: 1px solid var(--rule);
+  padding-right: 14px;
   min-height: 2.2em;
   text-align: center;
 }
-.arc-marker {
-  display: inline-block;
-  min-width: 76px;
-  padding: 7px 6px 6px;
-  border: 2px solid;
-  border-radius: var(--radius);
-  background: #fff;
-}
+.arc-marker { display: inline-block; padding-top: 2px; }
 .arc-marker__kind {
   display: block;
-  font-family: var(--mono);
   font-size: .62rem;
   font-weight: 700;
   letter-spacing: .1em;
@@ -400,32 +492,30 @@ code {
 }
 .arc-marker__n {
   display: block;
-  font-family: var(--mono);
-  font-size: 1.55rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  line-height: 1.05;
+  line-height: 1.1;
+  color: var(--ink);
 }
-.arc-marker--build { color: #8a5a18; border-color: #d9b478; background: #fdf5e8; }
-.arc-marker--study { color: #1c6b4c; border-color: #a6cbb8; background: #e9f4ee; }
+.arc-marker--build .arc-marker__kind { color: #9a5f00; }
+.arc-marker--study .arc-marker__kind { color: #1e7a56; }
 
 .arc-item__body { flex: 1 1 auto; min-width: 0; }
 
 /* The diagram's "YOU BUILD" / "USER STUDY" kicker. */
 .arc-item__role {
   margin: 0 0 2px;
-  font-family: var(--mono);
-  font-size: .7rem;
+  font-size: .68rem;
   font-weight: 700;
   letter-spacing: .12em;
   text-transform: uppercase;
 }
-.arc-item__role--build { color: #8a5a18; }
-.arc-item__role--study { color: #1c6b4c; }
+.arc-item__role--build { color: #9a5f00; }
+.arc-item__role--study { color: #1e7a56; }
 
 .arc-item__title { margin: 0 0 4px; font-size: 1.1rem; line-height: 1.3; }
 .arc-item__method {
-  font-family: var(--mono);
-  font-size: .78rem;
+  font-size: .85rem;
   color: var(--muted);
   margin: 0 0 8px;
 }
@@ -434,20 +524,20 @@ code {
    screenshot of a single card (see fiction.html's marking rationale). */
 .arc-item__finding {
   margin: 0 0 8px; color: var(--ink-soft);
-  border-left: 3px dashed var(--accent, #9c3a1c); padding-left: 10px;
+  border-left: 3px dashed var(--accent); padding-left: 10px;
 }
 .arc-item__links { margin-top: 8px; }
 
 .chip {
   display: inline-block;
-  font-size: .82rem;
-  border: 1px solid var(--edge, var(--rule-strong));
+  font-size: .84rem;
+  border: 1px solid var(--rule-strong);
   border-radius: 999px;
-  padding: 2px 10px;
-  background: var(--tint, var(--panel-sunk));
+  padding: 2px 12px;
+  background: #fff;
 }
-a.chip { text-decoration: none; border-color: var(--bar, var(--accent)); }
-a.chip:hover { background: #fff; }
+a.chip { text-decoration: none; color: var(--link); border-color: var(--edge, var(--rule-strong)); }
+a.chip:hover { border-color: var(--link); background: var(--panel-sunk); }
 span.chip.is-pending .is-pending__label { font-weight: 500; }
 span.chip.is-pending .pill--pending {
   border: 0;
@@ -458,7 +548,7 @@ span.chip.is-pending .pill--pending {
 
 /* The dark bar under the diagram, carried over verbatim. */
 .through-line {
-  background: #33414e;
+  background: var(--slate);
   color: #f2f4f6;
   border-radius: var(--radius-lg);
   padding: 16px 20px;
@@ -468,8 +558,65 @@ span.chip.is-pending .pill--pending {
 }
 .through-line strong { color: #fff; }
 
+/* --- Prototype vs. study station cards ------------------------------------
+   Both sit on white; the prototype card carries a slim left edge in the
+   turn-in's color so "you build" reads first. */
+.arc-item--prototype { border-left: 4px solid var(--bar, var(--rule-strong)); }
 
-/* ------------------------------------------- 6. Prev/next arc navigation --- */
+/* --- The pair: a build and the study that runs on it -----------------------
+   Turn-ins 2 and 3 are one build plus the study that tests it, handed in
+   together. That relationship is the point of those turn-ins, so the
+   connector between them grows an arrowhead into the study, and each card
+   carries a quiet band naming the other half. The bands say it in words;
+   the arrow only makes it quicker to see. */
+.arc-item--paired-down::after { width: 2px; height: 22px; bottom: -23px; background: var(--bar, var(--rule-strong)); }
+.arc-item--paired-up::before {
+  content: "";
+  position: absolute;
+  top: -9px;
+  left: 48px;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 9px solid var(--bar, var(--rule-strong));
+}
+
+.arc-pairbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 7px;
+  margin: 12px 0 0;
+  padding: 8px 12px;
+  background: var(--tint, var(--panel-sunk));
+  border: 1px solid var(--edge, var(--rule));
+  border-radius: var(--radius);
+}
+/* On the study card the band sits under the title, pointing back at the build. */
+.arc-pairbar--up { margin: 6px 0 10px; }
+.arc-pairbar__arrow {
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--bar, var(--slate));
+}
+.arc-pairbar__label {
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--bar, var(--slate));
+}
+.arc-pairbar__who {
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.arc-pairbar .chip { background: #fff; }
+.arc-pairbar__note { color: var(--muted); font-size: .86rem; }
+
+/* ------------------------------------------- 7. Prev/next arc navigation --- */
 .arcnav {
   display: flex;
   gap: 14px;
@@ -477,7 +624,7 @@ span.chip.is-pending .pill--pending {
   justify-content: space-between;
   margin-top: 48px;
   padding-top: 16px;
-  border-top: 2px solid var(--rule-strong);
+  border-top: 1px solid var(--rule-strong);
   font-size: .95rem;
 }
 .arcnav__side { display: flex; flex-direction: column; gap: 2px; max-width: 38%; }
@@ -485,40 +632,46 @@ span.chip.is-pending .pill--pending {
 .arcnav__side--empty { color: var(--muted); }
 .arcnav__title { font-weight: 600; }
 .arcnav__hub {
-  font-family: var(--mono);
   font-size: .74rem;
+  font-weight: 700;
   letter-spacing: .1em;
   text-transform: uppercase;
   white-space: nowrap;
 }
 
-/* ---------------------------------------------------------- 7. Responsive -- */
+/* ---------------------------------------------------------- 8. Responsive -- */
 @media (max-width: 720px) {
   body { font-size: 16px; }
   h1 { font-size: 1.6rem; }
-  .wrap { padding: 20px 16px 64px; }
-  .fiction-banner__inner { padding: 11px 16px; }
+  .wrap { padding: 24px 16px 64px; }
+  .fiction-banner__inner { padding: 10px 16px; }
   .fiction-banner__link { white-space: normal; display: inline-block; }
+
+  .masthead__inner { padding: 14px 16px 16px; }
+  .masthead__nav { gap: 8px; }
+  .btn { padding: 7px 14px; font-size: .88rem; }
+  body[data-page="hub"] .masthead .img-slot { min-height: 170px; }
 
   .arc-item { flex-direction: column; gap: 8px; padding: 14px; }
   .arc-item::after { left: 22px; }
-  .arc-item--paired-up::before { left: 15px; }
+  .arc-item--paired-up::before { left: 16px; }
   .arc-item__marker {
     flex: none;
     border-right: 0;
-    border-bottom: 2px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
     padding: 0 0 6px;
     min-height: 0;
     text-align: left;
   }
-  .arc-marker { padding: 5px 9px 4px; }
+  .arc-marker { padding: 0; }
   .arc-marker__kind, .arc-marker__n { display: inline; }
-  .arc-marker__n { font-size: 1.1rem; margin-left: 6px; }
+  .arc-marker__n { font-size: 1.05rem; margin-left: 6px; }
   .arc-pairbar { padding: 7px 9px; }
 
-  .turnin { padding: 0 13px 14px; }
-  .turnin__head { margin: 0 -13px 14px; padding: 8px 13px; }
+  .turnin { padding: 0 14px 14px; }
+  .turnin__head { margin: 0 -14px 14px; padding: 10px 14px; }
   .turnin__title { font-size: 1.05rem; }
+  .turnin__produces { margin: 14px -14px -14px; padding: 9px 14px 11px; }
 
   .arcnav { flex-direction: column; align-items: flex-start; gap: 10px; }
   .arcnav__side, .arcnav__side--next {
@@ -532,67 +685,11 @@ span.chip.is-pending .pill--pending {
   .fiction-badge { letter-spacing: .06em; }
 }
 
-/* --- Prototype vs. study station cards ------------------------------------
-   Both sit on white inside a tinted turn-in panel, as in the diagram; the
-   prototype card carries a heavier left edge so "you build" reads first. */
-.arc-item--prototype { border-left: 4px solid var(--bar, var(--rule-strong)); }
-
-/* --- The pair: a build and the study that runs on it -----------------------
-   Turn-ins 2 and 3 are one build plus the study that tests it, handed in
-   together. That relationship is the point of those turn-ins, so both cards
-   are bound to the band color, the connector between them grows an arrowhead
-   into the study, and each card carries a band naming the other half. The
-   bands say it in words; the arrow only makes it quicker to see. */
-.arc-item--paired { border-color: var(--bar, var(--rule-strong)); }
-.arc-item--paired-down::after { width: 3px; height: 22px; bottom: -23px; }
-.arc-item--paired-up::before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: 53px;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-top: 10px solid var(--bar, var(--rule-strong));
-}
-
-.arc-pairbar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px 7px;
-  margin: 12px 0 0;
-  padding: 8px 11px;
-  background: var(--tint, var(--panel-sunk));
-  border: 1px solid var(--edge, var(--rule));
-  border-left: 4px solid var(--bar, var(--rule-strong));
-  border-radius: var(--radius);
-}
-/* On the study card the band sits under the title, pointing back at the build. */
-.arc-pairbar--up { margin: 6px 0 10px; }
-.arc-pairbar__arrow {
-  font-size: 1.1rem;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--bar, var(--accent));
-}
-.arc-pairbar__label {
-  font-family: var(--mono);
-  font-size: .68rem;
-  font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--bar, var(--accent));
-}
-.arc-pairbar__who {
-  font-family: var(--mono);
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-.arc-pairbar .chip { background: #fff; }
-.arc-pairbar__note { color: var(--muted); font-size: .86rem; }
+/* ==================== 9. Study-page components ==============================
+   Everything below is the worked examples' furniture — tables, sort photos,
+   the grader's red pen, and the "written in Word" report sheets. Kept intact
+   through the 2026-08-26 shell redesign (only border/shadow neutrals were
+   retuned to sit on the white page); the study pages' content depends on it. */
 
 /* --- Study-page components (card sort, 2026-08-21) ------------------------ */
 
@@ -609,8 +706,8 @@ span.chip.is-pending .pill--pending {
   border-bottom: 1px solid var(--rule);
 }
 .study-table th {
-  font-family: var(--mono);
-  font-size: .7rem;
+  font-size: .72rem;
+  font-weight: 700;
   letter-spacing: .08em;
   text-transform: uppercase;
   color: var(--muted);
@@ -689,7 +786,7 @@ span.chip.is-pending .pill--pending {
 
 /* NOTE (2026-08-22): a `.turnin` block used to live here — an unused frame for
    quoting report prose. `.turnin` now means "one of the four graded turn-ins"
-   (§5) and nothing else. The only survivor of the old block is the
+   (§6) and nothing else. The only survivor of the old block is the
    placeholder-photo line inside a report sheet, renamed to match .docpage. */
 .docpage__photos { color: var(--muted); font-style: italic; }
 
@@ -744,13 +841,14 @@ span.chip.is-pending .pill--pending {
 
 .docpage {
   background: #fff;
-  border: 1px solid #c9c2b2;
+  border: 1px solid #cfd4da;
   border-radius: 2px;
-  box-shadow: 0 3px 10px rgba(60, 48, 25, .18);
+  box-shadow: 0 3px 12px rgba(45, 59, 69, .16);
   padding: 40px 52px 34px;
   margin: 16px 0 12px;
   color: #141414;
   position: relative;
+  text-align: left;
 }
 .docpage::before {
   content: "FROM THE TURNED-IN REPORT";
@@ -760,7 +858,7 @@ span.chip.is-pending .pill--pending {
   font-family: var(--mono);
   font-size: .6rem;
   letter-spacing: .1em;
-  color: #a39a86;
+  color: #98a4ae;
 }
 .docpage a { color: #0563c1; }
 .docpage p { margin: 0 0 10px; }
