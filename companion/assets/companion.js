@@ -41,17 +41,15 @@
 
   /* --- The masthead (redesign 2026-08-26, "effective Canvas site" idiom):
          one banner graphic carried on every page, and a pared-down centered
-         row of button links under it. The graphic does not exist yet, so the
-         masthead renders a labeled placeholder describing the imagined
-         picture; when the real art arrives, swap this block for an <img> (or
-         a CSS background) in ONE place — here. ------------------------------ */
-  var MASTHEAD_ART = {
-    tag: 'Image placeholder — same banner on every page',
-    desc: 'Imagined picture: a wide, warm, flat-style illustration of a small ' +
-      'ward classroom mid-lesson — a teacher at a chalkboard sketching a ' +
-      'diagram, a mixed-age class leaning in, one hand up mid-question. ' +
-      'Quiet colors, no text in the image. Roughly 4:1; the hub shows it ' +
-      'tall, interior pages show a slim strip of the same art.'
+         row of button links under it. The banner is the ONE place the image
+         is declared; the hub shows it at its full aspect, interior pages a
+         slim strip of the same picture (companion.css). ------------------- */
+  var MASTHEAD_IMG = {
+    src: 'assets/banner.jpg',
+    alt: 'A Sunday School teacher holds a laptop, showing a website to a ' +
+      'small class of youth in a meetinghouse classroom.',
+    credit: 'Photo: The Church of Jesus Christ of Latter-day Saints',
+    creditHref: 'https://www.churchofjesuschrist.org/media/image/computer-sunday-school-class-youth-ab61a43?lang=eng'
   };
 
   /* The button row. `page` matches <body data-page="…">, so the current
@@ -202,10 +200,12 @@
   function buildMasthead() {
     var current = document.body.getAttribute('data-page') || '';
 
-    var art = h('div', { 'class': 'img-slot masthead__art', 'role': 'img',
-                         'aria-label': 'Placeholder for the companion banner illustration' }, [
-      h('span', { 'class': 'img-slot__tag' }, MASTHEAD_ART.tag),
-      h('p', { 'class': 'img-slot__desc' }, MASTHEAD_ART.desc)
+    var art = h('figure', { 'class': 'masthead__figure' }, [
+      h('img', { 'class': 'masthead__img', 'src': resolve(MASTHEAD_IMG.src),
+                 'alt': MASTHEAD_IMG.alt }),
+      h('figcaption', { 'class': 'masthead__credit' }, [
+        h('a', { 'href': MASTHEAD_IMG.creditHref }, MASTHEAD_IMG.credit)
+      ])
     ]);
 
     var nav = h('nav', { 'class': 'masthead__nav',

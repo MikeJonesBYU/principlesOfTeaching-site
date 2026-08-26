@@ -12,8 +12,9 @@
    ABOUT that site, and screenshots or embedded views of the teaching site and
    prototypes must read as specimens on a neutral page.
 
-   Self-contained: system fonts only, no @import, no web fonts. The only
-   "image" is the labeled placeholder slot (.img-slot) awaiting real art.
+   Self-contained: system fonts only, no @import, no web fonts. One image:
+   assets/banner.jpg, the masthead banner carried on every page. Pictures
+   that don't exist yet render as labeled placeholder slots (.img-slot).
 
    Contents
      1. Tokens and base
@@ -191,6 +192,29 @@ a:focus-visible,
   box-shadow: inset 0 0 0 2px var(--slate);
 }
 
+/* The banner picture itself. The hub shows the full 1920x580 crop at its own
+   aspect; interior pages show a slim strip of the same picture, positioned so
+   the teacher's face stays in frame. */
+.masthead__figure { margin: 0; }
+.masthead__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+}
+body:not([data-page="hub"]) .masthead__img {
+  height: 110px;
+  object-fit: cover;
+  object-position: 50% 30%;
+}
+.masthead__credit {
+  margin: 4px 2px 0;
+  font-size: .72rem;
+  color: var(--muted);
+  text-align: right;
+}
+.masthead__credit a { color: inherit; }
+
 /* A labeled stand-in for a real picture. The tag says it is a placeholder;
    the description says what picture is imagined there, so the real art can
    be sourced later and dropped in. */
@@ -222,9 +246,6 @@ a:focus-visible,
   line-height: 1.5;
   max-width: 56ch;
 }
-/* The hub gets the full-height hero; interior pages carry a slimmer strip of
-   the same (future) graphic. */
-body[data-page="hub"] .masthead .img-slot { min-height: 230px; }
 
 /* -------------------------------------------- 4. Layout and typography ----- */
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: 34px 20px 80px; }
@@ -648,9 +669,9 @@ span.chip.is-pending .pill--pending {
   .fiction-banner__link { white-space: normal; display: inline-block; }
 
   .masthead__inner { padding: 14px 16px 16px; }
-  .masthead__nav { gap: 8px; }
+  .masthead__nav { gap: 8px; margin-top: 12px; }
   .btn { padding: 7px 14px; font-size: .88rem; }
-  body[data-page="hub"] .masthead .img-slot { min-height: 170px; }
+  body:not([data-page="hub"]) .masthead__img { height: 84px; }
 
   .arc-item { flex-direction: column; gap: 8px; padding: 14px; }
   .arc-item::after { left: 22px; }

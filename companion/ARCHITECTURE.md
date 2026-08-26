@@ -259,10 +259,13 @@ exported from git history:
   cluttered and is retired. The new rules, drawn from that page's praised
   examples:
   - Clean white page, cool near-black ink, one link blue, generous whitespace.
-  - **One banner graphic carried on every page** (the HMP 626 cohesion move).
-    Until real art exists, `companion.js` renders a labeled `.img-slot`
-    placeholder describing the imagined picture; swap it for the real image in
-    that one place. Tall on the hub, a slim strip on interior pages.
+  - **One banner graphic carried on every page** (the HMP 626 cohesion move):
+    `assets/banner.jpg`, a 1920×580 crop of the Church media image
+    "computer-sunday-school-class-youth-ab61a43" (teacher showing a class a
+    website on a laptop — chosen 2026-08-26; attribution line links the
+    source). Declared once, in the `MASTHEAD_IMG` block of `companion.js`;
+    full aspect on the hub, a slim strip on interior pages. Pictures that
+    don't exist yet still render as labeled `.img-slot` placeholders.
   - **A pared-down centered row of button links** under the banner (the
     Canvas "Modules / Assignments / Syllabus" row), injected by `companion.js`
     on every companion page: Home, What's real & what's not, The ward, The
