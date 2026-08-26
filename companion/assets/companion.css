@@ -207,6 +207,9 @@ body:not([data-page="hub"]) .masthead__img {
   object-fit: cover;
   object-position: 50% 30%;
 }
+/* A page with its own header picture shows it at the picture's full aspect
+   ratio, like the hub — never as a cropped strip. */
+.masthead__figure--own .masthead__img { height: auto !important; object-fit: fill; }
 .masthead__credit {
   margin: 4px 2px 0;
   font-size: .72rem;

@@ -52,6 +52,19 @@
     creditHref: 'https://www.churchofjesuschrist.org/media/image/computer-sunday-school-class-youth-ab61a43?lang=eng'
   };
 
+  /* Per-page masthead overrides, keyed by <body data-page="…">. A page listed
+     here gets its own header picture at the picture's own aspect ratio
+     (companion.css §3) instead of the slim strip of the shared banner. */
+  var MASTHEAD_IMG_BY_PAGE = {
+    ward: {
+      src: 'assets/banner-ward.jpg',
+      alt: 'Mount Timpanogos at sunset, snow lit pink, rising over the ' +
+        'rooftops and trees of Utah Valley and reflected in Utah Lake.',
+      credit: 'Photo: Mike Jones',
+      creditHref: null
+    }
+  };
+
   /* The button row. `page` matches <body data-page="…">, so the current
      page's button reads as selected. Hrefs are relative to companion/. */
   var NAV = [
@@ -200,11 +213,17 @@
   function buildMasthead() {
     var current = document.body.getAttribute('data-page') || '';
 
-    var art = h('figure', { 'class': 'masthead__figure' }, [
-      h('img', { 'class': 'masthead__img', 'src': resolve(MASTHEAD_IMG.src),
-                 'alt': MASTHEAD_IMG.alt }),
+    var img = MASTHEAD_IMG_BY_PAGE[current] || MASTHEAD_IMG;
+    var art = h('figure', {
+      'class': 'masthead__figure' +
+        (MASTHEAD_IMG_BY_PAGE[current] ? ' masthead__figure--own' : '')
+    }, [
+      h('img', { 'class': 'masthead__img', 'src': resolve(img.src),
+                 'alt': img.alt }),
       h('figcaption', { 'class': 'masthead__credit' }, [
-        h('a', { 'href': MASTHEAD_IMG.creditHref }, MASTHEAD_IMG.credit)
+        img.creditHref
+          ? h('a', { 'href': img.creditHref }, img.credit)
+          : img.credit
       ])
     ]);
 

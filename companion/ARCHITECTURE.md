@@ -264,8 +264,12 @@ exported from git history:
     "computer-sunday-school-class-youth-ab61a43" (teacher showing a class a
     website on a laptop — chosen 2026-08-26; attribution line links the
     source). Declared once, in the `MASTHEAD_IMG` block of `companion.js`;
-    full aspect on the hub, a slim strip on interior pages. Pictures that
-    don't exist yet still render as labeled `.img-slot` placeholders.
+    full aspect on the hub, a slim strip on interior pages. A page may carry
+    its own header instead via `MASTHEAD_IMG_BY_PAGE`, shown at the picture's
+    full aspect ratio: ward.html uses `assets/banner-ward.jpg`, Mike's
+    Timpanogos-over-Utah-Lake panorama (credited "Photo: Mike Jones").
+    Pictures that don't exist yet still render as labeled `.img-slot`
+    placeholders.
   - **A pared-down centered row of button links** under the banner (the
     Canvas "Modules / Assignments / Syllabus" row), injected by `companion.js`
     on every companion page: Home, What's real & what's not, The ward, The
