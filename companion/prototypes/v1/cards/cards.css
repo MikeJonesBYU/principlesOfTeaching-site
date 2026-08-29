@@ -1,0 +1,608 @@
+/* ==========================================================================
+   Prototype v1, third build — "the card build" stylesheet.
+
+   SAME SYSTEM, LESS OF IT. The palette is Team A's "Sunday Blue" — mono
+   hue 217° plus its 37° complement as the single accent — token for token,
+   because the task test must compare builds, not palettes. What changed is
+   how much of the system each screen spends:
+
+     - The page ground is white. v1 floated one white surface on a pale blue
+       wash; here the content IS the page. One layer fewer to read.
+     - Borders got quieter and corners got rounder: hairlines at the gray
+       ramp's lightest step, 12px radii on cards and tiles.
+     - Chips and tags dropped their borders; a soft tint fill does the work.
+     - The header is a plain white bar with one hairline.
+     - Type: same family, same three weights; the two biggest sizes step
+       down a notch, and letter-spacing tightens on headings.
+
+   ACCENT DISCIPLINE — unchanged, on purpose. The accent appears exactly
+   ONCE per screen, on the one thing the eye should reach first, routed by
+   body[data-focus]; the four rules at the bottom of this file are still the
+   only places the accent is spent:
+
+       data-focus="search"  home + search results  -> the search button
+       data-focus="here"    hierarchy pages        -> the you-are-here marker
+       data-focus="manual"  a block page           -> "Read it in the manual"
+       data-focus="export"  the log                -> the primary export
+
+   THE CARD. One template for all 53 blocks in every listing. Reading order
+   is enforced by size and color, top to bottom: situation lead (largest,
+   ink), manual sentence (small, gray, clamped to two lines), first move
+   (distinct left rule), chips (smallest). In search results the matched-
+   reason renders last and is clamped to ONE line — the density fix the
+   semantic build's grading asked for on phones.
+   ========================================================================== */
+
+:root {
+  --ink: #0F1B2D;
+  --blue-900: #12253F;
+  --blue-700: #1B3A6B;
+  --blue-500: #2E5C9E;
+  --blue-300: #8AA8D2;
+  --blue-100: #DCE6F5;
+  --blue-050: #F1F5FB;
+  --shade: #0B1626;
+
+  --accent-700: #8F4705;
+  --accent-600: #B45C07;
+  --accent-500: #D9800F;
+
+  --paper: #FFFFFF;
+  --gray-600: #57606E;
+  --gray-200: #DDE2E9;
+  --hairline: #E8ECF2;
+
+  /* 4px scale — every margin, pad and gap is a step on it. */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+
+  --radius: 8px;
+  --radius-lg: 12px;
+  --lift: 0 1px 2px rgba(11, 22, 38, 0.05), 0 6px 18px rgba(11, 22, 38, 0.06);
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+a { color: var(--blue-500); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--blue-500);
+  outline-offset: 2px;
+}
+
+h1, h2, h3 { color: var(--blue-900); line-height: 1.25; margin: 0; }
+h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.015em; }
+h2 { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-600); }
+h3 { font-size: 1rem; font-weight: 600; }
+p  { margin: 0; }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------- companion chrome (banner) */
+.proto-banner {
+  background: var(--blue-050);
+  color: var(--blue-900);
+  border-bottom: 1px solid var(--hairline);
+  padding: var(--sp-2) var(--sp-4);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+.proto-banner a { color: var(--blue-700); text-decoration: underline; }
+
+/* ------------------------------------------------------------- the header */
+.site {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--hairline);
+}
+.site__inner {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--sp-3) var(--sp-4);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+.brand {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--blue-900);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.brand:hover { text-decoration: none; color: var(--blue-700); }
+
+.search {
+  display: flex;
+  flex: 1 1 20rem;
+  min-width: 0;
+  gap: var(--sp-2);
+}
+.search__field {
+  flex: 1 1 auto;
+  min-width: 0;
+  font: inherit;
+  font-size: 0.9375rem;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--gray-200);
+  border-radius: 999px;
+  padding: var(--sp-2) var(--sp-4);
+  min-height: 40px;
+}
+.search__field::placeholder { color: var(--gray-600); }
+.search__field:focus { border-color: var(--blue-300); }
+.search__go {
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  padding: var(--sp-2) var(--sp-4);
+  min-height: 40px;
+  border-radius: 999px;
+  /* default (unfocused screens): monochrome */
+  color: var(--blue-700);
+  background: var(--paper);
+  border: 1px solid var(--gray-200);
+}
+.search__go:hover { background: var(--blue-050); }
+
+.site__util {
+  font-size: 0.8125rem;
+  color: var(--gray-600);
+  white-space: nowrap;
+}
+.site__util a { color: var(--blue-700); }
+
+/* -------------------------------------------------------------- the page */
+.shell {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--sp-6) var(--sp-4) var(--sp-8);
+}
+/* v1 floated a shadowed surface on a tinted ground; here the content is the
+   page. The class stays so the markup doesn't care. */
+.surface { background: transparent; }
+
+.crumbs {
+  font-size: 0.8125rem;
+  color: var(--gray-600);
+  margin-bottom: var(--sp-4);
+}
+.crumbs a { color: var(--blue-700); }
+.crumbs .sep { color: var(--blue-300); padding: 0 var(--sp-1); }
+
+/* You-are-here marker. Monochrome by default; the accent lands on it only
+   on the hierarchy screens, where locating yourself is the first job. */
+.here {
+  border-left: 3px solid var(--blue-300);
+  padding-left: var(--sp-4);
+  margin-bottom: var(--sp-5);
+}
+.here__kicker {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+  margin-bottom: var(--sp-1);
+}
+.here__sub { color: var(--gray-600); font-size: 0.9375rem; margin-top: var(--sp-2); }
+
+.lede {
+  font-size: 1rem;
+  color: var(--gray-600);
+  max-width: 44rem;
+  margin-top: var(--sp-3);
+}
+.meta { color: var(--gray-600); font-size: 0.875rem; margin-top: var(--sp-2); }
+
+.section { margin-top: var(--sp-7); }
+.section > h2 { margin-bottom: var(--sp-4); }
+
+/* --------------------------------------------------------------- tiles */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: var(--sp-3);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.tile {
+  display: block;
+  height: 100%;
+  padding: var(--sp-4);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  color: var(--ink);
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+.tile:hover {
+  text-decoration: none;
+  border-color: var(--blue-300);
+  box-shadow: var(--lift);
+}
+.tile__name { display: block; font-weight: 600; color: var(--blue-900); }
+.tile__sub { display: block; margin-top: var(--sp-1); font-size: 0.8125rem; color: var(--gray-600); }
+.tile--trial { border-style: dashed; border-color: var(--blue-300); }
+
+.trial-note {
+  margin-top: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--blue-050);
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  color: var(--blue-900);
+}
+.trial-note strong { letter-spacing: 0.02em; }
+
+/* ------------------------------------------------------ the skill cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  gap: var(--sp-3);
+  list-style: none;
+  margin: var(--sp-4) 0 0;
+  padding: 0;
+  align-items: stretch;
+}
+/* min-width: 0 throughout — a grid/flex item's default min-width is its
+   content, and the nowrap matched-reason line must never be allowed to set
+   the card's width; it ellipsizes to whatever the card gives it. */
+.cards > li { display: flex; min-width: 0; }
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  width: 100%;
+  min-width: 0;
+  padding: var(--sp-4);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  color: var(--ink);
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+.card:hover {
+  text-decoration: none;
+  border-color: var(--blue-300);
+  box-shadow: var(--lift);
+}
+.card__sit {
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.35;
+  color: var(--blue-900);
+  letter-spacing: -0.005em;
+}
+.card__verbatim {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--gray-600);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.card__first {
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--ink);
+  border-left: 2px solid var(--blue-100);
+  padding-left: var(--sp-3);
+}
+.card__first-k {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue-500);
+  margin-bottom: 2px;
+}
+.card__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1) var(--sp-2);
+  align-items: center;
+  margin-top: auto;
+  padding-top: var(--sp-1);
+}
+/* The matched-reason: one line, never more. The semantic build let this
+   wrap to three lines in the smallest type and paid a rubric point for it. */
+.card__why {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--blue-700);
+  background: var(--blue-050);
+  border-radius: var(--radius);
+  padding: 3px var(--sp-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  min-width: 0;
+  align-self: flex-start;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: var(--blue-700);
+  background: var(--blue-050);
+  border-radius: 999px;
+  padding: 2px 10px;
+}
+.tag--prep { color: var(--gray-600); background: #F4F6F9; }
+.tag--live { color: var(--blue-700); background: var(--blue-100); }
+
+/* -------------------------------------------------------------- chips */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-top: var(--sp-3);
+  list-style: none;
+  padding: 0;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font: inherit;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  padding: 6px var(--sp-3);
+  min-height: 32px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: var(--blue-050);
+  color: var(--blue-700);
+}
+.chip:hover { background: var(--blue-100); }
+.chip__n { color: var(--gray-600); font-variant-numeric: tabular-nums; }
+.chip--on {
+  background: var(--blue-700);
+  color: var(--paper);
+}
+.chip--on .chip__n { color: var(--blue-100); }
+.chip--on:hover { background: var(--blue-900); }
+.chips__legend {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+  margin-top: var(--sp-5);
+}
+
+/* ------------------------------------------------------- the block page */
+.block-head { margin-bottom: var(--sp-5); max-width: 44rem; }
+.block-head__label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--blue-500);
+  margin-bottom: var(--sp-2);
+}
+.block-head h1 { font-size: 1.375rem; font-weight: 600; line-height: 1.3; }
+
+.firstmove {
+  max-width: 44rem;
+  padding: var(--sp-4);
+  background: var(--blue-050);
+  border-radius: var(--radius-lg);
+}
+.firstmove__key {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue-500);
+  margin-bottom: var(--sp-1);
+}
+.firstmove__text { font-size: 1rem; color: var(--blue-900); }
+
+.facts { margin-top: var(--sp-5); max-width: 44rem; }
+.fact { padding: var(--sp-3) 0; border-top: 1px solid var(--hairline); }
+.fact__key {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+  margin-bottom: var(--sp-2);
+}
+.trail { font-size: 0.9375rem; }
+.trail + .trail { margin-top: var(--sp-2); }
+.trail .sep { color: var(--blue-300); padding: 0 var(--sp-2); }
+
+.stub {
+  margin-top: var(--sp-5);
+  max-width: 44rem;
+  font-size: 0.875rem;
+  color: var(--gray-600);
+}
+.stub strong { color: var(--blue-900); }
+
+.manual-btn {
+  display: inline-block;
+  margin-top: var(--sp-5);
+  font-weight: 600;
+  padding: var(--sp-3) var(--sp-5);
+  min-height: 44px;
+  border-radius: 999px;
+  /* default (any screen that is not a block page): monochrome */
+  color: var(--blue-700);
+  background: var(--paper);
+  border: 1px solid var(--gray-200);
+}
+.manual-btn:hover { text-decoration: none; background: var(--blue-050); }
+
+/* --------------------------------------------------------- search results */
+.noresults { margin-top: var(--sp-5); }
+.noresults__q {
+  font-size: 1rem;
+  color: var(--blue-900);
+}
+.suggests { list-style: none; margin: var(--sp-3) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.suggests button {
+  font: inherit;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  padding: 6px var(--sp-3);
+  min-height: 32px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: var(--blue-050);
+  color: var(--blue-700);
+}
+.suggests button:hover { background: var(--blue-100); }
+
+/* -------------------------------------------------------------- the log */
+.tools { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
+.btn {
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: var(--sp-2) var(--sp-4);
+  min-height: 40px;
+  border-radius: 999px;
+  color: var(--blue-700);
+  background: var(--paper);
+  border: 1px solid var(--gray-200);
+}
+.btn:hover { background: var(--blue-050); }
+
+.scrollx { overflow-x: auto; margin-top: var(--sp-5); }
+.logtable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+.logtable th, .logtable td {
+  text-align: left;
+  padding: var(--sp-2) var(--sp-3);
+  border-bottom: 1px solid var(--hairline);
+}
+.logtable th {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+}
+.logtable td { color: var(--ink); }
+.logtable .num { font-variant-numeric: tabular-nums; color: var(--gray-600); }
+.copybox {
+  width: 100%;
+  min-height: 8rem;
+  margin-top: var(--sp-2);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.75rem;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: var(--sp-2);
+}
+.hint { font-size: 0.8125rem; color: var(--gray-600); margin-top: var(--sp-2); }
+.empty {
+  margin-top: var(--sp-5);
+  padding: var(--sp-6);
+  text-align: center;
+  color: var(--gray-600);
+  background: var(--blue-050);
+  border-radius: var(--radius-lg);
+}
+
+.backnav { margin-top: var(--sp-6); font-size: 0.875rem; display: flex; flex-wrap: wrap; gap: var(--sp-4); }
+
+.footfine {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 var(--sp-4) var(--sp-7);
+  font-size: 0.75rem;
+  color: var(--gray-600);
+}
+
+/* ==========================================================================
+   THE ACCENT. Four rules, one per screen type. Nothing else in this file
+   may use the accent tokens.
+
+   Anything filled that carries white text uses --accent-600 (4.7:1) and
+   darkens to --accent-700 on hover (6.8:1). --accent-500 is reserved for the
+   one accent that is a rule and not a label.
+   ========================================================================== */
+
+[data-focus="search"] .search__go {
+  color: var(--paper);
+  background: var(--accent-600);
+  border-color: var(--accent-600);
+}
+[data-focus="search"] .search__go:hover { background: var(--accent-700); border-color: var(--accent-700); }
+
+[data-focus="here"] .here { border-left-color: var(--accent-500); }
+[data-focus="here"] .here__kicker { color: var(--accent-600); }
+
+[data-focus="manual"] .manual-btn {
+  color: var(--paper);
+  background: var(--accent-600);
+  border-color: var(--accent-600);
+}
+[data-focus="manual"] .manual-btn:hover { background: var(--accent-700); border-color: var(--accent-700); }
+
+[data-focus="export"] .btn--primary {
+  color: var(--paper);
+  background: var(--accent-600);
+  border-color: var(--accent-600);
+}
+[data-focus="export"] .btn--primary:hover { background: var(--accent-700); border-color: var(--accent-700); }
+
+/* -------------------------------------------------------------- narrow */
+@media (max-width: 40rem) {
+  .site__inner { gap: var(--sp-2); }
+  .brand { flex: 1 1 auto; }
+  .site__util { order: 2; }
+  .search { order: 3; flex: 1 1 100%; }
+  .shell { padding: var(--sp-4) var(--sp-3) var(--sp-7); }
+  h1 { font-size: 1.25rem; }
+  .block-head h1 { font-size: 1.125rem; }
+  .grid { grid-template-columns: 1fr; }
+  .cards { grid-template-columns: 1fr; }
+  .manual-btn { display: block; text-align: center; }
+}

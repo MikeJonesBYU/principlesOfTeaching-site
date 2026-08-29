@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
-  <title>First functional prototype &mdash; alternative build (semantic search)</title>
-  <meta name="description" content="Instructor-built alternative of Team A's prototype v1: same data, same views, with the search grown into a precomputed meaning index. No server, no AI call at lookup time.">
-  <link rel="stylesheet" href="../team-a/v1.css">
+  <title>First functional prototype &mdash; third build (skill cards)</title>
+  <meta name="description" content="Third instructor build of prototype v1: the semantic build's data and search, with every listing redesigned into a skill card — situation, manual sentence, first move, prep — on a simpler, whiter shell.">
+  <link rel="stylesheet" href="cards.css">
   <style>
-    /* The one visual difference from Team A's build: say what this is. */
+    /* Say what this is, without spending color. */
     .brand::after {
-      content: "semantic build";
+      content: "card build · v3";
       display: inline-block; margin-left: 0.55rem; padding: 0.1rem 0.5rem;
       border: 1px solid currentColor; border-radius: 999px;
       font-size: 0.62rem; font-weight: 600; letter-spacing: 0.06em;
@@ -22,12 +22,12 @@
 
   <!-- Prototype banner (companion chrome, not part of the prototype) -->
   <div class="proto-banner">
-    <strong>CS 356 companion &mdash; alternative build of prototype v1.</strong>
-    Team A&rsquo;s prototype with a semantic search engine; an instructor
-    exploration, not a graded turn-in.
-    <a href="../team-a/index.html">Original build &rarr;</a> &middot;
-    <a href="../cards/index.html">Next revision: the card build &rarr;</a> &middot;
-    <a href="../../../../index.html">Live site &rarr;</a> &middot;
+    <strong>CS 356 companion &mdash; prototype v1, third build.</strong>
+    The semantic build with the results redesigned into skill cards; an
+    instructor revision, not a graded turn-in.
+    <a href="../semantic/index.html">v2, semantic search &rarr;</a> &middot;
+    <a href="../team-a/index.html">v1, the turn-in &rarr;</a> &middot;
+    <a href="../../../cards-build-notes.html">Why this revision &rarr;</a> &middot;
     <a href="../../../index.html">Back to the companion &rarr;</a>
   </div>
 
@@ -41,7 +41,7 @@
         <button class="search__go" type="submit">Search</button>
       </form>
       <p class="site__util">
-        <a href="#/how" data-label="About this search">About this search</a> &middot;
+        <a href="#/how" data-label="About this build">About this build</a> &middot;
         <a href="#/log" data-label="Session log">Session log</a>
       </p>
     </div>
@@ -52,11 +52,11 @@
   </main>
 
   <footer class="footfine">
-    <p>Alternative build of prototype v1. Same single data file as Team A&rsquo;s
-       build; the search matches meaning as well as wording, from an index
-       computed once ahead of time &mdash; no server, no AI call at lookup
-       time. <a href="#/how">How it works &rarr;</a> &middot;
-       <a href="../../../semantic-build-report.html">The report, graded &rarr;</a></p>
+    <p>Third build of prototype v1. Same single data file as Team A&rsquo;s
+       build and the same meaning index as the semantic build, both loaded by
+       reference; new here are the skill cards and the simpler shell.
+       <a href="#/how">How it works &rarr;</a> &middot;
+       <a href="../../../cards-build-notes.html">The revision notes &rarr;</a></p>
   </footer>
 
   <noscript>
@@ -65,7 +65,8 @@
   </noscript>
 
   <script src="../team-a/v1-data.js"></script>
-  <script src="semantic-index.js"></script>
+  <script src="../semantic/semantic-index.js"></script>
+  <script src="cards-data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

@@ -12,10 +12,14 @@
   .proto-banner a { color: #111; }
   main { max-width: 42rem; margin: 2rem auto; padding: 0 1rem; }
   h1 { font-size: 1.4rem; border-bottom: 1px solid #111; padding-bottom: 0.4rem; }
+  h2.rule { font-size: 1.1rem; border-bottom: 1px solid #111; padding-bottom: 0.3rem; margin-top: 2.4rem; }
   .team { border: 1px solid #111; padding: 1rem 1.2rem; margin: 1.2rem 0; }
-  .team h2 { margin: 0 0 0.3rem; font-size: 1.1rem; }
+  .team h2, .team h3 { margin: 0 0 0.3rem; font-size: 1.1rem; }
   .team p { margin: 0.3rem 0 0.8rem; font-size: 0.95rem; }
-  .team a.go { display: inline-block; border: 1px solid #111; padding: 0.35rem 0.9rem; color: #111; text-decoration: none; font-weight: bold; }
+  .team a.go { display: inline-block; border: 1px solid #111; padding: 0.35rem 0.9rem; color: #111; text-decoration: none; font-weight: bold; margin-right: 0.4rem; }
+  .vtag { display: inline-block; border: 1px solid #111; border-radius: 999px; padding: 0.05rem 0.55rem; font-size: 0.72rem; font-weight: bold; letter-spacing: 0.04em; margin-right: 0.45rem; vertical-align: 0.08em; }
+  .team--rev { border-style: dashed; }
+  .evolution-note { font-size: 0.95rem; margin: 0.8rem 0 0; }
   .note { font-size: 0.85rem; color: #444; margin-top: 2rem; }
 </style>
 </head>
@@ -53,23 +57,42 @@
       <a class="go" href="team-b/">Open Team B’s prototype →</a>
     </div>
 
-    <div class="team">
-      <h2>Alternative build — semantic search</h2>
-      <p>An instructor exploration, not a turn-in: Team A’s prototype with one
-      thing changed — the search matches what you <em>mean</em>, not just the
-      words you type. “Kids are noisy,” “teenagers on their phones,” “was
-      that the Spirit” all land, from a meaning index computed once ahead of
-      time. Still no server, and no AI call at lookup time. Compare it
-      against the original and read its “About this search” page.</p>
+    <h2 class="rule">The prototype, evolving — the instructor’s revision line</h2>
+    <p class="evolution-note">A prototype in the graded chain freezes when its
+    study runs; the thinking doesn’t. These builds revise Team A’s prototype
+    one bet at a time, each loading the previous build’s work by reference
+    rather than copying it. Read them in order and watch what each revision
+    changes, what it refuses to touch, and what it admits it can’t know
+    without the next study.</p>
+
+    <div class="team team--rev">
+      <h3><span class="vtag">v2</span>Semantic search</h3>
+      <p>One subsystem replaced: the search matches what you <em>mean</em>,
+      not just the words you type. “Kids are noisy,” “teenagers on their
+      phones,” “was that the Spirit” all land, from a meaning index computed
+      once ahead of time. Still no server, and no AI call at lookup time.</p>
       <a class="go" href="semantic/">Open the semantic build →</a>
-      <a class="go" href="../../semantic-build-report.html">Read the report, graded 57/60 →</a>
+      <a class="go" href="../../semantic-build-report.html">The report, graded 57/60 →</a>
+    </div>
+
+    <div class="team team--rev">
+      <h3><span class="vtag">v3</span>Skill cards</h3>
+      <p>The newest revision: every listing redesigned from a title row into
+      an informative card — the situation you’re in (teacher words, on all
+      53 blocks now), the manual’s exact sentence, the first move to try, and
+      chips for lesson moment and how much preparing it takes — plus a
+      simpler, whiter shell and a “narrow by preparation” search facet. The
+      data, hierarchy, and meaning index are v2’s, untouched.</p>
+      <a class="go" href="cards/">Open the card build →</a>
+      <a class="go" href="../../cards-build-notes.html">Why this revision →</a>
     </div>
 
     <p class="note">These artifacts belong to the companion’s worked example:
     the studies that produced them are fictitious (see the companion’s
     what’s-real statement), but the prototypes themselves are real and
     clickable, and the strong team’s decisions really drive the next
-    prototype.</p>
+    prototype. The instructor revisions sit outside the graded chain — Team
+    A’s build remains the one the task test runs on.</p>
   </main>
 </body>
 </html>

@@ -87,8 +87,8 @@
     graded: 'Graded on',
     produces: 'Produces',
     testedBelow: 'Tested below by',
-    altVersion: 'Alternate version',
-    altReport: 'Graded report',
+    altVersion: 'Instructor revision',
+    altReport: 'The write-up',
     runsOn: 'Runs on',
     pairDown: 'that study runs on this exact build',
     pairUp: 'the build above, in this same turn-in',
@@ -457,23 +457,29 @@
       ]));
     }
 
-    /* An alternate version of a build: outside the graded chain, linked from
-       the same station so the comparison is one click. Registry shape:
-       alt: { title, path, report?, note? }. */
-    if (isProto && station.alt && station.alt.path) {
+    /* The instructor's revision line: builds outside the graded chain that
+       revise this station's prototype one bet at a time, linked from the
+       same station so the evolution reads in order. Registry shape:
+       alts: [{ title, path, report?, note? }, \u2026]; a legacy singular `alt`
+       renders the same way. One row per revision. */
+    var alts = isProto
+      ? (station.alts || (station.alt && station.alt.path ? [station.alt] : []))
+      : [];
+    alts.forEach(function (alt) {
+      if (!alt || !alt.path) { return; }
       body.push(h('p', { 'class': 'arc-item__links' }, [
         h('span', { 'class': 'micro-label' }, LABELS.altVersion),
         ' ',
-        h('a', { 'class': 'chip', 'href': resolve(station.alt.path) },
-          station.alt.title || 'Alternate build'),
-        station.alt.report ? ' ' : null,
-        station.alt.report
-          ? h('a', { 'class': 'chip', 'href': resolve(station.alt.report) },
-              LABELS.altReport)
+        h('a', { 'class': 'chip', 'href': resolve(alt.path) },
+          alt.title || 'Alternate build'),
+        alt.report ? ' ' : null,
+        alt.report
+          ? h('a', { 'class': 'chip', 'href': resolve(alt.report) },
+              alt.reportLabel || LABELS.altReport)
           : null,
-        station.alt.note ? ' \u2014 ' + station.alt.note : null
+        alt.note ? ' \u2014 ' + alt.note : null
       ]));
-    }
+    });
 
     var num = numbers[station.id] || null;
     var marker = h('div', { 'class': 'arc-item__marker' }, [

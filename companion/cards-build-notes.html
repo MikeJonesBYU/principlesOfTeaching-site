@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The card build (v3): revision notes — CS 356 Companion</title>
+  <meta name="description" content="Why the third build of prototype v1 turned every skill listing into a card — each change traced to a study finding or a ward member where the evidence exists, and called conviction where it doesn't.">
+  <link rel="stylesheet" href="assets/companion.css">
+  <style>
+    .change { margin: 22px 0 0; }
+    .change h3 { margin: 0 0 6px; }
+    .change__tag {
+      display: inline-block; margin-left: 8px; padding: 1px 9px;
+      border-radius: 999px; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase; vertical-align: 0.14em;
+    }
+    .change__tag--evidence { background: #E7EFE7; color: #2E5B2E; }
+    .change__tag--conviction { background: #EFEBE2; color: #6B5B2E; }
+    .lineage { list-style: none; margin: 14px 0 0; padding: 0; }
+    .lineage li { display: flex; gap: 14px; padding: 10px 0; border-top: 1px solid #E4E4E0; }
+    .lineage li:last-child { border-bottom: 1px solid #E4E4E0; }
+    .lineage .v {
+      flex: none; width: 2.6rem; font-weight: 700; font-variant-numeric: tabular-nums;
+    }
+    .lineage p { margin: 0; }
+    .lineage .when { font-size: 0.8rem; color: #666; }
+  </style>
+</head>
+<body data-page="report">
+
+  <main class="wrap">
+
+    <header class="site-head">
+      <p class="kicker">CS 356 Companion &middot; Prototype 2, third build</p>
+      <h1>The card build: revision notes</h1>
+
+      <p class="fiction-note"><span class="fiction-badge">FICTITIOUS DATA</span>
+        <strong>Scope note.</strong> Real: <a href="prototypes/v1/cards/">the
+        build itself</a>, every structural claim made about it, and every
+        design change described below. Invented: the studies and the people
+        the changes answer to &mdash; the card sort, the tree test, their
+        participants, and the whole Timpanogos Shadows Ward roster &mdash;
+        which are the companion&rsquo;s standing fiction.
+        <a href="fiction.html">What&rsquo;s real and what&rsquo;s not
+        &rarr;</a></p>
+
+      <p class="lead">
+        A prototype is not a draft that becomes a final; it is a sequence of
+        bets, and each revision should show its reasoning. This page is the
+        reasoning for the third build of the first functional prototype: the
+        listings redesigned into <strong>skill cards</strong>, on a simpler,
+        whiter shell. Each change below is tagged with where it came from
+        &mdash; <em>evidence</em> when a study finding or a named ward member
+        demanded it, <em>conviction</em> when it is design judgment standing
+        on its own. Both are legitimate. Confusing them is not.
+      </p>
+    </header>
+
+    <section aria-labelledby="lineage-h">
+      <h2 id="lineage-h">One prototype, three builds</h2>
+      <p class="section-note">
+        The graded chain freezes a prototype the moment its study runs. It
+        does not freeze the instructor &mdash; so v1 has grown a line of
+        revisions, each one building on the last, each one a candidate for
+        what the <em>final</em> prototype should absorb. Watch what changes
+        and what refuses to change.
+      </p>
+      <ul class="lineage">
+        <li>
+          <span class="v">v1</span>
+          <p><strong><a href="prototypes/v1/team-a/">Team A&rsquo;s turn-in.</a></strong>
+          The tree test&rsquo;s six decisions built exactly as written: one
+          data file, two hierarchies plus search, a hand-built 35-concept
+          search vocabulary, the click-and-query log. The build the task test
+          will run on. <span class="when">Built November 2026 (course
+          fiction); the binding artifact.</span></p>
+        </li>
+        <li>
+          <span class="v">v2</span>
+          <p><strong><a href="prototypes/v1/semantic/">The semantic build.</a></strong>
+          One subsystem replaced: search grown into a precomputed meaning
+          index, so &ldquo;kids are noisy&rdquo; lands without appearing in
+          any skill&rsquo;s wording. No server, no AI call at lookup time.
+          <a href="semantic-build-report.html">Reported and graded, 57/60
+          &rarr;</a> <span class="when">Instructor revision.</span></p>
+        </li>
+        <li>
+          <span class="v">v3</span>
+          <p><strong><a href="prototypes/v1/cards/">The card build &mdash; this
+          revision.</a></strong> The semantic build&rsquo;s data and engine,
+          untouched and loaded by reference; every listing redesigned from a
+          title row into an informative card, and the visual shell pared
+          down. <span class="when">Instructor revision, August&nbsp;2026
+          (authoring time).</span></p>
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="problem-h">
+      <h2 id="problem-h">The problem v3 answers</h2>
+      <p>
+        Through two builds, a listing told a teacher almost nothing. A row
+        carried the skill&rsquo;s manual sentence (or, for five lucky blocks,
+        a tree-test situation label), the verbatim wording underneath, and
+        moment tags &mdash; and the manual&rsquo;s sentences are
+        <em>teacher-development prose</em>, not Saturday-night prose:
+        &ldquo;Create student self-evaluations about a doctrine, truth, or
+        principle&rdquo; is accurate and inert. A teacher scanning eight of
+        those rows is doing translation work at exactly the moment they have
+        the least patience for it. The card sort told us this in so many
+        words: <strong>Cami Sprague (P15) flagged 7 of 24 card faces as
+        vocabulary she could not act on</strong> (&ldquo;Is <em>search
+        question</em> a church word or a real word?&rdquo;), and our answer
+        then &mdash; harvested language at the category and group levels
+        &mdash; fixed the <em>navigation</em> without ever fixing the
+        <em>listings</em>. The rows a teacher actually chooses between were
+        still written in the manual&rsquo;s voice.
+      </p>
+      <p>
+        So v3 redesigns the row into a card that answers, in order, the three
+        questions a teacher brings: <em>is this my situation? &mdash; what is
+        it, exactly? &mdash; what would I actually do?</em>
+      </p>
+    </section>
+
+    <section aria-labelledby="changes-h">
+      <h2 id="changes-h">The card, element by element</h2>
+
+      <div class="change">
+        <h3>1 &middot; A situation lead on all 53 blocks
+          <span class="change__tag change__tag--evidence">evidence + conviction</span></h3>
+        <p>
+          Every card now leads with the situation the skill is for, in
+          teacher words: &ldquo;When a hand goes halfway up and comes back
+          down.&rdquo; This extends the tree test&rsquo;s D4 decision &mdash;
+          which gave five blocks a harvested situation label and measurably
+          helped scanning &mdash; to the whole inventory. The five D4 labels
+          were justified from participant wording and <strong>lead their
+          cards verbatim, untouched</strong>. The other 48 are written from
+          my own ear for how these teachers talk, which makes them the same
+          kind of content as the semantic build&rsquo;s situation sentences:
+          load-bearing, plausible, and <em>not evidence</em>. The semantic
+          build&rsquo;s grading priced exactly this move at two points, and
+          the price is accepted here knowingly &mdash; the task test can now
+          check whether situation leads help or mislead, because every
+          participant will see them on every list.
+        </p>
+      </div>
+
+      <div class="change">
+        <h3>2 &middot; The manual&rsquo;s own sentence, always second, always present
+          <span class="change__tag change__tag--evidence">evidence</span></h3>
+        <p>
+          The verbatim skill sentence sits directly under the lead in smaller
+          type, clamped to two lines on a card (the block page always carries
+          it in full). It never disappears: the card sort&rsquo;s settled rule
+          was <em>harvested labels at the levels people navigate, verbatim
+          manual language one level down</em> &mdash; the situation lead gets
+          you to the card, the manual&rsquo;s sentence tells you exactly what
+          you found, and the pairing is what keeps plain language from
+          becoming paraphrase drift.
+        </p>
+      </div>
+
+      <div class="change">
+        <h3>3 &middot; The first move
+          <span class="change__tag change__tag--evidence">evidence + conviction</span></h3>
+        <p>
+          Each card carries one imperative sentence: the smallest concrete
+          thing a teacher could do with the skill. (&ldquo;Text one parent
+          tonight: &lsquo;Here&rsquo;s what I noticed about your kid on
+          Sunday.&rsquo;&rdquo;) Two people on the roster demanded this
+          element. <strong>Margie Ostler (P01)</strong> &mdash; eleven
+          ten-year-olds, preparing at the kitchen counter Saturday night
+          &mdash; is not short of content and said so: she is looking for
+          something to <em>do</em>. <strong>Devin Ashworth (P17)</strong>
+          reads a manual &ldquo;the way he reads an install manual: straight
+          through, once, looking for the step he is supposed to do.&rdquo;
+          A card that ends without a step fails both of them. The 53
+          sentences themselves are authored, with the same caveat as change
+          1. The block page carries the same line in its own panel, so the
+          promise the card makes is kept where it lands.
+        </p>
+      </div>
+
+      <div class="change">
+        <h3>4 &middot; A prep chip: &ldquo;no prep &mdash; use it live&rdquo; vs &ldquo;takes getting ready&rdquo;
+          <span class="change__tag change__tag--evidence">evidence</span></h3>
+        <p>
+          Every card says whether the skill is usable in the moment with
+          empty hands, or requires doing something before Sunday. The
+          attribute is <em>derived, not invented</em>: it reads off the
+          manual&rsquo;s own verb for the skill &mdash; create, prepare,
+          plan, study, send mean &ldquo;ahead&rdquo;; ask, listen, respond,
+          invite, testify mean &ldquo;live.&rdquo; The reason it earns card
+          space is the roster&rsquo;s time budget: <strong>Whitney Kartchner
+          (P04)</strong> prepares one-handed on her phone at 11&nbsp;p.m.
+          after three twelve-hour shifts &mdash; a skill that needs materials
+          gathered is, for her, a skill that does not exist. <strong>Sione
+          Latu (P03)</strong> prepares in his truck between jobs. A teacher
+          like either of them can now narrow a result list to what is still
+          possible tonight &mdash; the search grew a matching
+          &ldquo;narrow by preparation&rdquo; facet alongside category,
+          group, and moment.
+        </p>
+      </div>
+
+      <div class="change">
+        <h3>5 &middot; The matched-reason line, clamped to one line
+          <span class="change__tag change__tag--evidence">evidence</span></h3>
+        <p>
+          The semantic build&rsquo;s why-lines (&ldquo;your
+          &lsquo;phones&rsquo; is close in meaning to&hellip;&rdquo;) kept
+          their honesty and lost their sprawl. The grading of that build
+          docked its visual score one point for precisely this: on a phone
+          the why-line was &ldquo;the longest element in the card, set in the
+          smallest type,&rdquo; and the eye landed mid-quote instead of on
+          the title. <em>Truncate it, or reveal it on demand</em>, the
+          grader wrote. v3 truncates: one line, ellipsis, full stop. This is
+          the cleanest kind of revision &mdash; a finding from the previous
+          cycle, applied as written.
+        </p>
+      </div>
+
+      <div class="change">
+        <h3>6 &middot; Moment chips stay; the card is built to be scanned on a phone
+          <span class="change__tag change__tag--evidence">evidence</span></h3>
+        <p>
+          The lesson-moment tags keep their place in the card footer &mdash;
+          the tree test&rsquo;s moment-view entries succeeded at 95.5%
+          against 72.7% for category entries (22 runs against 88, so we hold
+          the claim loosely, but it has pointed one direction twice now).
+          And the card&rsquo;s proportions are set for a phone held in one
+          hand, because that is where this ward actually prepares: Margie&rsquo;s
+          phone is propped against the toaster, Whitney&rsquo;s is over her
+          head in bed, Sione&rsquo;s is in a cup holder, and <strong>Sydnee
+          Hafen (P20)</strong> &ldquo;will have found the page while somebody
+          older is still reading the first screen.&rdquo; On a narrow screen
+          the cards run single-column, the verbatim sentence keeps its
+          two-line clamp, and nothing in the card requires a hover.
+        </p>
+      </div>
+
+      <div class="change">
+        <h3>7 &middot; The simpler shell
+          <span class="change__tag change__tag--conviction">conviction</span></h3>
+        <p>
+          The visual system is Team A&rsquo;s &ldquo;Sunday Blue&rdquo;
+          &mdash; same tokens, same one-accent-per-screen discipline, same
+          four rules for where the accent lands &mdash; but the page spends
+          less of it. The pale blue wash and the floating white surface are
+          gone; content sits on white. Borders dropped to their lightest
+          step, corners rounded, chips lost their outlines, the header is a
+          plain bar. No study told us to do this, and I will not pretend one
+          did: it is judgment that a card-based screen carries more internal
+          structure than a list-based one, so the frame around it should say
+          less. If the task test finds people missing the edges of things,
+          this is the first change to revisit.
+        </p>
+      </div>
+
+      <div class="change">
+        <h3>8 &middot; What the search does with the new words
+          <span class="change__tag change__tag--conviction">conviction</span></h3>
+        <p>
+          The situation leads join the literal search layer at weight 3
+          &mdash; above the branch names, below the manual sentence, and half
+          the weight of the five committed D4 labels &mdash; because authored
+          language must never outrank the studies&rsquo; own words. The
+          meaning index, the committed 35-term vocabulary, and the ranking
+          arithmetic are inherited from v2 unchanged.
+        </p>
+      </div>
+    </section>
+
+    <section aria-labelledby="untouched-h">
+      <h2 id="untouched-h">What this revision refuses to touch</h2>
+      <p>
+        The information architecture is inherited by reference &mdash; the
+        build loads Team A&rsquo;s data file, so all six tree-test decisions,
+        the trial &ldquo;What it feels like&rdquo; branch, and every filing
+        and moment are byte-for-byte the turn-in&rsquo;s own. The trial
+        branch in particular stays exactly as the tree test left it: its
+        label is the next study&rsquo;s question, and dressing it up now
+        would contaminate the answer. The log schema is unchanged across all
+        three builds, each under its own storage key, so a task test can run
+        any build &mdash; or any two, between subjects &mdash; without
+        contaminated data. And the accent discipline survives a third build:
+        the cards added structure without spending color.
+      </p>
+    </section>
+
+    <section aria-labelledby="ignoring-h">
+      <h2 id="ignoring-h">What I am ignoring</h2>
+      <p>
+        <strong>The authored layer keeps growing.</strong> 48 situation leads
+        and 53 first moves are conviction wearing the studies&rsquo; clothes
+        &mdash; they sit in the exact seat the harvested D4 labels sit in,
+        and a participant cannot tell which is which. That is the point
+        (the interface should not read like a bibliography), and the risk:
+        if one of my situation leads names the wrong situation, it will
+        <em>confidently</em> route people to the wrong skill. The task test
+        is the check, and its task set should route through at least one
+        authored lead on purpose.
+      </p>
+      <p>
+        <strong>Cards cost vertical space.</strong> A 13-block group that was
+        one screen of rows is now two-plus screens of cards. The bet is that
+        richer scanning beats shorter scrolling for this corpus at these
+        list sizes; the wrong side of that bet looks like people giving up
+        mid-list, and the click logs will show it.
+      </p>
+      <p>
+        <strong>The prep chip is binary.</strong> &ldquo;Takes getting
+        ready&rdquo; covers both &ldquo;pick a hymn&rdquo; and &ldquo;run a
+        written self-evaluation over a week.&rdquo; A finer scale was drafted
+        and cut &mdash; three uncertain values are worse than two honest
+        ones. If the chip earns its place in the task test, the final
+        prototype can afford the finer question.
+      </p>
+    </section>
+
+    <footer class="site-foot">
+      <p><a href="index.html">&larr; The whole chain</a> &middot;
+         <a href="prototypes/v1/cards/">Open the card build &rarr;</a> &middot;
+         <a href="semantic-build-report.html">The v2 report, graded &rarr;</a> &middot;
+         <a href="prototypes/v1/">All prototype v1 builds &rarr;</a></p>
+    </footer>
+
+  </main>
+
+  <script src="assets/studies-data.js" defer></script>
+  <script src="assets/companion.js" defer></script>
+</body>
+</html>
