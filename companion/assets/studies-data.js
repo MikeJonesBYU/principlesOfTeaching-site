@@ -26,7 +26,7 @@
    Slugs are stable once public — students bookmark them. Never rename.
    ========================================================================== */
 window.CS356_COMPANION = {
-  version: "2026-08-24b",
+  version: "2026-08-29",
 
   /* The through-line, printed under the chain. Verbatim course doctrine. */
   throughLine: "Every prototype must be grounded in the studies before it — facets and attributes stay decoupled from display, so each cycle is a richer view of the same single source.",
@@ -112,13 +112,28 @@ window.CS356_COMPANION = {
       status: "built",
       path: "prototypes/v1/",
       testedBy: "task-test",
-      alt: {
-        title: "Semantic build",
-        path: "prototypes/v1/semantic/",
-        report: "semantic-build-report.html",
-        note: "an instructor exploration — Team A's build with the search grown into a precomputed meaning index, reported to the Part 1 spec and graded (57/60)"
-      },
-      shows: "Two example turn-ins again. Both teams add color, layout, and a search feature invented from study vocabulary — one steers attention with a single sparing accent, one doesn't. Every click and every search query is logged for the task test. Plus an instructor-built alternative of Team A's prototype: the same data and views, with the search grown into a precomputed meaning index — it matches what you meant, still with no server and no AI call at lookup time."
+      /* The instructor's revision line: builds outside the graded chain that
+         revise Team A's prototype one bet at a time, in order. Rendered as
+         one row per entry so the hub shows the prototype EVOLVING. Shape:
+         alts: [{ title, path, report?, note? }, …] (a legacy singular `alt`
+         is still understood by companion.js). */
+      alts: [
+        {
+          title: "v2 — semantic search",
+          path: "prototypes/v1/semantic/",
+          report: "semantic-build-report.html",
+          reportLabel: "Graded report",
+          note: "Team A's build with the search grown into a precomputed meaning index, reported to the Part 1 spec and graded (57/60)"
+        },
+        {
+          title: "v3 — skill cards",
+          path: "prototypes/v1/cards/",
+          report: "cards-build-notes.html",
+          reportLabel: "Revision notes",
+          note: "the semantic build with every listing redesigned into an informative skill card — situation, manual sentence, first move, prep — on a simpler shell; each change traced to the studies and the ward in the revision notes"
+        }
+      ],
+      shows: "Two example turn-ins again. Both teams add color, layout, and a search feature invented from study vocabulary — one steers attention with a single sparing accent, one doesn't. Every click and every search query is logged for the task test. Then the prototype keeps evolving: two instructor revisions of Team A's build, each one bet at a time — v2 grows the search into a precomputed meaning index (no server, no AI call at lookup time); v3 redesigns every listing into a skill card and pares the shell down."
     },
     {
       id: "task-test",
