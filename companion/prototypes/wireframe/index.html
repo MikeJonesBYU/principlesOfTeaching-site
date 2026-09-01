@@ -1,67 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex">
-<title>2–3 level wireframe — two example turn-ins · CS 356 companion</title>
-<style>
-  body { margin: 0; font-family: Helvetica, Arial, sans-serif; color: #111; background: #fff; }
-  .proto-banner { border-bottom: 2px solid #111; background: #f2f2f2; padding: 0.6rem 1rem; font-size: 0.85rem; }
-  .proto-banner strong { letter-spacing: 0.02em; }
-  .proto-banner a { color: #111; }
-  main { max-width: 42rem; margin: 2rem auto; padding: 0 1rem; }
-  h1 { font-size: 1.4rem; border-bottom: 1px solid #111; padding-bottom: 0.4rem; }
-  .team { border: 1px solid #111; padding: 1rem 1.2rem; margin: 1.2rem 0; }
-  .team h2 { margin: 0 0 0.3rem; font-size: 1.1rem; }
-  .team p { margin: 0.3rem 0 0.8rem; font-size: 0.95rem; }
-  .team a.go { display: inline-block; border: 1px solid #111; padding: 0.35rem 0.9rem; color: #111; text-decoration: none; font-weight: bold; margin: 0 0.4rem 0.4rem 0; }
-  .note { font-size: 0.85rem; color: #444; margin-top: 2rem; }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>The wireframe: two turn-ins — CS 356 Companion</title>
+  <meta name="description" content="The 2–3 level wireframe (Turn-in 2): Team A's and Team B's builds, with links to their graded reports and the tree tests run on them.">
+  <link rel="stylesheet" href="../../assets/companion.css">
+  <style>
+    /* The chooser: one card per build, in the companion's own idiom. The
+       builds themselves (team-a/, team-b/) stay self-contained specimens
+       with their own static banner. */
+    .build-list { list-style: none; margin: 0; padding: 0; }
+    .build {
+      background: var(--panel);
+      border: 1px solid var(--rule-strong);
+      border-left: 4px solid var(--build-bar);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px 18px;
+      margin: 0 0 16px;
+    }
+    .build__title { margin: 0 0 6px; font-size: 1.15rem; line-height: 1.3; border: 0; padding: 0; }
+    .build p { margin: 0 0 12px; max-width: 72ch; }
+    .build__actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
+  </style>
 </head>
-<body>
-  <div class="proto-banner">
-    <strong>CS 356 companion prototype — “2–3 level wireframe.”</strong>
-    A working design artifact from the case study, not the live teaching site.
-    <a href="../../../">Live site →</a> ·
-    <a href="../../index.html">Back to the companion →</a>
-  </div>
-  <main>
-    <h1>The wireframe assignment — two example turn-ins</h1>
-    <p>Two teams, same assignment, same card-sort method — very different
-    wireframes. Both are real, working artifacts: click through them, try the
-    log exports, and form your own opinion before reading any grading.</p>
-    <p>The wireframe is <strong>Turn-in 2</strong>, handed in and graded on
-    its own on the 60-point Prototype Rubric. The tree test each team then
-    ran on its own wireframe is <strong>Turn-in 3</strong>, a separate
-    report on the Study Report Rubric.
-    <a href="../../wireframe-report.html">Both wireframe reports, graded →</a> ·
-    <a href="../../studies/02-tree-test.html">Both tree tests, graded →</a></p>
+<body data-page="prototype" data-arc="wireframe">
 
-    <div class="team">
-      <h2>Team A</h2>
-      <p>All 53 skills as one data file with category, group, and
-      lesson-moment attributes; two full browse views rendered by selecting
-      on attributes; exportable click log; the bonus test mode (10 randomized,
-      timed tasks with persistent results).</p>
-      <a class="go" href="team-a/">Open Team A’s wireframe →</a>
-      <a class="go" href="../../wireframe-report.html#report-a1">The report, graded 60/60 →</a>
-    </div>
+  <main class="wrap">
 
-    <div class="team">
-      <h2>Team B</h2>
-      <p>A hand-built wireframe of their card-sort deck with two ways to
-      browse and a click counter with export. Look closely — what it does and
-      doesn’t do is the teaching material.</p>
-      <a class="go" href="team-b/">Open Team B’s wireframe →</a>
-      <a class="go" href="../../wireframe-report.html#report-b1">The report, graded 34/60 →</a>
-    </div>
+    <header class="site-head">
+      <p class="kicker">CS 356 Companion &middot; Prototype 1 of 3 &middot; Turn-in 2</p>
+      <h1>The wireframe: two turn-ins</h1>
 
-    <p class="note">These artifacts belong to the companion’s worked example:
-    the studies that produced them are fictitious (see the companion’s
-    what’s-real statement), but the wireframes themselves are real and
-    clickable, and the strong team’s decisions really drive the next
-    prototype.</p>
+      <p class="fiction-note"><span class="fiction-badge">FICTITIOUS DATA</span>
+        <strong>Scope note.</strong> Real: both wireframes and every
+        structural claim made about them. Invented: the card sort each one
+        is grounded in &mdash; its participants, quotes, and counts &mdash;
+        which is the companion&rsquo;s standing fiction.
+        <a href="../../fiction.html">What&rsquo;s real and what&rsquo;s not
+        &rarr;</a></p>
+
+      <p class="lead">
+        Two teams, same assignment, same card-sort method &mdash; very
+        different wireframes. Both are real, working artifacts: click
+        through them, try the log exports, and form your own opinion before
+        reading any grading.
+      </p>
+      <p class="section-note">
+        The wireframe is <strong>Turn-in&nbsp;2</strong>, handed in and
+        graded on its own on the 60-point Prototype Rubric. The tree test
+        each team then ran on its own wireframe is
+        <strong>Turn-in&nbsp;3</strong>, a separate report on the Study
+        Report Rubric.
+        <a href="../../wireframe-report.html">Both wireframe reports, graded &rarr;</a> &middot;
+        <a href="../../studies/02-tree-test.html">Both tree tests, graded &rarr;</a>
+      </p>
+    </header>
+
+    <section aria-labelledby="teams-h">
+      <h2 id="teams-h">The two turn-ins</h2>
+      <ul class="build-list">
+        <li class="build">
+          <h3 class="build__title">Team A</h3>
+          <p>All 53 skills as one data file with category, group, and
+          lesson-moment attributes; two full browse views rendered by
+          selecting on attributes; exportable click log; the bonus test mode
+          (10 randomized, timed tasks with persistent results).</p>
+          <p class="build__actions">
+            <a class="btn" href="team-a/">Open Team A&rsquo;s wireframe &rarr;</a>
+            <a class="btn" href="../../wireframe-report.html#report-a1">The report, graded 60/60 &rarr;</a>
+          </p>
+        </li>
+        <li class="build">
+          <h3 class="build__title">Team B</h3>
+          <p>A hand-built wireframe of their card-sort deck with two ways to
+          browse and a click counter with export. Look closely &mdash; what
+          it does and doesn&rsquo;t do is the teaching material.</p>
+          <p class="build__actions">
+            <a class="btn" href="team-b/">Open Team B&rsquo;s wireframe &rarr;</a>
+            <a class="btn" href="../../wireframe-report.html#report-b1">The report, graded 34/60 &rarr;</a>
+          </p>
+        </li>
+      </ul>
+      <p class="section-note">
+        Both wireframes are <strong>frozen</strong>: the tree test has run
+        against them, so every citation in the reports stays checkable, and
+        the strong team&rsquo;s decisions really drive the next prototype.
+        Each opens as a self-contained specimen with its own banner; its
+        &ldquo;Back to the companion&rdquo; link returns to the hub.
+      </p>
+    </section>
+
+    <nav data-companion="arcnav"></nav>
+
+    <footer class="site-foot">
+      <p><a href="../../index.html">&larr; The whole chain</a> &middot;
+         <a href="../../studies/01-card-sort.html">The card sort these wireframes answer to &rarr;</a></p>
+    </footer>
+
   </main>
+
+  <script src="../../assets/studies-data.js" defer></script>
+  <script src="../../assets/companion.js" defer></script>
 </body>
 </html>
