@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Turn-in 2: The wireframe, graded — CS 356 Companion</title>
+  <meta name="description" content="Two example wireframe turn-ins — a 60/60 report and a 34/60 report — each graded on its own on the 60-point Prototype Rubric, with the grader's reasoning after every criterion.">
+  <link rel="stylesheet" href="assets/companion.css">
+  <style>
+    /* The grader boxes on this page read as a teacher's marked list. Keep the
+       bullets on the same type scale as the grader's prose. */
+    .grader ul { margin: 0 0 8px; padding-left: 1.35em; font-size: .95rem; }
+    .grader li { margin: 0 0 7px; }
+    .grader li:last-child { margin-bottom: 0; }
+
+    /* Marked-up IA outlines inside the report sheets. Plain monospaced text
+       that scrolls on its own, so a narrow screen never scrolls the page. */
+    .ia-outline {
+      font-family: var(--mono);
+      font-size: .74rem;
+      line-height: 1.6;
+      white-space: pre;
+      overflow-x: auto;
+      margin: 10px 0 12px;
+      padding: 14px 16px;
+      border: 1px solid #c9c2b2;
+      background: #fbfaf7;
+      color: #141414;
+    }
+  </style>
+</head>
+<body data-page="report" data-arc="wireframe">
+
+  <main class="wrap">
+
+    <header class="site-head">
+      <p class="kicker">CS 356 Companion &middot; Prototype 1 of 3 &middot; Turn-in 2</p>
+      <h1>The wireframe: two turn-ins, graded</h1>
+
+      <p class="fiction-note"><span class="fiction-badge">FICTITIOUS DATA</span>
+        <strong>Scope note.</strong> Real: both wireframes
+        (<a href="prototypes/wireframe/team-a/">Team&nbsp;A</a>,
+        <a href="prototypes/wireframe/team-b/">Team&nbsp;B</a>) and every
+        structural claim made about them, the 53-skill inventory underneath
+        them (carried on the <a href="../">live site</a>), the rubric, and
+        the grading. Invented: the card sort each rationale is grounded in
+        &mdash; its participants, quotes, and counts &mdash; which is the
+        companion&rsquo;s standing fiction.
+        <a href="fiction.html">What&rsquo;s real and what&rsquo;s not
+        &rarr;</a></p>
+
+      <p class="lead">
+        The wireframe is <strong>Turn-in&nbsp;2</strong>, and it is handed in
+        on its own: the clickable 2&ndash;3 level grayscale wireframe your
+        team built, with a page of design rationale &mdash; how the card
+        sort&rsquo;s categories, groups, and labels became a data scheme,
+        and how each view is rendered from it. It is graded on the 60-point
+        Prototype Rubric &mdash; met the functional spec 18, met the visual
+        design spec 13, met the information-architecture spec 13, grounded
+        in the previous study 16 &mdash; and on nothing else. The tree test
+        you then run on this same wireframe is <strong>Turn-in&nbsp;3</strong>,
+        a separate report graded on the Study Report Rubric; both
+        teams&rsquo; tree tests are graded on
+        <a href="studies/02-tree-test.html">their own page</a>.
+      </p>
+
+      <p class="section-note">
+        The white pages below are the reports themselves, exactly as they
+        would leave Word as a PDF. Everything in red is the grader, not the
+        report. Both wireframes are now <strong>frozen</strong>: the tree
+        test has run against them, so the citations on this page stay
+        checkable forever and every refinement lands in prototype&nbsp;v1
+        instead.
+      </p>
+    </header>
+
+    <!-- ================================================================ -->
+    <!-- REPORT A — THE WIREFRAME                                          -->
+    <!-- ================================================================ -->
+    <section aria-labelledby="report-a1" class="report report--a">
+      <h2 id="report-a1">Report A &mdash; the wireframe &middot; 60/60</h2>
+      <p class="section-note">
+        A strong team&rsquo;s wireframe turn-in, graded on the Prototype
+        Rubric. The white pages are the report itself, exactly as it would
+        leave Word as a PDF; everything in red is the grader, not the
+        report. The tree test this team ran on this wireframe is its own
+        turn-in, graded on its own page:
+        <a href="studies/02-tree-test.html#report-a2">Report A, the tree
+        test &rarr;</a>
+      </p>
+
+      <div class="docpage docpage--a">
+        <div class="doc-head">
+          <p class="doc-title">Wireframe &mdash; Team Report</p>
+          <p class="doc-sub">CS 356 &middot; Project 1 &middot; Principles of Teaching redesign &middot; November 2026</p>
+        </div>
+
+        <h3>1. The wireframe</h3>
+        <p>
+          <strong>Link:</strong>
+          <a href="prototypes/wireframe/team-a/">Team&nbsp;A wireframe
+          &mdash; <code>prototypes/wireframe/team-a/</code></a>. Black and
+          white, one font, generic boxes, no images. It runs from a single
+          data file, <code>wireframe-data.js</code>: one record per
+          information block, 53 of them, each carrying a
+          <code>category</code>, a <code>group</code>, and a
+          <code>moment</code> list. No skill is written into any page. Every
+          screen is produced by selecting on those attributes, so all 53
+          blocks are filed and none of them is filed twice.
+        </p>
+
+        <h3>2. Design rationale</h3>
+        <p>
+          <strong>The five categories are the card sort&rsquo;s.</strong> Four
+          of them each came out of six of eight sorts. &ldquo;Keeping their
+          attention&rdquo; came out of three, all Primary teachers, and half
+          this ward teaches children, so we kept it.
+        </p>
+        <p>
+          <strong>The labels are participants&rsquo; words.</strong> L1 and L2
+          use their sticky-note wording &mdash; &ldquo;Not answering it
+          yourself&rdquo; &mdash; because our newest teacher could not parse 7
+          of the 24 official skill names.
+          Verbatim manual wording appears only at L3, linked to its manual
+          page.
+        </p>
+        <p>
+          <strong>There is deliberately no Spirit category.</strong> One sort
+          in eight made one. Our card-sort report called it our riskiest call
+          and named what would reopen it &mdash; people looking for what they
+          do not sort by &mdash; which is what <strong>T09&nbsp;&middot; Is it
+          the Spirit?</strong> tests.
+        </p>
+        <p>
+          <strong>The second view is an attribute, not a sixth box.</strong>
+          Our sort produced one fully sequential sorter, an
+          &ldquo;Openers&rdquo; pile, and the same two cards together in six of
+          eight sorts while the pile&rsquo;s <em>meaning</em> changed around
+          them: people asking two questions at once, what problem is this and
+          when in the lesson. So <code>moment</code> is a value on every block,
+          not a category; the by-moment view renders from it alone. All 53
+          blocks are filed.
+        </p>
+        <p>
+          <strong>The clusters that never separated stayed together:</strong>
+          the four discussion cards in one category, the two Christ cards that
+          co-occurred in 8 of 8 sorts in one group, praying for a student and
+          messaging a parent both under &ldquo;Caring about them during the
+          week.&rdquo;
+        </p>
+        <p>
+          <strong>Logging.</strong> Every click is logged with its page and
+          route; the log exports as JSON or CSV. Bonus test mode: ten scenarios
+          shuffled per run, timed to a tenth of a second, surviving a reload,
+          with an &ldquo;I would give up&rdquo; button. Our tree test (the
+          next turn-in) will run inside it.
+        </p>
+      </div>
+
+      <aside class="grader" aria-label="Grader comment">
+        <p class="grader__head">Grader &middot; 1. Met the functional spec &middot; <span class="grader__pts">18/18 &mdash; Skilled</span></p>
+        <p>I opened this and went looking for the seams. There aren&rsquo;t
+        any.</p>
+        <ul>
+          <li><strong>Every required behavior works.</strong> The category
+          view is three levels deep and the moment view two; all 53 blocks are
+          filed; every path ends on a real leaf with a working link out to the
+          manual page it quotes; the click log exports in both formats and the
+          exports actually parse. <em>&ldquo;The prototype meets every
+          functional requirement in the assignment spec, and the functionality
+          works reliably: a user can exercise each required behavior without
+          workarounds, errors, or coaching.&rdquo;</em></li>
+          <li><strong>The bonus went past the assignment.</strong> Ten
+          scenarios, shuffled per run, timed, persisted across a reload.</li>
+          <li><strong>The give-up button is the tell.</strong> Most teams
+          treat abandonment as missing data; you made it a recordable
+          outcome.</li>
+          <li><strong>So is the interrupted-run handling.</strong> Reload
+          mid-session and it offers to resume at the situation you were on,
+          instead of silently starting over and quietly contaminating your
+          timings. Those two details are the difference between building a
+          feature and building an <em>instrument</em>.</li>
+        </ul>
+        <p>Bonus credit awarded &mdash; and then you turned the thing on
+        yourselves and used it to run your tree test, which is the best
+        argument for the bonus I have seen.</p>
+      </aside>
+
+      <aside class="grader" aria-label="Grader comment">
+        <p class="grader__head">Grader &middot; 2. Met the visual design spec &middot; <span class="grader__pts">13/13 &mdash; Skilled</span></p>
+        <p>True wireframe fidelity, held all the way down &mdash; and the
+        layout is still doing work.</p>
+        <ul>
+          <li><strong>The discipline holds.</strong> One typeface, no color,
+          no imagery, boxes that are obviously boxes.</li>
+          <li><strong>The three-zone structure repeats.</strong> Where you
+          are, what is inside it, where you can go &mdash; on every screen at
+          every level, so depth is legible without a single decorative
+          cue.</li>
+          <li><strong>The L3 leaf reads as an end state</strong>, not as
+          another list.</li>
+        </ul>
+        <p><em>&ldquo;At wireframe fidelity, layout and visual hierarchy do
+        the work and clearly support the user&rsquo;s goals.&rdquo;</em> That
+        is this band, exactly.</p>
+      </aside>
+
+      <aside class="grader" aria-label="Grader comment">
+        <p class="grader__head">Grader &middot; 3. Met the information architecture spec &middot; <span class="grader__pts">13/13 &mdash; Skilled</span></p>
+        <p>Both of your views are real ways in, not one real one and one
+        alibi.</p>
+        <ul>
+          <li><strong>Two questions, two doors.</strong> The category view
+          answers &ldquo;what problem am I having,&rdquo; the moment view
+          answers &ldquo;where am I in the lesson,&rdquo; and each is a
+          sensible way to look for this content. <em>&ldquo;There are multiple
+          reasonable ways to find things, and each way makes sense for the
+          content and the users. Categories hold together; the hierarchy
+          reflects deliberate design decisions.&rdquo;</em></li>
+          <li><strong>You did not decide where each skill really
+          goes.</strong> Let me name that out loud for everyone reading,
+          because it is the architectural decision this course is actually
+          about: you gave every block a set of attributes and made each page a
+          selection over them.</li>
+          <li><strong>That is why the moment view cost you nothing
+          structurally</strong> &mdash; and why the next attribute will cost
+          you nothing either.</li>
+        </ul>
+        <p>Top band, without an argument.</p>
+      </aside>
+
+      <aside class="grader" aria-label="Grader comment">
+        <p class="grader__head">Grader &middot; 4. Grounded in the previous study &middot; <span class="grader__pts">16/16 &mdash; Skilled</span></p>
+        <p>I checked your rationale against the artifact line by line, and
+        <em>&ldquo;the words and the artifact agree.&rdquo;</em></p>
+        <ul>
+          <li><strong>Labels from participants&rsquo; own wording</strong>
+          &mdash; they are, and they are the same strings your card-sort
+          standardization table harvested.</li>
+          <li><strong>Verbatim manual names only at L3</strong>, because your
+          newest teacher couldn&rsquo;t parse them &mdash; that is exactly
+          what the artifact does.</li>
+          <li><strong>The co-occurrence clusters stayed together</strong>
+          &mdash; they did.</li>
+          <li><strong>You left out the Spirit category.</strong> The hardest
+          move to defend in a meeting: your data didn&rsquo;t support one, you
+          said out loud that this was your riskiest call, and then you
+          <em>built the test for it into the prototype</em> as
+          T09&nbsp;&middot; Is it the Spirit?</li>
+        </ul>
+        <p><em>&ldquo;The information architecture is not just reasonable; it
+        is demonstrably grounded in the needs of your users.&rdquo;</em> Full
+        marks.</p>
+      </aside>
+
+      <div class="scorecard">
+        <p class="scorecard__title">Report A &middot; scorecard (Prototype Rubric, 60)</p>
+        <table class="study-table">
+          <tbody>
+            <tr><td>Met the functional spec</td><td>Skilled &mdash; plus bonus test mode</td><td class="scorecard__pts">18</td></tr>
+            <tr><td>Met the visual design spec</td><td>Skilled</td><td class="scorecard__pts">13</td></tr>
+            <tr><td>Met the IA design spec</td><td>Skilled</td><td class="scorecard__pts">13</td></tr>
+            <tr><td>Grounded in the previous study</td><td>Skilled</td><td class="scorecard__pts">16</td></tr>
+            <tr class="scorecard__total"><td>Turn-in 2 total</td><td></td><td class="scorecard__pts">60/60</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- REPORT B — THE WIREFRAME                                          -->
+    <!-- ================================================================ -->
+    <section aria-labelledby="report-b1" class="report report--b">
+      <h2 id="report-b1">Report B &mdash; the wireframe &middot; 34/60</h2>
+      <p class="section-note">
+        A middle-of-the-road team&rsquo;s turn-in for the same assignment
+        &mdash; their own wireframe, built their own way. Report B is the
+        white pages, as it left Word; the grader follows each criterion in
+        red. This is the team whose card sort scored 31/60, and some of what
+        happens below is that study still being paid for. Their tree test on
+        this wireframe is graded separately:
+        <a href="studies/02-tree-test.html#report-b2">Report B, the tree
+        test &rarr;</a>
+      </p>
+
+      <div class="docpage docpage--b">
+        <div class="doc-head">
+          <p class="doc-title">Wireframe</p>
+          <p class="doc-sub">CS 356</p>
+        </div>
+
+        <h3>Our wireframe</h3>
+        <p>
+          Our wireframe is here:
+          <a href="prototypes/wireframe/team-b/">Team B wireframe</a>. It
+          has one page for every information block from our card sort, and
+          two ways to browse: our seven categories, and the manual&rsquo;s
+          five sections. There are 21 block pages. Three of the cards from
+          our card sort don&rsquo;t have pages because we took those cards
+          out during the sort and they never came back, so there was nothing
+          to make a page for.
+        </p>
+        <p>
+          <strong>Rationale.</strong> Based on our card sort we went with
+          seven categories: Teaching Fundamentals, Spiritual Teaching,
+          Engagement, Questions, Preparation, Love, and Misc. We feel like
+          our seven categories cover everything and match the manual while
+          still being about problems, which is what people said they wanted.
+          Misc is for the ones that didn&rsquo;t really fit anywhere, which
+          is only three of them so it&rsquo;s not that bad. For the second
+          categorization we used the manual&rsquo;s five sections since
+          that&rsquo;s an organization people already know, and we figure
+          most people will use the categories anyway.
+        </p>
+        <p>
+          We also added a click log like the spec says. There&rsquo;s a
+          counter on every page showing how many clicks happened, and an
+          export button on the home page that dumps the log into a text box
+          so you can copy it out. We didn&rsquo;t get to the bonus test mode.
+          Everything is black and white with boxes and placeholder text where
+          the content would go.
+        </p>
+      </div>
+
+      <aside class="grader" aria-label="Grader comment">
+        <p class="grader__head">Grader &middot; 1. Met the functional spec &middot; <span class="grader__pts">9/18 &mdash; Beginning</span></p>
+        <p>Start with what works, because it does: seven category pages, five
+        section pages, 21 block pages, every link resolves, and a user can
+        click from the home screen to a labeled end state without anything
+        breaking. That is a real artifact and you built it by hand.</p>
+        <p>Now the three gaps, and they are load-bearing ones.
+        <strong>Coverage.</strong> The spec asks for every information block
+        from your card sort. Three of them &mdash; C03, C18, C19 &mdash; have
+        no page at all, in either view. I understand why; that is your card sort&rsquo;s
+        mid-study deck change following you into the next assignment, which
+        is worth noticing on its own. <strong>The block pages dead-end.</strong>
+        They have exactly one way out &mdash; a single
+        &ldquo;&lt; Back to&nbsp;[category]&rdquo; link &mdash; so a user who
+        arrived from a section page is silently handed off into the other
+        categorization and cannot get back to where they were. Every route
+        in should have a route back to where it came from. <strong>The click log.</strong> <code>clickLog</code> is a
+        plain array that is created fresh on every page load, and the export
+        button exists only on the home page. So the log records clicks on
+        one page and then discards them the moment the user navigates, which
+        means it can never record the one thing a click log is for: a path.
+        The counter on a block page reads 0 no matter how many clicks it took
+        the user to get there.</p>
+        <p><em>&ldquo;Significant required functionality is missing or does
+        not work; the prototype demonstrates the idea but cannot deliver the
+        behaviors the spec requires.&rdquo;</em> That is this band. The fix
+        for the log is small and worth doing before v1: write the array to
+        <code>sessionStorage</code> on every click and read it back on load,
+        and put the export control on every page. That one change turns a
+        counter into an instrument &mdash; and it is the same change that
+        would have given your tree test the paths it does not have.</p>
+      </aside>
+
+      <aside class="grader" aria-label="Grader comment">
+        <p class="grader__head">Grader &middot; 2. Met the visual design spec &middot; <span class="grader__pts">10/13 &mdash; Competent</span></p>
+        <p>You held the hard part of wireframe fidelity: no images, no
+        decoration, placeholder text where content goes, boxes that look like
+        boxes. Nobody is going to mistake this for a finished design, which
+        is the point.</p>
+        <p>What keeps it out of the top band is
+        <em>&ldquo;choices made without full intention.&rdquo;</em> The spec
+        says one font; your stylesheet sets Arial for body text and Georgia
+        for every heading. The spec says black and white; you never declared
+        a link color, so every link on the site renders in the
+        browser&rsquo;s default blue and turns purple once visited &mdash;
+        which means color <em>is</em> in your wireframe, carrying meaning you
+        did not choose. Three box styles (solid 1px, solid 2px, dotted) wrap
+        content of the same kind, so the border weight implies a hierarchy
+        that isn&rsquo;t there. And the page margins are set per page type
+        &mdash; four different values &mdash; so the content block visibly
+        jumps as a user clicks down a level; the h1 is centered on the home
+        page and on two of your seven category pages (Preparation and
+        Questions) and left-aligned everywhere else, which is the same
+        inconsistency in a second place. None of
+        these is a disaster and all of them are a minute&rsquo;s work: one
+        font family, <code>a { color: #000 }</code>, one box class, one
+        margin. Fidelity is a constraint you hold on purpose, not a look you
+        approximate.</p>
+      </aside>
+
+      <aside class="grader" aria-label="Grader comment">
+        <p class="grader__head">Grader &middot; 3. Met the IA design spec &middot; <span class="grader__pts">7/13 &mdash; Beginning</span></p>
+        <p><em>&ldquo;The information architecture looks improvised rather
+        than designed: a single path to content, or categories that do not
+        hold together.&rdquo;</em> Two categories in particular do not hold.
+        <strong>Misc</strong> is a decision not to decide; it holds pictures
+        and videos of Christ, sacred music, and an opening invitation tied to
+        the lesson outcome, which are three things with an obvious shared
+        property &mdash; they are all things you <em>do</em> at the start of
+        a lesson &mdash; sitting in a bin named for the absence of a
+        property. <strong>Preparation</strong> holds &ldquo;ask about
+        students&rsquo; interests&rdquo; and &ldquo;pray for your students by
+        name&rdquo; next to &ldquo;search the scriptures for depth,&rdquo;
+        which reads as &ldquo;things that happen before Sunday&rdquo; on
+        Monday and &ldquo;things about loving people&rdquo; on Tuesday. Your
+        own tree-test data, which you collected and did not read this way, says
+        the same thing: every single first click that landed on Misc was on a
+        task Misc could not answer.</p>
+        <p>You do have a second path, so this is not the
+        &ldquo;single path&rdquo; half of the band &mdash; but it does not
+        rescue you. Your own card-sort analysis concluded that nobody
+        understands the manual&rsquo;s organization, which makes shipping it
+        as a way in a decision your own evidence argues against. (That two
+        blocks sit in the category view and not in this one is <em>not</em>
+        the problem &mdash; a second view does not have to reach everything,
+        so long as every block is reachable from one view or another.) The rubric wants alternate paths that <em>genuinely help
+        users find things</em>. Ask of any second view: what question does
+        this one answer that the first one doesn&rsquo;t?</p>
+      </aside>
+
+      <aside class="grader" aria-label="Grader comment">
+        <p class="grader__head">Grader &middot; 4. Grounded in the previous study &middot; <span class="grader__pts">8/16 &mdash; Beginning</span></p>
+        <p><em>&ldquo;The rationale gestures at the previous study without
+        specific findings, or the prototype&rsquo;s design shows no visible
+        relationship to what the study found.&rdquo;</em> Read your rationale
+        again and count the findings it cites: none. Not one number, not one
+        participant, not one pile. &ldquo;Based on our card sort&rdquo; is
+        the whole citation, and it is followed by a category list your card
+        sort did not produce.</p>
+        <p>Two of those seven names are worse than uncited, and I flagged
+        this on your card sort so I want to be concrete. You showed your
+        sorters &ldquo;Questions&rdquo; and &ldquo;Preparing&rdquo; as
+        starter examples before an open sort. Those two categories are now
+        two of your seven, and they are the two your tree-test participants
+        found things in most reliably &mdash; because your own tasks name
+        them. That is a loop closing on itself: you handed people the words,
+        they handed them back, and the wireframe treats that as a finding.
+        And &ldquo;match the manual while still being about problems&rdquo;
+        is the same sentence your card-sort analysis contradicted one page
+        earlier when it said nobody understands the manual&rsquo;s
+        organization.</p>
+        <p>The repair is mechanical and I would take it in this order.
+        For every category, write &ldquo;Because&nbsp;[result from the card
+        sort], we will&nbsp;[this category].&rdquo; The ones where you
+        can&rsquo;t fill in the because are the ones to cut. You will find
+        you have four or five, not seven, and the ones that survive will be
+        defensible to anyone.</p>
+      </aside>
+
+      <div class="scorecard">
+        <p class="scorecard__title">Report B &middot; scorecard (Prototype Rubric, 60)</p>
+        <table class="study-table">
+          <tbody>
+            <tr><td>Met the functional spec</td><td>Beginning &mdash; 3 blocks absent entirely, block pages dead-end, click log resets every page</td><td class="scorecard__pts">9</td></tr>
+            <tr><td>Met the visual design spec</td><td>Competent &mdash; two fonts, default link color, inconsistent boxes and margins</td><td class="scorecard__pts">10</td></tr>
+            <tr><td>Met the IA design spec</td><td>Beginning &mdash; Misc dump, arbitrary filings, alternate path incomplete and unsupported</td><td class="scorecard__pts">7</td></tr>
+            <tr><td>Grounded in the previous study</td><td>Beginning &mdash; no findings cited; two categories are the priming echo</td><td class="scorecard__pts">8</td></tr>
+            <tr class="scorecard__total"><td>Turn-in 2 total</td><td></td><td class="scorecard__pts">34/60</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <section aria-labelledby="separates">
+      <h2 id="separates">What separates 60 from 34</h2>
+
+      <p>
+        Both teams were handed the same 53 skills and the same assignment,
+        and both came back with something you can click through. The 26
+        points between them are almost entirely about <em>where the
+        structure lives</em>.
+      </p>
+      <p>
+        <strong>Team A put it in one file.</strong> Every skill is a block
+        with a category, a group, and a lesson-moment attribute, and every
+        page &mdash; both hierarchies, the block pages, the test
+        mode&rsquo;s answer key &mdash; is rendered by selecting on those
+        attributes. Nothing is hand-placed anywhere, so nothing can be
+        missing from one view and present in another, and the outline of
+        the whole site can be generated from the data and checked against
+        the artifact by a stranger. That is what &ldquo;facets and values,
+        decoupled from display&rdquo; buys at wireframe fidelity, and it is
+        why the functional and IA criteria could pay full marks: the
+        alternate path genuinely helps because it is the same content seen
+        through a different attribute, not a second set of pages that
+        happens to overlap the first.
+      </p>
+      <p>
+        <strong>Team B put it in 34 pages.</strong> Each page was typed by
+        hand, which is why three of their 24 cards never came back after the
+        card sort pulled them, why the manual-section view silently lacks
+        two blocks the category view has, why the click log starts over on
+        every page, and why &ldquo;Misc&rdquo; exists at all &mdash; a
+        hand-built hierarchy needs somewhere to put the things that did not
+        fit, and a data-driven one does not. None of that is carelessness.
+        It is the predictable cost of the approach, and the grade prices the
+        approach, not the effort: functional at Beginning because required
+        behaviors are absent, IA at Beginning because the categories do not
+        hold together, grounded at Beginning because two of the seven
+        categories are the card sort&rsquo;s own priming echo rather than a
+        finding. The visual criterion is the one place the two teams are
+        close, and even there the gap is intention, not taste: two fonts and
+        default link blue are what a wireframe looks like when nobody
+        decided.
+      </p>
+      <p>
+        <strong>The grade that matters most is the one this page does not
+        give.</strong> A wireframe is an instrument for the study that comes
+        next. Team A&rsquo;s give-up button, randomized task order, persisted
+        runs, and CSV export are why their tree test, over on
+        <a href="studies/02-tree-test.html">the next page</a>, can be
+        re-derived by anyone; Team B&rsquo;s page-local click counter is why
+        theirs cannot. Turn-in&nbsp;2 and Turn-in&nbsp;3 are graded
+        separately, on different rubrics, but the second one is largely
+        decided by the first. Build the instrument before you need the
+        answer.
+      </p>
+      <p>
+        <strong>In this chain, Team A&rsquo;s wireframe is binding.</strong>
+        It is the artifact the tree test ran on, and its data scheme &mdash;
+        five categories, fifteen groups in harvested language, a lesson-moment
+        attribute on every block &mdash; is what prototype v1 inherits and
+        revises. Both wireframes are frozen as of the tree test, so every
+        citation above stays checkable.
+      </p>
+    </section>
+
+    <nav data-companion="arcnav"></nav>
+
+    <footer class="site-foot">
+      <p><a href="index.html">&larr; The whole chain</a> &middot;
+         <a href="studies/02-tree-test.html">The tree tests run on these wireframes &rarr;</a> &middot;
+         <a href="prototypes/wireframe/">Open the wireframes &rarr;</a></p>
+    </footer>
+
+  </main>
+
+  <script src="assets/studies-data.js" defer></script>
+  <script src="assets/companion.js" defer></script>
+</body>
+</html>
