@@ -250,6 +250,26 @@ body:not([data-page="hub"]) .masthead__img {
   max-width: 56ch;
 }
 
+/* A real picture in the body of a page, once a slot has been filled: the
+   image at full column width, the same rounded corners as the masthead,
+   and a quiet caption underneath that says what it is — and, for a
+   generated image of an invented place, says so with the fiction badge. */
+.body-figure { margin: 6px 0 18px; }
+.body-figure__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--rule);
+}
+.body-figure__cap {
+  margin: 8px 2px 0;
+  font-size: .86rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.body-figure__cap .fiction-badge { margin-right: 6px; }
+
 /* -------------------------------------------- 4. Layout and typography ----- */
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: 34px 20px 80px; }
 
