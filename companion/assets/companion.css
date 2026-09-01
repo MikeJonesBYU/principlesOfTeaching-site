@@ -22,7 +22,7 @@
      3. Masthead: banner art + button nav       <- injected by companion.js
      4. Layout and typography
      5. Pending / unlinked states               <- the no-dead-links rule
-     6. Turn-ins and the chain                  <- the four graded submissions
+     6. Turn-ins and the chain                  <- the six graded submissions
      7. Prev/next arc navigation
      8. Responsive
      9. Study-page components (tables, sort photos, grader, docpage sheets)
@@ -378,17 +378,17 @@ code {
 .arc-item--pending .arc-item__title { font-weight: 600; }
 .arc-item--pending .arc-marker { opacity: .6; }
 
-/* --------------------------------------------- 6. Turn-ins and the chain ---
-   The hub's chain is grouped by TURN-IN, not by station: turn-ins 2 and 3 each
-   hold a prototype AND the study that tests it, because those are handed in
-   together as one two-part report. The four colors are lifted from the
-   Project 1 flow diagram so the hub and the diagram read as one document —
-   red, blue, green, gold, with the through-line on slate — but each color is
-   now only a thin cap on a white card, not a tinted panel.
+/* --- 6. Turn-ins and the chain ---------------------------------------------
+   Six turn-ins, one per station, alternating user study / build — the two
+   rows of the Project 1 flow diagram. Every panel carries the diagram's own
+   two colors: GREEN for a user study, RUST for something you build. The
+   color is a wayfinding cue only: every turn-in is also numbered and titled
+   in text, and each station card says "You build" or "User study" in words.
+   Nothing here depends on seeing the hue.
 
-   The color is a wayfinding cue only: every turn-in is also numbered and
-   titled in text, and each station card says "You build" or "User study" in
-   words. Nothing here depends on seeing the hue. ------------------------- */
+   The chain renders twice on the hub: first as the FLOW (the diagram itself,
+   two rows of boxes with the informs / tested-by arrows between them), then
+   as the PANELS (one per turn-in, in order). Both come from the registry. */
 
 .turnin-list { list-style: none; margin: 0; padding: 0; }
 
@@ -404,11 +404,19 @@ code {
   position: relative;
   overflow: hidden;
 }
-/* The four bands, in diagram order — bar strong, tint pale, edge between. */
-.turnin--1 { --bar: #a8443e; --tint: #f6e4e2; --edge: #cf948f; }
-.turnin--2 { --bar: #3d5a98; --tint: #e2e9f6; --edge: #93a7cd; }
-.turnin--3 { --bar: #4a7549; --tint: #e3eee1; --edge: #98b997; }
-.turnin--4 { --bar: #8a6d0c; --tint: #f7eec9; --edge: #c7b25e; }
+/* The two bands of the diagram — bar strong, tint pale, edge between.
+   Declared once as tokens so the flow boxes, the panels, the station markers
+   and the pair bars all agree. */
+:root {
+  --study-bar:  #1e7a56;
+  --study-tint: #e6f2ec;
+  --study-edge: #8fc3a9;
+  --build-bar:  #b3551d;
+  --build-tint: #fbeee3;
+  --build-edge: #dca47f;
+}
+.turnin--study { --bar: var(--study-bar); --tint: var(--study-tint); --edge: var(--study-edge); }
+.turnin--build { --bar: var(--build-bar); --tint: var(--build-tint); --edge: var(--build-edge); }
 
 /* The colored band IS the turn-in's identity: solid bar, white text —
    the Canvas-button treatment, applied to the group header. */
@@ -426,6 +434,7 @@ code {
   text-transform: uppercase;
   color: rgba(255, 255, 255, .85);
 }
+.turnin__kind { font-weight: 500; color: rgba(255, 255, 255, .78); }
 .turnin__title {
   margin: 2px 0 0;
   font-size: 1.18rem;
@@ -451,7 +460,8 @@ code {
   border-radius: var(--radius);
 }
 
-/* "Produces X → carried into Turn-in N" — the diagram's arrow, in words. */
+/* "Produces X → informs Turn-in N" / "Tested by ↑ Turn-in N" — the
+   diagram's arrows, in words. */
 .turnin__produces {
   margin: 16px -20px -20px;
   padding: 10px 20px 12px;
@@ -463,9 +473,109 @@ code {
 .turnin__produces strong { color: var(--ink); }
 .turnin__produces .micro-label { color: var(--bar); }
 
-/* The panel's own "Produces … → carried into Turn-in N" row IS the diagram's
-   between-column arrow; the panels need no extra connector between them. */
+/* The panel's own footer row IS the diagram's between-row arrow; the panels
+   need no extra connector between them. */
 .turnin:last-child { margin-bottom: 22px; }
+
+/* --- The flow: the Project 1 diagram, drawn from the registry -------------
+   A 2-row grid, studies on top, builds below, each box overlapping the next
+   by half so the arrows between rows land in the overlap — exactly the
+   diagram's stagger. 14 tracks: box N spans 4 starting at 2N, the link
+   after it spans 2 starting at 2N+2. Column 1 is the row labels. */
+.flow {
+  display: grid;
+  grid-template-columns: auto repeat(14, minmax(0, 1fr));
+  grid-template-rows: auto 30px auto;
+  column-gap: 6px;
+  row-gap: 0;
+  margin: 14px 0 26px;
+}
+.flow__row {
+  grid-column: 1;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-align: center;
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 10px 4px;
+  border-radius: var(--radius);
+}
+.flow__row--study { grid-row: 1; background: var(--study-tint); color: var(--study-bar); }
+.flow__row--build { grid-row: 3; background: var(--build-tint); color: var(--build-bar); }
+
+.flow__box {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border: 1px solid var(--edge);
+  border-radius: var(--radius);
+  background: var(--panel);
+  color: var(--ink);
+  text-decoration: none;
+  overflow: hidden;
+}
+.flow__box:hover, .flow__box:focus { border-color: var(--bar); color: var(--ink); }
+.flow__box:hover .flow__title, .flow__box:focus .flow__title { text-decoration: underline; }
+.flow__box--study { --bar: var(--study-bar); --tint: var(--study-tint); --edge: var(--study-edge); }
+.flow__box--build { --bar: var(--build-bar); --tint: var(--build-tint); --edge: var(--build-edge); }
+.flow__box--1 { grid-column: 2 / span 4;  grid-row: 1; }
+.flow__box--2 { grid-column: 4 / span 4;  grid-row: 3; }
+.flow__box--3 { grid-column: 6 / span 4;  grid-row: 1; }
+.flow__box--4 { grid-column: 8 / span 4;  grid-row: 3; }
+.flow__box--5 { grid-column: 10 / span 4; grid-row: 1; }
+.flow__box--6 { grid-column: 12 / span 4; grid-row: 3; }
+
+.flow__head {
+  display: block;
+  padding: 6px 10px;
+  background: var(--bar);
+  color: #fff;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+.flow__kind { font-weight: 500; opacity: .85; }
+.flow__body { display: block; padding: 8px 10px 10px; }
+.flow__title {
+  display: block;
+  font-weight: 700;
+  font-size: .98rem;
+  line-height: 1.25;
+  margin-bottom: 4px;
+}
+.flow__blurb { display: block; font-size: .84rem; line-height: 1.4; color: var(--ink-soft); }
+.flow__out {
+  display: block;
+  margin-top: 6px;
+  font-size: .84rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--study-bar);
+}
+
+/* The arrows between the rows: "↓ informs" from a study to the build after
+   it, "↑ tested by" from a build to the study after it. */
+.flow__link {
+  grid-row: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: .78rem;
+  font-style: italic;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.flow__arrow { font-style: normal; font-weight: 700; font-size: 1rem; line-height: 1; color: var(--slate); }
+.flow__link--1 { grid-column: 4 / span 2; }
+.flow__link--2 { grid-column: 6 / span 2; }
+.flow__link--3 { grid-column: 8 / span 2; }
+.flow__link--4 { grid-column: 10 / span 2; }
+.flow__link--5 { grid-column: 12 / span 2; }
 
 /* -------------------------------------------------- station cards (arc) --- */
 .arc-list { list-style: none; margin: 0; padding: 0; }
@@ -521,8 +631,8 @@ code {
   line-height: 1.1;
   color: var(--ink);
 }
-.arc-marker--build .arc-marker__kind { color: #9a5f00; }
-.arc-marker--study .arc-marker__kind { color: #1e7a56; }
+.arc-marker--build .arc-marker__kind { color: var(--build-bar); }
+.arc-marker--study .arc-marker__kind { color: var(--study-bar); }
 
 .arc-item__body { flex: 1 1 auto; min-width: 0; }
 
@@ -588,21 +698,11 @@ span.chip.is-pending .pill--pending {
 .arc-item--prototype { border-left: 4px solid var(--bar, var(--rule-strong)); }
 
 /* --- The pair: a build and the study that runs on it -----------------------
-   Turn-ins 2 and 3 are one build plus the study that tests it, handed in
-   together. That relationship is the point of those turn-ins, so the
-   connector between them grows an arrowhead into the study, and each card
-   carries a quiet band naming the other half. The bands say it in words;
-   the arrow only makes it quicker to see. */
-.arc-item--paired-down::after { width: 2px; height: 22px; bottom: -23px; background: var(--bar, var(--rule-strong)); }
-.arc-item--paired-up::before {
-  content: "";
-  position: absolute;
-  top: -9px;
-  left: 48px;
-  border-left: 7px solid transparent;
-  border-right: 7px solid transparent;
-  border-top: 9px solid var(--bar, var(--rule-strong));
-}
+   A build and the study that tests it are separate turn-ins now, but the
+   relationship is still the point of the chain, so each card carries a
+   quiet band naming the other half — the build points down at the study
+   that runs on it, the study points back up at the build it ran on. The
+   bands say it in words; the arrow only makes it quicker to see. */
 
 .arc-pairbar {
   display: flex;
@@ -678,7 +778,6 @@ span.chip.is-pending .pill--pending {
 
   .arc-item { flex-direction: column; gap: 8px; padding: 14px; }
   .arc-item::after { left: 22px; }
-  .arc-item--paired-up::before { left: 16px; }
   .arc-item__marker {
     flex: none;
     border-right: 0;
@@ -691,6 +790,11 @@ span.chip.is-pending .pill--pending {
   .arc-marker__kind, .arc-marker__n { display: inline; }
   .arc-marker__n { font-size: 1.05rem; margin-left: 6px; }
   .arc-pairbar { padding: 7px 9px; }
+
+  /* The flow stacks into one column in turn-in order; the row labels go. */
+  .flow { display: flex; flex-direction: column; gap: 4px; }
+  .flow__row { display: none; }
+  .flow__link { justify-content: flex-start; padding-left: 12px; min-height: 26px; }
 
   .turnin { padding: 0 14px 14px; }
   .turnin__head { margin: 0 -14px 14px; padding: 10px 14px; }
@@ -809,7 +913,7 @@ span.chip.is-pending .pill--pending {
 .report__el { margin-top: 26px; }
 
 /* NOTE (2026-08-22): a `.turnin` block used to live here — an unused frame for
-   quoting report prose. `.turnin` now means "one of the four graded turn-ins"
+   quoting report prose. `.turnin` now means "one of the six graded turn-ins"
    (§6) and nothing else. The only survivor of the old block is the
    placeholder-photo line inside a report sheet, renamed to match .docpage. */
 .docpage__photos { color: var(--muted); font-style: italic; }

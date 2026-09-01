@@ -7,12 +7,12 @@
      1. Injects the global fiction banner at the top of <body>. Every companion
         page gets it, always, with no per-page markup required.
      2. Renders registry-driven views into placeholder elements, when present:
-          <div data-companion="chain">    the design cycle (hub), grouped into
-                                          the four TURN-INS — turn-ins 2 and 3
-                                          each hold a prototype AND the study
-                                          that tests it, because those are
-                                          handed in together as one two-part
-                                          report
+          <div data-companion="chain">    the design cycle (hub): the Project 1
+                                          flow diagram drawn from the registry,
+                                          then one panel per turn-in — SIX
+                                          turn-ins, one per station, studies
+                                          and builds alternating, each graded
+                                          on its own
           <nav data-companion="arcnav">   prev/next arc nav (study pages; the
                                           page identifies itself with
                                           <body data-arc="card-sort">)
@@ -86,12 +86,17 @@
     handIn: 'You hand in',
     graded: 'Graded on',
     produces: 'Produces',
-    testedBelow: 'Tested below by',
+    testedBelow: 'Tested by',
+    testedBy: 'Tested by',
+    testedByLower: 'tested by',
+    informs: 'Informs',
+    informsLower: 'informs',
+    report: 'The turn-in',
     altVersion: 'Instructor revision',
     altReport: 'The write-up',
     runsOn: 'Runs on',
     pairDown: 'that study runs on this exact build',
-    pairUp: 'the build above, in this same turn-in',
+    pairUp: 'the build this study ran on',
     noRegistry: 'The companion registry did not load, so this section is empty.'
   };
 
@@ -302,16 +307,22 @@
   }
 
   /* ------------------------------------------------------------ the chain ---
-     The chain renders as FOUR TURN-INS in order, each holding the one or two
-     consecutive stations a team hands in together. Turn-ins 2 and 3 each hold
-     a prototype AND the study that tests it — those are one two-part report,
-     not two assignments.
+     The chain renders TWICE from the same registry, one above the other:
 
-     Stations are still numbered as stations, and studies and prototypes are
+       1. THE FLOW — the Project 1 diagram itself: six boxes on two rows,
+          user studies above, builds below, each study informing the build
+          after it and each build tested by the study after that. Every box
+          links down to its own turn-in panel.
+       2. THE TURN-IN PANELS — one per station in chain order (six turn-ins,
+          six panels), each carrying the assignment's own words: what you hand
+          in, what it is graded on, and what it hands forward.
+
+     Stations are numbered as stations, and studies and prototypes are
      numbered separately, so markers read "Study 2" and "Prototype 2" without
-     either renumbering the other. Each marker renders as a boxed badge (kind
-     over numeral) and each half of a pair carries a band naming the other
-     half, so "this build is what that study ran on" is drawn, not inferred.
+     either renumbering the other. A build card carries a band pointing down
+     at the study that tests it (the next turn-in), and a study card a band
+     pointing back up at the build it ran on (the previous one), so "this
+     build is what that study ran on" is drawn, not inferred.
      ------------------------------------------------------------------------ */
 
   function stationNumbers(data) {
@@ -325,7 +336,7 @@
   }
 
   /* "Prototype 1" / "Study 2" as one string, for prose and for the pair bars
-     that name the other half of a two-part turn-in. */
+     that name the other half of a build-and-test pair. */
   function markerText(num) {
     return num ? num.kind + ' ' + num.n : '';
   }
@@ -345,17 +356,18 @@
 
   /* The band that draws the pair: on the build card pointing down at the study
      that tests it, on the study card pointing back up at the build it ran on.
-     Turn-ins 2 and 3 are exactly this pair, so the chain shows it rather than
-     leaving it to be inferred from two adjacent cards. */
+     Since the split, the two halves are separate turn-ins, so the band also
+     says which one. */
   function pairBar(dir, other, numbers, label, note) {
     return h('p', { 'class': 'arc-pairbar arc-pairbar--' + dir }, [
       h('span', { 'class': 'arc-pairbar__arrow', 'aria-hidden': 'true' },
-        dir === 'down' ? '\u2193' : '\u2191'),
+        dir === 'down' ? '↓' : '↑'),
       h('span', { 'class': 'arc-pairbar__label' }, label),
       h('span', { 'class': 'arc-pairbar__who' }, markerText(numbers[other.id])),
       linkOrPending(stationIsLive(other), resolve(stationHref(other)),
         other.title, pendingLabel(other), 'chip'),
-      h('span', { 'class': 'arc-pairbar__note' }, '\u2014 ' + note)
+      h('span', { 'class': 'arc-pairbar__note' }, '— ' + note +
+        (other.turnin ? ' (Turn-in ' + other.turnin + ')' : ''))
     ]);
   }
 
@@ -383,18 +395,25 @@
     return groups;
   }
 
+  /* A turn-in is a study or a build — from its metadata if stated, else from
+     the station it holds. */
+  function groupIsBuild(group) {
+    if (group.meta && group.meta.kind) { return group.meta.kind === 'prototype'; }
+    return !!(group.stations[0] && group.stations[0].kind === 'prototype');
+  }
+
   function chainItem(data, station, numbers) {
     var isProto = station.kind === 'prototype';
     var live = stationIsLive(station);
 
-    /* Is this station half of a build-and-its-test pair inside one turn-in?
-       A build points down at the study that tests it; that study points back
-       up at the build it ran on. */
+    /* Is this station half of a build-and-its-test pair? A build points down
+       at the study that tests it; that study points back up at the build it
+       ran on. */
     var tester = isProto && station.testedBy
       ? stationById(data, station.testedBy) : null;
-    var pairedDown = !!(tester && tester.turnin === station.turnin);
+    var pairedDown = !!tester;
     var ranOn = buildTestedBy(data, station);
-    var pairedUp = !!(ranOn && ranOn.turnin === station.turnin);
+    var pairedUp = !!ranOn;
 
     var classes = 'arc-item' +
       (isProto ? ' arc-item--prototype' : ' arc-item--study') +
@@ -426,20 +445,28 @@
       ]) : null
     ];
 
-    /* Cross-link. A build paired with its test inside this turn-in gets the
-       pair band; anything else — a build tested in a later turn-in, or a study
-       naming the turn-in its findings are allowed to drive — gets the plain
-       line. */
+    /* A build's graded turn-in lives on its own page (the study's page IS its
+       turn-in). Pending until written — the no-dead-links rule again. */
+    if (isProto && station.report) {
+      var reportLive = station.reportStatus !== 'draft';
+      body.push(h('p', { 'class': 'arc-item__links' }, [
+        h('span', { 'class': 'micro-label' }, LABELS.report),
+        ' ',
+        linkOrPending(reportLive, resolve(station.report),
+          station.reportLabel || LABELS.altReport, LABELS.studyPending, 'chip')
+      ]));
+    }
+
+    /* Cross-link. A build gets the pair band pointing at the study that tests
+       it; a study gets the plain line naming the turn-in its findings inform. */
     if (pairedDown) {
       body.push(pairBar('down', tester, numbers, LABELS.testedBelow, LABELS.pairDown));
-    } else {
-      var partnerId = isProto ? station.testedBy : station.feeds;
-      var partner = partnerId ? stationById(data, partnerId) : null;
+    } else if (!isProto && station.feeds) {
+      var partner = stationById(data, station.feeds);
       if (partner) {
         body.push(h('p', { 'class': 'arc-item__links' }, [
-          h('span', { 'class': 'micro-label' }, isProto
-            ? 'Tested by'
-            : ('Feeds Turn-in ' + partner.turnin)),
+          h('span', { 'class': 'micro-label' },
+            LABELS.informs + (partner.turnin ? ' Turn-in ' + partner.turnin : '')),
           ' ',
           linkOrPending(stationIsLive(partner), resolve(stationHref(partner)),
             partner.title, pendingLabel(partner), 'chip')
@@ -460,7 +487,7 @@
     /* The instructor's revision line: builds outside the graded chain that
        revise this station's prototype one bet at a time, linked from the
        same station so the evolution reads in order. Registry shape:
-       alts: [{ title, path, report?, note? }, \u2026]; a legacy singular `alt`
+       alts: [{ title, path, report?, note? }, …]; a legacy singular `alt`
        renders the same way. One row per revision. */
     var alts = isProto
       ? (station.alts || (station.alt && station.alt.path ? [station.alt] : []))
@@ -477,7 +504,7 @@
           ? h('a', { 'class': 'chip', 'href': resolve(alt.report) },
               alt.reportLabel || LABELS.altReport)
           : null,
-        alt.note ? ' \u2014 ' + alt.note : null
+        alt.note ? ' — ' + alt.note : null
       ]));
     });
 
@@ -499,11 +526,15 @@
 
   function turninGroup(data, group, numbers, nextGroup) {
     var meta = group.meta;
+    var isBuild = groupIsBuild(group);
     var kids = [];
 
     kids.push(h('div', { 'class': 'turnin__head' }, [
-      h('p', { 'class': 'turnin__num' },
-        group.n ? 'Turn-in ' + group.n : 'Not yet assigned to a turn-in'),
+      h('p', { 'class': 'turnin__num' }, [
+        group.n ? 'Turn-in ' + group.n : 'Not yet assigned to a turn-in',
+        h('span', { 'class': 'turnin__kind' },
+          ' · ' + (isBuild ? LABELS.build : LABELS.study))
+      ]),
       meta && meta.title ? h('h3', { 'class': 'turnin__title' }, meta.title) : null
     ]));
 
@@ -525,15 +556,88 @@
     });
     kids.push(list);
 
+    /* The footer strip is the diagram's arrow, in words: a study PRODUCES
+       something and informs the next build; a build is TESTED BY the next
+       study. */
     if (meta && meta.produces) {
       kids.push(h('p', { 'class': 'turnin__produces' }, [
         h('span', { 'class': 'micro-label' }, LABELS.produces), ' ',
         h('strong', null, meta.produces),
-        nextGroup ? ' → carried into Turn-in ' + nextGroup.n : null
+        nextGroup ? ' → ' + LABELS.informsLower + ' Turn-in ' + nextGroup.n : null
+      ]));
+    } else if (isBuild && nextGroup) {
+      var nextTitle = (nextGroup.meta && nextGroup.meta.title) ||
+        (nextGroup.stations[0] && nextGroup.stations[0].title) || '';
+      kids.push(h('p', { 'class': 'turnin__produces' }, [
+        h('span', { 'class': 'micro-label' }, LABELS.testedBy), ' ',
+        '↑ Turn-in ' + nextGroup.n, nextTitle ? ' — ' : null,
+        nextTitle ? h('strong', null, nextTitle) : null
       ]));
     }
 
-    return h('li', { 'class': 'turnin turnin--' + (group.n || 'x') }, kids);
+    return h('li', {
+      'class': 'turnin turnin--' + (isBuild ? 'build' : 'study') +
+        ' turnin--' + (group.n || 'x'),
+      'id': group.n ? 'turnin-' + group.n : null
+    }, kids);
+  }
+
+  /* --- The flow: the Project 1 diagram, drawn from the registry ----------
+     Two rows of boxes and the arrows between them. Placement is CSS
+     (companion.css §6, by the flow__box--N / flow__link--N classes); on a
+     phone the same nodes stack into one column in turn-in order, which is
+     why boxes and links are appended in that order. The arrows are drawn
+     only — the panels below say "informs" and "tested by" in words. */
+
+  function flowBox(group) {
+    var meta = group.meta || {};
+    var isBuild = groupIsBuild(group);
+    var first = group.stations[0] || {};
+    return h('a', {
+      'class': 'flow__box flow__box--' + (isBuild ? 'build' : 'study') +
+        ' flow__box--' + group.n,
+      'href': '#turnin-' + group.n
+    }, [
+      h('span', { 'class': 'flow__head' }, [
+        h('span', { 'class': 'flow__num' }, 'Turn-in ' + group.n),
+        h('span', { 'class': 'flow__kind' }, ' · ' + (isBuild ? LABELS.build : LABELS.study))
+      ]),
+      h('span', { 'class': 'flow__body' }, [
+        h('span', { 'class': 'flow__title' }, meta.title || first.title || ''),
+        meta.blurb ? h('span', { 'class': 'flow__blurb' }, meta.blurb) : null,
+        meta.produces && !isBuild
+          ? h('span', { 'class': 'flow__out' }, '→ ' + meta.produces)
+          : null
+      ])
+    ]);
+  }
+
+  function flowLink(n, fromStudy) {
+    return h('span', {
+      'class': 'flow__link flow__link--' + (fromStudy ? 'informs' : 'tested') +
+        ' flow__link--' + n,
+      'aria-hidden': 'true'
+    }, [
+      h('span', { 'class': 'flow__arrow' }, fromStudy ? '↓' : '↑'),
+      h('span', { 'class': 'flow__verb' }, fromStudy ? LABELS.informsLower : LABELS.testedByLower)
+    ]);
+  }
+
+  function renderFlow(groups) {
+    var flow = h('div', {
+      'class': 'flow',
+      'role': 'navigation',
+      'aria-label': 'The six turn-ins, as the Project 1 flow diagram draws them'
+    });
+    flow.appendChild(h('span', { 'class': 'flow__row flow__row--study', 'aria-hidden': 'true' }, 'User studies'));
+    flow.appendChild(h('span', { 'class': 'flow__row flow__row--build', 'aria-hidden': 'true' }, 'Prototypes'));
+    each(groups, function (group, i) {
+      flow.appendChild(flowBox(group));
+      if (i < groups.length - 1) {
+        flow.appendChild(flowLink(i + 1, !groupIsBuild(group)));
+      }
+    });
+    return flow;
   }
 
   function renderChain(container, data) {
@@ -545,6 +649,7 @@
     });
 
     var kids = [
+      renderFlow(groups),
       h('p', { 'class': 'fiction-note' }, [
         badge('FICTITIOUS DATA'), ' ',
         'The study questions, findings, and participant details below are ' +
@@ -567,10 +672,9 @@
 
   /* ------------------------------------------------------- prev/next arc nav */
 
-  /* `currentTurnin` lets the label distinguish "the other half of the report
-     you are reading" from "a different assignment entirely" — the whole point
-     of grouping the chain by turn-in. */
-  function navSide(station, direction, currentTurnin) {
+  /* Every station is its own turn-in now, so each neighbor is simply named
+     with its turn-in number. */
+  function navSide(station, direction) {
     var label = direction === 'prev' ? 'Previous' : 'Next';
     var classes = 'arcnav__side arcnav__side--' + direction;
     if (!station) {
@@ -580,12 +684,7 @@
           direction === 'prev' ? 'Start of the chain' : 'End of the chain')
       ]);
     }
-    var where = '';
-    if (station.turnin) {
-      where = station.turnin === currentTurnin
-        ? ' — same turn-in'
-        : ' — turn-in ' + station.turnin;
-    }
+    var where = station.turnin ? ' — turn-in ' + station.turnin : '';
     return h('span', { 'class': classes }, [
       h('span', { 'class': 'micro-label' }, label + where),
       linkOrPending(stationIsLive(station), resolve(stationHref(station)),
@@ -606,10 +705,10 @@
     var here = data.arc[index].turnin;
     clear(container);
     append(container, [
-      navSide(index > 0 ? data.arc[index - 1] : null, 'prev', here),
+      navSide(index > 0 ? data.arc[index - 1] : null, 'prev'),
       h('a', { 'class': 'arcnav__hub', 'href': resolve('index.html') },
         here ? 'The whole chain — you are in turn-in ' + here : 'The whole chain'),
-      navSide(index < data.arc.length - 1 ? data.arc[index + 1] : null, 'next', here)
+      navSide(index < data.arc.length - 1 ? data.arc[index + 1] : null, 'next')
     ]);
   }
 

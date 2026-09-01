@@ -140,11 +140,13 @@ own data file.
 window.CS356_COMPANION = {
   version: "YYYY-MM-DD",
   throughLine: "…the course doctrine, printed under the chain…",
-  // The four graded submissions. A turn-in owns one or two CONSECUTIVE arc
-  // stations; turn-ins 2 and 3 each own a prototype AND the study that tests
-  // it, because those are handed in together as one two-part report.
+  // The six graded submissions, one per station (restructured 2026-09-01).
+  // A turn-in owns one arc station; `kind` drives the color band (study =
+  // green, prototype = rust — the flow diagram's two rows).
   turnins: [
-    { n: 1,                        // drives the color band, turnin--1 … --4
+    { n: 1,
+      kind: "study",               // "study" | "prototype"
+      blurb: "…the flow diagram's one-liner…",
       title: "Card sort report",
       handIn: "…what physically leaves your hands…",
       graded: "User Study Rubric — 60 pts",
@@ -165,11 +167,13 @@ window.CS356_COMPANION = {
       shows: "…one-line 'what to notice'…" },
     { id: "wireframe",
       kind: "prototype",
-      turnin: 2,
+      turnin: 2,                    // its own turn-in; the tree test is turn-in 3
       title: "2–3 level wireframe",
       fidelity: "wireframe",        // prototypes: wireframe | functional | final
       status: "planned",            // prototypes: planned | built | frozen | shipped
       path: "prototypes/wireframe/",
+      report: "wireframe-report.html",   // where this build's example turn-ins are graded
+      reportStatus: "draft",        // optional; "draft" renders a pending pill, not a link
       testedBy: "tree-test",        // the study that runs against it
       shows: "…what a student should notice…" },
     …
@@ -177,40 +181,44 @@ window.CS356_COMPANION = {
 };
 ```
 
-**Two groupings of the same stations (added 2026-08-22).** `arc[]` is the
-sequence — what happens, in order. `turnins[]` is the packaging — what is
-actually submitted and graded. They are deliberately different shapes over one
-set of stations: the companion practices its own doctrine on itself. The hub
-renders the chain grouped by turn-in by walking `arc[]` in order and cutting a
-new group wherever `turnin` changes, so **`arc[]` stays the single ordering
-source** and `turnins[]` carries only metadata. A turn-in's stations must
-therefore be consecutive in `arc[]`.
+**Two groupings of the same stations (added 2026-08-22; one-to-one since
+2026-09-01).** `arc[]` is the sequence — what happens, in order. `turnins[]`
+is the packaging — what is actually submitted and graded. Since the course
+split its Project 1 assignments (2026-08-28) the two are one-to-one — six
+stations, six turn-ins — but they stay separate shapes on purpose: the arc
+carries what a station asks and shows, the turn-in carries the assignment's
+own words (hand in, graded on, produces). The hub renders the chain by
+walking `arc[]` in order and cutting a new group wherever `turnin` changes,
+so **`arc[]` stays the single ordering source** and `turnins[]` carries only
+metadata.
 
-The four turn-ins carry the color bands of the Project 1 flow diagram (red,
-blue, green, gold, with the through-line on slate) so the hub and the diagram
-read as one document. Color is a wayfinding cue only — every turn-in is also
-numbered and titled in text, and each station card says "You build" or "User
-study" in words.
+The hub draws the chain twice from the registry: first as **the flow** — the
+Project 1 diagram itself, six boxes on two rows (user studies above in green,
+builds below in rust, each box overlapping the next by half so the "↓
+informs" / "↑ tested by" arrows land in the overlap), every box linking down
+to its panel — then as **the panels**, one per turn-in in order. Color is a
+wayfinding cue only — every turn-in is also numbered and titled in text, and
+each station card says "You build" or "User study" in words.
 
-**Station markers and the build/test pair (added 2026-08-22).** Two things the
-diagram has to say out loud, because both were previously left to inference:
+**Station markers and the build/test pair (added 2026-08-22; pairs now
+cross turn-ins).** Two things the diagram has to say out loud:
 
 - Each station's marker ("Prototype 1", "Study 2") renders as a boxed badge —
   kind over numeral, in the build/study colors the card's own kicker uses —
   rather than as caption-sized text in the gutter. The numbering itself is
   unchanged: studies and prototypes are counted separately, so neither
   renumbers the other.
-- Where a turn-in holds a build *and* the study that tests it (turn-ins 2 and
-  3), both cards are bound to the band color, the connector between them grows
-  an arrowhead into the study, and each card carries a band naming the other
-  half: the build points down at the study that runs on it, the study points
-  back up at the build it ran on. The pairing is derived from `testedBy`, read
-  in both directions — the registry states it once. Everything the drawing says
-  is also written in the bands, so nothing depends on seeing the arrow.
+- A build and the study that tests it are separate turn-ins, but each card
+  still carries a band naming the other half and its turn-in number: the
+  build points down at the study that runs on it, the study points back up at
+  the build it ran on. The pairing is derived from `testedBy`, read in both
+  directions — the registry states it once. A build card also links to the
+  page where its example turn-ins are graded (`report`), pending until it
+  exists.
 
 **What renders from the registry:** the hub's chain grouped into turn-ins,
-per-page prev/next arc navigation (which names each neighbor's turn-in, and
-says "same turn-in" for the other half of a two-part report), and cross-links
+per-page prev/next arc navigation (which names each neighbor's turn-in), and
+cross-links
 between studies and prototypes. **What does not:** the study pages' long-form
 prose — hand-authored HTML documents (they are the worked example itself).
 Adding/retiring a station is: write/remove the page or artifact, edit one
@@ -279,10 +287,11 @@ exported from git history:
   - Pictures that don't exist yet are `.img-slot` placeholders: a dashed box
     naming itself a placeholder plus an italic description of the imagined
     image, so art can be sourced later without redesign.
-- **One exception to that identity (2026-08-22):** the hub's turn-in panels
-  keep the four color bands of the Project 1 flow diagram — now as thin color
-  caps on white cards — so a student who has the diagram in front of them
-  recognizes the hub as the same document. The fiction banner and the
+- **One exception to that identity (2026-08-22, recolored 2026-09-01):** the
+  hub's flow boxes and turn-in panels carry the two colors of the Project 1
+  flow diagram — green for a user study, rust for a build — as solid header
+  bands, so a student who has the diagram in front of them recognizes the hub
+  as the same document. The fiction banner and the
   grader's red pen keep their warning red; that red is reserved for the
   honest-fiction contract and grading, never navigation or decoration.
 - Voice (decided): **designer's notebook** — first-person-plural instructor

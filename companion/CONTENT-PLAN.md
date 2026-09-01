@@ -32,20 +32,28 @@ study before it, and tested by the study after it.
 |---|---|---|---|---|---|
 | 1 | `card-sort` | study | **1** | Open card sort on the skill inventory: how do teachers group and label the basic information block (a single skill)? → categories, groups, labels — and *facet signals* (§3) | the wireframe's data scheme |
 | 2 | `wireframe` | prototype | **2** | 2–3 level clickable grayscale wireframe. Facets + values per PMEST/LATCH thinking; data scheme decoupled from display (single source, multiple views at wireframe fidelity) | the tree test's material |
-| 3 | `tree-test` | study | **2** | Tree test, run as a moderated think-aloud on the wireframe: how are the organization and the labeling broken? → refined categories, groups, labels | prototype v1 |
-| 4 | `prototype-v1` | prototype | **3** | First functional prototype. Visual design and color to direct precognitive attention; logs every click and the prompt that led to it | the task test's material |
-| 5 | `task-test` | study | **3** | Five-user task test (talk-aloud) on prototype v1: does the visual design work? where does navigation break? → final refinements | the final prototype |
-| 6 | `prototype-final` | prototype | **4** | Final functional prototype: brings it together on single source, multiple views, grounded in all three studies | **graduates to become the new live site** |
+| 3 | `tree-test` | study | **3** | Tree test, run as a moderated think-aloud on the wireframe: how are the organization and the labeling broken? → refined categories, groups, labels | prototype v1 |
+| 4 | `prototype-v1` | prototype | **4** | First functional prototype. Visual design and color to direct precognitive attention; logs every click and the prompt that led to it | the task test's material |
+| 5 | `task-test` | study | **5** | Five-user task test (talk-aloud) on prototype v1: does the visual design work? where does navigation break? → final refinements | the final prototype |
+| 6 | `prototype-final` | prototype | **6** | Final functional prototype: brings it together on single source, multiple views, grounded in all three studies | **graduates to become the new live site** |
 
-**Six stations, four turn-ins (settled 2026-08-22).** Students do not hand in
-six things. Turn-ins 2 and 3 each bundle a prototype *and* the study that tests
-it into one two-part report — Part 1 graded on the Prototype Rubric (60), Part 2
-on the User Study Rubric (60), 120 points combined — because a prototype you
-have not tested is not finished. Turn-in 1 is the card-sort report alone (60);
-turn-in 4 is the final prototype alone. The companion hub renders the chain
-grouped this way, in the flow diagram's four colors; the grouping is registry
-data (`turnin` on each station, `turnins[]` for the metadata — ARCHITECTURE §5),
-not markup.
+**Six stations, six turn-ins (restructured 2026-09-01; supersedes the
+four-turn-in packaging settled 2026-08-22).** Every station is handed in and
+graded on its own, alternating user study / build, exactly as the Project 1
+flow diagram draws it: Turn-in 1 card sort, 2 wireframe, 3 tree test, 4
+prototype v1, 5 five-task talk-aloud, 6 final prototype. Studies are graded on
+the **Study Report Rubric (60)** — Methods 15 / Results & Analysis 20 / Design
+Decisions 25 (Canvas 200710; the card sort still carries the identical User
+Study Rubric 198046) — and prototypes on the **Prototype Rubric (60)** (Canvas
+198705); the final prototype is 120 on its own rubric. The two rubrics are the
+same instruments as before, but they are never combined: there are no two-part
+reports and no 120-point bundles any more. The companion hub renders the chain
+twice from the registry — first as the flow diagram itself (two rows, studies
+green, builds rust, "informs" / "tested by" arrows), then as one panel per
+turn-in (`turnin` on each station, `turnins[]` for the metadata —
+ARCHITECTURE §5). A prototype station may carry `report` — the page where
+that build's two example turn-ins are graded (`wireframe-report.html` for the
+wireframe; `v1-report.html`, still `reportStatus: "draft"`, for v1).
 
 The through-line (verbatim course doctrine, and this companion's editorial
 spine): *deliberately avoid finding "the one true place" each item should go.*
@@ -209,8 +217,8 @@ IA 13 / Grounded 16).
     exportable JSON/CSV.
   - **Bonus: test mode** (wireframe-style scenarios) — optional; full marks
     attainable without it. Team A deliberately skips it.
-  - Graded on the Prototype Rubric (Canvas 198705) as Part 1 of turn-in 3.
-    Frozen when the task test runs.
+  - Turn-in 4, graded on its own on the Prototype Rubric (Canvas 198705).
+    Frozen when the task test (Turn-in 5) runs.
 - **Prototype v1, alternate build (2026-08-24).** An instructor exploration
   at `prototypes/v1/semantic/`: Team A's build loading Team A's own data file
   and stylesheet by reference, with the search grown into a precomputed
@@ -253,16 +261,17 @@ errors are constructed to hit specific rubric bands (recap-not-synthesis,
 over-claiming cap, decisions that predate the data), and each grader box
 names the band it applied.
 
-**Two-part reports (added 2026-08-22).** When an assignment is a combined
-turn-in — the wireframe + tree test report is the model
-(`studies/02-tree-test.html`) — each team's report carries Part 1 (the
-prototype turn-in, graded on the Prototype Rubric, 60) and Part 2 (the study
-turn-in, graded on the study rubric, 60) with a scorecard per part and a
-combined 120-pt line. The study's raw data ships as a real committed file in
-the study's real export format (e.g. `02-tree-test-raw-team-a.csv`), invented
-by a committed data script (`02-tree-test-data.py`) that parses the real
-prototypes rather than hard-coding them, so every number on the page is
-re-derivable by a stranger.
+**One turn-in per page (2026-09-01; replaces the two-part-report rule of
+2026-08-22).** A build and the study that tests it are separate turn-ins on
+separate rubrics, so they are graded on separate pages: the study page holds
+both teams' study reports (Study Report Rubric, scorecard per report, no
+combined line), and the build's reports live on their own root-level page —
+`wireframe-report.html` is the model (Report A 60/60, Report B 34/60 on the
+Prototype Rubric, each linking to that team's tree test; its own "what
+separates" section; `data-arc` set to the prototype's slug so the arc nav
+places it). Each report cross-links to its sibling turn-in by name ("your tree
+test", "your wireframe report"), never "Part 1/Part 2". The study's raw data
+still ships as a real committed file in
 
 **Full-hierarchy element (added 2026-08-22).** Immediately after the design
 decisions, each report presents a complete outline of its information
