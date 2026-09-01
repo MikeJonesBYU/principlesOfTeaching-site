@@ -255,6 +255,14 @@ body:not([data-page="hub"]) .masthead__img {
    and a quiet caption underneath that says what it is — and, for a
    generated image of an invented place, says so with the fiction badge. */
 .body-figure { margin: 6px 0 18px; }
+/* A modest picture beside the prose rather than a banner across it:
+   about a third of the column, floated right, text wrapping around it. */
+.body-figure--aside {
+  float: right;
+  width: 36%;
+  max-width: 340px;
+  margin: 4px 0 12px 24px;
+}
 .body-figure__img {
   display: block;
   width: 100%;
@@ -815,6 +823,8 @@ span.chip.is-pending .pill--pending {
   .flow { display: flex; flex-direction: column; gap: 4px; }
   .flow__row { display: none; }
   .flow__link { justify-content: flex-start; padding-left: 12px; min-height: 26px; }
+
+  .body-figure--aside { float: none; width: 100%; max-width: 420px; margin: 6px auto 16px; }
 
   .turnin { padding: 0 14px 14px; }
   .turnin__head { margin: 0 -14px 14px; padding: 10px 14px; }
