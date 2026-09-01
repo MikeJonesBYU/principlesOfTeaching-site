@@ -1,104 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex">
-<title>First functional prototype — two example turn-ins · CS 356 companion</title>
-<style>
-  body { margin: 0; font-family: Helvetica, Arial, sans-serif; color: #111; background: #fff; }
-  .proto-banner { border-bottom: 2px solid #111; background: #f2f2f2; padding: 0.6rem 1rem; font-size: 0.85rem; }
-  .proto-banner strong { letter-spacing: 0.02em; }
-  .proto-banner a { color: #111; }
-  main { max-width: 42rem; margin: 2rem auto; padding: 0 1rem; }
-  h1 { font-size: 1.4rem; border-bottom: 1px solid #111; padding-bottom: 0.4rem; }
-  h2.rule { font-size: 1.1rem; border-bottom: 1px solid #111; padding-bottom: 0.3rem; margin-top: 2.4rem; }
-  .team { border: 1px solid #111; padding: 1rem 1.2rem; margin: 1.2rem 0; }
-  .team h2, .team h3 { margin: 0 0 0.3rem; font-size: 1.1rem; }
-  .team p { margin: 0.3rem 0 0.8rem; font-size: 0.95rem; }
-  .team a.go { display: inline-block; border: 1px solid #111; padding: 0.35rem 0.9rem; color: #111; text-decoration: none; font-weight: bold; margin-right: 0.4rem; }
-  .vtag { display: inline-block; border: 1px solid #111; border-radius: 999px; padding: 0.05rem 0.55rem; font-size: 0.72rem; font-weight: bold; letter-spacing: 0.04em; margin-right: 0.45rem; vertical-align: 0.08em; }
-  .team--rev { border-style: dashed; }
-  .evolution-note { font-size: 0.95rem; margin: 0.8rem 0 0; }
-  .note { font-size: 0.85rem; color: #444; margin-top: 2rem; }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Prototype v1: two turn-ins, and the revisions — CS 356 Companion</title>
+  <meta name="description" content="The first functional prototype (Turn-in 4): Team A's and Team B's builds, plus the instructor's revision line — v2 semantic search and v3 skill cards.">
+  <link rel="stylesheet" href="../../assets/companion.css">
+  <style>
+    /* The chooser: one card per build, in the companion's own idiom. The
+       builds themselves (team-a/, team-b/, semantic/, cards/) stay
+       self-contained specimens with their own static banner. */
+    .build-list { list-style: none; margin: 0; padding: 0; }
+    .build {
+      background: var(--panel);
+      border: 1px solid var(--rule-strong);
+      border-left: 4px solid var(--build-bar);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px 18px;
+      margin: 0 0 16px;
+    }
+    .build--rev { border-left-style: dashed; }
+    .build__title { margin: 0 0 6px; font-size: 1.15rem; line-height: 1.3; border: 0; padding: 0; }
+    .build__title .pill--kind { margin-right: 8px; vertical-align: 2px; }
+    .build p { margin: 0 0 12px; max-width: 72ch; }
+    .build__actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
+  </style>
 </head>
-<body>
-  <div class="proto-banner">
-    <strong>CS 356 companion prototype — “First functional prototype.”</strong>
-    A working design artifact from the case study, not the live teaching site.
-    <a href="../../../">Live site →</a> ·
-    <a href="../../index.html">Back to the companion →</a>
-  </div>
-  <main>
-    <h1>The first functional prototype — two example turn-ins</h1>
-    <p>Same assignment, same rubric, and each team building on its own tree
-    test: color and layout now doing real work, and a search feature invented
-    from study vocabulary rather than a study of its own. Both are real,
-    working artifacts — browse, search, try the log exports, and form your
-    own opinion before reading any grading.</p>
-    <p>The first functional prototype is <strong>Turn-in 4</strong>, handed
-    in and graded on its own on the 60-point Prototype Rubric. The five-user
-    talk-aloud task test each team then runs on it is <strong>Turn-in
-    5</strong>, a separate report on the Study Report Rubric. The two
-    teams’ graded prototype reports are not written yet; the instructor’s
-    v2 report below shows the shape.</p>
+<body data-page="prototype" data-arc="prototype-v1">
 
-    <div class="team">
-      <h2>Team A</h2>
-      <p>Their tree test's six decisions built exactly as written — including
-      the trial branch its next study exists to judge. One data file, three
-      views (two hierarchies and search), a hand-built concept layer behind
-      the search box, facet chips to narrow results, and a click-and-query log
-      you can export.</p>
-      <a class="go" href="team-a/">Open Team A’s prototype →</a>
-    </div>
+  <main class="wrap">
 
-    <div class="team">
-      <h2>Team B</h2>
-      <p>Their plan from the tree test, built the way they wrote it down.
-      Color has arrived, and so has a search box. Look closely — what steers
-      your attention, what doesn’t, and what you can and can’t find are the
-      teaching material.</p>
-      <a class="go" href="team-b/">Open Team B’s prototype →</a>
-    </div>
+    <header class="site-head">
+      <p class="kicker">CS 356 Companion &middot; Prototype 2 of 3 &middot; Turn-in 4</p>
+      <h1>The first functional prototype: two turn-ins, and the revisions</h1>
 
-    <h2 class="rule">The prototype, evolving — the instructor’s revision line</h2>
-    <p class="evolution-note">A prototype in the graded chain freezes when its
-    study runs; the thinking doesn’t. These builds revise Team A’s prototype
-    one bet at a time, each loading the previous build’s work by reference
-    rather than copying it. Read them in order and watch what each revision
-    changes, what it refuses to touch, and what it admits it can’t know
-    without the next study.</p>
+      <p class="fiction-note"><span class="fiction-badge">FICTITIOUS DATA</span>
+        <strong>Scope note.</strong> Real: every build on this page and every
+        structural claim made about it. Invented: the studies the builds are
+        grounded in &mdash; the card sort and tree test, their participants,
+        and every quote and count from them &mdash; which are the
+        companion&rsquo;s standing fiction.
+        <a href="../../fiction.html">What&rsquo;s real and what&rsquo;s not
+        &rarr;</a></p>
 
-    <div class="team team--rev">
-      <h3><span class="vtag">v2</span>Semantic search</h3>
-      <p>One subsystem replaced: the search matches what you <em>mean</em>,
-      not just the words you type. “Kids are noisy,” “teenagers on their
-      phones,” “was that the Spirit” all land, from a meaning index computed
-      once ahead of time. Still no server, and no AI call at lookup time.</p>
-      <a class="go" href="semantic/">Open the semantic build →</a>
-      <a class="go" href="../../semantic-build-report.html">The report, graded 57/60 →</a>
-    </div>
+      <p class="lead">
+        Same assignment, same rubric, and each team building on its own tree
+        test: color and layout now doing real work, and a search feature
+        invented from study vocabulary rather than a study of its own. Both
+        are real, working artifacts &mdash; browse, search, try the log
+        exports, and form your own opinion before reading any grading.
+      </p>
+      <p class="section-note">
+        The first functional prototype is <strong>Turn-in&nbsp;4</strong>,
+        handed in and graded on its own on the 60-point Prototype Rubric.
+        The five-user talk-aloud task test each team then runs on it is
+        <strong>Turn-in&nbsp;5</strong>, a separate report on the Study
+        Report Rubric. The two teams&rsquo; graded prototype reports are not
+        written yet; the instructor&rsquo;s v2 report below shows the shape.
+      </p>
+    </header>
 
-    <div class="team team--rev">
-      <h3><span class="vtag">v3</span>Skill cards</h3>
-      <p>The newest revision: every listing redesigned from a title row into
-      an informative card — the situation you’re in (teacher words, on all
-      53 blocks now), the manual’s exact sentence, the first move to try, and
-      chips for lesson moment and how much preparing it takes — plus a
-      simpler, whiter shell and a “narrow by preparation” search facet. The
-      data, hierarchy, and meaning index are v2’s, untouched.</p>
-      <a class="go" href="cards/">Open the card build →</a>
-      <a class="go" href="../../cards-build-notes.html">Why this revision →</a>
-    </div>
+    <section aria-labelledby="teams-h">
+      <h2 id="teams-h">The two turn-ins</h2>
+      <ul class="build-list">
+        <li class="build">
+          <h3 class="build__title">Team A</h3>
+          <p>Their tree test&rsquo;s six decisions built exactly as written
+          &mdash; including the trial branch its next study exists to judge.
+          One data file, three views (two hierarchies and search), a
+          hand-built concept layer behind the search box, facet chips to
+          narrow results, and a click-and-query log you can export.</p>
+          <p class="build__actions">
+            <a class="btn" href="team-a/">Open Team A&rsquo;s prototype &rarr;</a>
+          </p>
+        </li>
+        <li class="build">
+          <h3 class="build__title">Team B</h3>
+          <p>Their plan from the tree test, built the way they wrote it down.
+          Color has arrived, and so has a search box. Look closely &mdash;
+          what steers your attention, what doesn&rsquo;t, and what you can
+          and can&rsquo;t find are the teaching material.</p>
+          <p class="build__actions">
+            <a class="btn" href="team-b/">Open Team B&rsquo;s prototype &rarr;</a>
+          </p>
+        </li>
+      </ul>
+    </section>
 
-    <p class="note">These artifacts belong to the companion’s worked example:
-    the studies that produced them are fictitious (see the companion’s
-    what’s-real statement), but the prototypes themselves are real and
-    clickable, and the strong team’s decisions really drive the next
-    prototype. The instructor revisions sit outside the graded chain — Team
-    A’s build remains the one the task test runs on.</p>
+    <section aria-labelledby="rev-h">
+      <h2 id="rev-h">The prototype, evolving &mdash; the instructor&rsquo;s revision line</h2>
+      <p class="section-note">
+        A prototype in the graded chain freezes when its study runs; the
+        thinking doesn&rsquo;t. These builds revise Team&nbsp;A&rsquo;s
+        prototype one bet at a time, each loading the previous build&rsquo;s
+        work by reference rather than copying it. Read them in order and
+        watch what each revision changes, what it refuses to touch, and what
+        it admits it can&rsquo;t know without the next study.
+      </p>
+      <ul class="build-list">
+        <li class="build build--rev">
+          <h3 class="build__title"><span class="pill pill--kind">v2</span>Semantic search</h3>
+          <p>One subsystem replaced: the search matches what you
+          <em>mean</em>, not just the words you type. &ldquo;Kids are
+          noisy,&rdquo; &ldquo;teenagers on their phones,&rdquo; &ldquo;was
+          that the Spirit&rdquo; all land, from a meaning index computed once
+          ahead of time. Still no server, and no AI call at lookup time.</p>
+          <p class="build__actions">
+            <a class="btn" href="semantic/">Open the semantic build &rarr;</a>
+            <a class="btn" href="../../semantic-build-report.html">The report, graded 57/60 &rarr;</a>
+          </p>
+        </li>
+        <li class="build build--rev">
+          <h3 class="build__title"><span class="pill pill--kind">v3</span>Skill cards</h3>
+          <p>The newest revision: every listing redesigned from a title row
+          into an informative card &mdash; the situation you&rsquo;re in
+          (teacher words, on all 53 blocks now), the manual&rsquo;s exact
+          sentence, the first move to try, and chips for lesson moment and
+          how much preparing it takes &mdash; plus a simpler, whiter shell
+          and a &ldquo;narrow by preparation&rdquo; search facet. The data,
+          hierarchy, and meaning index are v2&rsquo;s, untouched.</p>
+          <p class="build__actions">
+            <a class="btn" href="cards/">Open the card build &rarr;</a>
+            <a class="btn" href="../../cards-build-notes.html">Why this revision &rarr;</a>
+          </p>
+        </li>
+      </ul>
+      <p class="section-note">
+        The instructor revisions sit outside the graded chain &mdash;
+        Team&nbsp;A&rsquo;s build remains the one the task test runs on.
+        Every build opens as a self-contained specimen with its own banner;
+        its &ldquo;Back to the companion&rdquo; link returns to the hub.
+      </p>
+    </section>
+
+    <nav data-companion="arcnav"></nav>
+
+    <footer class="site-foot">
+      <p><a href="../../index.html">&larr; The whole chain</a> &middot;
+         <a href="../../studies/02-tree-test.html">The tree test these builds answer to &rarr;</a></p>
+    </footer>
+
   </main>
+
+  <script src="../../assets/studies-data.js" defer></script>
+  <script src="../../assets/companion.js" defer></script>
 </body>
 </html>
