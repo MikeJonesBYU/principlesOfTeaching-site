@@ -114,6 +114,9 @@
   <p class="lede">The Teaching Skills site stores its 53 skills once and shows them five different ways.
   This tutorial shows how that is organized, then walks through adding a sixth way: a brand-new organizing
   scheme called <b>the Ladder</b>. Read the pictures first. The prose is deliberately short.</p>
+  <p class="lede" style="margin-top:10px">Three ideas from the course run underneath: Wurman's <b>LATCH</b> for choosing what to organize by,
+  Ranganathan's <b>facets</b> for expecting several schemes at once, and the Polar Bear book's <b>four systems</b> for keeping
+  organization, labels, navigation, and search apart.</p>
 </header>
 
 <!-- ============================================================ 1 -->
@@ -198,7 +201,20 @@ White boxes: <b>views</b>. Arrows point the way data flows.</figcaption>
 </figure>
 
 <!-- ============================================================ 2 -->
-<h2><span class="num">2</span>What is already here</h2>
+<h2><span class="num">2</span>The four systems, found in the code</h2>
+<p>The Polar Bear book says a site has four systems that should be designed separately: organization, labeling,
+navigation, and search. Single source is what makes that separation possible here. Each system lives in its own files.</p>
+<div class="tbl-wrap"><table>
+<tr><th>System</th><th>Where it lives here</th><th>What that buys</th></tr>
+<tr><td><b>Organization</b><br><small style="color:var(--muted)">schemes + structures</small></td><td><code>skills-data.js</code> (the manual's own scheme) and the overlays <code>problems-data.js</code>, <code>ladder-data.js</code></td><td>A new scheme is a new file, not a rewrite.</td></tr>
+<tr><td><b>Labeling</b></td><td><code>lang/eng/strings.js</code>, <code>lang/spa/strings.js</code>; every <code>data-i18n</code> attribute</td><td>Rename a rung or translate a heading without touching structure.</td></tr>
+<tr><td><b>Navigation</b></td><td>the subnav links, the language switcher, ids carried in <code>#sel=</code></td><td>Views point at each other by id and by page, never by copying content.</td></tr>
+<tr><td><b>Search</b></td><td><code>problems.js</code> soft keyword match over challenge wording</td><td>Search reads the same records the browse views read.</td></tr>
+</table></div>
+<p>Keep this table in mind. Most of the "what it takes" list in §6 is just: one file per system.</p>
+
+<!-- ============================================================ 3 -->
+<h2><span class="num">3</span>What is already here</h2>
 
 <h3>The record</h3>
 <p>Every skill is one object. Three fields are the manual's <em>own</em> organization. One field is the key. The rest is content.</p>
@@ -232,6 +248,10 @@ White boxes: <b>views</b>. Arrows point the way data flows.</figcaption>
 <div class="panel rule"><b>Derived</b> = the field you group on is already in the source. No new file.<br>
 <b>Overlay</b> = a new file that lists ids under new headings. Adds meaning, never copies content.<br>
 <b>Selection</b> = a list of ids carried in the URL. The view is whatever those ids resolve to.</div>
+<p>In Polar Bear vocabulary these are <em>structures</em>. The <em>scheme</em> is the shared characteristic you group by.
+The manual gives a <b>topic</b> scheme in a <b>hierarchy</b>. The problems overlay is a <b>task</b> scheme in a
+<b>database</b> structure: records plus metadata, composed at render time. Scheme is a content decision.
+Structure is a code decision. Decide them separately, and in that order.</p>
 
 <h3>Spot the pattern in the code</h3>
 <div class="two">
@@ -260,7 +280,7 @@ prob.skills.forEach(function (id) {
 <code>problems-data.js</code> is for the human editor only. The browser ignores it.</p>
 
 <!-- ============================================================ 3 -->
-<h2><span class="num">3</span>Same 53 dots, regrouped</h2>
+<h2><span class="num">4</span>Same 53 dots, regrouped</h2>
 <p>Each dot is one skill, colored by its principle. Switch the grouping. The dots never change; only the boxes around them do.
 That is the entire lesson.</p>
 <div class="legend" id="legend"></div>
@@ -272,8 +292,60 @@ That is the entire lesson.</p>
 <div class="groups" id="groups"></div>
 <p id="gnote" style="margin-top:10px;font-size:.9rem;color:var(--muted)"></p>
 
-<!-- ============================================================ 4 -->
-<h2><span class="num">4</span>The new scheme: the Ladder</h2>
+<h3>One id, many facets</h3>
+<p>Ranganathan's lasting idea is not the five letters of PMEST. It is that one thing is classified on several
+independent facets at once, and the class is <em>composed at lookup</em>, never stored as one big tree. In this
+codebase each facet is a file. The id composes them.</p>
+<figure>
+<svg viewBox="0 0 900 300" width="100%" role="img" aria-label="One skill id in the center with facets radiating out, each labeled with the file it comes from">
+  <style>
+    .fb{fill:#fff;stroke:#c9d2d7;stroke-width:1.5;rx:8}
+    .fo{fill:#f6e6ea;stroke:#9b3b4e;stroke-width:1.5}
+    .fs{fill:#e7f1f3;stroke:#1f7a8c;stroke-width:1.5}
+    .fd{fill:#fff;stroke:#5d6b72;stroke-width:1.5;stroke-dasharray:5 4}
+    .ft{font:600 12px -apple-system,Segoe UI,Roboto,sans-serif;fill:#1f2a30}
+    .fm{font:11px ui-monospace,Menlo,monospace;fill:#5d6b72}
+    .fl{stroke:#5d6b72;stroke-width:1.5}
+    .idb{fill:#1f2a30}
+    .idt{font:700 14px ui-monospace,Menlo,monospace;fill:#fff}
+  </style>
+  <line class="fl" x1="450" y1="150" x2="130" y2="60"/>
+  <line class="fl" x1="450" y1="150" x2="130" y2="240"/>
+  <line class="fl" x1="450" y1="150" x2="450" y2="50"/>
+  <line class="fl" x1="450" y1="150" x2="450" y2="250"/>
+  <line class="fl" x1="450" y1="150" x2="770" y2="60"/>
+  <line class="fl" x1="450" y1="150" x2="770" y2="240"/>
+  <rect class="idb" x="350" y="128" width="200" height="44" rx="22"/>
+  <text class="idt" x="450" y="155" text-anchor="middle">004.title_number2</text>
+  <rect class="fb fs" x="10" y="30" width="240" height="56"/><text class="ft" x="130" y="52" text-anchor="middle">principle: Focus on Jesus Christ</text><text class="fm" x="130" y="72" text-anchor="middle">skills-data.js · section</text>
+  <rect class="fb fs" x="10" y="212" width="240" height="56"/><text class="ft" x="130" y="234" text-anchor="middle">page: Emphasize the example…</text><text class="fm" x="130" y="254" text-anchor="middle">skills-data.js · subsection</text>
+  <rect class="fb fo" x="315" y="20" width="270" height="56"/><text class="ft" x="450" y="42" text-anchor="middle">challenges: children · media-choices</text><text class="fm" x="450" y="62" text-anchor="middle">problems-data.js (many)</text>
+  <rect class="fb fo" x="315" y="224" width="270" height="56"/><text class="ft" x="450" y="246" text-anchor="middle">rung: 1 · First Sundays</text><text class="fm" x="450" y="266" text-anchor="middle">ladder-data.js (one)</text>
+  <rect class="fb fs" x="650" y="30" width="240" height="56"/><text class="ft" x="770" y="52" text-anchor="middle">language: eng · spa</text><text class="fm" x="770" y="72" text-anchor="middle">lang/&lt;code&gt;/ · same id</text>
+  <rect class="fb fd" x="650" y="212" width="240" height="56"/><text class="ft" x="770" y="234" text-anchor="middle">moment: opening · during</text><text class="fm" x="770" y="254" text-anchor="middle">companion prototype only</text>
+</svg>
+<figcaption>Solid teal: facets in the source. Pink: facets added by overlay. Dashed: a facet the companion prototypes carry and the live site does not, yet.
+Any view may combine any of them, because they all meet at the id.</figcaption>
+</figure>
+
+<!-- ============================================================ 5 -->
+<h2><span class="num">5</span>The new scheme: the Ladder</h2>
+<h3>Start with LATCH</h3>
+<p>Wurman's five hat racks are the fastest way to find a scheme you do not have yet. Walk the letters against the 53 skills and
+note which ones are already taken.</p>
+<div class="tbl-wrap"><table>
+<tr><th></th><th>Organize by…</th><th>Here</th><th>Exact or ambiguous?</th><th>Status</th></tr>
+<tr><td><b>L</b>ocation</td><td>where the skill sits in the manual</td><td>page + anchor, already in <code>url</code> and <code>id</code></td><td>exact</td><td>derived, one sort</td></tr>
+<tr><td><b>A</b>lphabet</td><td>the skill's name</td><td><code>name</code></td><td>exact</td><td>derived, one sort</td></tr>
+<tr><td><b>T</b>ime</td><td>when you use it: during the week, opening, mid-lesson</td><td>the companion's <code>moment</code> facet</td><td>mostly exact</td><td>built, prototype only</td></tr>
+<tr><td><b>C</b>ategory</td><td>what it is about; what problem it solves</td><td>principles; challenges</td><td>ambiguous</td><td>built, live site</td></tr>
+<tr><td><b>H</b>ierarchy</td><td>how much: least to most readiness</td><td><b>nothing yet</b></td><td>ambiguous</td><td><b>→ the Ladder</b></td></tr>
+</table></div>
+<p>Two things fall out of the table. <b>Exact</b> schemes (L, A, T) are usually derived views: the field is already in the source
+and a sort does the work. <b>Ambiguous</b> schemes (C, H) are authored, so they become overlays. And Wurman's "hierarchy" means
+<em>ordering by magnitude</em>, not a tree. The manual's tree is a category scheme in a hierarchical structure. The Ladder is a
+magnitude scheme in a flat, ordered structure. Same word, two ideas.</p>
+
 <p>Every existing scheme asks <em>what</em> a skill is about. The Ladder asks <em>how ready</em> a teacher has to be to try it.
 A first-week volunteer and a ten-year veteran should not get the same list.</p>
 
@@ -285,7 +357,7 @@ A first-week volunteer and a ten-year veteran should not get the same list.</p>
 </div>
 
 <h3>Decide the shape before touching a file</h3>
-<p>Four questions settle almost everything about the implementation. Answer them in a sentence each.</p>
+<p>LATCH picked the <em>scheme</em>. Four questions pick the <em>structure</em>. Answer them in a sentence each.</p>
 <div class="tbl-wrap"><table>
 <tr><th>Question</th><th>Manual hierarchy</th><th>Problems overlay</th><th>The Ladder</th><th>Why it matters</th></tr>
 <tr><td>How many places can one skill appear?</td><td>exactly one</td><td>many (or none)</td><td><b>exactly one</b></td><td>One place means you can validate "every skill, once." Many means you validate "no bad ids."</td></tr>
@@ -295,7 +367,7 @@ A first-week volunteer and a ten-year veteran should not get the same list.</p>
 </table></div>
 
 <!-- ============================================================ 5 -->
-<h2><span class="num">5</span>What it takes</h2>
+<h2><span class="num">6</span>What it takes</h2>
 <p>Three files to add, three to touch, and a longer list you must not open. The picture is the point.</p>
 
 <div class="filemap">
@@ -453,23 +525,28 @@ assignment used on this page, and it is what a reviewer looks at first.</p>
 <div class="tbl-wrap"><table class="matrix" id="matrix"></table></div>
 
 <!-- ============================================================ 6 -->
-<h2><span class="num">6</span>Rules to carry to your own project</h2>
+<h2><span class="num">7</span>Rules to carry to your own project</h2>
 <div class="panel rule"><b>Ids are addresses.</b> Give every record one. Never rename it. Views, overlays, URLs, and other languages all meet at the id.</div>
 <div class="panel rule"><b>Overlays point; they do not copy.</b> If a name appears in two files, one of them is wrong.</div>
-<div class="panel rule"><b>Structure and words are separate.</b> Slugs in the structure file. Labels in the strings file. Renaming a label is then a display change only.</div>
+<div class="panel rule"><b>Structure and words are separate.</b> Slugs in the structure file. Labels in the strings file. The Polar Bear book treats labeling as its own system for exactly this reason.</div>
+<div class="panel rule"><b>Expect more schemes than one.</b> Ranganathan's point. Store each facet on its own, compose at lookup, and the next scheme costs one file. Folding facets into a single tree makes the second scheme cost a rewrite.</div>
+<div class="panel rule"><b>Walk LATCH before inventing.</b> Five letters, five minutes. It tells you which schemes are exact (derive them) and which are ambiguous (author them).</div>
 <div class="panel rule"><b>Decide cardinality first.</b> One place or many? Ordered or not? Those answers write your validator.</div>
 <div class="panel rule"><b>A new view touches no old view.</b> If adding a page forces you to edit another page's script, the source has leaked into a view.</div>
 
-<h2><span class="num">7</span>Try it</h2>
+<h2><span class="num">8</span>Try it</h2>
 <ul class="tight">
-  <li><b>Derived:</b> group the 53 skills by the first verb of <code>name</code> ("Ask", "Create", "Invite", "Testify" …). No new file. Which move from §2 is this?</li>
-  <li><b>Overlay, many-to-many:</b> tag skills by audience: children, youth, adults. Write the validator before the data. What does "missing" mean here?</li>
-  <li><b>Repair:</b> move the category and challenge titles out of <code>problems-data.js</code> into the strings files. What breaks on the way? What now works in Spanish?</li>
-  <li><b>Compose:</b> make <code>problems.html</code> show each helping skill's rung. Which file do you add a script tag to? Which file do you not touch?</li>
+  <li><b>Derived (A):</b> group the 53 skills by the first verb of <code>name</code> ("Ask", "Create", "Invite", "Testify" …). No new file. Which move from §3 is this?</li>
+  <li><b>Overlay, many-to-many (C, audience):</b> tag skills by audience: children, youth, adults. Write the validator before the data. What does "missing" mean here?</li>
+  <li><b>Repair (labeling system):</b> move the category and challenge titles out of <code>problems-data.js</code> into the strings files. What breaks on the way? What now works in Spanish?</li>
+  <li><b>Compose (facets):</b> make <code>problems.html</code> show each helping skill's rung. Which file do you add a script tag to? Which file do you not touch?</li>
+  <li><b>Time (T):</b> the companion prototypes carry a <code>moment</code> facet the live site lacks. Sketch the overlay file and the strings keys. Which of the four shape questions changes versus the Ladder?</li>
 </ul>
 
 <footer>Written for CS 356 from the Teaching Skills codebase. The Ladder rung assignments on this page are an illustration by the instructor, not vetted content.
-Dot groupings are computed live from the real <code>skills-data.js</code> and <code>problems-data.js</code> as of 2026-09-08.</footer>
+Dot groupings are computed live from the real <code>skills-data.js</code> and <code>problems-data.js</code> as of 2026-09-08.<br>
+Frameworks: Rosenfeld, Morville &amp; Arango, <i>Information Architecture: For the Web and Beyond</i> (the Polar Bear book), ch. on organization, labeling, navigation, and search systems ·
+Wurman, <i>Information Anxiety</i>, LATCH · Ranganathan, <i>Colon Classification</i>, faceted classification (PMEST).</footer>
 </div>
 
 <script id="data" type="application/json">{"sections": [{"t": "Focus on Jesus Christ", "a": "#1f7a8c", "tint": "#e7f1f3"}, {"t": "Love Those You Teach", "a": "#c79100", "tint": "#fbf3da"}, {"t": "Teach By the Spirit", "a": "#b8651b", "tint": "#fbede0"}, {"t": "Teach the Doctrine", "a": "#9b3b4e", "tint": "#f6e6ea"}, {"t": "Invite Diligent Learning", "a": "#2f8a52", "tint": "#e6f3ea"}], "cats": ["Getting everyone to participate", "Keeping Jesus Christ at the center", "Making it relevant and leading to real change", "Building relationships and a safe class", "Inviting the Spirit and deepening testimony", "Handling hard questions and teaching sound doctrine", "Preparing yourself and managing the lesson"], "skills": [{"id": "004.title_number1", "s": 0, "page": "Emphasize the example of Jesus Christ", "n": "Help students connect what they are learning with how Christ exemplifies the principle.", "cats": [1], "r": 2}, {"id": "004.title_number2", "s": 0, "page": "Emphasize the example of Jesus Christ", "n": "Use pictures and videos of Jesus Christ to illustrate a gospel principle.", "cats": [0, 5], "r": 1}, {"id": "005.p16", "s": 0, "page": "Teach about the titles, roles, and attributes of Jesus Christ", "n": "Create search questions to help students identify roles, titles, symbols, attributes, and characteristics of Jesus Christ.", "cats": [], "r": 2}, {"id": "005.title_number17", "s": 0, "page": "Teach about the titles, roles, and attributes of Jesus Christ", "n": "Ask questions that allow students to identify roles Jesus Christ can have in their lives.", "cats": [1, 2], "r": 3}, {"id": "006.title_number1", "s": 0, "page": "Look for symbols that testify of Jesus Christ", "n": "Ask questions that help students learn about Jesus Christ through symbols in the scriptures.", "cats": [1], "r": 2}, {"id": "006.title_number2", "s": 0, "page": "Look for symbols that testify of Jesus Christ", "n": "Help students have a sensory experience with scriptural objects that symbolize Jesus Christ.", "cats": [0, 5], "r": 3}, {"id": "007.title_number1", "s": 0, "page": "Help learners recognize the Lord’s love, power, and mercy in their lives", "n": "Ask questions that focus on connecting the Lord’s power, mercy, and influence to the truths being taught.", "cats": [1], "r": 2}, {"id": "007.title_number2", "s": 0, "page": "Help learners recognize the Lord’s love, power, and mercy in their lives", "n": "Give invitations that help learners recognize the Lord’s love, power, and mercy in their own experiences.", "cats": [1], "r": 3}, {"id": "008.title_number1", "s": 0, "page": "Help learners strengthen their relationship with Heavenly Father and Jesus Christ", "n": "Statements that help students know and feel the love of Heavenly Father and Jesus Christ.", "cats": [1, 4], "r": 3}, {"id": "008.title_number2", "s": 0, "page": "Help learners strengthen their relationship with Heavenly Father and Jesus Christ", "n": "Ask questions that help students find examples of Heavenly Father’s love in the scripture passage.", "cats": [1], "r": 2}, {"id": "009.title_number1", "s": 0, "page": "Help learners intentionally strive to be more like Jesus Christ", "n": "Observe Christlike attributes in students and share what you’ve noticed in ways that inspire them to continue to be like Him.", "cats": [1], "r": 4}, {"id": "009.title_number2", "s": 0, "page": "Help learners intentionally strive to be more like Jesus Christ", "n": "Invite students to look for ways to follow the example of Jesus Christ in their personal lives.", "cats": [1, 2], "r": 1}, {"id": "011.title_number1", "s": 1, "page": "See learners the way God sees them", "n": "Study recent prophetic messages to understand how Heavenly Father sees young people.", "cats": [3], "r": 3}, {"id": "011.title_number2", "s": 1, "page": "See learners the way God sees them", "n": "“Think celestial” about your students to help you see them as God does.", "cats": [3], "r": 2}, {"id": "012.intro2", "s": 1, "page": "Seek to know them—understand their circumstances, needs, and strengths", "n": "Observe and ask about students’ interests.", "cats": [3], "r": 1}, {"id": "012.title_number4", "s": 1, "page": "Seek to know them—understand their circumstances, needs, and strengths", "n": "Pause, reflect, and answer questions we ask ourselves that invite a Christlike spirit of discernment, love, and empathy in our interactions.", "cats": [3], "r": 3}, {"id": "012.title_number3", "s": 1, "page": "Seek to know them—understand their circumstances, needs, and strengths", "n": "Seek to clarify and understand the real intent of students’ questions, feelings, and beliefs.", "cats": [3], "r": 3}, {"id": "013.intro2", "s": 1, "page": "Pray for them by name", "n": "Pray and ask how you can help your students and follow the promptings from the Holy Ghost.", "cats": [3], "r": 1}, {"id": "013.intro3", "s": 1, "page": "Pray for them by name", "n": "Invite students to pray for other students.", "cats": [3], "r": 2}, {"id": "014.intro2", "s": 1, "page": "Create a safe environment where all are respected and know their contributions are valued", "n": "Communicate that you value students before they comment or as they raise their hand to comment.", "cats": [3], "r": 1}, {"id": "014.title_number3", "s": 1, "page": "Create a safe environment where all are respected and know their contributions are valued", "n": "Communicate that students are not only welcome but needed.", "cats": [0, 3], "r": 1}, {"id": "015.title_number1", "s": 1, "page": "Find appropriate ways to express your love", "n": "Send a message to a student’s parent about something positive you have noticed about their child.", "cats": [3], "r": 1}, {"id": "015.title_number2", "s": 1, "page": "Find appropriate ways to express your love", "n": "Testify of God’s love when it is hard for you to feel or express love to those you teach.", "cats": [3], "r": 4}, {"id": "017.title_number1", "s": 2, "page": "Prepare yourself spiritually", "n": "Use the document “Improving as a Christlike Teacher—A Personal Evaluation” to invite the Holy Ghost to help you refine your preparations to teach.", "cats": [6], "r": 3}, {"id": "017.title_number2", "s": 2, "page": "Prepare yourself spiritually", "n": "Ask questions to assess your own experience and testimony with Jesus Christ and the doctrine and principles in the lesson.", "cats": [6], "r": 2}, {"id": "018.title_number1", "s": 2, "page": "Always be ready to respond to spiritual promptings about the needs of learners", "n": "Ask a question to assess learning before moving on in the lesson.", "cats": [0, 6], "r": 1}, {"id": "018.title_number2", "s": 2, "page": "Always be ready to respond to spiritual promptings about the needs of learners", "n": "Listen to and observe students to ask follow-up questions.", "cats": [3, 6], "r": 2}, {"id": "019.intro1", "s": 2, "page": "Create settings and opportunities for learners to be taught by the Holy Ghost", "n": "Create student self-evaluations about a doctrine, truth, or principle.", "cats": [6], "r": 3}, {"id": "019.title_number2", "s": 2, "page": "Create settings and opportunities for learners to be taught by the Holy Ghost", "n": "Use sacred music. Invite students to identify lines and phrases in sacred music that connect with the truths they are learning.", "cats": [0, 4, 6], "r": 2}, {"id": "020.intro2", "s": 2, "page": "Help learners seek, recognize, and act on personal revelation", "n": "Before responding to a student’s question or comment, pause and think, “What can I ask them?” or “What can I invite them to do?”", "cats": [0, 4, 5], "r": 2}, {"id": "020.title_number3", "s": 2, "page": "Help learners seek, recognize, and act on personal revelation", "n": "Share statements that help students recognize when the Holy Ghost is performing His role or function.", "cats": [4], "r": 3}, {"id": "021.title_number1", "s": 2, "page": "Bear testimony often and invite learners to share their feelings, experiences, and testimonies", "n": "Create prompts that help students verbalize their feelings, experiences, and testimony.", "cats": [4], "r": 3}, {"id": "021.title_number2", "s": 2, "page": "Bear testimony often and invite learners to share their feelings, experiences, and testimonies", "n": "Testify more frequently and more powerfully of Jesus Christ.", "cats": [1, 4], "r": 1}, {"id": "023.title_number1", "s": 3, "page": "Learn the doctrine of Jesus Christ for yourself", "n": "Create open-ended search questions that help learners discover gospel doctrine and principles for themselves and do not lead students to a specific response.", "cats": [0, 6], "r": 2}, {"id": "023.title_number2", "s": 3, "page": "Learn the doctrine of Jesus Christ for yourself", "n": "Search the scriptures and words of the prophets for deeper understanding.", "cats": [5, 6], "r": 1}, {"id": "024.title_number1", "s": 3, "page": "Teach from the scriptures and the words of latter-day prophets", "n": "Prepare invitations that help students connect truths found in the scriptures to what living prophets are saying.", "cats": [5], "r": 2}, {"id": "024.title_number2", "s": 3, "page": "Teach from the scriptures and the words of latter-day prophets", "n": "Express your love for and testimony of prophets as their words are shared in class.", "cats": [4, 5], "r": 1}, {"id": "025.intro2", "s": 3, "page": "Help learners seek, recognize, and understand truths in the scriptures", "n": "Create student self-evaluations that help them recognize their current understanding and abilities about scripture study skills.", "cats": [], "r": 3}, {"id": "025.title_number3", "s": 3, "page": "Help learners seek, recognize, and understand truths in the scriptures", "n": "Consider assessment questions to carefully choose media, personal stories, and object lessons.", "cats": [5], "r": 3}, {"id": "026.intro2", "s": 3, "page": "Focus on truths that lead to conversion and build faith in Jesus Christ", "n": "Ask questions that help students identify and state converting principles.", "cats": [0, 5], "r": 3}, {"id": "026.title_number3", "s": 3, "page": "Focus on truths that lead to conversion and build faith in Jesus Christ", "n": "Respond to questions in a way that avoids speculation and nondoctrinal personal ideas.", "cats": [5], "r": 3}, {"id": "027.title_number1", "s": 3, "page": "Help learners find personal relevance in the doctrine of Jesus Christ", "n": "Prepare invitations and prompts that help students find personal relevance to a scripture block.", "cats": [2], "r": 2}, {"id": "027.title_number2", "s": 3, "page": "Help learners find personal relevance in the doctrine of Jesus Christ", "n": "Start a learning activity by inviting students to ponder a personal circumstance.", "cats": [0, 2, 6], "r": 2}, {"id": "029.title_number1", "s": 4, "page": "Help learners take responsibility for their learning", "n": "Resist the tendency to respond to every comment and question and invite the class to respond.", "cats": [0], "r": 1}, {"id": "029.title_number2", "s": 4, "page": "Help learners take responsibility for their learning", "n": "Focus on what the learner can do in class that the teacher typically does.", "cats": [0], "r": 3}, {"id": "030.intro2", "s": 4, "page": "Encourage learners to come to know the Savior by studying the gospel daily—study goal", "n": "Assist students in creating a daily scripture study goal.", "cats": [2], "r": 2}, {"id": "030.title_number3", "s": 4, "page": "Encourage learners to come to know the Savior by studying the gospel daily—study goal", "n": "Develop and ask questions that help learners connect what they have learned in their personal and family scripture study to the classroom experience.", "cats": [2], "r": 3}, {"id": "031.title_number1", "s": 4, "page": "Invite learners to prepare to learn", "n": "Create invitations that help learners prepare for the next learning experience.", "cats": [2], "r": 2}, {"id": "031.title_number2", "s": 4, "page": "Invite learners to prepare to learn", "n": "Create a meaningful invitation connected to the lesson outcome to be used at the beginning of each lesson.", "cats": [0, 6], "r": 1}, {"id": "032.intro2", "s": 4, "page": "Encourage learners to share the truths they are learning", "n": "Help students create or begin gospel conversations.", "cats": [2], "r": 3}, {"id": "032.title_number3", "s": 4, "page": "Encourage learners to share the truths they are learning", "n": "Prepare invitations for students to share with each other what they are learning.", "cats": [2], "r": 2}, {"id": "033.title_number1", "s": 4, "page": "Invite learners to live what they are learning", "n": "Plan to follow up on invitations given in a previous class and invite learners to share their experiences living what they learned.", "cats": [2], "r": 2}, {"id": "033.title_number2", "s": 4, "page": "Invite learners to live what they are learning", "n": "Ask search questions that help learners consider who God is and blessings He offers them.", "cats": [1], "r": 3}]}</script>
