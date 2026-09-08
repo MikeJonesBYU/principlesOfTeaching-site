@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One Source, Many Views — adding an organizing scheme to the Teaching Skills site</title>
+<meta name="description" content="A short visual tutorial for CS 356: how the Teaching Skills site keeps one data source and many views, and what it takes to add a brand-new organizing scheme.">
+<style>
+  :root {
+    --ink:#1f2a30; --muted:#5d6b72; --line:#e2e7ea; --bg:#f6f8f9; --panel:#fff;
+    --link:#0b5fa5; --radius:10px; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --s0:#1f7a8c; --s1:#c79100; --s2:#b8651b; --s3:#9b3b4e; --s4:#2f8a52;
+    --add:#2f8a52; --touch:#c79100; --never:#9b3b4e;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+         color:var(--ink); background:var(--bg); line-height:1.5; }
+  .wrap { max-width:960px; margin:0 auto; padding:32px 22px 100px; }
+  header.top { border-bottom:2px solid var(--line); padding-bottom:18px; margin-bottom:28px; }
+  .kicker { font-size:.78rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 6px; }
+  h1 { font-size:2rem; line-height:1.15; margin:0 0 10px; }
+  .lede { font-size:1.08rem; color:var(--muted); margin:0; max-width:64ch; }
+  h2 { font-size:1.45rem; margin:48px 0 8px; padding-top:8px; }
+  h2 .num { display:inline-grid; place-items:center; width:1.7em; height:1.7em; border-radius:50%;
+            background:var(--ink); color:#fff; font-size:.75em; margin-right:10px; vertical-align:.15em; }
+  h3 { font-size:1.08rem; margin:26px 0 6px; }
+  p { margin:0 0 12px; max-width:72ch; }
+  a { color:var(--link); }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px; margin:14px 0; }
+  .note { border-left:5px solid var(--s1); }
+  .rule { border-left:5px solid var(--s0); }
+  .rule b:first-child { color:var(--s0); }
+  code { font-family:var(--mono); font-size:.86em; background:#eef1f3; padding:1px 5px; border-radius:4px; }
+  pre { margin:12px 0; padding:14px 16px; background:#1f2a30; color:#e8edf0; border-radius:var(--radius);
+        overflow-x:auto; font-family:var(--mono); font-size:.8rem; line-height:1.5; }
+  pre code { background:none; padding:0; color:inherit; font-size:inherit; }
+  pre .c { color:#8fa3ad; font-style:italic; }
+  pre .k { color:#ffd479; }
+  pre .hl { background:rgba(255,212,121,.16); display:inline-block; width:100%; }
+  pre .file { display:block; color:#8fa3ad; margin-bottom:8px; font-style:normal; border-bottom:1px solid #35434a; padding-bottom:6px; }
+  figure { margin:18px 0 22px; }
+  figcaption { font-size:.85rem; color:var(--muted); margin-top:8px; }
+  table { border-collapse:collapse; width:100%; font-size:.92rem; margin:12px 0; background:var(--panel); }
+  th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
+  .tbl-wrap { overflow-x:auto; }
+  .pill { display:inline-block; font-size:.7rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+          color:#fff; padding:2px 8px; border-radius:999px; white-space:nowrap; }
+  .pill.derived { background:var(--s0); } .pill.overlay { background:var(--s3); } .pill.selection { background:var(--s4); }
+  .pill.add { background:var(--add); } .pill.touch { background:var(--touch); } .pill.never { background:var(--never); }
+
+  /* legend */
+  .legend { display:flex; flex-wrap:wrap; gap:8px 16px; font-size:.82rem; color:var(--muted); margin:6px 0 10px; }
+  .legend span::before { content:""; display:inline-block; width:11px; height:11px; border-radius:50%; margin-right:6px; vertical-align:-1px; background:var(--c); }
+
+  /* dot groupings */
+  .groups { display:grid; gap:10px; }
+  .group { display:grid; grid-template-columns:200px 1fr; gap:12px; align-items:center;
+           background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:8px 12px; }
+  .group .gl { font-size:.85rem; font-weight:600; line-height:1.25; }
+  .group .gl small { display:block; font-weight:400; color:var(--muted); }
+  .dots { display:flex; flex-wrap:wrap; gap:5px; }
+  .dot { width:14px; height:14px; border-radius:50%; background:var(--c); display:inline-block; cursor:default; }
+  .dot.ghost { background:none; border:2px dashed var(--muted); }
+  .tabs { display:flex; gap:6px; margin:10px 0 12px; flex-wrap:wrap; }
+  .tabs button { font:inherit; font-size:.9rem; padding:6px 12px; border:1px solid var(--line); background:var(--panel);
+                 border-radius:999px; cursor:pointer; }
+  .tabs button[aria-selected="true"] { background:var(--ink); color:#fff; border-color:var(--ink); }
+  @media (max-width:640px) { .group { grid-template-columns:1fr; } }
+
+  /* flow */
+  .flow { display:flex; align-items:stretch; gap:0; flex-wrap:wrap; margin:14px 0; }
+  .flow .step { flex:1 1 150px; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:10px 12px; font-size:.86rem; position:relative; margin-right:26px; }
+  .flow .step:last-child { margin-right:0; }
+  .flow .step::after { content:"\2192"; position:absolute; right:-22px; top:50%; transform:translateY(-50%); color:var(--muted); font-size:1.2rem; }
+  .flow .step:last-child::after { content:""; }
+  .flow .step b { display:block; margin-bottom:3px; }
+  .flow .step code { font-size:.78em; }
+
+  /* file map */
+  .filemap { font-family:var(--mono); font-size:.82rem; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:14px 16px; }
+  .filemap div { display:flex; justify-content:space-between; gap:10px; padding:3px 0; border-bottom:1px dashed #eef1f3; }
+  .filemap div:last-child { border-bottom:0; }
+  .filemap .d { color:var(--muted); }
+  .filemap .why { font-family:inherit; color:var(--muted); font-size:.78rem; text-align:right; }
+
+  /* rungs */
+  .ladder { display:grid; gap:8px; margin:14px 0; }
+  .rung { display:grid; grid-template-columns:46px 1fr; gap:12px; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:10px 12px; }
+  .rung .n { font-weight:800; font-size:1.4rem; color:var(--muted); }
+  .rung b { display:block; }
+  .rung small { color:var(--muted); }
+  .matrix td, .matrix th { text-align:center; }
+  .matrix td:first-child, .matrix th:first-child { text-align:left; }
+  .matrix .sw { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:6px; vertical-align:-1px; }
+
+  ol.steps { padding-left:0; list-style:none; counter-reset:s; }
+  ol.steps > li { counter-increment:s; margin:0 0 26px; padding-left:52px; position:relative; }
+  ol.steps > li::before { content:counter(s); position:absolute; left:0; top:0; width:38px; height:38px; border-radius:50%;
+                          background:var(--s0); color:#fff; font-weight:800; display:grid; place-items:center; }
+  ol.steps > li > h3 { margin-top:6px; }
+  ul.tight { padding-left:20px; } ul.tight li { margin:3px 0; }
+  .two { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media (max-width:720px) { .two { grid-template-columns:1fr; } }
+  footer { margin-top:56px; color:var(--muted); font-size:.85rem; border-top:1px solid var(--line); padding-top:14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <p class="kicker">CS 356 · Reading the Teaching Skills codebase</p>
+  <h1>One Source, Many Views</h1>
+  <p class="lede">The Teaching Skills site stores its 53 skills once and shows them five different ways.
+  This tutorial shows how that is organized, then walks through adding a sixth way: a brand-new organizing
+  scheme called <b>the Ladder</b>. Read the pictures first. The prose is deliberately short.</p>
+</header>
+
+<!-- ============================================================ 1 -->
+<h2><span class="num">1</span>The whole idea in one picture</h2>
+<p>One file holds the facts. Every page is a <em>view</em> that reads those facts and arranges them.
+Nothing about a skill is typed twice. The glue is a stable <code>id</code> on every skill.</p>
+
+<figure>
+<svg viewBox="0 0 900 420" width="100%" role="img" aria-label="Hub diagram: skills-data.js in the center, five view pages around it, two overlay files attached by id">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#5d6b72"/>
+    </marker>
+  </defs>
+  <style>
+    .box{fill:#fff;stroke:#c9d2d7;stroke-width:1.5;rx:8}
+    .src{fill:#e7f1f3;stroke:#1f7a8c;stroke-width:2.5}
+    .ov{fill:#f6e6ea;stroke:#9b3b4e;stroke-width:2}
+    .t{font:600 14px -apple-system,Segoe UI,Roboto,sans-serif;fill:#1f2a30}
+    .s{font:12px -apple-system,Segoe UI,Roboto,sans-serif;fill:#5d6b72}
+    .m{font:11px ui-monospace,Menlo,monospace;fill:#5d6b72}
+    .ln{stroke:#5d6b72;stroke-width:1.5;fill:none;marker-end:url(#arr)}
+    .key{font:700 11px ui-monospace,Menlo,monospace;fill:#9b3b4e}
+  </style>
+  <!-- source -->
+  <rect class="box src" x="330" y="160" width="240" height="100"/>
+  <text class="t" x="450" y="188" text-anchor="middle">skills-data.js</text>
+  <text class="m" x="450" y="208" text-anchor="middle">window.TDS_DATA</text>
+  <text class="s" x="450" y="228" text-anchor="middle">5 principles · 53 skills</text>
+  <text class="s" x="450" y="246" text-anchor="middle">one record each, keyed by id</text>
+
+  <!-- views -->
+  <g>
+    <rect class="box" x="20" y="30" width="180" height="58"/>
+    <text class="t" x="110" y="53" text-anchor="middle">index.html</text>
+    <text class="s" x="110" y="72" text-anchor="middle">one random skill per principle</text>
+    <path class="ln" d="M330 190 C 260 190, 240 88, 200 70"/>
+  </g>
+  <g>
+    <rect class="box" x="20" y="180" width="180" height="58"/>
+    <text class="t" x="110" y="203" text-anchor="middle">structure.html</text>
+    <text class="s" x="110" y="222" text-anchor="middle">principle → page → skill</text>
+    <path class="ln" d="M330 210 L200 210"/>
+  </g>
+  <g>
+    <rect class="box" x="20" y="330" width="180" height="58"/>
+    <text class="t" x="110" y="353" text-anchor="middle">select.html</text>
+    <text class="s" x="110" y="372" text-anchor="middle">pick one per principle</text>
+    <path class="ln" d="M330 230 C 260 230, 240 350, 200 355"/>
+  </g>
+  <g>
+    <rect class="box" x="700" y="30" width="180" height="58"/>
+    <text class="t" x="790" y="53" text-anchor="middle">summary.html</text>
+    <text class="s" x="790" y="72" text-anchor="middle">the five ids in the URL</text>
+    <path class="ln" d="M570 190 C 640 190, 660 88, 700 70"/>
+  </g>
+  <g>
+    <rect class="box" x="700" y="330" width="180" height="58"/>
+    <text class="t" x="790" y="353" text-anchor="middle">problems.html</text>
+    <text class="s" x="790" y="372" text-anchor="middle">challenge → skills that help</text>
+    <path class="ln" d="M570 230 C 640 230, 660 350, 700 355"/>
+  </g>
+
+  <!-- overlays -->
+  <g>
+    <rect class="box ov" x="340" y="20" width="220" height="56"/>
+    <text class="t" x="450" y="42" text-anchor="middle">descriptions.js</text>
+    <text class="s" x="450" y="61" text-anchor="middle">full text of each skill</text>
+    <path class="ln" d="M450 76 L450 158"/>
+    <text class="key" x="458" y="122">id</text>
+  </g>
+  <g>
+    <rect class="box ov" x="340" y="342" width="220" height="56"/>
+    <text class="t" x="450" y="364" text-anchor="middle">problems-data.js</text>
+    <text class="s" x="450" y="383" text-anchor="middle">29 challenges → skill ids</text>
+    <path class="ln" d="M450 342 L450 262"/>
+    <text class="key" x="458" y="306">id</text>
+  </g>
+</svg>
+<figcaption>Solid box: the single source. Pink boxes: <b>overlays</b> that add to a skill by pointing at its id, never repeating its name or link.
+White boxes: <b>views</b>. Arrows point the way data flows.</figcaption>
+</figure>
+
+<!-- ============================================================ 2 -->
+<h2><span class="num">2</span>What is already here</h2>
+
+<h3>The record</h3>
+<p>Every skill is one object. Three fields are the manual's <em>own</em> organization. One field is the key. The rest is content.</p>
+<pre><code><span class="file">assets/lang/eng/skills-data.js  (window.TDS_DATA)</span>{
+  "sections": [
+    { "title": "Focus on Jesus Christ", "accent": "#1f7a8c", "tint": "#e7f1f3",
+      "skills": [
+        { <span class="hl">"id": "004.title_number2",</span>                    <span class="c">← the key. Never changes. Same in Spanish.</span>
+          "section":    "Focus on Jesus Christ",          <span class="c">← organization the manual already gives us</span>
+          "subsection": "Emphasize the example of Jesus Christ",
+          "name":   "Use pictures and videos of Jesus Christ …",   <span class="c">← content</span>
+          "define": "One way to emphasize the example …",
+          "url":    "https://www.churchofjesuschrist.org/…#title_number2" },
+        …
+      ] },
+    …  <span class="c">five sections in all</span>
+  ]
+}</code></pre>
+
+<h3>Three kinds of view</h3>
+<p>Look at how each page gets its arrangement. There are only three moves in the whole site.</p>
+<div class="tbl-wrap"><table>
+<tr><th>Page</th><th>Arranged by</th><th>How</th><th>Move</th></tr>
+<tr><td><code>structure.html</code></td><td>principle → manual page → skill</td><td>Groups skills on the <code>subsection</code> field at render time.</td><td><span class="pill derived">derived</span></td></tr>
+<tr><td><code>index.html</code></td><td>one skill per principle, random</td><td>Walks <code>sections[]</code>, picks one from each.</td><td><span class="pill derived">derived</span></td></tr>
+<tr><td><code>select.html</code></td><td>one radio group per principle</td><td>Same walk. Writes the chosen ids into the URL.</td><td><span class="pill selection">selection</span></td></tr>
+<tr><td><code>summary.html</code></td><td>the five ids in <code>#sel=</code></td><td>Builds an id → skill index, joins <code>descriptions.js</code>.</td><td><span class="pill selection">selection</span> + <span class="pill overlay">overlay</span></td></tr>
+<tr><td><code>problems.html</code></td><td>7 categories → 29 challenges → skills</td><td>Walks <code>problems-data.js</code>, looks up each id in the source.</td><td><span class="pill overlay">overlay</span></td></tr>
+</table></div>
+
+<div class="panel rule"><b>Derived</b> = the field you group on is already in the source. No new file.<br>
+<b>Overlay</b> = a new file that lists ids under new headings. Adds meaning, never copies content.<br>
+<b>Selection</b> = a list of ids carried in the URL. The view is whatever those ids resolve to.</div>
+
+<h3>Spot the pattern in the code</h3>
+<div class="two">
+<pre><code><span class="file">assets/structure.js — a derived view</span><span class="c">// group by a field the source already has</span>
+var order = [], byPage = {};
+section.skills.forEach(function (sk) {
+  var key = sk.subsection || "";
+  if (!byPage[key]) { byPage[key] = []; order.push(key); }
+  byPage[key].push(sk);
+});</code></pre>
+<pre><code><span class="file">assets/problems.js — an overlay view</span><span class="c">// 1. index the source by id (every view does this)</span>
+var SK = {};
+D.sections.forEach(function (s) {
+  s.skills.forEach(function (k) {
+    SK[k.id] = { name:k.name, url:k.url,
+                 section:s.title, accent:s.accent };
+  });
+});
+<span class="c">// 2. walk the overlay, resolve each id</span>
+prob.skills.forEach(function (id) {
+  var sk = SK[id]; if (!sk) return;  <span class="c">// tolerate drift</span>
+  …render sk.name, sk.url, sk.accent…
+});</code></pre>
+</div>
+<p>Notice what the overlay view <em>doesn't</em> do: it never prints a name it stored itself. The comment after each id in
+<code>problems-data.js</code> is for the human editor only. The browser ignores it.</p>
+
+<!-- ============================================================ 3 -->
+<h2><span class="num">3</span>Same 53 dots, regrouped</h2>
+<p>Each dot is one skill, colored by its principle. Switch the grouping. The dots never change; only the boxes around them do.
+That is the entire lesson.</p>
+<div class="legend" id="legend"></div>
+<div class="tabs" role="tablist" id="tabs">
+  <button role="tab" aria-selected="true" data-g="principle">By principle <small>(the manual)</small></button>
+  <button role="tab" aria-selected="false" data-g="problem">By challenge <small>(problems-data.js)</small></button>
+  <button role="tab" aria-selected="false" data-g="ladder">By readiness <small>(the new Ladder)</small></button>
+</div>
+<div class="groups" id="groups"></div>
+<p id="gnote" style="margin-top:10px;font-size:.9rem;color:var(--muted)"></p>
+
+<!-- ============================================================ 4 -->
+<h2><span class="num">4</span>The new scheme: the Ladder</h2>
+<p>Every existing scheme asks <em>what</em> a skill is about. The Ladder asks <em>how ready</em> a teacher has to be to try it.
+A first-week volunteer and a ten-year veteran should not get the same list.</p>
+
+<div class="ladder">
+  <div class="rung"><span class="n">1</span><div><b>First Sundays</b><small>Doable this week with no preparation and little risk. "Communicate that students are needed."</small></div></div>
+  <div class="rung"><span class="n">2</span><div><b>Building habits</b><small>Needs preparation during the week. Becomes a routine. "Create open-ended search questions."</small></div></div>
+  <div class="rung"><span class="n">3</span><div><b>Reading the room</b><small>Needs in-the-moment judgment or doctrinal care. "Respond without speculation."</small></div></div>
+  <div class="rung"><span class="n">4</span><div><b>Holding steady</b><small>Sustained charity under strain. "Testify of God's love when it is hard to feel it."</small></div></div>
+</div>
+
+<h3>Decide the shape before touching a file</h3>
+<p>Four questions settle almost everything about the implementation. Answer them in a sentence each.</p>
+<div class="tbl-wrap"><table>
+<tr><th>Question</th><th>Manual hierarchy</th><th>Problems overlay</th><th>The Ladder</th><th>Why it matters</th></tr>
+<tr><td>How many places can one skill appear?</td><td>exactly one</td><td>many (or none)</td><td><b>exactly one</b></td><td>One place means you can validate "every skill, once." Many means you validate "no bad ids."</td></tr>
+<tr><td>Are the groups ordered?</td><td>manual order</td><td>no</td><td><b>yes, 1 → 4</b></td><td>Ordered groups get an <code>order</code> number and a "next rung" view for free.</td></tr>
+<tr><td>Authored or derived?</td><td>in the source</td><td>authored</td><td><b>authored</b></td><td>Authored means a new file. Derived means a few lines in a view.</td></tr>
+<tr><td>Does the grouping carry language?</td><td>yes, in each bundle</td><td>yes (but English only)</td><td><b>labels yes, structure no</b></td><td>Keep the structure language-neutral. Put labels where the other labels live.</td></tr>
+</table></div>
+
+<!-- ============================================================ 5 -->
+<h2><span class="num">5</span>What it takes</h2>
+<p>Three files to add, three to touch, and a longer list you must not open. The picture is the point.</p>
+
+<div class="filemap">
+  <div><span><span class="pill add">add</span> &nbsp;assets/<b>ladder-data.js</b></span><span class="why">the overlay: rung → skill ids</span></div>
+  <div><span><span class="pill add">add</span> &nbsp;<b>ladder.html</b></span><span class="why">the page shell</span></div>
+  <div><span><span class="pill add">add</span> &nbsp;assets/<b>ladder.js</b></span><span class="why">the view: join + render</span></div>
+  <div><span><span class="pill touch">touch</span> &nbsp;assets/lang/eng/<b>strings.js</b></span><span class="why">rung titles + blurbs, English</span></div>
+  <div><span><span class="pill touch">touch</span> &nbsp;assets/lang/spa/<b>strings.js</b></span><span class="why">rung titles + blurbs, Spanish</span></div>
+  <div><span><span class="pill touch">touch</span> &nbsp;<b>index.html</b></span><span class="why">one link to the new page</span></div>
+  <div><span><span class="pill never">never</span> &nbsp;assets/lang/*/<b>skills-data.js</b></span><span class="why">the source does not learn about views</span></div>
+  <div><span><span class="pill never">never</span> &nbsp;assets/lang/*/<b>descriptions.js</b></span><span class="why">content, not organization</span></div>
+  <div><span><span class="pill never">never</span> &nbsp;assets/<b>i18n.js</b>, <b>app.js</b>, <b>structure.js</b>, <b>select.js</b>, <b>summary.js</b>, <b>problems.js</b></span><span class="why">other views are unaffected</span></div>
+</div>
+
+<ol class="steps">
+<li>
+<h3>Write the overlay. Ids only.</h3>
+<p>Mirror the shape of <code>problems-data.js</code>. Add an <code>order</code> because rungs are ordered. Leave every title out.</p>
+<pre><code><span class="file">assets/ladder-data.js  (new)</span><span class="c">/* THE SOURCE for the readiness scheme. Structure only: rung ids and skill ids.
+   Rung titles live in assets/lang/&lt;code&gt;/strings.js as ladderRung_&lt;id&gt;Title.
+   Every skill appears exactly once. tools: run the check in §6 after editing. */</span>
+window.TDS_LADDER = {
+  "version": "2026-09-08",
+  "rungs": [
+    { "id": "first-sundays", "order": 1,
+      "skills": [
+        "014.title_number3",  <span class="c">// Communicate that students are not only welcome but needed.</span>
+        "004.title_number2",  <span class="c">// Use pictures and videos of Jesus Christ …</span>
+        "013.intro2",         <span class="c">// Pray and ask how you can help your students …</span>
+        …
+      ] },
+    { "id": "building-habits", "order": 2, "skills": [ … ] },
+    { "id": "reading-the-room", "order": 3, "skills": [ … ] },
+    { "id": "holding-steady",   "order": 4,
+      "skills": [ "009.title_number1", "015.title_number2" ] }
+  ]
+};</code></pre>
+<div class="panel note"><b>Compare:</b> <code>problems-data.js</code> puts its English category titles inside the overlay, so the Spanish site
+shows English challenge names. The Ladder avoids that by keeping words out of the structure file. Same pattern, one lesson learned.</div>
+</li>
+
+<li>
+<h3>Put the words where words already live.</h3>
+<p>The loader already fetches one <code>strings.js</code> per language. Add keys there, named by rung id. No new mechanism.</p>
+<div class="two">
+<pre><code><span class="file">assets/lang/eng/strings.js</span><span class="c">// ---- ladder.html ----</span>
+"ladderTitle":   "Skills by readiness",
+"ladderHeading": "Where are you on the ladder?",
+"ladderRung_first-sundays_Title": "First Sundays",
+"ladderRung_first-sundays_Blurb": "Doable this week, no prep.",
+"ladderRung_building-habits_Title": "Building habits",
+…</code></pre>
+<pre><code><span class="file">assets/lang/spa/strings.js</span><span class="c">// ---- ladder.html ----</span>
+"ladderTitle":   "Habilidades según su preparación",
+"ladderHeading": "¿En qué peldaño está usted?",
+"ladderRung_first-sundays_Title": "Primeros domingos",
+"ladderRung_first-sundays_Blurb": "Esta semana, sin preparación.",
+"ladderRung_building-habits_Title": "Crear hábitos",
+…</code></pre>
+</div>
+</li>
+
+<li>
+<h3>Make the page shell. Copy the loading recipe.</h3>
+<p>Every page declares which bundles it needs, then loads the loader, then its view. The overlay is language-neutral, so it loads with a plain script tag, exactly like <code>problems-data.js</code>.</p>
+<pre><code><span class="file">ladder.html  (new) — the bottom of the body</span>&lt;div id="ladder"&gt;&lt;/div&gt;
+
+&lt;script&gt;window.TDS_CONFIG = { needs: ["data", "strings"] };&lt;/script&gt;   <span class="c">← which per-language bundles</span>
+&lt;script src="assets/i18n.js"&gt;&lt;/script&gt;          <span class="c">← loads them, fires tds:ready</span>
+&lt;script src="assets/ladder-data.js"&gt;&lt;/script&gt;   <span class="c">← the overlay, same for every language</span>
+&lt;script src="assets/ladder.js"&gt;&lt;/script&gt;        <span class="c">← the view</span></code></pre>
+<div class="flow">
+  <div class="step"><b>ladder.html</b>declares <code>needs</code></div>
+  <div class="step"><b>i18n.js</b>reads <code>?lang=</code>, loads <code>lang/spa/skills-data.js</code> + <code>strings.js</code></div>
+  <div class="step"><b>tds:ready</b>fires once bundles exist</div>
+  <div class="step"><b>ladder.js</b>indexes source by id, walks overlay, renders</div>
+</div>
+</li>
+
+<li>
+<h3>Write the view. It is a join, then a loop.</h3>
+<p>Two inputs, one output. The index is the same six lines every other view has. The loop follows the overlay's order, not the source's.</p>
+<pre><code><span class="file">assets/ladder.js  (new)</span>(function () {
+  function init() {
+    var D = window.TDS_DATA, L = window.TDS_LADDER, t = window.TDS_I18N.t;
+    var root = document.getElementById("ladder");
+    if (!D || !L || !root) return;
+
+    <span class="c">// 1. index the source by id — colour and section ride along from the source</span>
+    var SK = {};
+    D.sections.forEach(function (s) {
+      s.skills.forEach(function (k) {
+        SK[k.id] = { name:k.name, url:k.url, gist:k.define, section:s.title, accent:s.accent };
+      });
+    });
+
+    <span class="c">// 2. walk the overlay in its own order; labels come from strings</span>
+    var html = "";
+    L.rungs.slice().sort(function (a, b) { return a.order - b.order; }).forEach(function (r) {
+      html += '&lt;section class="rung" id="rung-' + r.id + '"&gt;' +
+              '&lt;h2&gt;' + esc(t("ladderRung_" + r.id + "_Title")) + '&lt;/h2&gt;' +
+              '&lt;p&gt;'  + esc(t("ladderRung_" + r.id + "_Blurb")) + '&lt;/p&gt;&lt;ul&gt;';
+      r.skills.forEach(function (id) {
+        var sk = SK[id]; if (!sk) return;             <span class="c">// unknown id: skip, don't crash</span>
+        html += '&lt;li style="--a:' + sk.accent + '"&gt;' +
+                '&lt;a href="' + sk.url + '"&gt;' + esc(sk.name) + '&lt;/a&gt;' +
+                '&lt;span class="tag"&gt;' + esc(sk.section) + '&lt;/span&gt;&lt;/li&gt;';
+      });
+      html += '&lt;/ul&gt;&lt;/section&gt;';
+    });
+    root.innerHTML = html;
+  }
+  if (window.__tdsReady) init(); else document.addEventListener("tds:ready", init);
+})();</code></pre>
+<p>Switch the URL to <code>?lang=spa</code> and the whole page is Spanish. The overlay never noticed.</p>
+</li>
+
+<li>
+<h3>Link it. One line.</h3>
+<pre><code><span class="file">index.html — the subnav</span>&lt;a href="structure.html" data-i18n="navBrowseAll"&gt;Browse the full list of all skills &rarr;&lt;/a&gt;
+<span class="hl">&lt;a href="ladder.html"    data-i18n="navLadder"&gt;Find skills for where you are &rarr;&lt;/a&gt;</span></code></pre>
+<p>The <code>data-i18n</code> attribute means the link text is one more strings key. The loader rewrites relative links to carry <code>?lang=</code>, so the language follows the reader.</p>
+</li>
+
+<li>
+<h3>Check the join. Every time you edit.</h3>
+<p>An overlay can drift from its source. A one-to-one scheme has a stricter test than a many-to-many one. Paste this into the browser console on <code>ladder.html</code>.</p>
+<pre><code><span class="file">console check (or a 15-line Python script in tools/)</span>var ids = [], all = new Set();
+TDS_DATA.sections.forEach(s => s.skills.forEach(k => all.add(k.id)));
+TDS_LADDER.rungs.forEach(r => ids.push(...r.skills));
+
+console.log("unknown ids:",  ids.filter(i => !all.has(i)));                 <span class="c">// must be []</span>
+console.log("missing:",      [...all].filter(i => !ids.includes(i)));       <span class="c">// must be []  (one-to-one)</span>
+console.log("duplicates:",   ids.filter((i, n) => ids.indexOf(i) !== n));   <span class="c">// must be []  (one-to-one)</span></code></pre>
+<p>For comparison, the same check on <code>problems-data.js</code> reports two skills missing. That is allowed there. It is a bug here.</p>
+</li>
+</ol>
+
+<h3>A second view for free</h3>
+<p>Views compose. The summary page already carries five ids in <code>#sel=</code>. Read them on the Ladder page and you get
+"where your five skills sit, and what the next rung looks like" with no new data at all.</p>
+<pre><code><span class="file">assets/ladder.js — optional addition</span><span class="c">// rung of each skill, inverted from the overlay</span>
+var rungOf = {};
+L.rungs.forEach(function (r) { r.skills.forEach(function (id) { rungOf[id] = r.order; }); });
+
+<span class="c">// the reader's five, from the same hash the summary page uses</span>
+var m = /sel=([^&amp;]*)/.exec(location.hash);
+var mine = m ? m[1].split(",") : [];
+var highest = Math.max.apply(null, mine.map(function (id) { return rungOf[id] || 0; }));
+<span class="c">// highlight `mine`, then suggest a skill from rung `highest + 1`</span></code></pre>
+
+<h3>Coverage as a view of its own</h3>
+<p>Once the join exists, counting is a view too. This matrix is the source crossed with the overlay. It shows the example
+assignment used on this page, and it is what a reviewer looks at first.</p>
+<div class="tbl-wrap"><table class="matrix" id="matrix"></table></div>
+
+<!-- ============================================================ 6 -->
+<h2><span class="num">6</span>Rules to carry to your own project</h2>
+<div class="panel rule"><b>Ids are addresses.</b> Give every record one. Never rename it. Views, overlays, URLs, and other languages all meet at the id.</div>
+<div class="panel rule"><b>Overlays point; they do not copy.</b> If a name appears in two files, one of them is wrong.</div>
+<div class="panel rule"><b>Structure and words are separate.</b> Slugs in the structure file. Labels in the strings file. Renaming a label is then a display change only.</div>
+<div class="panel rule"><b>Decide cardinality first.</b> One place or many? Ordered or not? Those answers write your validator.</div>
+<div class="panel rule"><b>A new view touches no old view.</b> If adding a page forces you to edit another page's script, the source has leaked into a view.</div>
+
+<h2><span class="num">7</span>Try it</h2>
+<ul class="tight">
+  <li><b>Derived:</b> group the 53 skills by the first verb of <code>name</code> ("Ask", "Create", "Invite", "Testify" …). No new file. Which move from §2 is this?</li>
+  <li><b>Overlay, many-to-many:</b> tag skills by audience: children, youth, adults. Write the validator before the data. What does "missing" mean here?</li>
+  <li><b>Repair:</b> move the category and challenge titles out of <code>problems-data.js</code> into the strings files. What breaks on the way? What now works in Spanish?</li>
+  <li><b>Compose:</b> make <code>problems.html</code> show each helping skill's rung. Which file do you add a script tag to? Which file do you not touch?</li>
+</ul>
+
+<footer>Written for CS 356 from the Teaching Skills codebase. The Ladder rung assignments on this page are an illustration by the instructor, not vetted content.
+Dot groupings are computed live from the real <code>skills-data.js</code> and <code>problems-data.js</code> as of 2026-09-08.</footer>
+</div>
+
+<script id="data" type="application/json">{"sections": [{"t": "Focus on Jesus Christ", "a": "#1f7a8c", "tint": "#e7f1f3"}, {"t": "Love Those You Teach", "a": "#c79100", "tint": "#fbf3da"}, {"t": "Teach By the Spirit", "a": "#b8651b", "tint": "#fbede0"}, {"t": "Teach the Doctrine", "a": "#9b3b4e", "tint": "#f6e6ea"}, {"t": "Invite Diligent Learning", "a": "#2f8a52", "tint": "#e6f3ea"}], "cats": ["Getting everyone to participate", "Keeping Jesus Christ at the center", "Making it relevant and leading to real change", "Building relationships and a safe class", "Inviting the Spirit and deepening testimony", "Handling hard questions and teaching sound doctrine", "Preparing yourself and managing the lesson"], "skills": [{"id": "004.title_number1", "s": 0, "page": "Emphasize the example of Jesus Christ", "n": "Help students connect what they are learning with how Christ exemplifies the principle.", "cats": [1], "r": 2}, {"id": "004.title_number2", "s": 0, "page": "Emphasize the example of Jesus Christ", "n": "Use pictures and videos of Jesus Christ to illustrate a gospel principle.", "cats": [0, 5], "r": 1}, {"id": "005.p16", "s": 0, "page": "Teach about the titles, roles, and attributes of Jesus Christ", "n": "Create search questions to help students identify roles, titles, symbols, attributes, and characteristics of Jesus Christ.", "cats": [], "r": 2}, {"id": "005.title_number17", "s": 0, "page": "Teach about the titles, roles, and attributes of Jesus Christ", "n": "Ask questions that allow students to identify roles Jesus Christ can have in their lives.", "cats": [1, 2], "r": 3}, {"id": "006.title_number1", "s": 0, "page": "Look for symbols that testify of Jesus Christ", "n": "Ask questions that help students learn about Jesus Christ through symbols in the scriptures.", "cats": [1], "r": 2}, {"id": "006.title_number2", "s": 0, "page": "Look for symbols that testify of Jesus Christ", "n": "Help students have a sensory experience with scriptural objects that symbolize Jesus Christ.", "cats": [0, 5], "r": 3}, {"id": "007.title_number1", "s": 0, "page": "Help learners recognize the Lord’s love, power, and mercy in their lives", "n": "Ask questions that focus on connecting the Lord’s power, mercy, and influence to the truths being taught.", "cats": [1], "r": 2}, {"id": "007.title_number2", "s": 0, "page": "Help learners recognize the Lord’s love, power, and mercy in their lives", "n": "Give invitations that help learners recognize the Lord’s love, power, and mercy in their own experiences.", "cats": [1], "r": 3}, {"id": "008.title_number1", "s": 0, "page": "Help learners strengthen their relationship with Heavenly Father and Jesus Christ", "n": "Statements that help students know and feel the love of Heavenly Father and Jesus Christ.", "cats": [1, 4], "r": 3}, {"id": "008.title_number2", "s": 0, "page": "Help learners strengthen their relationship with Heavenly Father and Jesus Christ", "n": "Ask questions that help students find examples of Heavenly Father’s love in the scripture passage.", "cats": [1], "r": 2}, {"id": "009.title_number1", "s": 0, "page": "Help learners intentionally strive to be more like Jesus Christ", "n": "Observe Christlike attributes in students and share what you’ve noticed in ways that inspire them to continue to be like Him.", "cats": [1], "r": 4}, {"id": "009.title_number2", "s": 0, "page": "Help learners intentionally strive to be more like Jesus Christ", "n": "Invite students to look for ways to follow the example of Jesus Christ in their personal lives.", "cats": [1, 2], "r": 1}, {"id": "011.title_number1", "s": 1, "page": "See learners the way God sees them", "n": "Study recent prophetic messages to understand how Heavenly Father sees young people.", "cats": [3], "r": 3}, {"id": "011.title_number2", "s": 1, "page": "See learners the way God sees them", "n": "“Think celestial” about your students to help you see them as God does.", "cats": [3], "r": 2}, {"id": "012.intro2", "s": 1, "page": "Seek to know them—understand their circumstances, needs, and strengths", "n": "Observe and ask about students’ interests.", "cats": [3], "r": 1}, {"id": "012.title_number4", "s": 1, "page": "Seek to know them—understand their circumstances, needs, and strengths", "n": "Pause, reflect, and answer questions we ask ourselves that invite a Christlike spirit of discernment, love, and empathy in our interactions.", "cats": [3], "r": 3}, {"id": "012.title_number3", "s": 1, "page": "Seek to know them—understand their circumstances, needs, and strengths", "n": "Seek to clarify and understand the real intent of students’ questions, feelings, and beliefs.", "cats": [3], "r": 3}, {"id": "013.intro2", "s": 1, "page": "Pray for them by name", "n": "Pray and ask how you can help your students and follow the promptings from the Holy Ghost.", "cats": [3], "r": 1}, {"id": "013.intro3", "s": 1, "page": "Pray for them by name", "n": "Invite students to pray for other students.", "cats": [3], "r": 2}, {"id": "014.intro2", "s": 1, "page": "Create a safe environment where all are respected and know their contributions are valued", "n": "Communicate that you value students before they comment or as they raise their hand to comment.", "cats": [3], "r": 1}, {"id": "014.title_number3", "s": 1, "page": "Create a safe environment where all are respected and know their contributions are valued", "n": "Communicate that students are not only welcome but needed.", "cats": [0, 3], "r": 1}, {"id": "015.title_number1", "s": 1, "page": "Find appropriate ways to express your love", "n": "Send a message to a student’s parent about something positive you have noticed about their child.", "cats": [3], "r": 1}, {"id": "015.title_number2", "s": 1, "page": "Find appropriate ways to express your love", "n": "Testify of God’s love when it is hard for you to feel or express love to those you teach.", "cats": [3], "r": 4}, {"id": "017.title_number1", "s": 2, "page": "Prepare yourself spiritually", "n": "Use the document “Improving as a Christlike Teacher—A Personal Evaluation” to invite the Holy Ghost to help you refine your preparations to teach.", "cats": [6], "r": 3}, {"id": "017.title_number2", "s": 2, "page": "Prepare yourself spiritually", "n": "Ask questions to assess your own experience and testimony with Jesus Christ and the doctrine and principles in the lesson.", "cats": [6], "r": 2}, {"id": "018.title_number1", "s": 2, "page": "Always be ready to respond to spiritual promptings about the needs of learners", "n": "Ask a question to assess learning before moving on in the lesson.", "cats": [0, 6], "r": 1}, {"id": "018.title_number2", "s": 2, "page": "Always be ready to respond to spiritual promptings about the needs of learners", "n": "Listen to and observe students to ask follow-up questions.", "cats": [3, 6], "r": 2}, {"id": "019.intro1", "s": 2, "page": "Create settings and opportunities for learners to be taught by the Holy Ghost", "n": "Create student self-evaluations about a doctrine, truth, or principle.", "cats": [6], "r": 3}, {"id": "019.title_number2", "s": 2, "page": "Create settings and opportunities for learners to be taught by the Holy Ghost", "n": "Use sacred music. Invite students to identify lines and phrases in sacred music that connect with the truths they are learning.", "cats": [0, 4, 6], "r": 2}, {"id": "020.intro2", "s": 2, "page": "Help learners seek, recognize, and act on personal revelation", "n": "Before responding to a student’s question or comment, pause and think, “What can I ask them?” or “What can I invite them to do?”", "cats": [0, 4, 5], "r": 2}, {"id": "020.title_number3", "s": 2, "page": "Help learners seek, recognize, and act on personal revelation", "n": "Share statements that help students recognize when the Holy Ghost is performing His role or function.", "cats": [4], "r": 3}, {"id": "021.title_number1", "s": 2, "page": "Bear testimony often and invite learners to share their feelings, experiences, and testimonies", "n": "Create prompts that help students verbalize their feelings, experiences, and testimony.", "cats": [4], "r": 3}, {"id": "021.title_number2", "s": 2, "page": "Bear testimony often and invite learners to share their feelings, experiences, and testimonies", "n": "Testify more frequently and more powerfully of Jesus Christ.", "cats": [1, 4], "r": 1}, {"id": "023.title_number1", "s": 3, "page": "Learn the doctrine of Jesus Christ for yourself", "n": "Create open-ended search questions that help learners discover gospel doctrine and principles for themselves and do not lead students to a specific response.", "cats": [0, 6], "r": 2}, {"id": "023.title_number2", "s": 3, "page": "Learn the doctrine of Jesus Christ for yourself", "n": "Search the scriptures and words of the prophets for deeper understanding.", "cats": [5, 6], "r": 1}, {"id": "024.title_number1", "s": 3, "page": "Teach from the scriptures and the words of latter-day prophets", "n": "Prepare invitations that help students connect truths found in the scriptures to what living prophets are saying.", "cats": [5], "r": 2}, {"id": "024.title_number2", "s": 3, "page": "Teach from the scriptures and the words of latter-day prophets", "n": "Express your love for and testimony of prophets as their words are shared in class.", "cats": [4, 5], "r": 1}, {"id": "025.intro2", "s": 3, "page": "Help learners seek, recognize, and understand truths in the scriptures", "n": "Create student self-evaluations that help them recognize their current understanding and abilities about scripture study skills.", "cats": [], "r": 3}, {"id": "025.title_number3", "s": 3, "page": "Help learners seek, recognize, and understand truths in the scriptures", "n": "Consider assessment questions to carefully choose media, personal stories, and object lessons.", "cats": [5], "r": 3}, {"id": "026.intro2", "s": 3, "page": "Focus on truths that lead to conversion and build faith in Jesus Christ", "n": "Ask questions that help students identify and state converting principles.", "cats": [0, 5], "r": 3}, {"id": "026.title_number3", "s": 3, "page": "Focus on truths that lead to conversion and build faith in Jesus Christ", "n": "Respond to questions in a way that avoids speculation and nondoctrinal personal ideas.", "cats": [5], "r": 3}, {"id": "027.title_number1", "s": 3, "page": "Help learners find personal relevance in the doctrine of Jesus Christ", "n": "Prepare invitations and prompts that help students find personal relevance to a scripture block.", "cats": [2], "r": 2}, {"id": "027.title_number2", "s": 3, "page": "Help learners find personal relevance in the doctrine of Jesus Christ", "n": "Start a learning activity by inviting students to ponder a personal circumstance.", "cats": [0, 2, 6], "r": 2}, {"id": "029.title_number1", "s": 4, "page": "Help learners take responsibility for their learning", "n": "Resist the tendency to respond to every comment and question and invite the class to respond.", "cats": [0], "r": 1}, {"id": "029.title_number2", "s": 4, "page": "Help learners take responsibility for their learning", "n": "Focus on what the learner can do in class that the teacher typically does.", "cats": [0], "r": 3}, {"id": "030.intro2", "s": 4, "page": "Encourage learners to come to know the Savior by studying the gospel daily—study goal", "n": "Assist students in creating a daily scripture study goal.", "cats": [2], "r": 2}, {"id": "030.title_number3", "s": 4, "page": "Encourage learners to come to know the Savior by studying the gospel daily—study goal", "n": "Develop and ask questions that help learners connect what they have learned in their personal and family scripture study to the classroom experience.", "cats": [2], "r": 3}, {"id": "031.title_number1", "s": 4, "page": "Invite learners to prepare to learn", "n": "Create invitations that help learners prepare for the next learning experience.", "cats": [2], "r": 2}, {"id": "031.title_number2", "s": 4, "page": "Invite learners to prepare to learn", "n": "Create a meaningful invitation connected to the lesson outcome to be used at the beginning of each lesson.", "cats": [0, 6], "r": 1}, {"id": "032.intro2", "s": 4, "page": "Encourage learners to share the truths they are learning", "n": "Help students create or begin gospel conversations.", "cats": [2], "r": 3}, {"id": "032.title_number3", "s": 4, "page": "Encourage learners to share the truths they are learning", "n": "Prepare invitations for students to share with each other what they are learning.", "cats": [2], "r": 2}, {"id": "033.title_number1", "s": 4, "page": "Invite learners to live what they are learning", "n": "Plan to follow up on invitations given in a previous class and invite learners to share their experiences living what they learned.", "cats": [2], "r": 2}, {"id": "033.title_number2", "s": 4, "page": "Invite learners to live what they are learning", "n": "Ask search questions that help learners consider who God is and blessings He offers them.", "cats": [1], "r": 3}]}</script>
+<script>
+(function () {
+  var data = JSON.parse(document.getElementById("data").textContent);
+  var S = data.sections, C = data.cats, K = data.skills;
+  var RUNG = ["", "First Sundays", "Building habits", "Reading the room", "Holding steady"];
+  var RUNGSUB = ["", "no prep, low risk", "prepare during the week", "judgment in the moment", "charity under strain"];
+
+  function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;"); }
+
+  // legend
+  document.getElementById("legend").innerHTML = S.map(function (s) {
+    return '<span style="--c:' + s.a + '">' + esc(s.t) + '</span>';
+  }).join("");
+
+  function dot(k) {
+    return '<span class="dot" style="--c:' + S[k.s].a + '" title="' + esc(k.id + " — " + k.n) + '"></span>';
+  }
+
+  function groupsFor(g) {
+    var out = [];
+    if (g === "principle") {
+      S.forEach(function (s, i) {
+        var ks = K.filter(function (k) { return k.s === i; });
+        out.push({ label: s.t, sub: ks.length + " skills · " + new Set(ks.map(function(k){return k.page;})).size + " manual pages", ks: ks });
+      });
+      return { groups: out, note: "Each skill appears exactly once. This is the order the manual gives, and the order the source file is written in." };
+    }
+    if (g === "problem") {
+      C.forEach(function (c, i) {
+        var ks = K.filter(function (k) { return k.cats.indexOf(i) >= 0; });
+        out.push({ label: c, sub: ks.length + " skills", ks: ks });
+      });
+      var orphans = K.filter(function (k) { return !k.cats.length; });
+      out.push({ label: "Not mapped to any challenge", sub: orphans.length + " skills", ks: orphans, ghost: true });
+      var total = out.reduce(function (a, g) { return a + g.ks.length; }, 0) - orphans.length;
+      return { groups: out, note: "Many-to-many. The same dot can appear under several challenges (" + total + " placements for 51 skills), and two skills appear nowhere. The overlay's rule is 'no bad ids', not 'every skill once'." };
+    }
+    for (var r = 1; r <= 4; r++) {
+      var ks = K.filter(function (k) { return k.r === r; });
+      out.push({ label: "Rung " + r + " · " + RUNG[r], sub: ks.length + " skills · " + RUNGSUB[r], ks: ks });
+    }
+    return { groups: out, note: "One-to-one and ordered. Every colour shows up on every rung: readiness cuts across the principles instead of repeating them. That is what makes it a new scheme rather than a relabeling." };
+  }
+
+  function render(g) {
+    var res = groupsFor(g);
+    document.getElementById("groups").innerHTML = res.groups.map(function (gr) {
+      return '<div class="group"><div class="gl">' + esc(gr.label) + '<small>' + esc(gr.sub) + '</small></div>' +
+             '<div class="dots">' + gr.ks.map(dot).join("") + '</div></div>';
+    }).join("");
+    document.getElementById("gnote").textContent = res.note;
+    document.querySelectorAll("#tabs button").forEach(function (b) {
+      b.setAttribute("aria-selected", b.getAttribute("data-g") === g ? "true" : "false");
+    });
+  }
+  document.getElementById("tabs").addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (b) render(b.getAttribute("data-g"));
+  });
+  render("principle");
+
+  // matrix: principle × rung
+  var html = '<tr><th>Principle</th>' + [1,2,3,4].map(function (r) { return '<th>Rung ' + r + '</th>'; }).join("") + '<th>Total</th></tr>';
+  var colTot = [0,0,0,0,0];
+  S.forEach(function (s, i) {
+    var row = [1,2,3,4].map(function (r) { return K.filter(function (k) { return k.s === i && k.r === r; }).length; });
+    var tot = row.reduce(function (a, b) { return a + b; }, 0);
+    row.forEach(function (n, j) { colTot[j] += n; }); colTot[4] += tot;
+    html += '<tr><td><span class="sw" style="background:' + s.a + '"></span>' + esc(s.t) + '</td>' +
+            row.map(function (n) { return '<td>' + (n || '<span style="color:var(--muted)">–</span>') + '</td>'; }).join("") + '<td><b>' + tot + '</b></td></tr>';
+  });
+  html += '<tr><td><b>All</b></td>' + colTot.map(function (n) { return '<td><b>' + n + '</b></td>'; }).join("") + '</tr>';
+  document.getElementById("matrix").innerHTML = html;
+})();
+</script>
+</body>
+</html>
