@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>One Source, Many Views — adding an organizing scheme to the Teaching Skills site</title>
-<meta name="description" content="A short visual tutorial for CS 356: how the Teaching Skills site keeps one data source and many views, and what it takes to add a brand-new organizing scheme.">
+<title>One Source, Many Views — adding an organizing scheme to the card build</title>
+<meta name="description" content="A short visual tutorial for CS 356: how prototype v1's card build keeps one data source and many views, and what it takes to add a brand-new organizing scheme.">
 <style>
   :root {
     --ink:#1f2a30; --muted:#5d6b72; --line:#e2e7ea; --bg:#f6f8f9; --panel:#fff;
     --link:#0b5fa5; --radius:10px; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-    --s0:#1f7a8c; --s1:#c79100; --s2:#b8651b; --s3:#9b3b4e; --s4:#2f8a52;
+    --s0:#1f7a8c; --s1:#c79100; --s2:#9b3b4e; --s3:#b8651b; --s4:#2f8a52; --s5:#6b5ea8;
     --add:#2f8a52; --touch:#c79100; --never:#9b3b4e;
   }
   * { box-sizing:border-box; }
@@ -28,6 +28,7 @@
   a { color:var(--link); }
   .panel { background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px; margin:14px 0; }
   .note { border-left:5px solid var(--s1); }
+  .leak { border-left:5px solid var(--s2); }
   .rule { border-left:5px solid var(--s0); }
   .rule b:first-child { color:var(--s0); }
   code { font-family:var(--mono); font-size:.86em; background:#eef1f3; padding:1px 5px; border-radius:4px; }
@@ -35,7 +36,6 @@
         overflow-x:auto; font-family:var(--mono); font-size:.8rem; line-height:1.5; }
   pre code { background:none; padding:0; color:inherit; font-size:inherit; }
   pre .c { color:#8fa3ad; font-style:italic; }
-  pre .k { color:#ffd479; }
   pre .hl { background:rgba(255,212,121,.16); display:inline-block; width:100%; }
   pre .file { display:block; color:#8fa3ad; margin-bottom:8px; font-style:normal; border-bottom:1px solid #35434a; padding-bottom:6px; }
   figure { margin:18px 0 22px; }
@@ -46,29 +46,25 @@
   .tbl-wrap { overflow-x:auto; }
   .pill { display:inline-block; font-size:.7rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
           color:#fff; padding:2px 8px; border-radius:999px; white-space:nowrap; }
-  .pill.derived { background:var(--s0); } .pill.overlay { background:var(--s3); } .pill.selection { background:var(--s4); }
+  .pill.derived { background:var(--s0); } .pill.built { background:var(--s5); } .pill.overlay { background:var(--s2); } .pill.selection { background:var(--s4); } .pill.instr { background:#5d6b72; }
   .pill.add { background:var(--add); } .pill.touch { background:var(--touch); } .pill.never { background:var(--never); }
 
-  /* legend */
   .legend { display:flex; flex-wrap:wrap; gap:8px 16px; font-size:.82rem; color:var(--muted); margin:6px 0 10px; }
   .legend span::before { content:""; display:inline-block; width:11px; height:11px; border-radius:50%; margin-right:6px; vertical-align:-1px; background:var(--c); }
-
-  /* dot groupings */
   .groups { display:grid; gap:10px; }
-  .group { display:grid; grid-template-columns:200px 1fr; gap:12px; align-items:center;
+  .group { display:grid; grid-template-columns:220px 1fr; gap:12px; align-items:center;
            background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:8px 12px; }
   .group .gl { font-size:.85rem; font-weight:600; line-height:1.25; }
   .group .gl small { display:block; font-weight:400; color:var(--muted); }
   .dots { display:flex; flex-wrap:wrap; gap:5px; }
   .dot { width:14px; height:14px; border-radius:50%; background:var(--c); display:inline-block; cursor:default; }
-  .dot.ghost { background:none; border:2px dashed var(--muted); }
+  .dot.ring { box-shadow:0 0 0 2px #fff, 0 0 0 4px var(--c); width:10px; height:10px; margin:2px; }
   .tabs { display:flex; gap:6px; margin:10px 0 12px; flex-wrap:wrap; }
   .tabs button { font:inherit; font-size:.9rem; padding:6px 12px; border:1px solid var(--line); background:var(--panel);
                  border-radius:999px; cursor:pointer; }
   .tabs button[aria-selected="true"] { background:var(--ink); color:#fff; border-color:var(--ink); }
   @media (max-width:640px) { .group { grid-template-columns:1fr; } }
 
-  /* flow */
   .flow { display:flex; align-items:stretch; gap:0; flex-wrap:wrap; margin:14px 0; }
   .flow .step { flex:1 1 150px; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:10px 12px; font-size:.86rem; position:relative; margin-right:26px; }
   .flow .step:last-child { margin-right:0; }
@@ -77,14 +73,11 @@
   .flow .step b { display:block; margin-bottom:3px; }
   .flow .step code { font-size:.78em; }
 
-  /* file map */
   .filemap { font-family:var(--mono); font-size:.82rem; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:14px 16px; }
   .filemap div { display:flex; justify-content:space-between; gap:10px; padding:3px 0; border-bottom:1px dashed #eef1f3; }
   .filemap div:last-child { border-bottom:0; }
-  .filemap .d { color:var(--muted); }
   .filemap .why { font-family:inherit; color:var(--muted); font-size:.78rem; text-align:right; }
 
-  /* rungs */
   .ladder { display:grid; gap:8px; margin:14px 0; }
   .rung { display:grid; grid-template-columns:46px 1fr; gap:12px; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:10px 12px; }
   .rung .n { font-weight:800; font-size:1.4rem; color:var(--muted); }
@@ -93,6 +86,7 @@
   .matrix td, .matrix th { text-align:center; }
   .matrix td:first-child, .matrix th:first-child { text-align:left; }
   .matrix .sw { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:6px; vertical-align:-1px; }
+  .matrix .flag { color:var(--s2); font-weight:700; }
 
   ol.steps { padding-left:0; list-style:none; counter-reset:s; }
   ol.steps > li { counter-increment:s; margin:0 0 26px; padding-left:52px; position:relative; }
@@ -109,11 +103,11 @@
 <div class="wrap">
 
 <header class="top">
-  <p class="kicker">CS 356 · Reading the Teaching Skills codebase</p>
+  <p class="kicker">CS 356 · Reading the card build (prototype v1, third build)</p>
   <h1>One Source, Many Views</h1>
-  <p class="lede">The Teaching Skills site stores its 53 skills once and shows them five different ways.
-  This tutorial shows how that is organized, then walks through adding a sixth way: a brand-new organizing
-  scheme called <b>the Ladder</b>. Read the pictures first. The prose is deliberately short.</p>
+  <p class="lede">The <a href="prototypes/v1/cards/">card build</a> stores its 53 skills once and shows them through six routes,
+  a search box, and a rack of facet chips. This tutorial shows how that is organized, then walks through adding a scheme the
+  build does not have: <b>the Ladder</b>, organized by how ready a teacher is. Read the pictures first. The prose is deliberately short.</p>
   <p class="lede" style="margin-top:10px">Three ideas from the course run underneath: Wurman's <b>LATCH</b> for choosing what to organize by,
   Ranganathan's <b>facets</b> for expecting several schemes at once, and the Polar Bear book's <b>four systems</b> for keeping
   organization, labels, navigation, and search apart.</p>
@@ -121,11 +115,11 @@
 
 <!-- ============================================================ 1 -->
 <h2><span class="num">1</span>The whole idea in one picture</h2>
-<p>One file holds the facts. Every page is a <em>view</em> that reads those facts and arranges them.
-Nothing about a skill is typed twice. The glue is a stable <code>id</code> on every skill.</p>
+<p>One file holds the 53 blocks and both ways of filing them. Two more files add to those blocks by pointing at their ids.
+Every screen is a <em>route</em> that selects from the same records and renders them through one card template.</p>
 
 <figure>
-<svg viewBox="0 0 900 420" width="100%" role="img" aria-label="Hub diagram: skills-data.js in the center, five view pages around it, two overlay files attached by id">
+<svg viewBox="0 0 900 440" width="100%" role="img" aria-label="Hub diagram: v1-data.js in the center, six routes around it, a generated index above and an authored overlay below, both attached by id">
   <defs>
     <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0 0 L10 5 L0 10 z" fill="#5d6b72"/>
@@ -135,173 +129,215 @@ Nothing about a skill is typed twice. The glue is a stable <code>id</code> on ev
     .box{fill:#fff;stroke:#c9d2d7;stroke-width:1.5;rx:8}
     .src{fill:#e7f1f3;stroke:#1f7a8c;stroke-width:2.5}
     .ov{fill:#f6e6ea;stroke:#9b3b4e;stroke-width:2}
-    .t{font:600 14px -apple-system,Segoe UI,Roboto,sans-serif;fill:#1f2a30}
-    .s{font:12px -apple-system,Segoe UI,Roboto,sans-serif;fill:#5d6b72}
+    .gen{fill:#efecf7;stroke:#6b5ea8;stroke-width:2}
+    .inst{fill:#f3f4f6;stroke:#9aa5ab;stroke-width:1.5;stroke-dasharray:5 4}
+    .t{font:600 13.5px -apple-system,Segoe UI,Roboto,sans-serif;fill:#1f2a30}
+    .s{font:11.5px -apple-system,Segoe UI,Roboto,sans-serif;fill:#5d6b72}
     .m{font:11px ui-monospace,Menlo,monospace;fill:#5d6b72}
     .ln{stroke:#5d6b72;stroke-width:1.5;fill:none;marker-end:url(#arr)}
     .key{font:700 11px ui-monospace,Menlo,monospace;fill:#9b3b4e}
   </style>
-  <!-- source -->
-  <rect class="box src" x="330" y="160" width="240" height="100"/>
-  <text class="t" x="450" y="188" text-anchor="middle">skills-data.js</text>
-  <text class="m" x="450" y="208" text-anchor="middle">window.TDS_DATA</text>
-  <text class="s" x="450" y="228" text-anchor="middle">5 principles · 53 skills</text>
-  <text class="s" x="450" y="246" text-anchor="middle">one record each, keyed by id</text>
+  <rect class="box src" x="320" y="165" width="260" height="110"/>
+  <text class="t" x="450" y="192" text-anchor="middle">team-a/v1-data.js</text>
+  <text class="m" x="450" y="211" text-anchor="middle">window.V1_DATA</text>
+  <text class="s" x="450" y="231" text-anchor="middle">53 blocks · 6 categories · 15 groups</text>
+  <text class="s" x="450" y="248" text-anchor="middle">4 moments · 35 harvested search terms</text>
+  <text class="s" x="450" y="265" text-anchor="middle">every filing and moment, keyed by id</text>
 
-  <!-- views -->
   <g>
-    <rect class="box" x="20" y="30" width="180" height="58"/>
-    <text class="t" x="110" y="53" text-anchor="middle">index.html</text>
-    <text class="s" x="110" y="72" text-anchor="middle">one random skill per principle</text>
-    <path class="ln" d="M330 190 C 260 190, 240 88, 200 70"/>
+    <rect class="box" x="20" y="30" width="190" height="58"/>
+    <text class="t" x="115" y="53" text-anchor="middle">#/  home</text>
+    <text class="s" x="115" y="72" text-anchor="middle">counts per category and moment</text>
+    <path class="ln" d="M320 195 C 250 195, 240 88, 210 70"/>
   </g>
   <g>
-    <rect class="box" x="20" y="180" width="180" height="58"/>
-    <text class="t" x="110" y="203" text-anchor="middle">structure.html</text>
-    <text class="s" x="110" y="222" text-anchor="middle">principle → page → skill</text>
-    <path class="ln" d="M330 210 L200 210"/>
+    <rect class="box" x="20" y="190" width="190" height="58"/>
+    <text class="t" x="115" y="213" text-anchor="middle">#/c/…  #/g/…</text>
+    <text class="s" x="115" y="232" text-anchor="middle">category → group → cards</text>
+    <path class="ln" d="M320 220 L210 220"/>
   </g>
   <g>
-    <rect class="box" x="20" y="330" width="180" height="58"/>
-    <text class="t" x="110" y="353" text-anchor="middle">select.html</text>
-    <text class="s" x="110" y="372" text-anchor="middle">pick one per principle</text>
-    <path class="ln" d="M330 230 C 260 230, 240 350, 200 355"/>
+    <rect class="box" x="20" y="350" width="190" height="58"/>
+    <text class="t" x="115" y="373" text-anchor="middle">#/m/…  moment</text>
+    <text class="s" x="115" y="392" text-anchor="middle">tag filter, grouped by home filing</text>
+    <path class="ln" d="M320 245 C 250 245, 240 370, 210 375"/>
   </g>
   <g>
-    <rect class="box" x="700" y="30" width="180" height="58"/>
-    <text class="t" x="790" y="53" text-anchor="middle">summary.html</text>
-    <text class="s" x="790" y="72" text-anchor="middle">the five ids in the URL</text>
-    <path class="ln" d="M570 190 C 640 190, 660 88, 700 70"/>
+    <rect class="box" x="690" y="30" width="190" height="58"/>
+    <text class="t" x="785" y="53" text-anchor="middle">#/b/id  block</text>
+    <text class="s" x="785" y="72" text-anchor="middle">one id, every filing, first move</text>
+    <path class="ln" d="M580 195 C 650 195, 660 88, 690 70"/>
   </g>
   <g>
-    <rect class="box" x="700" y="330" width="180" height="58"/>
-    <text class="t" x="790" y="353" text-anchor="middle">problems.html</text>
-    <text class="s" x="790" y="372" text-anchor="middle">challenge → skills that help</text>
-    <path class="ln" d="M570 230 C 640 230, 660 350, 700 355"/>
+    <rect class="box" x="690" y="190" width="190" height="58"/>
+    <text class="t" x="785" y="213" text-anchor="middle">#/find?q=&amp;f=</text>
+    <text class="s" x="785" y="232" text-anchor="middle">search + facet chips</text>
+    <path class="ln" d="M580 220 L690 220"/>
+  </g>
+  <g>
+    <rect class="box inst" x="690" y="350" width="190" height="58"/>
+    <text class="t" x="785" y="373" text-anchor="middle">#/log  instrument</text>
+    <text class="s" x="785" y="392" text-anchor="middle">every click and query, exportable</text>
+    <path class="ln" d="M580 245 C 650 245, 660 370, 690 375"/>
   </g>
 
-  <!-- overlays -->
   <g>
-    <rect class="box ov" x="340" y="20" width="220" height="56"/>
-    <text class="t" x="450" y="42" text-anchor="middle">descriptions.js</text>
-    <text class="s" x="450" y="61" text-anchor="middle">full text of each skill</text>
-    <path class="ln" d="M450 76 L450 158"/>
-    <text class="key" x="458" y="122">id</text>
+    <rect class="box gen" x="325" y="22" width="250" height="60"/>
+    <text class="t" x="450" y="44" text-anchor="middle">semantic/semantic-index.js</text>
+    <text class="s" x="450" y="62" text-anchor="middle">GENERATED · meaning index · 9,121 terms</text>
+    <text class="s" x="450" y="76" text-anchor="middle">term → [block, weight, passage]</text>
+    <path class="ln" d="M450 82 L450 163"/>
+    <text class="key" x="458" y="128">id</text>
   </g>
   <g>
-    <rect class="box ov" x="340" y="342" width="220" height="56"/>
-    <text class="t" x="450" y="364" text-anchor="middle">problems-data.js</text>
-    <text class="s" x="450" y="383" text-anchor="middle">29 challenges → skill ids</text>
-    <path class="ln" d="M450 342 L450 262"/>
-    <text class="key" x="458" y="306">id</text>
+    <rect class="box ov" x="325" y="358" width="250" height="60"/>
+    <text class="t" x="450" y="380" text-anchor="middle">cards/cards-data.js</text>
+    <text class="s" x="450" y="398" text-anchor="middle">AUTHORED · situation · first move · prep</text>
+    <text class="s" x="450" y="412" text-anchor="middle">one entry per block, by id</text>
+    <path class="ln" d="M450 358 L450 277"/>
+    <text class="key" x="458" y="322">id</text>
   </g>
 </svg>
-<figcaption>Solid box: the single source. Pink boxes: <b>overlays</b> that add to a skill by pointing at its id, never repeating its name or link.
-White boxes: <b>views</b>. Arrows point the way data flows.</figcaption>
+<figcaption>Teal: the single source. Purple: an index <b>computed once at build time</b> from the source. Pink: an <b>authored overlay</b>.
+White: routes, each a query over the same records. Dashed: the log, a view of <em>use</em> rather than of content.</figcaption>
 </figure>
 
 <!-- ============================================================ 2 -->
 <h2><span class="num">2</span>The four systems, found in the code</h2>
-<p>The Polar Bear book says a site has four systems that should be designed separately: organization, labeling,
-navigation, and search. Single source is what makes that separation possible here. Each system lives in its own files.</p>
+<p>The Polar Bear book says a site has four systems that should be designed separately: organization, labeling, navigation,
+and search. In the card build each one has its own home, which is what lets a revision replace one without touching the others.
+The semantic build replaced search alone. The card build replaced labeling and the card template alone.</p>
 <div class="tbl-wrap"><table>
-<tr><th>System</th><th>Where it lives here</th><th>What that buys</th></tr>
-<tr><td><b>Organization</b><br><small style="color:var(--muted)">schemes + structures</small></td><td><code>skills-data.js</code> (the manual's own scheme) and the overlays <code>problems-data.js</code>, <code>ladder-data.js</code></td><td>A new scheme is a new file, not a rewrite.</td></tr>
-<tr><td><b>Labeling</b></td><td><code>lang/eng/strings.js</code>, <code>lang/spa/strings.js</code>; every <code>data-i18n</code> attribute</td><td>Rename a rung or translate a heading without touching structure.</td></tr>
-<tr><td><b>Navigation</b></td><td>the subnav links, the language switcher, ids carried in <code>#sel=</code></td><td>Views point at each other by id and by page, never by copying content.</td></tr>
-<tr><td><b>Search</b></td><td><code>problems.js</code> soft keyword match over challenge wording</td><td>Search reads the same records the browse views read.</td></tr>
+<tr><th>System</th><th>Where it lives in the card build</th><th>What that buys</th></tr>
+<tr><td><b>Organization</b><br><small style="color:var(--muted)">schemes + structures</small></td><td><code>categories[]</code>, <code>groups[]</code>, <code>moments[]</code>, and on every block <code>filings[]</code> and <code>moment[]</code>, all in <code>v1-data.js</code>; <code>prep</code> in <code>cards-data.js</code></td><td>Two hierarchies and a facet from one file. A block can be filed twice.</td></tr>
+<tr><td><b>Labeling</b></td><td>a <code>name</code> beside every <code>slug</code> and <code>key</code>; five harvested <code>label</code>s; <code>sit</code>, <code>first</code>, <code>prepNames</code> in the overlay</td><td>The tree test renamed two groups (D3) and no filing changed. "A slug is an address, not a label."</td></tr>
+<tr><td><b>Navigation</b></td><td>hash routes, breadcrumbs, "Filed under" trails on the block page, tiles with live counts, facet chips computed from the result set, backnav</td><td>No page is hand-written. Every route is a selection over the source.</td></tr>
+<tr><td><b>Search</b></td><td>a literal layer weighted by provenance, the 35-term <code>concepts[]</code> harvested from the studies, and the generated meaning index</td><td>Search and browse read the same 53 records, so nothing is findable in one and missing in the other.</td></tr>
+<tr><td><span style="color:var(--muted)"><b>Instrument</b></span></td><td><code>#/log</code>, localStorage, one schema across all three builds</td><td>Not one of the four. It is a view of what people <em>did</em>, kept stable so task-test runs stay comparable.</td></tr>
 </table></div>
-<p>Keep this table in mind. Most of the "what it takes" list in §6 is just: one file per system.</p>
+
+<div class="panel leak"><b>Spot the leak.</b> <code>cards/app.js</code> carries a <code>GROUP_LABELS</code> table of fifteen group names, and the block page's
+"Filed under" trail reads from it. Those fifteen names already live in <code>v1-data.js</code> under <code>groups[]</code>, one line away from
+<code>groupBySlug()</code>. Rename a group in the source and the block page lags behind every other screen. Two copies of a label is a
+labeling system with a fork in it. The fix is one line; it is exercise three in §8.</div>
 
 <!-- ============================================================ 3 -->
 <h2><span class="num">3</span>What is already here</h2>
 
 <h3>The record</h3>
-<p>Every skill is one object. Three fields are the manual's <em>own</em> organization. One field is the key. The rest is content.</p>
-<pre><code><span class="file">assets/lang/eng/skills-data.js  (window.TDS_DATA)</span>{
-  "sections": [
-    { "title": "Focus on Jesus Christ", "accent": "#1f7a8c", "tint": "#e7f1f3",
-      "skills": [
-        { <span class="hl">"id": "004.title_number2",</span>                    <span class="c">← the key. Never changes. Same in Spanish.</span>
-          "section":    "Focus on Jesus Christ",          <span class="c">← organization the manual already gives us</span>
-          "subsection": "Emphasize the example of Jesus Christ",
-          "name":   "Use pictures and videos of Jesus Christ …",   <span class="c">← content</span>
-          "define": "One way to emphasize the example …",
-          "url":    "https://www.churchofjesuschrist.org/…#title_number2" },
-        …
-      ] },
-    …  <span class="c">five sections in all</span>
-  ]
-}</code></pre>
+<p>Every block is one object. Two fields are organization. One is the key. One is a label with a provenance. The rest is content.
+This block is the interesting one: it is filed in two places.</p>
+<pre><code><span class="file">prototypes/v1/team-a/v1-data.js  (window.V1_DATA.skills[])</span>{ <span class="hl">id: "006.title_number2",</span>                                    <span class="c">← the key. Same id as the live site's. Never changes.</span>
+  name: "Help students have a sensory experience with scriptural objects that symbolize Jesus Christ.",
+  label: "Let them handle something that points to Christ", <span class="c">← harvested in the tree test (D4). Five blocks have one.</span>
+  url: "https://www.churchofjesuschrist.org/…#title_number2",
+  filings: [{ category: "attention", group: "do-not-watch" },  <span class="c">← organization: where it is filed. Two places (D2).</span>
+            { category: "christ",    group: "finding-him-in-the-scriptures" }],
+  moment: ["during"] }                                        <span class="c">← organization: a tag, not a place.</span></code></pre>
 
-<h3>Three kinds of view</h3>
-<p>Look at how each page gets its arrangement. There are only three moves in the whole site.</p>
+<div class="two">
+<pre><code><span class="file">prototypes/v1/cards/cards-data.js — the authored overlay</span>cards: {
+  "006.title_number2": {
+    sit:   "Let them handle something that points to Christ",
+           <span class="c">// the D4 label, reused verbatim</span>
+    first: "Bring the object itself — oil, a stone, a seed —
+            and let it go around the room.",
+    prep:  "ahead" },   <span class="c">// read off the manual's verb</span>
+  …
+},
+prepNames: { none: "No prep — use it live",
+             ahead: "Takes getting ready" }</code></pre>
+<pre><code><span class="file">prototypes/v1/semantic/semantic-index.js — the generated index (shape)</span>window.V1_SEM = {
+  builtBy: "tools/build_semantic_index.py",
+  ids:   ["004.title_number1", "004.title_number2", …],
+  terms: {
+    "object lesson": [[5, 91, 2], …],   <span class="c">// [block index, weight, passage]</span>
+    "kids are noisy": [[…], …],
+    …                                   <span class="c">// 9,121 terms</span>
+  },
+  snips: { … }                          <span class="c">// the passage each weight came from</span>
+};  <span class="c">// GENERATED — do not edit by hand</span></code></pre>
+</div>
+<p>Three files, three provenances, one key. Nothing in the overlay or the index restates a name, a url, a filing, or a moment.</p>
+
+<h3>Four kinds of view</h3>
+<p>Look at how each route gets its arrangement. There are only four moves in the whole build.</p>
 <div class="tbl-wrap"><table>
-<tr><th>Page</th><th>Arranged by</th><th>How</th><th>Move</th></tr>
-<tr><td><code>structure.html</code></td><td>principle → manual page → skill</td><td>Groups skills on the <code>subsection</code> field at render time.</td><td><span class="pill derived">derived</span></td></tr>
-<tr><td><code>index.html</code></td><td>one skill per principle, random</td><td>Walks <code>sections[]</code>, picks one from each.</td><td><span class="pill derived">derived</span></td></tr>
-<tr><td><code>select.html</code></td><td>one radio group per principle</td><td>Same walk. Writes the chosen ids into the URL.</td><td><span class="pill selection">selection</span></td></tr>
-<tr><td><code>summary.html</code></td><td>the five ids in <code>#sel=</code></td><td>Builds an id → skill index, joins <code>descriptions.js</code>.</td><td><span class="pill selection">selection</span> + <span class="pill overlay">overlay</span></td></tr>
-<tr><td><code>problems.html</code></td><td>7 categories → 29 challenges → skills</td><td>Walks <code>problems-data.js</code>, looks up each id in the source.</td><td><span class="pill overlay">overlay</span></td></tr>
+<tr><th>Route</th><th>Arranged by</th><th>How</th><th>Move</th></tr>
+<tr><td><code>#/c/:cat</code> · <code>#/g/:cat/:group</code></td><td>category → group → cards</td><td>Filters blocks whose <code>filings[]</code> hit the slug. No tree is stored; the tree is a query.</td><td><span class="pill derived">derived at render</span></td></tr>
+<tr><td><code>#/m/:key</code></td><td>lesson moment → cards, sectioned by category</td><td>Filters on <code>moment[]</code>, then sections by each block's <em>first</em> filing.</td><td><span class="pill derived">derived at render</span></td></tr>
+<tr><td><code>#/</code></td><td>tiles with counts</td><td>Counts the same selections.</td><td><span class="pill derived">derived at render</span></td></tr>
+<tr><td><code>#/b/:id</code></td><td>one block, every filing, the first move</td><td>One id from the URL, joined with <code>cards[id]</code>.</td><td><span class="pill selection">selection</span> + <span class="pill overlay">overlay</span></td></tr>
+<tr><td><code>#/find?q=&amp;f=</code></td><td>ranked cards, then narrowed</td><td>Literal weights + lookups in <code>S.terms</code>; chips are counts over the results on screen.</td><td><span class="pill built">derived at build</span> + <span class="pill derived">derived at render</span></td></tr>
+<tr><td><code>#/log</code></td><td>time</td><td>Reads localStorage.</td><td><span class="pill instr">instrument</span></td></tr>
 </table></div>
 
-<div class="panel rule"><b>Derived</b> = the field you group on is already in the source. No new file.<br>
-<b>Overlay</b> = a new file that lists ids under new headings. Adds meaning, never copies content.<br>
-<b>Selection</b> = a list of ids carried in the URL. The view is whatever those ids resolve to.</div>
-<p>In Polar Bear vocabulary these are <em>structures</em>. The <em>scheme</em> is the shared characteristic you group by.
-The manual gives a <b>topic</b> scheme in a <b>hierarchy</b>. The problems overlay is a <b>task</b> scheme in a
-<b>database</b> structure: records plus metadata, composed at render time. Scheme is a content decision.
-Structure is a code decision. Decide them separately, and in that order.</p>
+<div class="panel rule"><b>Derived at render</b> = the field you select on is already in the source. A few lines in a view.<br>
+<b>Derived at build</b> = computed once by a tool, checked in as a file, only looked up in the browser.<br>
+<b>Authored overlay</b> = a new file that adds meaning under ids. Never copies content.<br>
+<b>Selection</b> = ids carried in the URL. The view is whatever those ids resolve to.</div>
+
+<p>In Polar Bear vocabulary those are <em>structures</em>. The <em>scheme</em> is the shared characteristic you group by.
+Categories and groups are a <b>task</b> scheme ("start with the problem you are having") in a <b>hierarchy</b>, but a
+polyhierarchy: <code>filings[]</code> lets a block sit in two branches. Moments are a <b>time</b> scheme in a
+<b>database</b> structure: a tag, filtered flat. The book calls those top-down and bottom-up. The card build runs both over one
+record set. Scheme is a content decision. Structure is a code decision. Decide them separately, and in that order.</p>
 
 <h3>Spot the pattern in the code</h3>
 <div class="two">
-<pre><code><span class="file">assets/structure.js — a derived view</span><span class="c">// group by a field the source already has</span>
-var order = [], byPage = {};
-section.skills.forEach(function (sk) {
-  var key = sk.subsection || "";
-  if (!byPage[key]) { byPage[key] = []; order.push(key); }
-  byPage[key].push(sk);
-});</code></pre>
-<pre><code><span class="file">assets/problems.js — an overlay view</span><span class="c">// 1. index the source by id (every view does this)</span>
-var SK = {};
-D.sections.forEach(function (s) {
-  s.skills.forEach(function (k) {
-    SK[k.id] = { name:k.name, url:k.url,
-                 section:s.title, accent:s.accent };
+<pre><code><span class="file">cards/app.js — selecting on attributes</span><span class="c">// a hierarchy is a filter, not a stored tree</span>
+function blocksInCategory(catSlug) {
+  return D.skills.filter(function (s) {
+    return s.filings.some(function (f) {
+      return f.category === catSlug; });
   });
-});
-<span class="c">// 2. walk the overlay, resolve each id</span>
-prob.skills.forEach(function (id) {
-  var sk = SK[id]; if (!sk) return;  <span class="c">// tolerate drift</span>
-  …render sk.name, sk.url, sk.accent…
-});</code></pre>
+}
+<span class="c">// a tag is the same filter on a different field</span>
+function blocksAt(momentKey) {
+  return D.skills.filter(function (s) {
+    return s.moment.indexOf(momentKey) !== -1; });
+}</code></pre>
+<pre><code><span class="file">cards/app.js — joining the overlay, in provenance order</span><span class="c">// tolerate a block the overlay does not know</span>
+function cardOf(s) {
+  return (C.cards && C.cards[s.id]) || {};
+}
+<span class="c">// what a list leads with: harvested label first,</span>
+<span class="c">// authored situation second, the manual's own words last</span>
+function blockLead(s) {
+  return s.label || cardOf(s).sit || s.name;
+}
+<span class="c">// the search weights say the same thing in numbers</span>
+var W_LABEL = 6, W_NAME = 4, W_SIT = 3,
+    W_TAXON = 2, W_MOMENT = 1;</code></pre>
 </div>
-<p>Notice what the overlay view <em>doesn't</em> do: it never prints a name it stored itself. The comment after each id in
-<code>problems-data.js</code> is for the human editor only. The browser ignores it.</p>
+<p>Notice the second column. The build ranks its own labels by where they came from: study evidence above the manual above the
+author's ear. That ordering is a labeling decision, written down once, and both the card and the search obey it.</p>
 
-<!-- ============================================================ 3 -->
+<!-- ============================================================ 4 -->
 <h2><span class="num">4</span>Same 53 dots, regrouped</h2>
-<p>Each dot is one skill, colored by its principle. Switch the grouping. The dots never change; only the boxes around them do.
-That is the entire lesson.</p>
+<p>Each dot is one block, colored by its home category (the first filing). Switch the grouping. The dots never change; only
+the boxes around them do. That is the entire lesson.</p>
 <div class="legend" id="legend"></div>
 <div class="tabs" role="tablist" id="tabs">
-  <button role="tab" aria-selected="true" data-g="principle">By principle <small>(the manual)</small></button>
-  <button role="tab" aria-selected="false" data-g="problem">By challenge <small>(problems-data.js)</small></button>
+  <button role="tab" aria-selected="true" data-g="category">By category <small>(filings)</small></button>
+  <button role="tab" aria-selected="false" data-g="moment">By lesson moment</button>
+  <button role="tab" aria-selected="false" data-g="prep">By preparation <small>(cards)</small></button>
   <button role="tab" aria-selected="false" data-g="ladder">By readiness <small>(the new Ladder)</small></button>
 </div>
 <div class="groups" id="groups"></div>
 <p id="gnote" style="margin-top:10px;font-size:.9rem;color:var(--muted)"></p>
 
 <h3>One id, many facets</h3>
-<p>Ranganathan's lasting idea is not the five letters of PMEST. It is that one thing is classified on several
-independent facets at once, and the class is <em>composed at lookup</em>, never stored as one big tree. In this
-codebase each facet is a file. The id composes them.</p>
+<p>Ranganathan's lasting idea is not the five letters of PMEST. It is that one thing is classified on several independent
+facets at once, and the class is <em>composed at lookup</em>, never stored as one big tree. The card build already does this.
+Each facet is a file, or a field, and the id composes them.</p>
 <figure>
-<svg viewBox="0 0 900 300" width="100%" role="img" aria-label="One skill id in the center with facets radiating out, each labeled with the file it comes from">
+<svg viewBox="0 0 900 300" width="100%" role="img" aria-label="One block id in the center with facets radiating out, each labeled with the file it comes from">
   <style>
     .fb{fill:#fff;stroke:#c9d2d7;stroke-width:1.5;rx:8}
     .fo{fill:#f6e6ea;stroke:#9b3b4e;stroke-width:1.5}
     .fs{fill:#e7f1f3;stroke:#1f7a8c;stroke-width:1.5}
+    .fg{fill:#efecf7;stroke:#6b5ea8;stroke-width:1.5}
     .fd{fill:#fff;stroke:#5d6b72;stroke-width:1.5;stroke-dasharray:5 4}
     .ft{font:600 12px -apple-system,Segoe UI,Roboto,sans-serif;fill:#1f2a30}
     .fm{font:11px ui-monospace,Menlo,monospace;fill:#5d6b72}
@@ -316,38 +352,40 @@ codebase each facet is a file. The id composes them.</p>
   <line class="fl" x1="450" y1="150" x2="770" y2="60"/>
   <line class="fl" x1="450" y1="150" x2="770" y2="240"/>
   <rect class="idb" x="350" y="128" width="200" height="44" rx="22"/>
-  <text class="idt" x="450" y="155" text-anchor="middle">004.title_number2</text>
-  <rect class="fb fs" x="10" y="30" width="240" height="56"/><text class="ft" x="130" y="52" text-anchor="middle">principle: Focus on Jesus Christ</text><text class="fm" x="130" y="72" text-anchor="middle">skills-data.js · section</text>
-  <rect class="fb fs" x="10" y="212" width="240" height="56"/><text class="ft" x="130" y="234" text-anchor="middle">page: Emphasize the example…</text><text class="fm" x="130" y="254" text-anchor="middle">skills-data.js · subsection</text>
-  <rect class="fb fo" x="315" y="20" width="270" height="56"/><text class="ft" x="450" y="42" text-anchor="middle">challenges: children · media-choices</text><text class="fm" x="450" y="62" text-anchor="middle">problems-data.js (many)</text>
-  <rect class="fb fo" x="315" y="224" width="270" height="56"/><text class="ft" x="450" y="246" text-anchor="middle">rung: 1 · First Sundays</text><text class="fm" x="450" y="266" text-anchor="middle">ladder-data.js (one)</text>
-  <rect class="fb fs" x="650" y="30" width="240" height="56"/><text class="ft" x="770" y="52" text-anchor="middle">language: eng · spa</text><text class="fm" x="770" y="72" text-anchor="middle">lang/&lt;code&gt;/ · same id</text>
-  <rect class="fb fd" x="650" y="212" width="240" height="56"/><text class="ft" x="770" y="234" text-anchor="middle">moment: opening · during</text><text class="fm" x="770" y="254" text-anchor="middle">companion prototype only</text>
+  <text class="idt" x="450" y="155" text-anchor="middle">006.title_number2</text>
+  <rect class="fb fs" x="10" y="30" width="240" height="56"/><text class="ft" x="130" y="52" text-anchor="middle">filed: attention › do-not-watch</text><text class="fm" x="130" y="72" text-anchor="middle">v1-data.js · filings[0]</text>
+  <rect class="fb fs" x="10" y="212" width="240" height="56"/><text class="ft" x="130" y="234" text-anchor="middle">filed: christ › finding-him…</text><text class="fm" x="130" y="254" text-anchor="middle">v1-data.js · filings[1]</text>
+  <rect class="fb fs" x="315" y="20" width="270" height="56"/><text class="ft" x="450" y="42" text-anchor="middle">moment: during · label: harvested (D4)</text><text class="fm" x="450" y="62" text-anchor="middle">v1-data.js · moment[], label</text>
+  <rect class="fb fo" x="315" y="224" width="270" height="56"/><text class="ft" x="450" y="246" text-anchor="middle">prep: ahead · first move · situation</text><text class="fm" x="450" y="266" text-anchor="middle">cards-data.js (authored)</text>
+  <rect class="fb fg" x="650" y="30" width="240" height="56"/><text class="ft" x="770" y="52" text-anchor="middle">terms: object lesson · symbols · kids</text><text class="fm" x="770" y="72" text-anchor="middle">concepts[] + semantic-index.js</text>
+  <rect class="fb fd" x="650" y="212" width="240" height="56"/><text class="ft" x="770" y="234" text-anchor="middle">rung: 3 · Reading the room</text><text class="fm" x="770" y="254" text-anchor="middle">ladder-data.js (proposed)</text>
 </svg>
-<figcaption>Solid teal: facets in the source. Pink: facets added by overlay. Dashed: a facet the companion prototypes carry and the live site does not, yet.
-Any view may combine any of them, because they all meet at the id.</figcaption>
+<figcaption>Teal: facets in the source. Pink: authored overlay. Purple: harvested and generated search facets. Dashed: the facet this
+tutorial adds. Any route may combine any of them, because they all meet at the id.</figcaption>
 </figure>
 
 <!-- ============================================================ 5 -->
 <h2><span class="num">5</span>The new scheme: the Ladder</h2>
-<h3>Start with LATCH</h3>
-<p>Wurman's five hat racks are the fastest way to find a scheme you do not have yet. Walk the letters against the 53 skills and
-note which ones are already taken.</p>
-<div class="tbl-wrap"><table>
-<tr><th></th><th>Organize by…</th><th>Here</th><th>Exact or ambiguous?</th><th>Status</th></tr>
-<tr><td><b>L</b>ocation</td><td>where the skill sits in the manual</td><td>page + anchor, already in <code>url</code> and <code>id</code></td><td>exact</td><td>derived, one sort</td></tr>
-<tr><td><b>A</b>lphabet</td><td>the skill's name</td><td><code>name</code></td><td>exact</td><td>derived, one sort</td></tr>
-<tr><td><b>T</b>ime</td><td>when you use it: during the week, opening, mid-lesson</td><td>the companion's <code>moment</code> facet</td><td>mostly exact</td><td>built, prototype only</td></tr>
-<tr><td><b>C</b>ategory</td><td>what it is about; what problem it solves</td><td>principles; challenges</td><td>ambiguous</td><td>built, live site</td></tr>
-<tr><td><b>H</b>ierarchy</td><td>how much: least to most readiness</td><td><b>nothing yet</b></td><td>ambiguous</td><td><b>→ the Ladder</b></td></tr>
-</table></div>
-<p>Two things fall out of the table. <b>Exact</b> schemes (L, A, T) are usually derived views: the field is already in the source
-and a sort does the work. <b>Ambiguous</b> schemes (C, H) are authored, so they become overlays. And Wurman's "hierarchy" means
-<em>ordering by magnitude</em>, not a tree. The manual's tree is a category scheme in a hierarchical structure. The Ladder is a
-magnitude scheme in a flat, ordered structure. Same word, two ideas.</p>
 
-<p>Every existing scheme asks <em>what</em> a skill is about. The Ladder asks <em>how ready</em> a teacher has to be to try it.
-A first-week volunteer and a ten-year veteran should not get the same list.</p>
+<h3>Start with LATCH</h3>
+<p>Wurman's five hat racks are the fastest way to find a scheme you do not have yet. Walk the letters against the 53 blocks
+and note which ones the card build already fills.</p>
+<div class="tbl-wrap"><table>
+<tr><th></th><th>Organize by…</th><th>In the card build</th><th>Exact or ambiguous?</th><th>Status</th></tr>
+<tr><td><b>L</b>ocation</td><td>where the block sits in the manual</td><td>page + anchor, already in <code>id</code> and <code>url</code></td><td>exact</td><td>derived, one sort</td></tr>
+<tr><td><b>A</b>lphabet</td><td>the block's name</td><td><code>name</code></td><td>exact</td><td>derived, one sort</td></tr>
+<tr><td><b>T</b>ime</td><td>when in the lesson you reach for it</td><td><code>moments[]</code> + <code>moment[]</code>, the second way in (D6)</td><td>mostly exact</td><td>built</td></tr>
+<tr><td><b>C</b>ategory</td><td>what problem it solves</td><td><code>categories[]</code> → <code>groups[]</code> via <code>filings[]</code></td><td>ambiguous</td><td>built, the first way in</td></tr>
+<tr><td><b>H</b>ierarchy</td><td>how much: materials needed</td><td><code>prep</code>, two steps: none / ahead</td><td>ambiguous, read off a verb</td><td>built, coarse</td></tr>
+<tr><td><b>H</b>ierarchy</td><td>how much: readiness of the teacher</td><td><b>nothing yet</b></td><td>ambiguous</td><td><b>→ the Ladder</b></td></tr>
+</table></div>
+<p>Three things fall out of the table. <b>Exact</b> schemes (L, A, T) are usually derived views: the field is already in the source and a
+sort does the work. <b>Ambiguous</b> schemes (C, H) are authored, so they become overlays. And the build already has a small H: the prep chip
+is a two-step magnitude scale about <em>materials</em>. The Ladder is a four-step magnitude scale about the <em>teacher</em>. Wurman's
+"hierarchy" means ordering by magnitude, not a tree. The category view is a tree; the Ladder is a flat, ordered list. Same word, two ideas.</p>
+
+<p>Every existing way in asks <em>what</em> a block is about or <em>when</em> it is used. The Ladder asks <em>how ready</em> a teacher
+has to be to try it. A first-week volunteer and a ten-year veteran should not get the same list.</p>
 
 <div class="ladder">
   <div class="rung"><span class="n">1</span><div><b>First Sundays</b><small>Doable this week with no preparation and little risk. "Communicate that students are needed."</small></div></div>
@@ -357,248 +395,293 @@ A first-week volunteer and a ten-year veteran should not get the same list.</p>
 </div>
 
 <h3>Decide the shape before touching a file</h3>
-<p>LATCH picked the <em>scheme</em>. Four questions pick the <em>structure</em>. Answer them in a sentence each.</p>
+<p>LATCH picked the <em>scheme</em>. Four questions pick the <em>structure</em>. Answer them in a sentence each, and compare with what the build already has.</p>
 <div class="tbl-wrap"><table>
-<tr><th>Question</th><th>Manual hierarchy</th><th>Problems overlay</th><th>The Ladder</th><th>Why it matters</th></tr>
-<tr><td>How many places can one skill appear?</td><td>exactly one</td><td>many (or none)</td><td><b>exactly one</b></td><td>One place means you can validate "every skill, once." Many means you validate "no bad ids."</td></tr>
-<tr><td>Are the groups ordered?</td><td>manual order</td><td>no</td><td><b>yes, 1 → 4</b></td><td>Ordered groups get an <code>order</code> number and a "next rung" view for free.</td></tr>
-<tr><td>Authored or derived?</td><td>in the source</td><td>authored</td><td><b>authored</b></td><td>Authored means a new file. Derived means a few lines in a view.</td></tr>
-<tr><td>Does the grouping carry language?</td><td>yes, in each bundle</td><td>yes (but English only)</td><td><b>labels yes, structure no</b></td><td>Keep the structure language-neutral. Put labels where the other labels live.</td></tr>
+<tr><th>Question</th><th>Categories · groups</th><th>Moments</th><th>Prep</th><th>The Ladder</th><th>Why it matters</th></tr>
+<tr><td>How many places can one block appear?</td><td>one or two</td><td>one to four</td><td>exactly one</td><td><b>exactly one</b></td><td>One place means you can validate "every block, once." Many means you validate "no bad ids."</td></tr>
+<tr><td>Are the groups ordered?</td><td>study order</td><td>the lesson clock</td><td>two steps</td><td><b>yes, 1 → 4</b></td><td>Ordered groups get an <code>order</code> and a "next rung" view for free.</td></tr>
+<tr><td>Authored or derived?</td><td>from the studies</td><td>from the studies</td><td>read off the manual's verb</td><td><b>authored</b></td><td>Authored means a new file and a provenance note. Derived means a few lines.</td></tr>
+<tr><td>Where do the words live?</td><td><code>name</code> beside <code>slug</code></td><td><code>name</code> beside <code>key</code></td><td><code>prepNames</code> in the overlay</td><td><b><code>name</code> beside <code>key</code>, in the overlay</b></td><td>Follow the file you are extending. Keys in routes and logs, names on screen.</td></tr>
 </table></div>
 
-<!-- ============================================================ 5 -->
+<!-- ============================================================ 6 -->
 <h2><span class="num">6</span>What it takes</h2>
-<p>Three files to add, three to touch, and a longer list you must not open. The picture is the point.</p>
+<p>The revision line has a convention: a new build is a new folder that loads the earlier builds' work <em>by reference</em> and
+copies only its own view code. The Ladder follows it. Three files to add, one to touch, and a longer list you must not open.</p>
 
 <div class="filemap">
-  <div><span><span class="pill add">add</span> &nbsp;assets/<b>ladder-data.js</b></span><span class="why">the overlay: rung → skill ids</span></div>
-  <div><span><span class="pill add">add</span> &nbsp;<b>ladder.html</b></span><span class="why">the page shell</span></div>
-  <div><span><span class="pill add">add</span> &nbsp;assets/<b>ladder.js</b></span><span class="why">the view: join + render</span></div>
-  <div><span><span class="pill touch">touch</span> &nbsp;assets/lang/eng/<b>strings.js</b></span><span class="why">rung titles + blurbs, English</span></div>
-  <div><span><span class="pill touch">touch</span> &nbsp;assets/lang/spa/<b>strings.js</b></span><span class="why">rung titles + blurbs, Spanish</span></div>
-  <div><span><span class="pill touch">touch</span> &nbsp;<b>index.html</b></span><span class="why">one link to the new page</span></div>
-  <div><span><span class="pill never">never</span> &nbsp;assets/lang/*/<b>skills-data.js</b></span><span class="why">the source does not learn about views</span></div>
-  <div><span><span class="pill never">never</span> &nbsp;assets/lang/*/<b>descriptions.js</b></span><span class="why">content, not organization</span></div>
-  <div><span><span class="pill never">never</span> &nbsp;assets/<b>i18n.js</b>, <b>app.js</b>, <b>structure.js</b>, <b>select.js</b>, <b>summary.js</b>, <b>problems.js</b></span><span class="why">other views are unaffected</span></div>
+  <div><span><span class="pill add">add</span> &nbsp;prototypes/v1/ladder/<b>ladder-data.js</b></span><span class="why">the overlay: rungs, one rung per id, authored search terms</span></div>
+  <div><span><span class="pill add">add</span> &nbsp;prototypes/v1/ladder/<b>index.html</b></span><span class="why">the shell, copied from cards/; one more script tag</span></div>
+  <div><span><span class="pill add">add</span> &nbsp;prototypes/v1/ladder/<b>app.js</b></span><span class="why">starts as a copy of cards/app.js; the view code is the one thing a build copies</span></div>
+  <div><span><span class="pill touch">touch</span> &nbsp;prototypes/v1/<b>index.html</b></span><span class="why">the chooser: one card for v4</span></div>
+  <div><span><span class="pill never">never</span> &nbsp;team-a/<b>v1-data.js</b></span><span class="why">the source does not learn about views</span></div>
+  <div><span><span class="pill never">never</span> &nbsp;semantic/<b>semantic-index.js</b>, tools/<b>build_semantic_index.py</b></span><span class="why">unless you choose to rebuild; see step 6</span></div>
+  <div><span><span class="pill never">never</span> &nbsp;cards/<b>cards-data.js</b>, cards/<b>app.js</b>, cards/<b>cards.css</b></span><span class="why">the earlier build stays a frozen specimen; load its css by reference</span></div>
 </div>
 
 <ol class="steps">
 <li>
-<h3>Write the overlay. Ids only.</h3>
-<p>Mirror the shape of <code>problems-data.js</code>. Add an <code>order</code> because rungs are ordered. Leave every title out.</p>
-<pre><code><span class="file">assets/ladder-data.js  (new)</span><span class="c">/* THE SOURCE for the readiness scheme. Structure only: rung ids and skill ids.
-   Rung titles live in assets/lang/&lt;code&gt;/strings.js as ladderRung_&lt;id&gt;Title.
-   Every skill appears exactly once. tools: run the check in §6 after editing. */</span>
-window.TDS_LADDER = {
-  "version": "2026-09-08",
-  "rungs": [
-    { "id": "first-sundays", "order": 1,
-      "skills": [
-        "014.title_number3",  <span class="c">// Communicate that students are not only welcome but needed.</span>
-        "004.title_number2",  <span class="c">// Use pictures and videos of Jesus Christ …</span>
-        "013.intro2",         <span class="c">// Pray and ask how you can help your students …</span>
-        …
-      ] },
-    { "id": "building-habits", "order": 2, "skills": [ … ] },
-    { "id": "reading-the-room", "order": 3, "skills": [ … ] },
-    { "id": "holding-steady",   "order": 4,
-      "skills": [ "009.title_number1", "015.title_number2" ] }
+<h3>Write the overlay. Keys, one rung per id, and a provenance note.</h3>
+<p>Mirror the shape of the files you are extending: <code>moments[]</code> for the ordered list, <code>cards{}</code> for the per-id attribute.
+Say where every value came from, the way <code>cards-data.js</code> does.</p>
+<pre><code><span class="file">prototypes/v1/ladder/ladder-data.js  (new)</span><span class="c">/* THE READINESS LAYER. An overlay, not a fork: the 53 blocks, filings, moments
+   and cards stay in the files this build loads by reference. This file adds one
+   attribute per block (its rung) and the ordered list of rungs.
+   PROVENANCE: every rung assignment is authored from the instructor's ear. No
+   study has tested it. It carries the same caveat as the card layer's 48
+   situation leads, and the task test is where it gets checked. */</span>
+window.V1_LADDER = {
+  rungs: [                                   <span class="c">// the ordered list, like moments[]</span>
+    { key: "first-sundays",   order: 1, name: "First Sundays",   blurb: "No prep, low risk." },
+    { key: "building-habits", order: 2, name: "Building habits", blurb: "Prepare during the week." },
+    { key: "reading-the-room",order: 3, name: "Reading the room",blurb: "Judgment in the moment." },
+    { key: "holding-steady",  order: 4, name: "Holding steady",  blurb: "Charity under strain." }
+  ],
+  rungOf: {                                  <span class="c">// the per-id attribute, like cards{}</span>
+    "014.title_number3": "first-sundays",    <span class="c">// Communicate that students are … needed.</span>
+    "004.title_number2": "first-sundays",    <span class="c">// Use pictures and videos of Jesus Christ …</span>
+    "006.title_number2": "reading-the-room", <span class="c">// Let them handle something …</span>
+    …                                        <span class="c">// all 53, exactly once</span>
+  },
+  terms: [                                   <span class="c">// authored, NOT harvested — weighted below concepts[]</span>
+    { term: "just called", also: ["brand new", "first time teaching", "new teacher"], to: { rungs: ["first-sundays"] } },
+    { term: "been teaching for years", also: ["experienced", "veteran"],           to: { rungs: ["reading-the-room", "holding-steady"] } }
   ]
 };</code></pre>
-<div class="panel note"><b>Compare:</b> <code>problems-data.js</code> puts its English category titles inside the overlay, so the Spanish site
-shows English challenge names. The Ladder avoids that by keeping words out of the structure file. Same pattern, one lesson learned.</div>
+<div class="panel note"><b>Compare:</b> the source's <code>concepts[]</code> cites the study session behind every term. These terms have no session
+to cite, so they say so, and step 6 weights them accordingly. Provenance is part of the data, not a footnote.</div>
 </li>
 
 <li>
-<h3>Put the words where words already live.</h3>
-<p>The loader already fetches one <code>strings.js</code> per language. Add keys there, named by rung id. No new mechanism.</p>
-<div class="two">
-<pre><code><span class="file">assets/lang/eng/strings.js</span><span class="c">// ---- ladder.html ----</span>
-"ladderTitle":   "Skills by readiness",
-"ladderHeading": "Where are you on the ladder?",
-"ladderRung_first-sundays_Title": "First Sundays",
-"ladderRung_first-sundays_Blurb": "Doable this week, no prep.",
-"ladderRung_building-habits_Title": "Building habits",
-…</code></pre>
-<pre><code><span class="file">assets/lang/spa/strings.js</span><span class="c">// ---- ladder.html ----</span>
-"ladderTitle":   "Habilidades según su preparación",
-"ladderHeading": "¿En qué peldaño está usted?",
-"ladderRung_first-sundays_Title": "Primeros domingos",
-"ladderRung_first-sundays_Blurb": "Esta semana, sin preparación.",
-"ladderRung_building-habits_Title": "Crear hábitos",
-…</code></pre>
-</div>
-</li>
-
-<li>
-<h3>Make the page shell. Copy the loading recipe.</h3>
-<p>Every page declares which bundles it needs, then loads the loader, then its view. The overlay is language-neutral, so it loads with a plain script tag, exactly like <code>problems-data.js</code>.</p>
-<pre><code><span class="file">ladder.html  (new) — the bottom of the body</span>&lt;div id="ladder"&gt;&lt;/div&gt;
-
-&lt;script&gt;window.TDS_CONFIG = { needs: ["data", "strings"] };&lt;/script&gt;   <span class="c">← which per-language bundles</span>
-&lt;script src="assets/i18n.js"&gt;&lt;/script&gt;          <span class="c">← loads them, fires tds:ready</span>
-&lt;script src="assets/ladder-data.js"&gt;&lt;/script&gt;   <span class="c">← the overlay, same for every language</span>
-&lt;script src="assets/ladder.js"&gt;&lt;/script&gt;        <span class="c">← the view</span></code></pre>
+<h3>Make the shell. Load everything by reference.</h3>
+<pre><code><span class="file">prototypes/v1/ladder/index.html  (new) — the bottom of the body</span>&lt;script src="../team-a/v1-data.js"&gt;&lt;/script&gt;          <span class="c">← the source, untouched</span>
+&lt;script src="../semantic/semantic-index.js"&gt;&lt;/script&gt;  <span class="c">← the generated index, untouched</span>
+&lt;script src="../cards/cards-data.js"&gt;&lt;/script&gt;         <span class="c">← the card layer, untouched</span>
+<span class="hl">&lt;script src="ladder-data.js"&gt;&lt;/script&gt;                <span class="c">← the new layer</span></span>
+&lt;script src="app.js"&gt;&lt;/script&gt;                        <span class="c">← this build's view code</span></code></pre>
 <div class="flow">
-  <div class="step"><b>ladder.html</b>declares <code>needs</code></div>
-  <div class="step"><b>i18n.js</b>reads <code>?lang=</code>, loads <code>lang/spa/skills-data.js</code> + <code>strings.js</code></div>
-  <div class="step"><b>tds:ready</b>fires once bundles exist</div>
-  <div class="step"><b>ladder.js</b>indexes source by id, walks overlay, renders</div>
+  <div class="step"><b>v1-data.js</b>53 blocks, filings, moments, concepts</div>
+  <div class="step"><b>semantic-index.js</b>meaning lookups by block index</div>
+  <div class="step"><b>cards-data.js</b>sit · first · prep by id</div>
+  <div class="step"><b>ladder-data.js</b>rung by id</div>
+  <div class="step"><b>app.js</b>selects, joins, renders one card template</div>
 </div>
 </li>
 
 <li>
-<h3>Write the view. It is a join, then a loop.</h3>
-<p>Two inputs, one output. The index is the same six lines every other view has. The loop follows the overlay's order, not the source's.</p>
-<pre><code><span class="file">assets/ladder.js  (new)</span>(function () {
-  function init() {
-    var D = window.TDS_DATA, L = window.TDS_LADDER, t = window.TDS_I18N.t;
-    var root = document.getElementById("ladder");
-    if (!D || !L || !root) return;
+<h3>Add a selector, a view, and a route. Copy the moment view's shape.</h3>
+<p>The moment view is the pattern: filter on the attribute, section by home filing, render through <code>blockList</code>. Three additions to the copied <code>app.js</code>.</p>
+<pre><code><span class="file">prototypes/v1/ladder/app.js — next to blocksAt()</span>var L = window.V1_LADDER;
+function rungByKey(key) { return L.rungs.filter(function (r) { return r.key === key; })[0]; }
+function rungOf(s)      { return (L.rungOf && L.rungOf[s.id]) || null; }   <span class="c">// tolerate drift</span>
+function blocksOnRung(key) {
+  return D.skills.filter(function (s) { return rungOf(s) === key; });
+}
 
-    <span class="c">// 1. index the source by id — colour and section ride along from the source</span>
-    var SK = {};
-    D.sections.forEach(function (s) {
-      s.skills.forEach(function (k) {
-        SK[k.id] = { name:k.name, url:k.url, gist:k.define, section:s.title, accent:s.accent };
-      });
-    });
+<span class="c">// next to viewMoment()</span>
+function viewRung(key) {
+  var r = rungByKey(key);
+  if (!r) { return notFound(); }
+  var list = blocksOnRung(r.key);
+  var sections = D.categories.map(function (c) {          <span class="c">// same sectioning as the moment view</span>
+    var mine = list.filter(function (s) { return s.filings[0].category === c.slug; });
+    return mine.length ? '&lt;div class="section"&gt;&lt;h2&gt;' + esc(c.name) + '&lt;/h2&gt;' + blockList(mine) + '&lt;/div&gt;' : "";
+  }).join("");
+  var next = L.rungs.filter(function (x) { return x.order === r.order + 1; })[0];   <span class="c">// ordered ⇒ "next rung" is free</span>
+  return crumbs([{ text: "Home", href: "#/" }, { text: r.name }]) +
+    here("Rung " + r.order, r.name, r.blurb + " " + plural(list.length, "skill", "skills") + ".") +
+    sections +
+    backnav((next ? [{ text: "Next rung: " + next.name + " →", href: "#/r/" + next.key }] : [])
+            .concat([{ text: "← Home", href: "#/" }]));
+}
 
-    <span class="c">// 2. walk the overlay in its own order; labels come from strings</span>
-    var html = "";
-    L.rungs.slice().sort(function (a, b) { return a.order - b.order; }).forEach(function (r) {
-      html += '&lt;section class="rung" id="rung-' + r.id + '"&gt;' +
-              '&lt;h2&gt;' + esc(t("ladderRung_" + r.id + "_Title")) + '&lt;/h2&gt;' +
-              '&lt;p&gt;'  + esc(t("ladderRung_" + r.id + "_Blurb")) + '&lt;/p&gt;&lt;ul&gt;';
-      r.skills.forEach(function (id) {
-        var sk = SK[id]; if (!sk) return;             <span class="c">// unknown id: skip, don't crash</span>
-        html += '&lt;li style="--a:' + sk.accent + '"&gt;' +
-                '&lt;a href="' + sk.url + '"&gt;' + esc(sk.name) + '&lt;/a&gt;' +
-                '&lt;span class="tag"&gt;' + esc(sk.section) + '&lt;/span&gt;&lt;/li&gt;';
-      });
-      html += '&lt;/ul&gt;&lt;/section&gt;';
-    });
-    root.innerHTML = html;
-  }
-  if (window.__tdsReady) init(); else document.addEventListener("tds:ready", init);
-})();</code></pre>
-<p>Switch the URL to <code>?lang=spa</code> and the whole page is Spanish. The overlay never noticed.</p>
+<span class="c">// in render(), one more branch; in FOCUS, one more key</span>
+else if (head === "r") { html = viewRung(seg[1]); }
+var FOCUS = { …, m: "here", <span class="hl">r: "here",</span> b: "manual", … };</code></pre>
 </li>
 
 <li>
-<h3>Link it. One line.</h3>
-<pre><code><span class="file">index.html — the subnav</span>&lt;a href="structure.html" data-i18n="navBrowseAll"&gt;Browse the full list of all skills &rarr;&lt;/a&gt;
-<span class="hl">&lt;a href="ladder.html"    data-i18n="navLadder"&gt;Find skills for where you are &rarr;&lt;/a&gt;</span></code></pre>
-<p>The <code>data-i18n</code> attribute means the link text is one more strings key. The loader rewrites relative links to carry <code>?lang=</code>, so the language follows the reader.</p>
+<h3>Give it a door on the home screen.</h3>
+<pre><code><span class="file">prototypes/v1/ladder/app.js — viewHome(), after the moments grid</span>var rungs = L.rungs.slice().sort(function (a, b) { return a.order - b.order; }).map(function (r) {
+  return tile("#/r/" + r.key, r.order + " · " + r.name,
+              r.blurb + " " + plural(blocksOnRung(r.key).length, "skill", "skills") + ".",
+              "Rung: " + r.name);
+}).join("");
+… + '&lt;div class="section"&gt;&lt;h2&gt;Start with how long you have been teaching&lt;/h2&gt;' +
+    '&lt;ul class="grid"&gt;' + rungs + "&lt;/ul&gt;&lt;/div&gt;"</code></pre>
+<p>The tile's <code>data-label</code> goes into the log as "Rung: First Sundays". The log schema does not change.</p>
 </li>
 
 <li>
-<h3>Check the join. Every time you edit.</h3>
-<p>An overlay can drift from its source. A one-to-one scheme has a stricter test than a many-to-many one. Paste this into the browser console on <code>ladder.html</code>.</p>
-<pre><code><span class="file">console check (or a 15-line Python script in tools/)</span>var ids = [], all = new Set();
-TDS_DATA.sections.forEach(s => s.skills.forEach(k => all.add(k.id)));
-TDS_LADDER.rungs.forEach(r => ids.push(...r.skills));
+<h3>Make it a facet. Four one-line edits, plus a fact on the block page.</h3>
+<p>The facet rack already knows four kinds: <code>c</code>, <code>g</code>, <code>m</code>, <code>p</code>. A fifth is the same four functions.</p>
+<pre><code><span class="file">prototypes/v1/ladder/app.js — the facet plumbing</span>function facetMatch(block, token) {
+  …
+  if (kind === "p") { return (cardOf(block).prep || "") === value; }
+  <span class="hl">if (kind === "r") { return rungOf(block) === value; }</span>
+}
+function facetName(token) {
+  …
+  <span class="hl">if (kind === "r") { return (rungByKey(value) || {}).name || value; }</span>
+}
+function facetCounts(results) {
+  var counts = { c: {}, g: {}, m: {}, p: {}<span class="hl">, r: {}</span> };
+  …
+  <span class="hl">var rk = rungOf(r.block); if (rk) { counts.r[rk] = (counts.r[rk] || 0) + 1; }</span>
+}
+<span class="c">// chipRack(): one more rack, in rung order</span>
+<span class="hl">rack("Narrow by readiness", "r", L.rungs.filter(function (r) { return counts.r[r.key]; })
+  .map(function (r) { return { value: r.key, name: r.name, n: counts.r[r.key] }; }));</span>
 
-console.log("unknown ids:",  ids.filter(i => !all.has(i)));                 <span class="c">// must be []</span>
-console.log("missing:",      [...all].filter(i => !ids.includes(i)));       <span class="c">// must be []  (one-to-one)</span>
-console.log("duplicates:",   ids.filter((i, n) => ids.indexOf(i) !== n));   <span class="c">// must be []  (one-to-one)</span></code></pre>
-<p>For comparison, the same check on <code>problems-data.js</code> reports two skills missing. That is allowed there. It is a bug here.</p>
+<span class="c">// viewBlock(): one more fact, linking into the rung view</span>
+<span class="hl">'&lt;div class="fact"&gt;&lt;p class="fact__key"&gt;Readiness&lt;/p&gt;&lt;p&gt;&lt;a class="tag" href="#/r/' + rk + '"&gt;' + esc(rungByKey(rk).name) + '&lt;/a&gt;&lt;/p&gt;&lt;/div&gt;'</span></code></pre>
+<p>Whether the rung also becomes a chip on every card is a design call, not a data call. A card already carries two or three chips.
+The revision notes would tag that decision <em>conviction</em>.</p>
+</li>
+
+<li>
+<h3>Teach the search, at the right weight.</h3>
+<p>Two changes. The rung name joins the literal haystack at the lowest weight, like moment names. The authored terms are matched the
+way <code>concepts[]</code> are, but their targets are rungs and their weight sits at the authored level. The rule from the card build holds:
+authored words never outrank the studies' words.</p>
+<pre><code><span class="file">prototypes/v1/ladder/app.js — search()</span>function haystacks(s) {
+  var rk = rungOf(s), rung = rk ? rungByKey(rk).name : "";
+  return { …, moment: norm(momentNames(s.moment).join(" ")), <span class="hl">rung: norm(rung)</span> };
+}
+<span class="c">// in the literal loop</span>
+<span class="hl">if (hasWord(h.rung, t)) { w = Math.max(w, W_MOMENT); }</span>
+
+<span class="c">// authored rung terms: whole-phrase match, W_SIT per block on the rung</span>
+<span class="hl">L.terms.forEach(function (c) {
+  var hit = [c.term].concat(c.also || []).some(function (p) { return norm(query).indexOf(norm(p)) !== -1; });
+  if (!hit) { return; }
+  c.to.rungs.forEach(function (rk) {
+    blocksOnRung(rk).forEach(function (s) { var r = slot(s); r.score += W_SIT; r.why = ["you sound " + c.term]; });
+  });
+});</span></code></pre>
+<div class="panel note"><b>The other option.</b> Add the rung blurbs to the corpus and rerun <code>tools/build_semantic_index.py</code>.
+That is the "derived at build" move: a bigger hammer, a new checked-in file, and "just called" would match by meaning without a hand-written term.
+Either is defensible. Say which one you chose and why.</div>
+</li>
+
+<li>
+<h3>Check the join. Then check the overlays against each other.</h3>
+<p>A one-to-one scheme has a strict test. Paste this into the console on the new build. Then run the second check: two overlays that both
+claim to know "how much" should mostly agree.</p>
+<pre><code><span class="file">console check</span>var all = new Set(D.skills.map(function (s) { return s.id; }));
+var ids = Object.keys(L.rungOf), keys = L.rungs.map(function (r) { return r.key; });
+console.log("unknown ids:",  ids.filter(function (i) { return !all.has(i); }));                   <span class="c">// must be []</span>
+console.log("missing:",      D.skills.filter(function (s) { return !L.rungOf[s.id]; }).map(function (s) { return s.id; })); <span class="c">// must be []</span>
+console.log("unknown rung:", ids.filter(function (i) { return keys.indexOf(L.rungOf[i]) === -1; }));  <span class="c">// must be []</span>
+
+<span class="c">// coherence: "First Sundays" blocks that the card layer says take getting ready</span>
+console.log(blocksOnRung("first-sundays").filter(function (s) { return cardOf(s).prep === "ahead"; }).map(function (s) { return s.id; }));</code></pre>
+<p>On the example assignment the last line returns five blocks. Sending a parent a text takes getting ready in the card layer's sense
+(you do it during the week) and is still a first-Sunday skill in the Ladder's sense (no courage, no materials). Both overlays can be right.
+The check does not decide; it makes you decide, out loud, in the provenance note.</p>
+</li>
+
+<li>
+<h3>Leave the log alone. It already sees the new scheme.</h3>
+<p>Route <code>r/first-sundays</code> lands in <code>toRoute</code>. The chip lands in <code>facet</code> as <code>r:first-sundays on</code>. The tile
+label lands in <code>label</code>. The task test can now answer one question the card build could not: does anyone walk in by readiness at all?</p>
 </li>
 </ol>
 
-<h3>A second view for free</h3>
-<p>Views compose. The summary page already carries five ids in <code>#sel=</code>. Read them on the Ladder page and you get
-"where your five skills sit, and what the next rung looks like" with no new data at all.</p>
-<pre><code><span class="file">assets/ladder.js — optional addition</span><span class="c">// rung of each skill, inverted from the overlay</span>
-var rungOf = {};
-L.rungs.forEach(function (r) { r.skills.forEach(function (id) { rungOf[id] = r.order; }); });
-
-<span class="c">// the reader's five, from the same hash the summary page uses</span>
-var m = /sel=([^&amp;]*)/.exec(location.hash);
-var mine = m ? m[1].split(",") : [];
-var highest = Math.max.apply(null, mine.map(function (id) { return rungOf[id] || 0; }));
-<span class="c">// highlight `mine`, then suggest a skill from rung `highest + 1`</span></code></pre>
-
 <h3>Coverage as a view of its own</h3>
-<p>Once the join exists, counting is a view too. This matrix is the source crossed with the overlay. It shows the example
-assignment used on this page, and it is what a reviewer looks at first.</p>
+<p>Once the join exists, counting is a view too. Both tables are the source crossed with the overlays. They show the example assignment
+used on this page, and they are what a reviewer looks at first.</p>
+<div class="two">
 <div class="tbl-wrap"><table class="matrix" id="matrix"></table></div>
+<div class="tbl-wrap"><table class="matrix" id="matrix2"></table></div>
+</div>
 
-<!-- ============================================================ 6 -->
+<!-- ============================================================ 7 -->
 <h2><span class="num">7</span>Rules to carry to your own project</h2>
-<div class="panel rule"><b>Ids are addresses.</b> Give every record one. Never rename it. Views, overlays, URLs, and other languages all meet at the id.</div>
-<div class="panel rule"><b>Overlays point; they do not copy.</b> If a name appears in two files, one of them is wrong.</div>
-<div class="panel rule"><b>Structure and words are separate.</b> Slugs in the structure file. Labels in the strings file. The Polar Bear book treats labeling as its own system for exactly this reason.</div>
-<div class="panel rule"><b>Expect more schemes than one.</b> Ranganathan's point. Store each facet on its own, compose at lookup, and the next scheme costs one file. Folding facets into a single tree makes the second scheme cost a rewrite.</div>
-<div class="panel rule"><b>Walk LATCH before inventing.</b> Five letters, five minutes. It tells you which schemes are exact (derive them) and which are ambiguous (author them).</div>
-<div class="panel rule"><b>Decide cardinality first.</b> One place or many? Ordered or not? Those answers write your validator.</div>
-<div class="panel rule"><b>A new view touches no old view.</b> If adding a page forces you to edit another page's script, the source has leaked into a view.</div>
+<div class="panel rule"><b>Ids are addresses.</b> Give every record one. Never rename it. Routes, overlays, logs, indexes, and other builds all meet at the id.</div>
+<div class="panel rule"><b>Overlays point; they do not copy.</b> If a name appears in two files, one of them is wrong. §2 found one.</div>
+<div class="panel rule"><b>Load data by reference; copy only views.</b> The revision line's own rule. A new build may fork <code>app.js</code>. It may never fork <code>v1-data.js</code>.</div>
+<div class="panel rule"><b>Keys and words are separate.</b> Slugs in routes and logs, names on screen. The Polar Bear book treats labeling as its own system for exactly this reason.</div>
+<div class="panel rule"><b>Expect more schemes than one.</b> Ranganathan's point. Store each facet on its own, compose at lookup, and the next scheme costs one file.</div>
+<div class="panel rule"><b>Walk LATCH before inventing.</b> It tells you which schemes are exact (derive them) and which are ambiguous (author them), and which the build already has.</div>
+<div class="panel rule"><b>Write the provenance into the data.</b> Harvested, authored, derived, generated. The search weights and the card lead read it. So does the grader.</div>
 
 <h2><span class="num">8</span>Try it</h2>
 <ul class="tight">
-  <li><b>Derived (A):</b> group the 53 skills by the first verb of <code>name</code> ("Ask", "Create", "Invite", "Testify" …). No new file. Which move from §3 is this?</li>
-  <li><b>Overlay, many-to-many (C, audience):</b> tag skills by audience: children, youth, adults. Write the validator before the data. What does "missing" mean here?</li>
-  <li><b>Repair (labeling system):</b> move the category and challenge titles out of <code>problems-data.js</code> into the strings files. What breaks on the way? What now works in Spanish?</li>
-  <li><b>Compose (facets):</b> make <code>problems.html</code> show each helping skill's rung. Which file do you add a script tag to? Which file do you not touch?</li>
-  <li><b>Time (T):</b> the companion prototypes carry a <code>moment</code> facet the live site lacks. Sketch the overlay file and the strings keys. Which of the four shape questions changes versus the Ladder?</li>
+  <li><b>Derived (A):</b> add <code>#/az</code>, all 53 blocks by name. No new file. Which move from §3 is this, and where does the sort live?</li>
+  <li><b>Overlay, many-to-many (C, audience):</b> tag blocks by audience: children, youth, adults. Write the validator before the data. What does "missing" mean here?</li>
+  <li><b>Repair (labeling):</b> delete <code>GROUP_LABELS</code> from <code>app.js</code> and read the name through <code>groupBySlug()</code>. What else in the block page was quietly depending on it?</li>
+  <li><b>Make the convention explicit:</b> the moment view sections by <code>filings[0]</code>. Nothing in the data says the first filing is the home filing. Add a field, or a comment, and say which you chose.</li>
+  <li><b>Compose (facets):</b> put the rung on the card as a chip, then look at a two-up grid on a phone. Keep it or take it out, and tag the decision evidence or conviction.</li>
+  <li><b>Derived at build (T → H):</b> instead of <code>terms[]</code>, add the rung blurbs to the corpus and rebuild the semantic index. What new file appears, and what does the next build have to load?</li>
 </ul>
 
-<footer>Written for CS 356 from the Teaching Skills codebase. The Ladder rung assignments on this page are an illustration by the instructor, not vetted content.
-Dot groupings are computed live from the real <code>skills-data.js</code> and <code>problems-data.js</code> as of 2026-09-08.<br>
-Frameworks: Rosenfeld, Morville &amp; Arango, <i>Information Architecture: For the Web and Beyond</i> (the Polar Bear book), ch. on organization, labeling, navigation, and search systems ·
+<footer>Written for CS 356 from the companion's prototype v1 card build. The Ladder rung assignments on this page are an illustration by the instructor,
+not vetted content. Dot groupings and the coverage tables are computed live from the real <code>v1-data.js</code> and <code>cards-data.js</code> as of 2026-09-08.
+The studies the build cites are the companion's standing fiction.<br>
+Frameworks: Rosenfeld, Morville &amp; Arango, <i>Information Architecture: For the Web and Beyond</i> (the Polar Bear book), organization, labeling, navigation, and search systems ·
 Wurman, <i>Information Anxiety</i>, LATCH · Ranganathan, <i>Colon Classification</i>, faceted classification (PMEST).</footer>
 </div>
 
-<script id="data" type="application/json">{"sections": [{"t": "Focus on Jesus Christ", "a": "#1f7a8c", "tint": "#e7f1f3"}, {"t": "Love Those You Teach", "a": "#c79100", "tint": "#fbf3da"}, {"t": "Teach By the Spirit", "a": "#b8651b", "tint": "#fbede0"}, {"t": "Teach the Doctrine", "a": "#9b3b4e", "tint": "#f6e6ea"}, {"t": "Invite Diligent Learning", "a": "#2f8a52", "tint": "#e6f3ea"}], "cats": ["Getting everyone to participate", "Keeping Jesus Christ at the center", "Making it relevant and leading to real change", "Building relationships and a safe class", "Inviting the Spirit and deepening testimony", "Handling hard questions and teaching sound doctrine", "Preparing yourself and managing the lesson"], "skills": [{"id": "004.title_number1", "s": 0, "page": "Emphasize the example of Jesus Christ", "n": "Help students connect what they are learning with how Christ exemplifies the principle.", "cats": [1], "r": 2}, {"id": "004.title_number2", "s": 0, "page": "Emphasize the example of Jesus Christ", "n": "Use pictures and videos of Jesus Christ to illustrate a gospel principle.", "cats": [0, 5], "r": 1}, {"id": "005.p16", "s": 0, "page": "Teach about the titles, roles, and attributes of Jesus Christ", "n": "Create search questions to help students identify roles, titles, symbols, attributes, and characteristics of Jesus Christ.", "cats": [], "r": 2}, {"id": "005.title_number17", "s": 0, "page": "Teach about the titles, roles, and attributes of Jesus Christ", "n": "Ask questions that allow students to identify roles Jesus Christ can have in their lives.", "cats": [1, 2], "r": 3}, {"id": "006.title_number1", "s": 0, "page": "Look for symbols that testify of Jesus Christ", "n": "Ask questions that help students learn about Jesus Christ through symbols in the scriptures.", "cats": [1], "r": 2}, {"id": "006.title_number2", "s": 0, "page": "Look for symbols that testify of Jesus Christ", "n": "Help students have a sensory experience with scriptural objects that symbolize Jesus Christ.", "cats": [0, 5], "r": 3}, {"id": "007.title_number1", "s": 0, "page": "Help learners recognize the Lord’s love, power, and mercy in their lives", "n": "Ask questions that focus on connecting the Lord’s power, mercy, and influence to the truths being taught.", "cats": [1], "r": 2}, {"id": "007.title_number2", "s": 0, "page": "Help learners recognize the Lord’s love, power, and mercy in their lives", "n": "Give invitations that help learners recognize the Lord’s love, power, and mercy in their own experiences.", "cats": [1], "r": 3}, {"id": "008.title_number1", "s": 0, "page": "Help learners strengthen their relationship with Heavenly Father and Jesus Christ", "n": "Statements that help students know and feel the love of Heavenly Father and Jesus Christ.", "cats": [1, 4], "r": 3}, {"id": "008.title_number2", "s": 0, "page": "Help learners strengthen their relationship with Heavenly Father and Jesus Christ", "n": "Ask questions that help students find examples of Heavenly Father’s love in the scripture passage.", "cats": [1], "r": 2}, {"id": "009.title_number1", "s": 0, "page": "Help learners intentionally strive to be more like Jesus Christ", "n": "Observe Christlike attributes in students and share what you’ve noticed in ways that inspire them to continue to be like Him.", "cats": [1], "r": 4}, {"id": "009.title_number2", "s": 0, "page": "Help learners intentionally strive to be more like Jesus Christ", "n": "Invite students to look for ways to follow the example of Jesus Christ in their personal lives.", "cats": [1, 2], "r": 1}, {"id": "011.title_number1", "s": 1, "page": "See learners the way God sees them", "n": "Study recent prophetic messages to understand how Heavenly Father sees young people.", "cats": [3], "r": 3}, {"id": "011.title_number2", "s": 1, "page": "See learners the way God sees them", "n": "“Think celestial” about your students to help you see them as God does.", "cats": [3], "r": 2}, {"id": "012.intro2", "s": 1, "page": "Seek to know them—understand their circumstances, needs, and strengths", "n": "Observe and ask about students’ interests.", "cats": [3], "r": 1}, {"id": "012.title_number4", "s": 1, "page": "Seek to know them—understand their circumstances, needs, and strengths", "n": "Pause, reflect, and answer questions we ask ourselves that invite a Christlike spirit of discernment, love, and empathy in our interactions.", "cats": [3], "r": 3}, {"id": "012.title_number3", "s": 1, "page": "Seek to know them—understand their circumstances, needs, and strengths", "n": "Seek to clarify and understand the real intent of students’ questions, feelings, and beliefs.", "cats": [3], "r": 3}, {"id": "013.intro2", "s": 1, "page": "Pray for them by name", "n": "Pray and ask how you can help your students and follow the promptings from the Holy Ghost.", "cats": [3], "r": 1}, {"id": "013.intro3", "s": 1, "page": "Pray for them by name", "n": "Invite students to pray for other students.", "cats": [3], "r": 2}, {"id": "014.intro2", "s": 1, "page": "Create a safe environment where all are respected and know their contributions are valued", "n": "Communicate that you value students before they comment or as they raise their hand to comment.", "cats": [3], "r": 1}, {"id": "014.title_number3", "s": 1, "page": "Create a safe environment where all are respected and know their contributions are valued", "n": "Communicate that students are not only welcome but needed.", "cats": [0, 3], "r": 1}, {"id": "015.title_number1", "s": 1, "page": "Find appropriate ways to express your love", "n": "Send a message to a student’s parent about something positive you have noticed about their child.", "cats": [3], "r": 1}, {"id": "015.title_number2", "s": 1, "page": "Find appropriate ways to express your love", "n": "Testify of God’s love when it is hard for you to feel or express love to those you teach.", "cats": [3], "r": 4}, {"id": "017.title_number1", "s": 2, "page": "Prepare yourself spiritually", "n": "Use the document “Improving as a Christlike Teacher—A Personal Evaluation” to invite the Holy Ghost to help you refine your preparations to teach.", "cats": [6], "r": 3}, {"id": "017.title_number2", "s": 2, "page": "Prepare yourself spiritually", "n": "Ask questions to assess your own experience and testimony with Jesus Christ and the doctrine and principles in the lesson.", "cats": [6], "r": 2}, {"id": "018.title_number1", "s": 2, "page": "Always be ready to respond to spiritual promptings about the needs of learners", "n": "Ask a question to assess learning before moving on in the lesson.", "cats": [0, 6], "r": 1}, {"id": "018.title_number2", "s": 2, "page": "Always be ready to respond to spiritual promptings about the needs of learners", "n": "Listen to and observe students to ask follow-up questions.", "cats": [3, 6], "r": 2}, {"id": "019.intro1", "s": 2, "page": "Create settings and opportunities for learners to be taught by the Holy Ghost", "n": "Create student self-evaluations about a doctrine, truth, or principle.", "cats": [6], "r": 3}, {"id": "019.title_number2", "s": 2, "page": "Create settings and opportunities for learners to be taught by the Holy Ghost", "n": "Use sacred music. Invite students to identify lines and phrases in sacred music that connect with the truths they are learning.", "cats": [0, 4, 6], "r": 2}, {"id": "020.intro2", "s": 2, "page": "Help learners seek, recognize, and act on personal revelation", "n": "Before responding to a student’s question or comment, pause and think, “What can I ask them?” or “What can I invite them to do?”", "cats": [0, 4, 5], "r": 2}, {"id": "020.title_number3", "s": 2, "page": "Help learners seek, recognize, and act on personal revelation", "n": "Share statements that help students recognize when the Holy Ghost is performing His role or function.", "cats": [4], "r": 3}, {"id": "021.title_number1", "s": 2, "page": "Bear testimony often and invite learners to share their feelings, experiences, and testimonies", "n": "Create prompts that help students verbalize their feelings, experiences, and testimony.", "cats": [4], "r": 3}, {"id": "021.title_number2", "s": 2, "page": "Bear testimony often and invite learners to share their feelings, experiences, and testimonies", "n": "Testify more frequently and more powerfully of Jesus Christ.", "cats": [1, 4], "r": 1}, {"id": "023.title_number1", "s": 3, "page": "Learn the doctrine of Jesus Christ for yourself", "n": "Create open-ended search questions that help learners discover gospel doctrine and principles for themselves and do not lead students to a specific response.", "cats": [0, 6], "r": 2}, {"id": "023.title_number2", "s": 3, "page": "Learn the doctrine of Jesus Christ for yourself", "n": "Search the scriptures and words of the prophets for deeper understanding.", "cats": [5, 6], "r": 1}, {"id": "024.title_number1", "s": 3, "page": "Teach from the scriptures and the words of latter-day prophets", "n": "Prepare invitations that help students connect truths found in the scriptures to what living prophets are saying.", "cats": [5], "r": 2}, {"id": "024.title_number2", "s": 3, "page": "Teach from the scriptures and the words of latter-day prophets", "n": "Express your love for and testimony of prophets as their words are shared in class.", "cats": [4, 5], "r": 1}, {"id": "025.intro2", "s": 3, "page": "Help learners seek, recognize, and understand truths in the scriptures", "n": "Create student self-evaluations that help them recognize their current understanding and abilities about scripture study skills.", "cats": [], "r": 3}, {"id": "025.title_number3", "s": 3, "page": "Help learners seek, recognize, and understand truths in the scriptures", "n": "Consider assessment questions to carefully choose media, personal stories, and object lessons.", "cats": [5], "r": 3}, {"id": "026.intro2", "s": 3, "page": "Focus on truths that lead to conversion and build faith in Jesus Christ", "n": "Ask questions that help students identify and state converting principles.", "cats": [0, 5], "r": 3}, {"id": "026.title_number3", "s": 3, "page": "Focus on truths that lead to conversion and build faith in Jesus Christ", "n": "Respond to questions in a way that avoids speculation and nondoctrinal personal ideas.", "cats": [5], "r": 3}, {"id": "027.title_number1", "s": 3, "page": "Help learners find personal relevance in the doctrine of Jesus Christ", "n": "Prepare invitations and prompts that help students find personal relevance to a scripture block.", "cats": [2], "r": 2}, {"id": "027.title_number2", "s": 3, "page": "Help learners find personal relevance in the doctrine of Jesus Christ", "n": "Start a learning activity by inviting students to ponder a personal circumstance.", "cats": [0, 2, 6], "r": 2}, {"id": "029.title_number1", "s": 4, "page": "Help learners take responsibility for their learning", "n": "Resist the tendency to respond to every comment and question and invite the class to respond.", "cats": [0], "r": 1}, {"id": "029.title_number2", "s": 4, "page": "Help learners take responsibility for their learning", "n": "Focus on what the learner can do in class that the teacher typically does.", "cats": [0], "r": 3}, {"id": "030.intro2", "s": 4, "page": "Encourage learners to come to know the Savior by studying the gospel daily—study goal", "n": "Assist students in creating a daily scripture study goal.", "cats": [2], "r": 2}, {"id": "030.title_number3", "s": 4, "page": "Encourage learners to come to know the Savior by studying the gospel daily—study goal", "n": "Develop and ask questions that help learners connect what they have learned in their personal and family scripture study to the classroom experience.", "cats": [2], "r": 3}, {"id": "031.title_number1", "s": 4, "page": "Invite learners to prepare to learn", "n": "Create invitations that help learners prepare for the next learning experience.", "cats": [2], "r": 2}, {"id": "031.title_number2", "s": 4, "page": "Invite learners to prepare to learn", "n": "Create a meaningful invitation connected to the lesson outcome to be used at the beginning of each lesson.", "cats": [0, 6], "r": 1}, {"id": "032.intro2", "s": 4, "page": "Encourage learners to share the truths they are learning", "n": "Help students create or begin gospel conversations.", "cats": [2], "r": 3}, {"id": "032.title_number3", "s": 4, "page": "Encourage learners to share the truths they are learning", "n": "Prepare invitations for students to share with each other what they are learning.", "cats": [2], "r": 2}, {"id": "033.title_number1", "s": 4, "page": "Invite learners to live what they are learning", "n": "Plan to follow up on invitations given in a previous class and invite learners to share their experiences living what they learned.", "cats": [2], "r": 2}, {"id": "033.title_number2", "s": 4, "page": "Invite learners to live what they are learning", "n": "Ask search questions that help learners consider who God is and blessings He offers them.", "cats": [1], "r": 3}]}</script>
+<script id="data" type="application/json">{"cats": [{"slug": "christ", "n": "Teaching about Jesus Christ", "trial": false}, {"slug": "attention", "n": "Keeping their attention", "trial": false}, {"slug": "love", "n": "Knowing and loving the people you teach", "trial": false}, {"slug": "prep", "n": "Getting ready before Sunday", "trial": false}, {"slug": "talk", "n": "Getting people to talk", "trial": false}, {"slug": "feels", "n": "What it feels like", "trial": true}], "groups": [{"slug": "about-their-own-life", "cat": "christ", "n": "Making it about their own life"}, {"slug": "finding-him-in-the-scriptures", "cat": "christ", "n": "Finding Him in the scriptures"}, {"slug": "bearing-witness-in-class", "cat": "christ", "n": "Bearing witness in class"}, {"slug": "what-the-prophets-say", "cat": "christ", "n": "What the prophets say"}, {"slug": "see-or-hear", "cat": "attention", "n": "Something they can see or hear"}, {"slug": "do-not-watch", "cat": "attention", "n": "Something they do, not watch"}, {"slug": "safe-to-speak-up", "cat": "love", "n": "Making the room safe to speak up"}, {"slug": "getting-to-know-them", "cat": "love", "n": "Getting to know them"}, {"slug": "during-the-week", "cat": "love", "n": "Caring about them during the week"}, {"slug": "getting-yourself-ready", "cat": "prep", "n": "Getting yourself ready"}, {"slug": "planning-the-lesson", "cat": "prep", "n": "Planning what happens in class"}, {"slug": "invitations-they-take-home", "cat": "prep", "n": "Invitations they take home"}, {"slug": "not-answering-it-yourself", "cat": "talk", "n": "Not answering it yourself"}, {"slug": "talking-to-each-other", "cat": "talk", "n": "Getting them talking to each other"}, {"slug": "asking-for-a-real-answer", "cat": "talk", "n": "Asking so you get a real answer"}], "moments": [{"key": "opening", "n": "The first few minutes"}, {"key": "during", "n": "In the middle of the lesson"}, {"key": "closing", "n": "The last few minutes"}, {"key": "after", "n": "After class and during the week"}], "rungs": [{"key": "first-sundays", "n": "First Sundays"}, {"key": "building-habits", "n": "Building habits"}, {"key": "reading-the-room", "n": "Reading the room"}, {"key": "holding-steady", "n": "Holding steady"}], "skills": [{"id": "004.title_number1", "n": "Help students connect what they are learning with how Christ exemplifies the principle.", "lab": null, "f": [["christ", "about-their-own-life"]], "m": ["during"], "prep": "none", "sit": "When your lesson is turning into a school lesson", "first": "Pick tonight’s principle and ask, “When did the Savior live this?”", "r": 2}, {"id": "004.title_number2", "n": "Use pictures and videos of Jesus Christ to illustrate a gospel principle.", "lab": null, "f": [["attention", "see-or-hear"]], "m": ["opening", "during"], "prep": "ahead", "sit": "When you want them to see Him, not just hear about Him", "first": "Choose one picture of Christ and plan the one question you will ask about it.", "r": 1}, {"id": "005.p16", "n": "Create search questions to help students identify roles, titles, symbols, attributes, and characteristics of Jesus Christ.", "lab": null, "f": [["christ", "finding-him-in-the-scriptures"]], "m": ["during"], "prep": "ahead", "sit": "When you want the scriptures to show them who He is", "first": "Write one question that sends them hunting a title of Christ in the passage.", "r": 2}, {"id": "005.title_number17", "n": "Ask questions that allow students to identify roles Jesus Christ can have in their lives.", "lab": null, "f": [["christ", "finding-him-in-the-scriptures"]], "m": ["during"], "prep": "none", "sit": "When you want them to see what He can be in their lives", "first": "Ask: “Which of these roles do you need Him to fill this week?”", "r": 3}, {"id": "006.title_number1", "n": "Ask questions that help students learn about Jesus Christ through symbols in the scriptures.", "lab": null, "f": [["christ", "finding-him-in-the-scriptures"]], "m": ["during"], "prep": "none", "sit": "When a symbol is sitting in the passage waiting to be found", "first": "Point at the bread, the water, the lamb — ask what it says about Him.", "r": 2}, {"id": "006.title_number2", "n": "Help students have a sensory experience with scriptural objects that symbolize Jesus Christ.", "lab": "Let them handle something that points to Christ", "f": [["attention", "do-not-watch"], ["christ", "finding-him-in-the-scriptures"]], "m": ["during"], "prep": "ahead", "sit": "Let them handle something that points to Christ", "first": "Bring the object itself — oil, a stone, a seed — and let it go around the room.", "r": 3}, {"id": "007.title_number1", "n": "Ask questions that focus on connecting the Lord’s power, mercy, and influence to the truths being taught.", "lab": null, "f": [["christ", "bearing-witness-in-class"]], "m": ["during"], "prep": "none", "sit": "When the lesson names a truth but not the Lord behind it", "first": "Rephrase your next question to include Him: “Where is the Lord’s mercy in this verse?”", "r": 2}, {"id": "007.title_number2", "n": "Give invitations that help learners recognize the Lord’s love, power, and mercy in their own experiences.", "lab": null, "f": [["christ", "about-their-own-life"]], "m": ["closing"], "prep": "none", "sit": "When you want them to spot His hand in their own lives", "first": "Invite them to name one moment this month they would now call His hand.", "r": 3}, {"id": "008.title_number1", "n": "Statements that help students know and feel the love of Heavenly Father and Jesus Christ.", "lab": null, "f": [["christ", "bearing-witness-in-class"]], "m": ["during", "closing"], "prep": "none", "sit": "When somebody in the room needs to hear that God loves them", "first": "Say it plainly, by name: “God knows you, and He loves you.”", "r": 3}, {"id": "008.title_number2", "n": "Ask questions that help students find examples of Heavenly Father’s love in the scripture passage.", "lab": null, "f": [["christ", "finding-him-in-the-scriptures"]], "m": ["during"], "prep": "none", "sit": "When His love is in the passage and nobody has noticed", "first": "Ask: “Where do you see the Father’s love in these verses?”", "r": 2}, {"id": "009.title_number1", "n": "Observe Christlike attributes in students and share what you’ve noticed in ways that inspire them to continue to be like Him.", "lab": null, "f": [["love", "safe-to-speak-up"]], "m": ["during", "after"], "prep": "none", "sit": "When you catch a kid quietly being like Him", "first": "Tell one student, this week, the Christlike thing you saw them do.", "r": 4}, {"id": "009.title_number2", "n": "Invite students to look for ways to follow the example of Jesus Christ in their personal lives.", "lab": null, "f": [["christ", "about-their-own-life"]], "m": ["closing"], "prep": "none", "sit": "When you want the lesson to leave the room with them", "first": "End class with: “Watch for one chance to do what He did.”", "r": 1}, {"id": "011.title_number1", "n": "Study recent prophetic messages to understand how Heavenly Father sees young people.", "lab": null, "f": [["love", "getting-to-know-them"]], "m": ["after"], "prep": "ahead", "sit": "When you are struggling to see what God sees in them", "first": "Read one recent conference talk asking only: how does God see these kids?", "r": 3}, {"id": "011.title_number2", "n": "“Think celestial” about your students to help you see them as God does.", "lab": null, "f": [["love", "getting-to-know-them"]], "m": ["opening", "after"], "prep": "none", "sit": "When a student has become “that kid” in your head", "first": "Pick the student who wears you out and imagine who they are becoming.", "r": 2}, {"id": "012.intro2", "n": "Observe and ask about students’ interests.", "lab": null, "f": [["love", "getting-to-know-them"]], "m": ["opening", "after"], "prep": "none", "sit": "When you realize you don’t actually know them", "first": "Ask one student what their week really looks like — then remember it.", "r": 1}, {"id": "012.title_number4", "n": "Pause, reflect, and answer questions we ask ourselves that invite a Christlike spirit of discernment, love, and empathy in our interactions.", "lab": null, "f": [["love", "during-the-week"]], "m": ["during", "after"], "prep": "none", "sit": "When you want to react less and understand more", "first": "Before you respond, ask yourself: “What is really going on for them?”", "r": 3}, {"id": "012.title_number3", "n": "Seek to clarify and understand the real intent of students’ questions, feelings, and beliefs.", "lab": null, "f": [["love", "getting-to-know-them"]], "m": ["during"], "prep": "none", "sit": "When the question they asked isn’t the real question", "first": "Answer their question with: “Say more about what you mean.”", "r": 3}, {"id": "013.intro2", "n": "Pray and ask how you can help your students and follow the promptings from the Holy Ghost.", "lab": null, "f": [["love", "during-the-week"]], "m": ["after"], "prep": "ahead", "sit": "When you don’t know what a student needs", "first": "Tonight, pray with your class list in front of you — and listen.", "r": 1}, {"id": "013.intro3", "n": "Invite students to pray for other students.", "lab": null, "f": [["love", "safe-to-speak-up"]], "m": ["opening", "closing"], "prep": "none", "sit": "When you want the class to care about each other", "first": "Invite someone to pray for a classmate, by name, to open class.", "r": 2}, {"id": "014.intro2", "n": "Communicate that you value students before they comment or as they raise their hand to comment.", "lab": null, "f": [["love", "safe-to-speak-up"]], "m": ["during"], "prep": "none", "sit": "When a hand goes halfway up and comes back down", "first": "Catch the half-raised hand: “I want to hear yours.”", "r": 1}, {"id": "014.title_number3", "n": "Communicate that students are not only welcome but needed.", "lab": null, "f": [["love", "safe-to-speak-up"]], "m": ["opening", "during"], "prep": "none", "sit": "When somebody thinks class would run fine without them", "first": "Tell the back row the truth: the class is poorer when they are silent.", "r": 1}, {"id": "015.title_number1", "n": "Send a message to a student’s parent about something positive you have noticed about their child.", "lab": null, "f": [["love", "during-the-week"]], "m": ["after"], "prep": "ahead", "sit": "When a kid did something good and their parents should hear it", "first": "Text one parent tonight: “Here’s what I noticed about your kid on Sunday.”", "r": 1}, {"id": "015.title_number2", "n": "Testify of God’s love when it is hard for you to feel or express love to those you teach.", "lab": null, "f": [["love", "during-the-week"]], "m": ["during"], "prep": "none", "sit": "When loving one of them is honestly hard right now", "first": "Testify of God’s love for them — let His carry yours for a while.", "r": 4}, {"id": "017.title_number1", "n": "Use the document “Improving as a Christlike Teacher—A Personal Evaluation” to invite the Holy Ghost to help you refine your preparations to teach.", "lab": null, "f": [["prep", "getting-yourself-ready"]], "m": ["after"], "prep": "ahead", "sit": "When you want a mirror held up to your own teaching", "first": "Run the personal evaluation once, honestly, before you open the outline.", "r": 3}, {"id": "017.title_number2", "n": "Ask questions to assess your own experience and testimony with Jesus Christ and the doctrine and principles in the lesson.", "lab": null, "f": [["prep", "getting-yourself-ready"]], "m": ["after"], "prep": "ahead", "sit": "When the lesson is ready but you aren’t", "first": "Ask yourself first: “What do I actually believe about this doctrine?”", "r": 2}, {"id": "018.title_number1", "n": "Ask a question to assess learning before moving on in the lesson.", "lab": null, "f": [["talk", "not-answering-it-yourself"]], "m": ["during"], "prep": "none", "sit": "When you’re about to move on and aren’t sure they’re with you", "first": "Before the next section, ask: “What would you tell someone this means?”", "r": 1}, {"id": "018.title_number2", "n": "Listen to and observe students to ask follow-up questions.", "lab": null, "f": [["talk", "not-answering-it-yourself"]], "m": ["during"], "prep": "none", "sit": "When an answer has more behind it than they said", "first": "Follow their answer with: “What makes you say that?”", "r": 2}, {"id": "019.intro1", "n": "Create student self-evaluations about a doctrine, truth, or principle.", "lab": null, "f": [["prep", "planning-the-lesson"]], "m": ["during", "after"], "prep": "ahead", "sit": "When you want them to see where they actually stand", "first": "Draft three “I can…” statements and let them rate themselves privately.", "r": 3}, {"id": "019.title_number2", "n": "Use sacred music. Invite students to identify lines and phrases in sacred music that connect with the truths they are learning.", "lab": null, "f": [["attention", "see-or-hear"]], "m": ["opening", "during"], "prep": "ahead", "sit": "When a song would carry it better than you can", "first": "Pick one hymn line that says what your lesson says, and ask them to find it.", "r": 2}, {"id": "020.intro2", "n": "Before responding to a student’s question or comment, pause and think, “What can I ask them?” or “What can I invite them to do?”", "lab": null, "f": [["talk", "not-answering-it-yourself"]], "m": ["during"], "prep": "none", "sit": "When your first instinct is to just answer them", "first": "Count two seconds, then ask: “What do the rest of you think?”", "r": 2}, {"id": "020.title_number3", "n": "Share statements that help students recognize when the Holy Ghost is performing His role or function.", "lab": null, "f": [["christ", "bearing-witness-in-class"], ["feels", null]], "m": ["during"], "prep": "none", "sit": "When someone can’t tell if it was the Spirit or just them", "first": "Name the feeling out loud: “That peace you felt — that has a source.”", "r": 3}, {"id": "021.title_number1", "n": "Create prompts that help students verbalize their feelings, experiences, and testimony.", "lab": null, "f": [["talk", "talking-to-each-other"]], "m": ["during", "closing"], "prep": "ahead", "sit": "When you want them to put what they feel into words", "first": "Prompt with: “Finish this sentence — I know for myself that…”", "r": 3}, {"id": "021.title_number2", "n": "Testify more frequently and more powerfully of Jesus Christ.", "lab": null, "f": [["christ", "bearing-witness-in-class"]], "m": ["during", "closing"], "prep": "none", "sit": "When it’s been weeks since you testified of Him", "first": "Testify of Christ this Sunday, in two sentences, unannounced.", "r": 1}, {"id": "023.title_number1", "n": "Create open-ended search questions that help learners discover gospel doctrine and principles for themselves and do not lead students to a specific response.", "lab": "When you want them to find it themselves", "f": [["talk", "asking-for-a-real-answer"]], "m": ["during"], "prep": "ahead", "sit": "When you want them to find it themselves", "first": "Swap “Does anyone know…” for “What do you find in verse 3?”", "r": 2}, {"id": "023.title_number2", "n": "Search the scriptures and words of the prophets for deeper understanding.", "lab": null, "f": [["prep", "getting-yourself-ready"]], "m": ["after"], "prep": "ahead", "sit": "When your own understanding is running on empty", "first": "Take one verse from Sunday’s block and chase it through the Topical Guide.", "r": 1}, {"id": "024.title_number1", "n": "Prepare invitations that help students connect truths found in the scriptures to what living prophets are saying.", "lab": null, "f": [["christ", "what-the-prophets-say"]], "m": ["during"], "prep": "ahead", "sit": "When the scriptures and the prophets are saying the same thing", "first": "Pair one verse with one conference quote and ask what they share.", "r": 2}, {"id": "024.title_number2", "n": "Express your love for and testimony of prophets as their words are shared in class.", "lab": null, "f": [["christ", "what-the-prophets-say"]], "m": ["during"], "prep": "none", "sit": "When the prophet’s words deserve more than a read-through", "first": "Before quoting the prophet, tell the class why you trust him.", "r": 1}, {"id": "025.intro2", "n": "Create student self-evaluations that help them recognize their current understanding and abilities about scripture study skills.", "lab": null, "f": [["prep", "planning-the-lesson"]], "m": ["during", "after"], "prep": "ahead", "sit": "When you don’t know what they can do with the scriptures yet", "first": "Ask them to mark the verse they would struggle to explain — start there.", "r": 3}, {"id": "025.title_number3", "n": "Consider assessment questions to carefully choose media, personal stories, and object lessons.", "lab": null, "f": [["prep", "planning-the-lesson"]], "m": ["after"], "prep": "ahead", "sit": "When you’re not sure the story earns its minutes", "first": "Ask of every story: “What truth does it teach, and how long does it take?”", "r": 3}, {"id": "026.intro2", "n": "Ask questions that help students identify and state converting principles.", "lab": "When you want them to say the principle out loud", "f": [["talk", "asking-for-a-real-answer"]], "m": ["during"], "prep": "none", "sit": "When you want them to say the principle out loud", "first": "Ask: “What principle would you write on the board from this?”", "r": 3}, {"id": "026.title_number3", "n": "Respond to questions in a way that avoids speculation and nondoctrinal personal ideas.", "lab": "When you do not know the answer", "f": [["talk", "asking-for-a-real-answer"]], "m": ["during"], "prep": "none", "sit": "When you do not know the answer", "first": "Say “I don’t know — let’s find out,” and write the question down.", "r": 3}, {"id": "027.title_number1", "n": "Prepare invitations and prompts that help students find personal relevance to a scripture block.", "lab": null, "f": [["prep", "planning-the-lesson"]], "m": ["during", "after"], "prep": "ahead", "sit": "When the chapter feels far away from their lives", "first": "Prepare one prompt that starts with their week, not the chapter.", "r": 2}, {"id": "027.title_number2", "n": "Start a learning activity by inviting students to ponder a personal circumstance.", "lab": null, "f": [["attention", "do-not-watch"]], "m": ["opening"], "prep": "none", "sit": "When you need them leaning in from the first minute", "first": "Open with: “Think of a time this week you needed patience” — then teach.", "r": 2}, {"id": "029.title_number1", "n": "Resist the tendency to respond to every comment and question and invite the class to respond.", "lab": null, "f": [["talk", "not-answering-it-yourself"]], "m": ["during"], "prep": "none", "sit": "When you keep answering every comment yourself", "first": "After the next comment, look at the class, not the commenter.", "r": 1}, {"id": "029.title_number2", "n": "Focus on what the learner can do in class that the teacher typically does.", "lab": null, "f": [["talk", "not-answering-it-yourself"]], "m": ["during"], "prep": "none", "sit": "When you’re doing all the work in the room", "first": "Hand something over on Sunday: the reading, the board, the summary.", "r": 3}, {"id": "030.intro2", "n": "Assist students in creating a daily scripture study goal.", "lab": null, "f": [["prep", "invitations-they-take-home"]], "m": ["closing", "after"], "prep": "none", "sit": "When you want scripture study to become theirs, daily", "first": "Give the last five minutes to writing one small daily goal.", "r": 2}, {"id": "030.title_number3", "n": "Develop and ask questions that help learners connect what they have learned in their personal and family scripture study to the classroom experience.", "lab": "When you want their home study in the room", "f": [["talk", "asking-for-a-real-answer"]], "m": ["opening", "during"], "prep": "ahead", "sit": "When you want their home study in the room", "first": "Open with: “What did you find in your own reading this week?”", "r": 3}, {"id": "031.title_number1", "n": "Create invitations that help learners prepare for the next learning experience.", "lab": null, "f": [["prep", "invitations-they-take-home"]], "m": ["closing", "after"], "prep": "ahead", "sit": "When you want next week’s lesson to start this week", "first": "Close with one specific thing to look for before next Sunday.", "r": 2}, {"id": "031.title_number2", "n": "Create a meaningful invitation connected to the lesson outcome to be used at the beginning of each lesson.", "lab": null, "f": [["prep", "planning-the-lesson"]], "m": ["opening"], "prep": "ahead", "sit": "When you want the opening minute already working for you", "first": "Write next week’s opening invitation the moment this lesson ends.", "r": 1}, {"id": "032.intro2", "n": "Help students create or begin gospel conversations.", "lab": null, "f": [["talk", "talking-to-each-other"]], "m": ["during", "after"], "prep": "none", "sit": "When the gospel talk shouldn’t end at the classroom door", "first": "Challenge them: start one gospel conversation before Friday.", "r": 3}, {"id": "032.title_number3", "n": "Prepare invitations for students to share with each other what they are learning.", "lab": null, "f": [["talk", "talking-to-each-other"]], "m": ["during"], "prep": "ahead", "sit": "When they’d learn more saying it to each other", "first": "Two minutes, in pairs: “Tell each other the one thing you’re taking home.”", "r": 2}, {"id": "033.title_number1", "n": "Plan to follow up on invitations given in a previous class and invite learners to share their experiences living what they learned.", "lab": null, "f": [["prep", "invitations-they-take-home"]], "m": ["opening", "after"], "prep": "ahead", "sit": "When last week’s invitation deserves a next chapter", "first": "Start Sunday with: “Who tried it? What happened?”", "r": 2}, {"id": "033.title_number2", "n": "Ask search questions that help learners consider who God is and blessings He offers them.", "lab": null, "f": [["christ", "finding-him-in-the-scriptures"]], "m": ["during"], "prep": "none", "sit": "When you want them searching for who God really is", "first": "Ask: “Who is God in this passage — and what is He offering you?”", "r": 3}]}</script>
 <script>
 (function () {
   var data = JSON.parse(document.getElementById("data").textContent);
-  var S = data.sections, C = data.cats, K = data.skills;
-  var RUNG = ["", "First Sundays", "Building habits", "Reading the room", "Holding steady"];
-  var RUNGSUB = ["", "no prep, low risk", "prepare during the week", "judgment in the moment", "charity under strain"];
+  var CATS = data.cats, GROUPS = data.groups, MOM = data.moments, RUNGS = data.rungs, K = data.skills;
+  var COLOR = { christ:"#1f7a8c", attention:"#c79100", love:"#9b3b4e", prep:"#b8651b", talk:"#2f8a52", feels:"#6b5ea8" };
+  var RUNGSUB = { "first-sundays":"no prep, low risk", "building-habits":"prepare during the week", "reading-the-room":"judgment in the moment", "holding-steady":"charity under strain" };
+  var PREP = { none:"No prep — use it live", ahead:"Takes getting ready" };
 
   function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;"); }
+  function catName(slug) { return CATS.filter(function (c) { return c.slug === slug; })[0].n; }
+  function home(k) { return k.f[0][0]; }
 
-  // legend
-  document.getElementById("legend").innerHTML = S.map(function (s) {
-    return '<span style="--c:' + s.a + '">' + esc(s.t) + '</span>';
+  document.getElementById("legend").innerHTML = CATS.map(function (c) {
+    return '<span style="--c:' + COLOR[c.slug] + '">' + esc(c.n) + (c.trial ? " (trial)" : "") + '</span>';
   }).join("");
 
-  function dot(k) {
-    return '<span class="dot" style="--c:' + S[k.s].a + '" title="' + esc(k.id + " — " + k.n) + '"></span>';
+  function dot(k, ring) {
+    return '<span class="dot' + (ring ? " ring" : "") + '" style="--c:' + COLOR[home(k)] + '" title="' + esc(k.id + " — " + (k.lab || k.n)) + '"></span>';
   }
 
   function groupsFor(g) {
     var out = [];
-    if (g === "principle") {
-      S.forEach(function (s, i) {
-        var ks = K.filter(function (k) { return k.s === i; });
-        out.push({ label: s.t, sub: ks.length + " skills · " + new Set(ks.map(function(k){return k.page;})).size + " manual pages", ks: ks });
+    if (g === "category") {
+      CATS.forEach(function (c) {
+        var ks = K.filter(function (k) { return k.f.some(function (f) { return f[0] === c.slug; }); });
+        var gs = GROUPS.filter(function (x) { return x.cat === c.slug; }).length;
+        out.push({ label: c.n, sub: ks.length + " blocks · " + (gs ? gs + " groups" : "filed directly, trial branch"),
+                   html: ks.map(function (k) { return dot(k, home(k) !== c.slug); }).join("") });
       });
-      return { groups: out, note: "Each skill appears exactly once. This is the order the manual gives, and the order the source file is written in." };
+      var total = K.reduce(function (a, k) { return a + k.f.length; }, 0);
+      return { groups: out, note: "The first way in. " + total + " filings for 53 blocks: two blocks are filed twice (ringed dots show a second filing). A hierarchy on paper, a filter in code." };
     }
-    if (g === "problem") {
-      C.forEach(function (c, i) {
-        var ks = K.filter(function (k) { return k.cats.indexOf(i) >= 0; });
-        out.push({ label: c, sub: ks.length + " skills", ks: ks });
+    if (g === "moment") {
+      MOM.forEach(function (m) {
+        var ks = K.filter(function (k) { return k.m.indexOf(m.key) >= 0; });
+        out.push({ label: m.n, sub: ks.length + " blocks", html: ks.map(function (k) { return dot(k); }).join("") });
       });
-      var orphans = K.filter(function (k) { return !k.cats.length; });
-      out.push({ label: "Not mapped to any challenge", sub: orphans.length + " skills", ks: orphans, ghost: true });
-      var total = out.reduce(function (a, g) { return a + g.ks.length; }, 0) - orphans.length;
-      return { groups: out, note: "Many-to-many. The same dot can appear under several challenges (" + total + " placements for 51 skills), and two skills appear nowhere. The overlay's rule is 'no bad ids', not 'every skill once'." };
+      var tot = K.reduce(function (a, k) { return a + k.m.length; }, 0);
+      return { groups: out, note: "The second way in. Many-to-many: " + tot + " placements for 53 blocks. Every colour shows up under every moment, which is why it earned a view of its own (D6)." };
     }
-    for (var r = 1; r <= 4; r++) {
-      var ks = K.filter(function (k) { return k.r === r; });
-      out.push({ label: "Rung " + r + " · " + RUNG[r], sub: ks.length + " skills · " + RUNGSUB[r], ks: ks });
+    if (g === "prep") {
+      ["none", "ahead"].forEach(function (p) {
+        var ks = K.filter(function (k) { return k.prep === p; });
+        out.push({ label: PREP[p], sub: ks.length + " blocks", html: ks.map(function (k) { return dot(k); }).join("") });
+      });
+      return { groups: out, note: "The card layer's facet. One-to-one and ordered, two steps. A magnitude scheme already, read off the manual's verb rather than authored." };
     }
-    return { groups: out, note: "One-to-one and ordered. Every colour shows up on every rung: readiness cuts across the principles instead of repeating them. That is what makes it a new scheme rather than a relabeling." };
+    RUNGS.forEach(function (r, i) {
+      var ks = K.filter(function (k) { return k.r === i + 1; });
+      out.push({ label: "Rung " + (i + 1) + " · " + r.n, sub: ks.length + " blocks · " + RUNGSUB[r.key], html: ks.map(function (k) { return dot(k); }).join("") });
+    });
+    return { groups: out, note: "One-to-one and ordered, four steps. Every colour on nearly every rung: readiness cuts across the categories instead of repeating them. That is what makes it a new scheme rather than a relabeling." };
   }
 
   function render(g) {
     var res = groupsFor(g);
     document.getElementById("groups").innerHTML = res.groups.map(function (gr) {
-      return '<div class="group"><div class="gl">' + esc(gr.label) + '<small>' + esc(gr.sub) + '</small></div>' +
-             '<div class="dots">' + gr.ks.map(dot).join("") + '</div></div>';
+      return '<div class="group"><div class="gl">' + esc(gr.label) + '<small>' + esc(gr.sub) + '</small></div><div class="dots">' + gr.html + '</div></div>';
     }).join("");
     document.getElementById("gnote").textContent = res.note;
     document.querySelectorAll("#tabs button").forEach(function (b) {
@@ -608,20 +691,33 @@ Wurman, <i>Information Anxiety</i>, LATCH · Ranganathan, <i>Colon Classificatio
   document.getElementById("tabs").addEventListener("click", function (e) {
     var b = e.target.closest("button"); if (b) render(b.getAttribute("data-g"));
   });
-  render("principle");
+  render("category");
 
-  // matrix: principle × rung
-  var html = '<tr><th>Principle</th>' + [1,2,3,4].map(function (r) { return '<th>Rung ' + r + '</th>'; }).join("") + '<th>Total</th></tr>';
+  // matrix 1: home category × rung
+  var html = '<tr><th>Home category</th>' + [1,2,3,4].map(function (r) { return '<th>R' + r + '</th>'; }).join("") + '<th>All</th></tr>';
   var colTot = [0,0,0,0,0];
-  S.forEach(function (s, i) {
-    var row = [1,2,3,4].map(function (r) { return K.filter(function (k) { return k.s === i && k.r === r; }).length; });
+  CATS.forEach(function (c) {
+    var row = [1,2,3,4].map(function (r) { return K.filter(function (k) { return home(k) === c.slug && k.r === r; }).length; });
     var tot = row.reduce(function (a, b) { return a + b; }, 0);
+    if (!tot) return;
     row.forEach(function (n, j) { colTot[j] += n; }); colTot[4] += tot;
-    html += '<tr><td><span class="sw" style="background:' + s.a + '"></span>' + esc(s.t) + '</td>' +
+    html += '<tr><td><span class="sw" style="background:' + COLOR[c.slug] + '"></span>' + esc(c.n) + '</td>' +
             row.map(function (n) { return '<td>' + (n || '<span style="color:var(--muted)">–</span>') + '</td>'; }).join("") + '<td><b>' + tot + '</b></td></tr>';
   });
   html += '<tr><td><b>All</b></td>' + colTot.map(function (n) { return '<td><b>' + n + '</b></td>'; }).join("") + '</tr>';
   document.getElementById("matrix").innerHTML = html;
+
+  // matrix 2: prep × rung (coherence)
+  var h2 = '<tr><th>Prep (cards)</th>' + [1,2,3,4].map(function (r) { return '<th>R' + r + '</th>'; }).join("") + '<th>All</th></tr>';
+  ["none", "ahead"].forEach(function (p) {
+    var row = [1,2,3,4].map(function (r) { return K.filter(function (k) { return k.prep === p && k.r === r; }).length; });
+    var tot = row.reduce(function (a, b) { return a + b; }, 0);
+    h2 += '<tr><td>' + esc(PREP[p]) + '</td>' + row.map(function (n, i) {
+      var flag = (p === "ahead" && i === 0 && n);
+      return '<td' + (flag ? ' class="flag" title="first-Sunday blocks the card layer says take getting ready"' : '') + '>' + (n || '<span style="color:var(--muted)">–</span>') + (flag ? " ⚑" : "") + '</td>';
+    }).join("") + '<td><b>' + tot + '</b></td></tr>';
+  });
+  document.getElementById("matrix2").innerHTML = h2;
 })();
 </script>
 </body>
