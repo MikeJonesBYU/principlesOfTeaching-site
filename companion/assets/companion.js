@@ -13,6 +13,9 @@
                                           turn-ins, one per station, studies
                                           and builds alternating, each graded
                                           on its own
+          <span data-companion="canvas-indexes">
+                                          chips linking the Canvas method
+                                          indexes (hub)
           <nav data-companion="arcnav">   prev/next arc nav (study pages; the
                                           page identifies itself with
                                           <body data-arc="card-sort">)
@@ -95,6 +98,8 @@
     altVersion: 'Instructor revision',
     altReport: 'The write-up',
     runsOn: 'Runs on',
+    canvasMethod: 'Method on Canvas',
+    canvasReading: 'Course reading',
     pairDown: 'that study runs on this exact build',
     pairUp: 'the build this study ran on',
     noRegistry: 'The companion registry did not load, so this section is empty.'
@@ -306,6 +311,56 @@
     return h('span', { 'class': 'fiction-badge' }, text || 'FICTITIOUS DATA');
   }
 
+  /* ------------------------------------------------------- Canvas crosslinks
+     The companion is the worked example; Canvas teaches the method. A station
+     may carry canvas:{ method:{slug,title}, readings:[{slug,title}] }; the
+     course id lives once, in the registry's `canvasBase`. Links leave the
+     companion, so they open in a new tab and say so to assistive tech. */
+
+  function canvasHref(data, entry) {
+    if (!entry || !entry.slug) { return null; }
+    return (data.canvasBase || '') + entry.slug;
+  }
+
+  function canvasChip(data, entry) {
+    var href = canvasHref(data, entry);
+    if (!href) { return null; }
+    return h('a', {
+      'class': 'chip',
+      'href': href,
+      'target': '_blank',
+      'rel': 'noopener'
+    }, [
+      entry.title || entry.slug,
+      h('span', { 'aria-hidden': 'true' }, ' \u2197'),
+      h('span', { 'class': 'u-visually-hidden' }, ' (opens Canvas in a new tab)')
+    ]);
+  }
+
+  /* One row per label: the method page, then any concept readings. */
+  function canvasRows(data, station) {
+    var rows = [];
+    var canvas = station && station.canvas;
+    if (!canvas) { return rows; }
+
+    if (canvas.method) {
+      rows.push(h('p', { 'class': 'arc-item__links' }, [
+        h('span', { 'class': 'micro-label' }, LABELS.canvasMethod),
+        ' ',
+        canvasChip(data, canvas.method)
+      ]));
+    }
+    if (isArray(canvas.readings) && canvas.readings.length) {
+      var kids = [h('span', { 'class': 'micro-label' }, LABELS.canvasReading)];
+      each(canvas.readings, function (entry) {
+        kids.push(' ');
+        kids.push(canvasChip(data, entry));
+      });
+      rows.push(h('p', { 'class': 'arc-item__links' }, kids));
+    }
+    return rows;
+  }
+
   /* ------------------------------------------------------------ the chain ---
      The chain renders TWICE from the same registry, one above the other:
 
@@ -456,6 +511,10 @@
           station.reportLabel || LABELS.altReport, LABELS.studyPending, 'chip')
       ]));
     }
+
+    /* Where the method itself is taught: the Canvas method page for this
+       station, plus the concept readings it leans on. */
+    each(canvasRows(data, station), function (row) { body.push(row); });
 
     /* Cross-link. A build gets the pair band pointing at the study that tests
        it; a study gets the plain line naming the turn-in its findings inform. */
@@ -712,6 +771,17 @@
     ]);
   }
 
+  /* The two Canvas index pages, rendered from the registry so the course id
+     is never typed into a page. */
+  function renderCanvasIndexes(node, data) {
+    clear(node);
+    if (!isArray(data.canvasIndexes) || !data.canvasIndexes.length) { return; }
+    each(data.canvasIndexes, function (entry, i) {
+      if (i) { append(node, ' '); }
+      append(node, canvasChip(data, entry));
+    });
+  }
+
   /* ------------------------------------------------------------------ boot -- */
 
   function renderAll() {
@@ -731,6 +801,8 @@
       var what = node.getAttribute('data-companion');
       if (what === 'chain') {
         renderChain(node, data);
+      } else if (what === 'canvas-indexes') {
+        renderCanvasIndexes(node, data);
       } else if (what === 'arcnav') {
         var current = node.getAttribute('data-arc') ||
           (document.body && document.body.getAttribute('data-arc'));
