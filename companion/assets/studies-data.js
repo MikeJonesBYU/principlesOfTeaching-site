@@ -31,9 +31,32 @@
    example reports are graded) with `reportStatus: "draft"` until it exists.
 
    Slugs are stable once public — students bookmark them. Never rename.
+
+   CANVAS CROSS-LINKS. The companion is the worked example; the Canvas course
+   is where the method itself is taught. Each station may carry:
+
+     canvas: {
+       method:   { slug, title },      the method page for this station
+       readings: [{ slug, title }, …]  concept pages the station leans on
+     }
+
+   `slug` is the Canvas page slug only; `canvasBase` below is prepended once,
+   so the course id lives in exactly one place. companion.js renders these as
+   chips on the station card. Canvas redirects renamed slugs, but these are
+   the canonical ones as of 2026-09-14.
    ========================================================================== */
 window.CS356_COMPANION = {
-  version: "2026-09-01",
+  version: "2026-09-14",
+
+  /* Every Canvas `slug` in this file hangs off this base — one course id,
+     one place to change it. */
+  canvasBase: "https://byu.instructure.com/courses/36062/pages/",
+
+  /* The two Canvas index pages the station chips come from. */
+  canvasIndexes: [
+    { slug: "evaluation-methods",  title: "Evaluation Methods" },
+    { slug: "prototyping-methods", title: "Prototyping Methods" }
+  ],
 
   /* The through-line, printed under the chain. Verbatim course doctrine. */
   throughLine: "Every prototype must be grounded in the studies before it — facets and attributes stay decoupled from display, so each cycle is a richer view of the same single source.",
@@ -113,6 +136,9 @@ window.CS356_COMPANION = {
       status: "published",
       page: "studies/01-card-sort.html",
       question: "How do teachers naturally group and label the 53 skills — and where do their groupings disagree?",
+      canvas: {
+        method: { slug: "card-sorting", title: "Card Sorting" }
+      },
       feeds: "wireframe",
       shows: "Categories, groups, and labels in teacher language — and systematic disagreement between sorters read as evidence for multiple facets per skill, not as noise."
     },
@@ -126,6 +152,13 @@ window.CS356_COMPANION = {
       path: "prototypes/wireframe/",
       report: "wireframe-report.html",
       reportLabel: "Both teams' reports, graded",
+      canvas: {
+        method: { slug: "low-fi-clickable-wireframes", title: "Low-fi Clickable Wireframes" },
+        readings: [
+          { slug: "pmest-and-faceted-classification", title: "PMEST & Faceted Classification" },
+          { slug: "latch-the-five-hat-racks", title: "LATCH - The Five Hat Racks" }
+        ]
+      },
       testedBy: "tree-test",
       shows: "Two example turn-ins for the same assignment. Team A: one data file of 53 skill blocks with facets, every page rendered by selecting on attributes — no skill hand-placed anywhere — plus the bonus test mode. Team B: a hand-built wireframe worth studying closely."
     },
@@ -138,6 +171,12 @@ window.CS356_COMPANION = {
       status: "published",
       page: "studies/02-tree-test.html",
       question: "Working from real teacher situations, can people find the right skill in the new structure — and where do the organization and the labels break?",
+      canvas: {
+        method: { slug: "tree-test", title: "Tree Test" },
+        readings: [
+          { slug: "information-scent", title: "Information Scent" }
+        ]
+      },
       feeds: "prototype-v1",
       shows: "Two complete tree-test reports, one per team, each run on that team's own frozen wireframe and graded on the study rubric — with per-task first-click tables, wrong-turn analysis, and the decisions that bind prototype v1."
     },
@@ -152,6 +191,12 @@ window.CS356_COMPANION = {
       /* The two teams' Turn-in 4 reports are not written yet: they will be
          graded on their own page, on the Prototype Rubric, before the task
          test runs. Until then the link renders as a pending pill. */
+      canvas: {
+        method: { slug: "coded-prototype", title: "Coded Prototype" },
+        readings: [
+          { slug: "fluidity-and-fidelity", title: "Fluidity and Fidelity" }
+        ]
+      },
       report: "v1-report.html",
       reportStatus: "draft",
       reportLabel: "Both teams' reports, graded",
@@ -188,6 +233,9 @@ window.CS356_COMPANION = {
       status: "draft",
       page: "studies/03-task-test.html",
       question: "Does the visual design work in real use — and where does navigation break?",
+      canvas: {
+        method: { slug: "5-user-task-test", title: "5-User Task Test" }
+      },
       feeds: "prototype-final",
       shows: "Task success, real navigation paths from the logs, and the final refinement list."
     },
@@ -199,6 +247,12 @@ window.CS356_COMPANION = {
       fidelity: "final",
       status: "planned",
       path: "prototypes/final/",
+      canvas: {
+        method: { slug: "coded-prototype", title: "Coded Prototype" },
+        readings: [
+          { slug: "single-source-multiple-views", title: "Single Source, Multiple Views" }
+        ]
+      },
       testedBy: null,
       shows: "Everything brought together on single source, multiple views, grounded in all three studies. This prototype graduates to become the next deployed Principles of Teaching site."
     }
