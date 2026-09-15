@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Study 3: Five-user task test, graded — CS 356 Companion</title>
+  <meta name="description" content="Two example five-user task-test turn-ins — a 60/60 report and a 40/60 report — each run on that team's own functional prototype, on participants' own phones, and graded on the 60-point Study Report Rubric with the grader's reasoning after every element.">
+  <link rel="stylesheet" href="../assets/companion.css">
+  <style>
+    /* The grader boxes on this page read as a teacher's marked list. Keep the
+       bullets on the same type scale as the grader's prose. */
+    .grader ul { margin: 0 0 8px; padding-left: 1.35em; font-size: .95rem; }
+    .grader li { margin: 0 0 7px; }
+    .grader li:last-child { margin-bottom: 0; }
+
+    /* Routes and queries quoted from the prototype's log. */
+    .route { font-family: var(--mono); font-size: .78rem; white-space: nowrap; }
+    .docpage .paths td:nth-child(4) { font-family: var(--mono); font-size: .74rem; }
+
+    /* Team B's pasted log excerpt: plain monospaced text that scrolls on its
+       own, so a narrow screen never scrolls the page. */
+    .rawtext {
+      font-family: Consolas, 'Courier New', monospace;
+      font-size: 11.5px; line-height: 1.35; white-space: pre; overflow-x: auto;
+      background: #fafafa; border: 1px solid #bbb; padding: 10px 12px;
+      margin: 8px 0 12px; color: #141414;
+    }
+    .sev { font-size: .78rem; font-weight: 600; letter-spacing: .02em; white-space: nowrap; }
+  </style>
+</head>
+<body data-page="study" data-arc="task-test">
+
+  <main class="wrap">
+
+    <header class="site-head">
+      <p class="kicker">CS 356 Companion &middot; Study 3 of 3 &middot; Turn-in 5</p>
+      <h1>Five-user task test: two turn-ins, graded</h1>
+
+      <p class="fiction-note"><span class="fiction-badge">FICTITIOUS DATA</span>
+        <strong>Scope note.</strong> Real: both prototypes under test
+        (<a href="../prototypes/v1/cards/">the card build</a>, the newest
+        build in Team&nbsp;A&rsquo;s prototype line, and
+        <a href="../prototypes/v1/team-b/">Team&nbsp;B&rsquo;s v1</a>),
+        every structural claim made about them, every search result and
+        rank quoted below (each one re-run against the real build), the
+        53-skill inventory underneath (carried on the
+        <a href="../../">live site</a>), the rubric, and the design
+        decisions at the end &mdash; decisions the final prototype really
+        implements. Invented: every participant, session, quote, path,
+        second, and count in between.
+        <a href="../fiction.html">What&rsquo;s real and what&rsquo;s not
+        &rarr;</a></p>
+
+      <p class="lead">
+        The five-user task test is <strong>Turn-in&nbsp;5</strong>, and it
+        is handed in on its own: a talk-aloud test of the functional
+        prototype you handed in as Turn-in&nbsp;4, run with five people from
+        your own user population, on their own phones, doing five concrete
+        tasks drawn from the lessons they are actually about to teach. The
+        report is two pages or less: who took part and why they are the
+        right people; a page or less of what you saw and heard (notes are
+        fine, prose is not required); an analysis of what it means for the
+        design; the changes you will make; and the things you will
+        <em>not</em> change even though something you saw might suggest
+        it. It is graded on the 60-point Study Report Rubric &mdash;
+        Methods 15, Results &amp; Analysis 20, Design Decisions 25 &mdash;
+        and on nothing else. The prototype itself was graded separately as
+        Turn-in&nbsp;4.
+      </p>
+
+      <p class="section-note">
+        The white pages below are the reports themselves, exactly as they
+        would leave Word as a PDF. Everything in red is the grader, not the
+        report. Both prototypes are now <strong>frozen</strong>: the task
+        test has run against them, so the citations on this page stay
+        checkable forever and every refinement lands in the final prototype
+        instead. One thing to know before reading Report&nbsp;A: the
+        assignment says <em>your v1</em>, and by the time this study ran,
+        Team&nbsp;A&rsquo;s v1 had become a line of three builds &mdash;
+        the turn-in, then a semantic-search revision, then the card build.
+        They tested the newest one and said so. The freeze attaches to what
+        was tested.
+      </p>
+    </header>
+
+
+    <!-- ================================================================ -->
+    <!-- REPORT A — THE TASK TEST                                          -->
+    <!-- ================================================================ -->
+    <section aria-labelledby="report-a3" class="report--a">
+      <h2 id="report-a3">Report A &mdash; the task test &middot; 60/60</h2>
+      <p class="section-note">
+        A strong team&rsquo;s task test, run on the
+        <a href="../prototypes/v1/cards/">card build</a> &mdash; the third
+        build in the line that started with
+        <a href="../prototypes/v1/team-a/">their Turn-in&nbsp;4 prototype</a>
+        &mdash; and graded here on the Study Report Rubric. The white pages
+        are the report itself, exactly as it would leave Word as a PDF;
+        everything in red is the grader, not the report.
+      </p>
+      <p class="fiction-note"><span class="fiction-badge">FICTITIOUS DATA</span>
+        Every participant is an invented member of an invented ward
+        (<a href="../ward.html">meet the ward</a>); every path, query,
+        second, and count below is invented with them. The search results
+        and ranks are not: each was produced by re-running the query against
+        the real build.</p>
+
+      <div class="docpage docpage--a">
+        <div class="doc-head">
+          <p class="doc-title">Five-user task test &mdash; prototype v1, third build</p>
+          <p class="doc-sub">CS 356 &middot; Project 1 &middot; Team A &middot; sessions 16&ndash;18 November 2026 &middot; two pages plus one spreadsheet</p>
+        </div>
+        <h3>1. What we tested, and the five tasks</h3>
+        <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span> The tasks, the correct blocks, and the build&rsquo;s routes are real. The predictions and everything after them are invented with the rest of this study.</p>
+        <p>
+          <strong>The build.</strong> We tested the card build
+          (<code>prototypes/v1/cards/</code>), not the build we handed in as
+          Turn-in&nbsp;4. Two revisions have landed on our prototype since
+          then &mdash; the search grew a meaning index, and every listing
+          became a skill card &mdash; and testing the build we already left
+          would have produced findings about a design nobody is going to
+          ship. We are saying so rather than hoping nobody notices. The
+          hierarchy, filings, and moments are byte-for-byte the Turn-in&nbsp;4
+          data file, loaded by reference, so every tree-test decision is
+          still what is under test; the log schema is the same, under the
+          card build&rsquo;s own storage key.
+        </p>
+        <p>
+          <strong>The tasks.</strong> We texted each recruit the week before
+          and asked one question: what is your next lesson, and what are you
+          worried about? Every task below is one recruit&rsquo;s actual
+          situation, given to all five. Each is a situation the teacher is
+          already in, never a description of the answer, and none of them
+          quotes a category, group, or card label. Predicted first clicks
+          were written on the whiteboard and photographed before session one,
+          same as last time.
+        </p>
+        <div class="table-scroll">
+        <table class="study-table">
+          <thead>
+            <tr><th>#</th><th>Task, as read aloud</th><th>Counted as success</th><th>Predicted first tap</th><th>Whose lesson</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>T1</strong>&nbsp;&middot; The eight-minute story</td><td>You are teaching from a conference talk on Sunday. There is a story you love that takes eight minutes to tell, and the whole class is twenty-five. Find something that helps you decide whether the story stays in.</td><td>&ldquo;Consider assessment questions to carefully choose media, personal stories, and object lessons&rdquo; <span class="route">025.title_number3</span><br><em>Getting ready before Sunday &rsaquo; Planning what happens in class</em></td><td>Search</td><td>P22 &middot; his Teachers quorum lesson on the 22nd</td></tr>
+            <tr><td><strong>T2</strong>&nbsp;&middot; Felt nothing</td><td>One of the girls in your class says she prayed about something and felt nothing, and she wants to know how anybody is supposed to tell when the Spirit is there. Find something for next Sunday.</td><td>&ldquo;Share statements that help students recognize when the Holy Ghost is performing His role or function&rdquo; <span class="route">020.title_number3</span><br><em>What it feels like (trial branch); also Teaching about Jesus Christ &rsaquo; Bearing witness in class</em></td><td>The &ldquo;What it feels like&rdquo; tile</td><td>P21 &middot; a question from one of her eleven-year-olds</td></tr>
+            <tr><td><strong>T3</strong>&nbsp;&middot; The 7:40 text</td><td>It is Sunday morning. The teacher texted at 7:40 that he is sick, and you are teaching in an hour with nothing prepared. Find something you could do in class today with nothing in your hands.</td><td>Any block whose card says <em>No prep &mdash; use it live</em> (31 of 53). The task exists to catalogue where people go, not to score a single block.</td><td>Search</td><td>P24 &middot; it happened to him on 8 November</td></tr>
+            <tr><td><strong>T4</strong>&nbsp;&middot; Thirteen Sunbeams</td><td>Your class of three-year-olds comes in from singing time wound up, and the first five minutes are gone every week. Find something to open with that gets them settled and into the lesson.</td><td>&ldquo;Use sacred music&hellip;&rdquo; <span class="route">019.title_number2</span>; we decided before session one to also accept &ldquo;Start a learning activity by inviting students to ponder a personal circumstance&rdquo; <span class="route">027.title_number2</span><br><em>Keeping their attention</em>; both tagged <em>The first few minutes</em></td><td>The &ldquo;first few minutes&rdquo; tile</td><td>P25 &middot; every Sunday</td></tr>
+            <tr><td><strong>T5</strong>&nbsp;&middot; The two who never come</td><td>Two of the children in your class have not been to Primary in a month. Their parents are in sacrament meeting every week. Find something the site suggests you do about it this week.</td><td>&ldquo;Pray and ask how you can help your students&hellip;&rdquo; <span class="route">013.intro2</span>; also accepted in advance: &ldquo;Send a message to a student&rsquo;s parent&hellip;&rdquo; <span class="route">015.title_number1</span><br><em>Knowing and loving the people you teach &rsaquo; Caring about them during the week</em></td><td>Knowing and loving the people you teach</td><td>P23 &middot; two of her six-year-olds</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p>
+          <strong>Why this set.</strong> Three of the five are aimed at
+          things the card build and the tree test asked us to test.
+          T2&nbsp;&middot; Felt nothing retests the Spirit question with
+          fresh people: the tree test lost 8 of 11 runs on it, our decision
+          D1 built a sixth branch and said its label was the next
+          study&rsquo;s job to judge, and this is that study. T1&nbsp;&middot;
+          The eight-minute story is routed on purpose through an
+          <em>authored</em> situation lead (&ldquo;When you&rsquo;re not sure
+          the story earns its minutes&rdquo; was written by us, not
+          harvested) and through the group we renamed after the tree test,
+          because the card build&rsquo;s notes asked for at least one such
+          route. T3&nbsp;&middot; The 7:40 text is the prep chip&rsquo;s
+          test, and it deliberately has thirty-one right answers. T4 and T5
+          are coverage: an opening-minutes task keyed to a Primary answer,
+          and the one we expected to lose, because no skill in the manual is
+          about children who do not come. We wrote that expectation down
+          too.
+        </p>
+      </div>
+
+      <div class="docpage docpage--a">
+        <h3>2. Participants</h3>
+        <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span></p>
+        <div class="table-scroll">
+        <table class="study-table">
+          <thead>
+            <tr><th>ID</th><th>Name</th><th>Calling</th><th>Phone</th><th>Session</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>P21</td><td>Deanne Whitlock</td><td>Primary &middot; 10&ndash;11s, second teacher (called 18 Oct)</td><td>iPhone, reading glasses on a chain</td><td>Mon 16 Nov, 7:00 p.m., her kitchen</td></tr>
+            <tr><td>P22</td><td>Marcus Pulsipher</td><td>Young Men &middot; Teachers quorum adviser</td><td>Android</td><td>Mon 16 Nov, 8:15 p.m., the fire station day room (on shift)</td></tr>
+            <tr><td>P23</td><td>Karalee Stringham</td><td>Primary &middot; 6-year-olds (called 1 Nov)</td><td>iPhone</td><td>Tue 17 Nov, 6:30 p.m., her apartment</td></tr>
+            <tr><td>P24</td><td>Lyle Farnsworth</td><td>Elders quorum &middot; instructor</td><td>Android, Gospel Library and nothing else</td><td>Tue 17 Nov, 7:45 p.m., his kitchen</td></tr>
+            <tr><td>P25</td><td>Hal Bagley</td><td>Primary &middot; Sunbeams, with his wife</td><td>Android, cracked, text size at maximum</td><td>Wed 18 Nov, 6:00 p.m., his living room</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p>
+          <strong>Why these five.</strong> All five teach on Sundays in
+          this ward &mdash; Primary three times, the youth, and elders quorum
+          &mdash; which is roughly the shape of the corps: half of it teaches
+          children.
+          <strong>None of them has been in any of our studies.</strong> Our
+          card sort used P01, P02, P04, P05, P06, P07, P08, P13 and P15; our
+          tree test used P03, P09, P10, P11, P12, P14, P16, P17, P18, P19
+          and P20. That is the whole roster we had, so these five are new
+          to it &mdash; the second teacher the Primary president finally gave
+          the biggest class in the building, the Teachers quorum adviser, a Primary teacher two weeks
+          into her first calling, the third elders quorum instructor, and
+          the Sunbeams teacher. Hal Bagley we recruited on purpose: his
+          phone&rsquo;s text size is at the maximum and the screen is
+          cracked, and seventy-one adults in this ward are over sixty-five.
+          He is the edge of our population, and the card build&rsquo;s
+          notes admitted its simpler shell might make people &ldquo;miss
+          the edges of things.&rdquo;
+        </p>
+        <p>
+          <strong>Protocol.</strong> Their own phones, wherever they were.
+          One of us moderated and one took notes. We cleared the
+          build&rsquo;s Session log before each session, read each task
+          from a card, and then stopped talking; we asked people to say what
+          they were looking for and to read out anything before they tapped
+          it, and to say &ldquo;I&rsquo;d give up&rdquo; whenever they would
+          in real life &mdash; that ends the task and counts as a result.
+          Task order was a cyclic Latin square, so every task sat in every
+          position exactly once. Between tasks the participant tapped the
+          title bar to go home, which the log records, so the task
+          boundaries are in the file. We did not answer questions about
+          where things were. Twice we helped someone <em>after</em> a task
+          was marked done &mdash; Lyle and Hal both got lost in the Church
+          website tab that &ldquo;Read it in the manual&rdquo; opens, and we
+          brought them back; both are in the notes. At the end of each
+          session we tapped Export CSV on the Session log screen and had the
+          file sent from their phone. Sessions ran thirty to fifty-five
+          minutes; Hal&rsquo;s was the long one.
+        </p>
+      </div>
+
+      <aside class="grader" aria-label="Grader comment">
+        <p class="grader__head">Grader &middot; Methods &middot; <span class="grader__pts">15/15 &mdash; Full Marks</span></p>
+        <p>A five-user test run the way the method page describes it, by
+        people who had clearly read the &ldquo;common mistakes&rdquo; list
+        and treated it as a checklist.</p>
+        <ul>
+          <li><strong>Five participants, all from the population, all
+          fresh</strong> &mdash; you listed the twenty earlier IDs by study
+          so I could check the overlap myself. <em>&ldquo;Recruited the
+          required number of participants.&rdquo;</em></li>
+          <li><strong>Own phones, in their own kitchens</strong>, one of
+          them on shift at a fire station. That is the assignment&rsquo;s
+          own sentence, and it is why Hal&rsquo;s maximum text size shows
+          up in your data at all.</li>
+          <li><strong>The tasks come from real upcoming lessons.</strong>
+          Five recruits, five situations, each one somebody&rsquo;s actual
+          next Sunday. Nothing in the set is &ldquo;try the site,&rdquo;
+          and nothing quotes a label. The method page&rsquo;s first two
+          mistakes are the vague task and the helpful moderator; you made
+          neither, and you disclosed the two times you helped <em>after</em>
+          marking a task done.</li>
+          <li><strong>The Latin square</strong> is the right instrument at
+          this size: five people cannot randomize away a position effect,
+          but they can guarantee every task met every position once.</li>
+          <li><strong>Testing the card build rather than your Turn-in&nbsp;4
+          file is a choice, not an error</strong>, and you made it out
+          loud in your first paragraph. The assignment says &ldquo;your
+          v1&rdquo; because it assumes v1 is one artifact; yours became a
+          line. Testing the build you intend to carry forward is the
+          decision a working team makes, the hierarchy under test is
+          unchanged, and the freeze rule now attaches to what you tested.
+          Had you tested it silently, this bullet would read differently.</li>
+        </ul>
+        <p>Two small things, neither costing anything: Hal&rsquo;s
+        fifty-five-minute session is long for a person his age at that text
+        size, and you should budget for it next time; and &ldquo;I&rsquo;d
+        give up&rdquo; is the right ending only if you say it every time,
+        which your notes suggest you did. <em>&ldquo;At most a minor error
+        or two and no major ones.&rdquo;</em> Full marks.</p>
+      </aside>
+
+      <div class="docpage docpage--a">
+        <h3>3. What we saw and heard</h3>
+        <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span> Every quotation is invented; each is stamped where it appears.</p>
+        <p>
+          Twenty-five runs, no missing cells. &ldquo;First tap&rdquo; is
+          the most common first tap with our prediction beside it;
+          &ldquo;where they ended&rdquo; is the block the most runs finished
+          on.
+        </p>
+        <div class="table-scroll">
+        <table class="study-table">
+          <thead>
+            <tr><th>Task</th><th>First tap (most common)</th><th>Where they ended</th><th>Success</th><th>Gave up</th><th>Mean</th><th>Backtracks</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>T1</strong>&nbsp;&middot; The eight-minute story</td><td>Getting ready before Sunday &mdash; 3/5 <strong>&mdash; MISS</strong> <em>(we predicted search; 1 searched, 1 went to Keeping their attention)</em></td><td>Choose media, stories, object lessons &mdash; 5/5</td><td>5/5</td><td>0</td><td>54.7s</td><td>3</td></tr>
+            <tr><td><strong>T2</strong>&nbsp;&middot; Felt nothing</td><td>&ldquo;What it feels like&rdquo; tile &mdash; 3/5 <strong>&mdash; MATCH</strong> <em>(1 searched, 1 went to Teaching about Jesus Christ)</em></td><td>Recognize when the Holy Ghost is acting &mdash; 5/5</td><td>5/5</td><td>0</td><td>29.4s</td><td>0</td></tr>
+            <tr><td><strong>T3</strong>&nbsp;&middot; The 7:40 text</td><td>Search &mdash; 2/5 <strong>&mdash; MATCH</strong> <em>(spread over 4 doors: 2 &middot; 1 &middot; 1 &middot; 1)</em></td><td>Five different blocks &mdash; four of them no-prep, one not</td><td>4/5</td><td>0</td><td>60.5s</td><td>0</td></tr>
+            <tr><td><strong>T4</strong>&nbsp;&middot; Thirteen Sunbeams</td><td>Keeping their attention and Search, 2 each <strong>&mdash; MISS</strong> <em>(we predicted the &ldquo;first few minutes&rdquo; tile; 1 used it)</em></td><td>Use sacred music &mdash; 4/5; ponder a personal circumstance &mdash; 1/5</td><td>5/5</td><td>0</td><td>32.3s</td><td>0</td></tr>
+            <tr><td><strong>T5</strong>&nbsp;&middot; The two who never come</td><td>Knowing and loving the people you teach &mdash; 4/5 <strong>&mdash; MATCH</strong></td><td>Pray and ask how you can help &mdash; 3/5; <strong>gave up</strong> &mdash; 2/5</td><td>3/5</td><td>2</td><td>99.6s</td><td>8</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p>
+          <strong>Overall:</strong> 22 of 25 runs succeeded (88%), 2
+          give-ups, 1 wrong block, mean 55.3 seconds and 3.0 taps per run,
+          11 backtracks &mdash; 8 of them on T5. We predicted the most common
+          first tap on 3 of 5 tasks. Per person: Deanne 5/5, Marcus 5/5,
+          Karalee 4/5, Lyle 5/5, Hal 3/5; Hal accounts for two of the three
+          failures and the slowest mean (83.6s against a study-wide 55.3s).
+        </p>
+
+        <h4>The failure catalogue</h4>
+        <p>What went wrong, who it happened to, and how bad. This list, not the pass rate, is the deliverable.</p>
+        <div class="table-scroll">
+        <table class="study-table">
+          <thead>
+            <tr><th>#</th><th>What happened</th><th>Who</th><th>Severity</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>F1</td><td>&ldquo;Absent&rdquo; returned nothing, and the no-results screen was offering &ldquo;text a parent&rdquo; and &ldquo;message a parent&rdquo; as suggestions. He read them as a list of words the search knows, not as things to tap, and gave up.</td><td>P25 &middot; T5</td><td><span class="sev">Showstopper</span></td></tr>
+            <tr><td>F2</td><td>The right group was visited and both right cards were read aloud and rejected: &ldquo;When you don&rsquo;t know what a student needs&rdquo; &mdash; <span class="inline-quote">&ldquo;I know what they need, they need to come.&rdquo;</span> <span class="fiction-badge">INVENTED QUOTE</span> Nothing on either card says <em>absent</em>.</td><td>P25 &middot; T5; P22 passed through the same cards</td><td><span class="sev">Showstopper</span> (content, not navigation)</td></tr>
+            <tr><td>F3</td><td>&ldquo;Not coming to Primary&rdquo; ranked three Keeping-their-attention cards first because the word <em>Primary</em> means children to the search, and the parent-message card fifth. She gave up on that screen: <span class="inline-quote">&ldquo;I&rsquo;d give up and just text the mom.&rdquo;</span> <span class="fiction-badge">INVENTED QUOTE</span> &mdash; which is the fifth result&rsquo;s first move.</td><td>P23 &middot; T5</td><td><span class="sev">Showstopper</span></td></tr>
+            <tr><td>F4</td><td>Ended on &ldquo;When the lesson is ready but you aren&rsquo;t&rdquo; (<span class="route">017.title_number2</span>) for a task about having nothing prepared. The lead reads like his Sunday morning; the chip under it says <em>Takes getting ready</em>; the block page said the same and he did not see it.</td><td>P25 &middot; T3</td><td><span class="sev">Wrong answer, taken confidently</span></td></tr>
+            <tr><td>F5</td><td>&ldquo;Not coming&rdquo; and &ldquo;no time to prepare&rdquo; both ranked <em>When you do not know the answer</em> first, because &ldquo;no&rdquo; and &ldquo;not&rdquo; match the word <em>not</em> in that label. &ldquo;Not coming to Primary&rdquo; ranked it fourth. Three of our twelve queries.</td><td>P22, P24, P23</td><td><span class="sev">Slows people down</span></td></tr>
+            <tr><td>F6</td><td>&ldquo;Nothing prepared&rdquo; returned sixteen cards and the first eight all said <em>Takes getting ready</em> &mdash; the word <em>prepared</em> matched every skill whose sentence begins <em>Prepare</em>. The usable results started at nine. He found the &ldquo;No prep&rdquo; chip and it fixed the list in one tap.</td><td>P22 &middot; T3</td><td><span class="sev">Slows people down</span></td></tr>
+            <tr><td>F7</td><td>The sixth tile, &ldquo;What it feels like,&rdquo; is a full screen below the fold on every phone we saw: on a 375-pixel-wide phone the first category tile starts two-thirds of the way down the first screen, and the sixth starts 1,170 pixels down. One participant never scrolled to it and went in through Teaching about Jesus Christ instead: <span class="inline-quote">&ldquo;I didn&rsquo;t see that one. It&rsquo;s at the bottom.&rdquo;</span> <span class="fiction-badge">INVENTED QUOTE</span> Two others spent 30&ndash;40 seconds on the home screen before their first tap.</td><td>P23; P24, P25 &middot; T2</td><td><span class="sev">Slows people down</span></td></tr>
+            <tr><td>F8</td><td>&ldquo;Getting yourself ready &mdash; you, before Sunday&rdquo; was opened for lesson preparation and backed out of: <span class="inline-quote">&ldquo;Getting yourself ready &mdash; that&rsquo;s me, before Sunday. &hellip; It&rsquo;s about my testimony, not my lesson.&rdquo;</span> <span class="fiction-badge">INVENTED QUOTE</span> The subtitle we added after the tree test to separate the two prep groups separates them the wrong way for this reader; Hal went into the same group on T3 and did not come back out (F4).</td><td>P24 &middot; T1; P25 &middot; T3</td><td><span class="sev">Slows people down</span></td></tr>
+            <tr><td>F9</td><td>&ldquo;Read it in the manual&rdquo; opened the Church site in a new browser tab, and the participant could not find the prototype again. We brought both back after the task was marked done.</td><td>P24 &middot; T1; P25 &middot; T4 (both Android)</td><td><span class="sev">Slows people down</span> (after the task)</td></tr>
+            <tr><td>F10</td><td>A chip on a card was tapped as if it were a filter &mdash; &ldquo;The first few minutes&rdquo; on the music card, &ldquo;Takes getting ready&rdquo; on the story card &mdash; and the whole card opened instead. Both landed on the right block anyway, so the log shows two clean successes; only the notes know.</td><td>P23 &middot; T4; P25 &middot; T1</td><td><span class="sev">Cosmetic</span> now; a trap later</td></tr>
+            <tr><td>F11</td><td>Entered the 36-card &ldquo;In the middle of the lesson&rdquo; page and took the fifth card. <span class="inline-quote">&ldquo;These are all things I could do. I&rsquo;ll take that one.&rdquo;</span> <span class="fiction-badge">INVENTED QUOTE</span> A success by our rule, from the top of a very long list.</td><td>P23 &middot; T3</td><td><span class="sev">Cosmetic</span> &mdash; one instance</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h4>Listening notes</h4>
+        <ul>
+          <li><strong>The situation lead is what gets read.</strong> On 18
+            of 25 runs the participant read a card&rsquo;s situation line
+            aloud before choosing; on 9 they read a first move aloud; nobody
+            read the manual&rsquo;s sentence aloud from a card, only from the
+            block page. Deanne, on the story card:
+            <span class="inline-quote">&ldquo;Ask of every story what truth
+            does it teach and how long does it take &mdash; well. That&rsquo;s
+            the question, isn&rsquo;t it.&rdquo;</span>
+            <span class="fiction-badge">INVENTED QUOTE</span></li>
+          <li><strong>The trial note leaks the study into the
+            interface.</strong> Deanne and Lyle both read &ldquo;it goes if
+            it does not earn its place&rdquo; aloud. Deanne:
+            <span class="inline-quote">&ldquo;Are you asking me?&rdquo;</span>
+            <span class="fiction-badge">INVENTED QUOTE</span> Then, on the
+            branch page: <span class="inline-quote">&ldquo;It&rsquo;s got
+            one thing in it. Is that all there is?&rdquo;</span>
+            <span class="fiction-badge">INVENTED QUOTE</span></li>
+          <li><strong>Marcus searches; nobody else does, much.</strong>
+            Five of his five first taps were searches, in his own words
+            (&ldquo;felt nothing,&rdquo; &ldquo;kids who don&rsquo;t
+            come&rdquo;); the other four people searched 7 times between
+            them in 20 runs, usually after a category had failed them. Of
+            the first move on the Spirit card &mdash; &ldquo;that peace you
+            felt, that has a source&rdquo; &mdash; he said
+            <span class="inline-quote">&ldquo;Except she didn&rsquo;t feel
+            peace. That&rsquo;s the whole problem.&rdquo;</span>
+            <span class="fiction-badge">INVENTED QUOTE</span></li>
+          <li><strong>The chip works when it is read.</strong> Deanne
+            rejected &ldquo;When you want them to find it themselves&rdquo;
+            on T3 because its chip said <em>Takes getting ready</em>, and
+            took the next card. Hal never read a chip in five tasks; at his
+            text size the chips wrap under the card and he was already
+            tapping.</li>
+          <li><strong>Age is a facet we do not have.</strong> Lyle, on the
+            &ldquo;ponder a personal circumstance&rdquo; card, for
+            three-year-olds: <span class="inline-quote">&ldquo;For a
+            Sunbeam? &hellip; No. But it says first minute, so.&rdquo;</span>
+            <span class="fiction-badge">INVENTED QUOTE</span> The moment
+            matched, the audience did not, and nothing on the card could
+            tell him.</li>
+          <li><strong>Marcus on the front-page suggestion chips:</strong>
+            <span class="inline-quote">&ldquo;&lsquo;Kids are noisy&rsquo; is
+            right there on the front page. Did you put it there because of
+            me?&rdquo;</span>
+            <span class="fiction-badge">INVENTED QUOTE</span> We did not; it
+            came from the card sort. It found his answer at rank one in 16.8
+            seconds.</li>
+        </ul>
+      </div>
+
+      <div class="docpage docpage--a">
+        <h3>4. Paths from the log</h3>
+        <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span> Every path is invented; every rank and result count in it was produced by the real build.</p>
+        <p>
+          All twenty-five runs, straight from the export (element&nbsp;8), in
+          session order. Routes are the build&rsquo;s own; a search shows
+          its result count; a result tap shows its rank; a repeated route
+          is a backtrack; &ldquo;manual&rdquo; is a tap out to the Church
+          site.
+        </p>
+        <div class="table-scroll">
+        <table class="study-table paths">
+          <thead>
+            <tr><th>Who</th><th>Task</th><th>Order</th><th>Path</th><th>Secs</th><th>Result</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>P21</td><td>T1</td><td>1</td><td>/c/prep › /g/prep/planning-the-lesson › /b/025.title_number3 › manual</td><td>38.4</td><td>ok</td></tr>
+            <tr><td>P21</td><td>T2</td><td>2</td><td>/c/feels › /b/020.title_number3 › manual</td><td>21.7</td><td>ok</td></tr>
+            <tr><td>P21</td><td>T3</td><td>3</td><td>/c/talk › /g/talk/asking-for-a-real-answer › /b/026.intro2</td><td>49.8</td><td>ok (no prep)</td></tr>
+            <tr><td>P21</td><td>T4</td><td>4</td><td>/m/opening › /b/019.title_number2 › manual</td><td>29.5</td><td>ok</td></tr>
+            <tr><td>P21</td><td>T5</td><td>5</td><td>/c/love › /g/love/getting-to-know-them › /c/love › /g/love/during-the-week › /b/013.intro2</td><td>55.3</td><td>ok</td></tr>
+            <tr><td>P22</td><td>T2</td><td>1</td><td>search “felt nothing” (15) › result #1 → /b/020.title_number3</td><td>12.3</td><td>ok</td></tr>
+            <tr><td>P22</td><td>T3</td><td>2</td><td>search “nothing prepared” (16) › chip: No prep — use it live › result #2 → /b/020.intro2</td><td>41.6</td><td>ok (no prep)</td></tr>
+            <tr><td>P22</td><td>T4</td><td>3</td><td>search “kids are noisy” (22) › result #1 → /b/019.title_number2</td><td>16.8</td><td>ok</td></tr>
+            <tr><td>P22</td><td>T5</td><td>4</td><td>search “kids who don't come” (19) › search “not coming” (23) › result #2 → /b/015.title_number1 › [back gesture] › / › /c/love › /g/love/during-the-week › /b/013.intro2</td><td>97.4</td><td>ok</td></tr>
+            <tr><td>P22</td><td>T1</td><td>5</td><td>search “story too long” (10) › result #1 → /b/025.title_number3</td><td>14.9</td><td>ok</td></tr>
+            <tr><td>P23</td><td>T3</td><td>1</td><td>/m/during › /b/007.title_number1</td><td>58.7</td><td>ok (no prep)</td></tr>
+            <tr><td>P23</td><td>T4</td><td>2</td><td>/c/attention › /g/attention/see-or-hear › /b/019.title_number2</td><td>31.2</td><td>ok</td></tr>
+            <tr><td>P23</td><td>T5</td><td>3</td><td>/c/love › /g/love/getting-to-know-them › /c/love › /g/love/safe-to-speak-up › /b/014.title_number3 › / › search “not coming to primary” (24)</td><td>142.6</td><td><strong>gave up</strong></td></tr>
+            <tr><td>P23</td><td>T1</td><td>4</td><td>/c/attention › /g/attention/see-or-hear › /c/attention › /g/attention/do-not-watch › / › search “story” (2) › result #1 → /b/025.title_number3</td><td>71.2</td><td>ok</td></tr>
+            <tr><td>P23</td><td>T2</td><td>5</td><td>/c/christ › /g/christ/bearing-witness-in-class › /b/020.title_number3 › manual</td><td>44.0</td><td>ok</td></tr>
+            <tr><td>P24</td><td>T4</td><td>1</td><td>/c/attention › /g/attention/do-not-watch › /b/027.title_number2</td><td>36.1</td><td>ok (second answer)</td></tr>
+            <tr><td>P24</td><td>T5</td><td>2</td><td>/c/love › /g/love/during-the-week › /b/013.intro2</td><td>33.9</td><td>ok</td></tr>
+            <tr><td>P24</td><td>T1</td><td>3</td><td>/c/prep › /g/prep/getting-yourself-ready › /c/prep › /g/prep/planning-the-lesson › /b/025.title_number3 › manual</td><td>52.6</td><td>ok</td></tr>
+            <tr><td>P24</td><td>T2</td><td>4</td><td>/c/feels › /b/020.title_number3</td><td>27.9</td><td>ok</td></tr>
+            <tr><td>P24</td><td>T3</td><td>5</td><td>search “substitute” (2) › search “no time to prepare” (28) › chip: No prep — use it live › result #10 → /b/029.title_number2</td><td>88.2</td><td>ok (no prep)</td></tr>
+            <tr><td>P25</td><td>T5</td><td>1</td><td>/c/love › /g/love/getting-to-know-them › /c/love › /g/love/during-the-week › /c/love › / › search “absent” (0)</td><td>168.9</td><td><strong>gave up</strong></td></tr>
+            <tr><td>P25</td><td>T1</td><td>2</td><td>/c/prep › /g/prep/planning-the-lesson › /b/025.title_number3</td><td>96.3</td><td>ok</td></tr>
+            <tr><td>P25</td><td>T2</td><td>3</td><td>/c/feels › /b/020.title_number3</td><td>41.2</td><td>ok</td></tr>
+            <tr><td>P25</td><td>T3</td><td>4</td><td>/c/prep › /g/prep/getting-yourself-ready › /b/017.title_number2</td><td>64.0</td><td><strong>wrong</strong> (takes getting ready)</td></tr>
+            <tr><td>P25</td><td>T4</td><td>5</td><td>search “singing time” (10) › result #1 → /b/019.title_number2 › manual</td><td>47.7</td><td>ok</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p>
+          Twelve queries in twenty-five runs, typed by four of the five
+          people; one returned nothing (&ldquo;absent&rdquo;). Seven of the
+          twenty-five first taps were searches, five of them Marcus&rsquo;s.
+          The by-moment view was the first tap on two runs of twenty-five.
+          Six taps out to the manual, by four of the five people. Two uses
+          of a facet chip, both the preparation one, both on T3.
+        </p>
+      </div>
+
+      <div class="docpage docpage--a">
+        <h3>5. Analysis</h3>
+        <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span></p>
+        <ul>
+          <li>
+            <strong>The trial branch earned its place, and its label
+            worked.</strong> Three of five went straight to &ldquo;What it
+            feels like&rdquo; for a question phrased in a child&rsquo;s words,
+            the two who searched landed on the same block at rank one, and
+            the one who went through Teaching about Jesus Christ found it
+            there too. 5 of 5, mean 29.4 seconds, no backtracks &mdash;
+            against 3 of 11 with 3 give-ups and 88.8 seconds for the same
+            question in the tree test. The tree test&rsquo;s open decision
+            closes. What did not work is everything <em>around</em> the
+            label: the tile is sixth of six and below the first screen on a
+            phone (F7), the trial note asks participants a question meant for
+            us, and a branch with one card reads as unfinished to the people
+            it was built for.
+          </li>
+          <li>
+            <strong>T5 is a content failure wearing a navigation
+            costume.</strong> Four of five first-tapped the right category,
+            four of five reached the right group, and the two give-ups
+            happened on search screens <em>after</em> that. Hal read both
+            accepted cards aloud in the right group and rejected them,
+            because neither card says anything about a child who is not
+            there; Karalee never opened the right group, but the query she
+            quit on had the parent-message card at rank five, and her own
+            words for giving up were that card&rsquo;s first move. The
+            structure delivered people to the answer; the cards could not
+            tell them it was the answer. That is a writing job for the final
+            prototype, not a filing job.
+          </li>
+          <li>
+            <strong>The search fails on function words and on the
+            manual&rsquo;s verbs.</strong> Three of twelve queries put
+            &ldquo;When you do not know the answer&rdquo; first or fourth
+            because &ldquo;no&rdquo; and &ldquo;not&rdquo; prefix-match the
+            word <em>not</em> in that label (F5). &ldquo;Nothing
+            prepared&rdquo; returned eight <em>Takes getting ready</em> cards
+            before a usable one, because <em>prepared</em> matches every
+            skill whose sentence starts <em>Prepare</em> (F6). &ldquo;Absent&rdquo;
+            matched nothing at all (F1). None of these is the meaning
+            index&rsquo;s fault; all three are the literal layer, which we
+            can change one line at a time.
+          </li>
+          <li>
+            <strong>The prep chip: read by two, used by two, missed by
+            one, and it contradicted a lead once.</strong> Both facet uses
+            in the study were the &ldquo;No prep&rdquo; chip, both on T3,
+            and both turned a bad list into a good one in one tap. Deanne
+            used the chip on a card to reject a block. Hal never saw a chip
+            at his text size and took the one block on T3 whose lead sounds
+            live and whose chip says otherwise (F4). Of the 22 blocks marked
+            <em>Takes getting ready</em>, we count four whose situation lead
+            reads as an in-the-moment situation
+            (<span class="route">017.title_number2</span>,
+            <span class="route">023.title_number1</span>,
+            <span class="route">030.title_number3</span>,
+            <span class="route">031.title_number2</span>); the chip is
+            derived from the manual&rsquo;s verb and is right, so it is the
+            leads that have to move.
+          </li>
+          <li>
+            <strong>Authored situation leads routed people correctly on
+            the task built to test them.</strong> T1 succeeded 5 of 5 and
+            every run ended by choosing the card whose lead we wrote
+            (&ldquo;not sure the story earns its minutes&rdquo;), three of
+            them without a search. The card build&rsquo;s notes worried an
+            authored lead could &ldquo;confidently route people to the wrong
+            skill&rdquo;; we saw that once, on 017.title_number2, and it was
+            the chip&rsquo;s disagreement with the lead that did it, not the
+            lead alone.
+          </li>
+          <li>
+            <strong>&ldquo;You, before Sunday&rdquo; is ambiguous, and we
+            wrote it.</strong> Our tree-test decision D3 added that subtitle
+            so nobody would open the self-preparation group looking for
+            lesson planning. Lyle opened it looking for lesson planning and
+            read the subtitle as confirmation; Hal opened it on a different
+            task and stayed. Two of five, on two tasks, in one group. The
+            subtitle is doing the opposite of its job.
+          </li>
+          <li>
+            <strong>The manual button does exactly what the accent was
+            spent on &mdash; and then loses people.</strong> Four of five
+            tapped it; it is the only accented element on a block page, and
+            nobody hesitated over which thing to tap. Then two of the four,
+            both on Android, could not get back from the new tab (F9). The
+            attention design is right; what happens after the tap is not.
+          </li>
+          <li>
+            <strong>The by-moment view is not a door people choose.</strong>
+            Two first taps in twenty-five, and the task built for it (T4)
+            drew one. The tree test&rsquo;s 95.5% success for moment entries
+            was 22 runs, mostly one person, and we said then we would hold it
+            loosely until v1&rsquo;s logs could carry it. They carried it
+            nowhere: on a phone, people start from the problem or from the
+            search box.
+          </li>
+          <li>
+            <strong>Calibration.</strong> Hal is two of the three failures.
+            He is one person, and at his text size the layout is a
+            different layout; we count him because seventy-one adults in this
+            ward are over sixty-five, not because five participants make a
+            trend. F10 and F11 are one or two instances each and are listed
+            as what they are. We cannot see scrolling in the log, so
+            everything about long lists is from the notes.
+          </li>
+        </ul>
+      </div>
+
+      <aside class="grader" aria-label="Grader comment">
+        <p class="grader__head">Grader &middot; Results &amp; Analysis &middot; <span class="grader__pts">20/20 &mdash; Full Marks</span></p>
+        <p>This is a page of notes that reads like a page of notes and
+        still carries a full analysis, which is the hardest thing the
+        assignment asks for.</p>
+        <ul>
+          <li><strong>The failure catalogue with a severity column is the
+          deliverable</strong>, and you knew it: <em>&ldquo;the deliverable
+          is the failure list with severity, and details about the
+          failure.&rdquo;</em> Eleven entries, each naming who, what, and
+          how bad, with the one that is really a content gap labelled as a
+          content gap.</li>
+          <li><strong>Cross-participant synthesis, every time.</strong>
+          <em>&ldquo;Patterns, agreements, disagreements &mdash; not
+          session-by-session recaps.&rdquo;</em> T5 is analysed as a
+          structure that worked and cards that didn&rsquo;t; the search
+          defects are grouped by mechanism, not by who hit them; the trial
+          branch is judged against the tree test&rsquo;s own numbers on the
+          same question.</li>
+          <li><strong>Calibrated to five people.</strong> Hal is counted and
+          then explicitly bounded; the moment-view claim is retired against
+          the tree test&rsquo;s own hedge; two-instance findings are called
+          two instances. <em>&ldquo;Claims are calibrated to what the data
+          supports.&rdquo;</em></li>
+          <li><strong>The paths table is the best thing on the page.</strong>
+          Twenty-five runs with the rank of every result tapped and the size
+          of every result list. I checked three of the ranks against the
+          build myself and they hold.</li>
+          <li><strong>You listened for what the log cannot record</strong>
+          &mdash; a chip tapped as a filter that produced a clean success in
+          the data, a give-up whose words were the answer&rsquo;s first move
+          &mdash; and said so.</li>
+        </ul>
+        <p>Full marks. The raw-data requirement is graded at element&nbsp;8.</p>
+      </aside>
+
+      <div class="docpage docpage--a">
+        <h3>6. Changes we will make</h3>
+        <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span></p>
+        <p>
+          All of these land in the final prototype; the card build is frozen
+          as of this test.
+        </p>
+        <ol class="decision-list">
+          <li>
+            <strong>We are keeping the sixth branch, and it stops being a
+            trial.</strong> Because T2 succeeded 5 of 5 with 3 of 5 going
+            straight to &ldquo;What it feels like&rdquo;; because two people
+            read the trial note aloud as a question to them; and because
+            Deanne asked whether one card was all there was &mdash;
+            <strong>we will remove the trial note from the interface, keep the
+            label, and cross-list into the branch the blocks that are about
+            what someone feels rather than what the teacher does</strong>,
+            starting with <span class="route">021.title_number1</span>
+            (help them put what they feel into words),
+            <span class="route">008.title_number1</span> (know and feel the
+            love of the Father and the Son) and
+            <span class="route">007.title_number2</span> (recognize the
+            Lord&rsquo;s hand in their own experiences). Directional beyond
+            those three: same rule, applied block by block when the written
+            guidance is drafted.
+          </li>
+          <li>
+            <strong>All six category tiles will fit on one phone
+            screen.</strong> Because Karalee never saw the sixth tile
+            (&ldquo;it&rsquo;s at the bottom&rdquo;), because on a 375-pixel
+            phone only the first tile is visible without scrolling, and
+            because Lyle and Hal spent 30&ndash;40 seconds on the home screen
+            before tapping on T2
+            &mdash; <strong>we will set the category tiles two-up on phones and
+            move the &ldquo;Try searching&rdquo; row below them</strong>, so
+            the six problems are the first thing on the screen.
+          </li>
+          <li>
+            <strong>The literal search layer gets three fixes.</strong>
+            Because &ldquo;not coming&rdquo; and &ldquo;no time to
+            prepare&rdquo; ranked &ldquo;When you do not know the
+            answer&rdquo; first and &ldquo;not coming to Primary&rdquo; ranked
+            it fourth (3 of 12 queries), and because &ldquo;nothing
+            prepared&rdquo; put eight unusable cards before a usable one
+            &mdash; <strong>we will add <em>no, not, nothing, don&rsquo;t</em>
+            to the stop list, require three letters before a word-prefix
+            match, and map <em>nothing prepared / no time / last minute /
+            substitute</em> to the no-prep facet instead of to blocks</strong>.
+            All three are one-line changes in the committed vocabulary or
+            the tokenizer, and all three are checkable by re-running the
+            twelve queries in element&nbsp;4.
+          </li>
+          <li>
+            <strong>The words people used for a missing child go into
+            the vocabulary.</strong> Because &ldquo;absent&rdquo; returned
+            nothing and Hal quit on it, &ldquo;not coming to Primary&rdquo;
+            was Karalee&rsquo;s last screen, and &ldquo;kids who don&rsquo;t
+            come&rdquo; ranked the answer eighth &mdash; <strong>we will
+            commit <em>absent, not coming, don&rsquo;t come, haven&rsquo;t
+            been, missing</em> to Caring about them during the week and to
+            <span class="route">013.intro2</span> and
+            <span class="route">015.title_number1</span></strong>, and the
+            written guidance for both blocks will name the case of a child
+            who is not there.
+          </li>
+          <li>
+            <strong>Four situation leads get rewritten to agree with
+            their chip.</strong> Because Hal ended T3 on &ldquo;When the
+            lesson is ready but you aren&rsquo;t&rdquo; while its chip said
+            <em>Takes getting ready</em>, and because we count four
+            &ldquo;ahead&rdquo; blocks whose lead reads as live
+            (<span class="route">017.title_number2</span>,
+            <span class="route">023.title_number1</span>,
+            <span class="route">030.title_number3</span>,
+            <span class="route">031.title_number2</span>) &mdash;
+            <strong>we will rewrite those four leads so the doing-ahead is in
+            the sentence</strong> (&ldquo;Before Sunday, when the lesson is
+            ready but you aren&rsquo;t&rdquo;), and keep the chip&rsquo;s
+            derivation rule exactly as it is, because Deanne showed it works
+            when it is read.
+          </li>
+          <li>
+            <strong>The prep subtitle gets a new job.</strong> Because two
+            of five opened &ldquo;Getting yourself ready &mdash; you, before
+            Sunday&rdquo; looking for lesson preparation on two different
+            tasks, and Lyle read the subtitle as confirmation &mdash;
+            <strong>the subtitle becomes &ldquo;your own testimony, not the
+            lesson&rdquo;</strong>, and &ldquo;Planning what happens in
+            class&rdquo; gains the subtitle &ldquo;the lesson itself.&rdquo;
+            The tree test&rsquo;s D3 stands; its wording did not.
+          </li>
+          <li>
+            <strong>&ldquo;Read it in the manual&rdquo; says where it goes
+            and comes back.</strong> Because 4 of 5 tapped it and 2 of the 4
+            lost the prototype in a new tab &mdash; <strong>we will keep the
+            accent on it, add &ldquo;opens the Church website&rdquo; under it,
+            and open the manual in the same tab</strong> so the phone&rsquo;s
+            back gesture returns to the block page. The attention design
+            stays; the destination stops being a trap.
+          </li>
+          <li>
+            <strong>Chips on cards stop looking tappable.</strong> Because
+            Karalee and Hal each tapped a chip on a card expecting to narrow
+            the list and got the block page &mdash; <strong>card chips become
+            plain text on list cards</strong>; on the block page, where
+            tapping a moment really does open the moment view, they stay
+            links. Directional: if the final prototype adds tap-a-chip-to-filter
+            on lists, it does it everywhere or nowhere.
+          </li>
+          <li>
+            <strong>The moment view stops being a front door.</strong>
+            Because the by-moment view was the first tap on 2 of 25 runs,
+            including 1 of 5 on the task built for it, and because the tree
+            test&rsquo;s 95.5% was 22 runs of mostly one person &mdash;
+            <strong>the four moment tiles move below the six problem tiles
+            and the search box on the home screen</strong>. The attribute,
+            the chips, and the view all stay (the tree test&rsquo;s D6
+            stands); what changes is the claim that people start there.
+          </li>
+          <li>
+            <strong>Keep: the situation leads on every card.</strong>
+            Because the lead was the first thing read aloud on 18 of 25
+            runs and T1 succeeded 5 of 5 by the lead we wrote for it, the
+            authored leads stay, with change 5 as the one correction the
+            data asked for.
+          </li>
+          <li>
+            <strong>Keep: the accent discipline.</strong> Because the one
+            accented element on the block page drew 4 of 5 people and nobody
+            hesitated over what to tap, one accent per screen stays exactly
+            where the card build put it.
+          </li>
+        </ol>
+      </div>
+
+      <div class="docpage docpage--a">
+        <h3>7. What we will not change</h3>
+        <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span></p>
+        <ul>
+          <li><strong>No branch for children who do not come.</strong> Two
+            give-ups and a rejected pair of cards argue for one; we are not
+            adding it. The manual has no skill about attendance, so a
+            category for it would have nothing in it but the two blocks
+            people already reached. Change 4 puts the words in the search
+            and the case in the guidance; the structure stays.</li>
+          <li><strong>The cards themselves.</strong> One person entered
+            one 36-card page and took the fifth card. The card build&rsquo;s
+            bet was that richer scanning beats shorter scrolling; nothing in
+            twenty-five runs says otherwise, and we cannot see scrolling in
+            the log. If the final prototype paginates the moment pages it
+            will be for a reason this study did not supply.</li>
+          <li><strong>The first move on the Spirit card.</strong> Marcus
+            is right that &ldquo;that peace you felt&rdquo; assumes a feeling
+            the girl did not have. One comment on one card is a note for the
+            writer of that block&rsquo;s guidance, not a design change.</li>
+          <li><strong>An audience attribute.</strong> Lyle&rsquo;s
+            &ldquo;for a Sunbeam?&rdquo; is the best argument this study
+            produced for a new facet, and it is one sentence from one
+            person. Parked, with a pointer: if the final prototype adds one
+            attribute, this is the candidate.</li>
+          <li><strong>&ldquo;What the prophets say.&rdquo;</strong> Opened
+            in 0 of 25 runs, as in 2 of 110 last time. Our five tasks did not
+            need it; that is still a fact about our tasks.</li>
+          <li><strong>Hal&rsquo;s phone.</strong> Changes 2, 7 and 8 come
+            from watching him. We are not designing for maximum text size
+            as a mode; we are making sure the layout survives it.</li>
+        </ul>
+      </div>
+
+      <aside class="grader" aria-label="Grader comment">
+        <p class="grader__head">Grader &middot; Design Decisions &middot; <span class="grader__pts">25/25 &mdash; Full Marks</span></p>
+        <p>Eleven decisions, every one of them with a because, and the
+        &ldquo;because&rdquo; is always a number or a name from your own
+        page.</p>
+        <ul>
+          <li><strong><em>&ldquo;Every decision explicitly cites its
+          finding.&rdquo;</em></strong> Decision 3 cites three queries by
+          rank; decision 6 cites two people on two tasks in one group;
+          decision 9 cites its own weakest evidence &mdash; 2 of 25 &mdash;
+          against the tree test&rsquo;s stronger-looking number and explains
+          why the weaker one wins.</li>
+          <li><strong>Concrete where the data allows, directional where it
+          doesn&rsquo;t.</strong> Stop-list words, a three-letter prefix
+          rule, four block ids to rewrite, a subtitle in quotation marks:
+          these are changes I can check next month. The cross-listing rule in
+          decision 1 and the chip-filter question in decision 8 are marked
+          directional, which is the honest mark.</li>
+          <li><strong>Two keeps that count fully.</strong> The situation
+          leads and the accent discipline are kept on evidence, not on
+          fondness, and the one correction the leads needed is a separate
+          numbered decision rather than a footnote.</li>
+          <li><strong>Element 7 is the assignment&rsquo;s own hardest
+          question answered well.</strong> You refused the change the data
+          most loudly suggests &mdash; a branch for absent children &mdash;
+          and gave the reason a branch would fail: nothing to put in it.
+          You parked the audience facet with a pointer instead of building
+          it on one sentence. That is what <em>&ldquo;a few directional ones
+          are fine where data doesn&rsquo;t support a specific fix&rdquo;</em>
+          looks like from the other side.</li>
+          <li><strong>You revised your own earlier decision.</strong> D3
+          from the tree test added &ldquo;you, before Sunday&rdquo;; this
+          study found it misleading; decision 6 rewrites it and says D3
+          stands while its wording does not. Teams protect their earlier
+          decisions. Don&rsquo;t.</li>
+        </ul>
+        <p>Full marks.</p>
+      </aside>
+
+      <div class="docpage docpage--a">
+        <h3>8. Raw log</h3>
+        <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span> The CSV is a real, downloadable file in this repository; every row in it is invented, and every rank and result count in it was computed by re-running the query against the real build.</p>
+        <p>
+          <a href="03-task-test-raw-team-a.csv"><code>03-task-test-raw-team-a.csv</code></a>
+          &mdash; the five Session-log exports, one per participant,
+          concatenated. 113 rows plus a header: 93 inside tasks and 20
+          &ldquo;Home (title bar)&rdquo; taps between them.
+        </p>
+        <p><code>participant, task, seq, time, event, fromRoute, toRoute,
+        label, query, blockId, rank, facet, resultCount</code></p>
+        <p>
+          The first two columns are ours; everything from <code>seq</code>
+          on is the build&rsquo;s export, unedited. <code>seq</code>
+          restarts at 1 for each participant because each export is one
+          phone. <code>task</code> is blank on the title-bar rows between
+          tasks. <code>event</code> is <code>nav</code>, <code>search</code>,
+          <code>result</code>, <code>facet</code> or <code>manual</code>; a
+          <code>result</code> row carries the <code>query</code> that
+          produced it and the <code>rank</code> it sat at, and a
+          <code>search</code> row carries <code>resultCount</code>. Every
+          number in elements 3, 4 and 5 derives from this file and nothing
+          else: success is whether a task&rsquo;s last <code>toRoute</code>
+          is in the accepted set from element&nbsp;1 (a give-up ends on a
+          search screen or a branch, never on a block); the first tap is the
+          task&rsquo;s first row; a backtrack is a <code>toRoute</code>
+          repeated within one task, plus each place where
+          <code>fromRoute</code> does not equal the previous row&rsquo;s
+          <code>toRoute</code>, which is a phone back gesture the build does
+          not log (Marcus, T5, one of them); queries are the
+          <code>search</code> rows; the facet uses are the <code>facet</code>
+          rows.
+        </p>
+        <p>
+          <strong>Two honest notes.</strong> The timestamps are UTC &mdash;
+          the build writes them with <code>toISOString()</code> and we left
+          them alone &mdash; so our Monday-evening sessions are stamped
+          Tuesday. And seconds per task come from the note-taker&rsquo;s
+          stopwatch, not the log, because the log&rsquo;s first row is the
+          first tap and a task starts when the card is read; the stopwatch
+          and the log agree to within the time it takes to read a card.
+        </p>
+      </div>
+
+      <aside class="grader" aria-label="Grader comment">
+        <p class="grader__head">Grader &middot; Results &amp; Analysis (raw data) &middot; <span class="grader__pts">appendix requirement met</span></p>
+        <p>Checkable, and checked.</p>
+        <ul>
+          <li><strong>I re-derived T5 from the file</strong>: three tasks
+          ending on <code>/b/013.intro2</code>, two ending on a
+          <code>/find</code> route with no block after it, eight repeated
+          routes across the five runs. It holds.</li>
+          <li><strong>The prepended columns are the right call</strong>,
+          and you said which columns are yours. Leaving the export otherwise
+          untouched &mdash; UTC stamps included &mdash; is the same habit I
+          praised last time. Keep it.</li>
+          <li><strong>The stopwatch note matters</strong>: a reader who
+          computed seconds from the log alone would get shorter tasks and
+          would not know why.</li>
+        </ul>
+      </aside>
+
+      <div class="scorecard">
+        <p class="scorecard__title">Report A &middot; scorecard (Study Report Rubric, 60)</p>
+        <table class="study-table">
+          <tbody>
+            <tr><td>Methods</td><td>Full Marks &mdash; five fresh participants on their own phones, tasks from their own next lessons, Latin square, silent moderator, help disclosed</td><td class="scorecard__pts">15</td></tr>
+            <tr><td>Results &amp; Analysis</td><td>Full Marks &mdash; a page of notes with a severity-sorted failure catalogue, synthesis by mechanism, calibrated to five, derivable paths table</td><td class="scorecard__pts">20</td></tr>
+            <tr><td>Design Decisions</td><td>Full Marks &mdash; eleven cited decisions incl. two keeps and a revision of their own D3; refusals with reasons</td><td class="scorecard__pts">25</td></tr>
+            <tr class="scorecard__total"><td>Turn-in 5 total</td><td></td><td class="scorecard__pts">60/60</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+
+    <!-- ================================================================ -->
+    <!-- REPORT B — THE TASK TEST                                          -->
+    <!-- ================================================================ -->
+    <section aria-labelledby="report-b3" class="report--b">
+      <h2 id="report-b3">Report B &mdash; the task test &middot; 40/60</h2>
+      <p class="section-note">
+        A middle-of-the-road team&rsquo;s task test, run on
+        <a href="../prototypes/v1/team-b/">their own prototype v1</a> their
+        own way. Report B is the white pages, as it left Word; the grader
+        follows each criterion in red. This is the team whose tree test
+        scored 31/60, and their best moment on this page is the one the
+        tree-test grader predicted for them.
+      </p>
+      <p class="fiction-note"><span class="fiction-badge">FICTITIOUS DATA</span>
+        Report B&rsquo;s participants and data are invented on the same terms
+        as Report A&rsquo;s. Their blocks are numbered C01&ndash;C24, their
+        own card-sort deck, where Report A cites manual skill ids. Two teams,
+        two decks, not an error in either.</p>
+
+      <div class="docpage docpage--b">
+        <h3>1. Who we tested</h3>
+        <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span></p>
+        <p>Five people, which is what the assignment says:</p>
+        <ul>
+          <li><strong>Cami</strong> &mdash; Primary 5-year-olds. She has
+          done all three of our studies now so she knows the site really
+          well, which was nice because we didn&rsquo;t have to explain the
+          categories. On her iPhone.</li>
+          <li><strong>Braxton</strong> &mdash; Cami&rsquo;s husband. Not a
+          teacher but he was in our tree test and he was there. His phone
+          was dead so he used Cami&rsquo;s.</li>
+          <li><strong>Shanna</strong> &mdash; Primary 8&ndash;9s, she
+          co-teaches with Sister Bingham. New to our studies, Cami got her
+          for us. On her iPhone.</li>
+          <li><strong>Tanner</strong> &mdash; Kyle&rsquo;s roommate, CS
+          major. Not in the ward but he is a user of websites so we figured
+          that counts for the design part. On the laptop.</li>
+          <li><strong>Jace</strong> &mdash; our other roommate, he&rsquo;s
+          in 240. Same deal. On the laptop, right after Tanner.</li>
+        </ul>
+        <p>Cami and Braxton were Tuesday night at their apartment, Shanna was
+        Wednesday at the church after her activity, and Tanner and Jace
+        were Thursday at our place. Each one took about 15 minutes. We read
+        the task and watched and wrote down where they clicked and how long
+        it took on a phone stopwatch.</p>
+      </div>
+
+      <div class="docpage docpage--b">
+        <h3>2. Our tasks</h3>
+        <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span></p>
+        <p>We used the same five for everybody, in the same order, since
+        that makes them easier to compare.</p>
+        <div class="table-scroll">
+        <table class="study-table">
+          <thead>
+            <tr><th>#</th><th>Task</th><th>Answer</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>B1</td><td>Nobody in your class answers your questions. Find something to try.</td><td>C16 &mdash; Open-ended search questions</td></tr>
+            <tr><td>B2</td><td>Find something under Preparation you could do this week.</td><td>anything in Preparation</td></tr>
+            <tr><td>B3</td><td>You want to use a song in your lesson. Find how.</td><td>C13 &mdash; Use sacred music</td></tr>
+            <tr><td>B4</td><td>Look around and find something you would actually use in your next lesson.</td><td>anything</td></tr>
+            <tr><td>B5</td><td>One of your kids is going through a hard time at home and you want to reach out to the parents. Find what to do.</td><td>C10 &mdash; Positive message to a parent</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p>B4 was so we could see what people are drawn to on their own.</p>
+      </div>
+
+      <aside class="grader" aria-label="Grader comment">
+        <p class="grader__head">Grader &middot; Methods &middot; <span class="grader__pts">10/15 &mdash; Developing</span></p>
+        <p>You recruited five, you timed all twenty-five runs, and you told
+        me everything &mdash; including the one thing that costs you the
+        most, which I only know because you wrote it down. That honesty is
+        why this is a 10 and not a 5. Now the list.</p>
+        <p><strong>Who.</strong> The method page says it in one line:
+        <em>&ldquo;the methods don&rsquo;t care about N; they care about
+        who.&rdquo;</em> Three of your five are from the ward, and of those
+        three, one is not a teacher and one has now sat through all three
+        of your studies and knows your categories better than you do. Tanner
+        and Jace are the &ldquo;five strangers from Reddit&rdquo; mistake in
+        miniature: two CS students on a laptop, doing a task about their
+        next lesson, which they will not be teaching. <em>&ldquo;Recruited
+        more than half of the required participants, but not all&rdquo;</em>
+        is exactly the band, counting the people who fit. Shanna is the one
+        person on this list who is what the study needs &mdash; a Primary
+        teacher who has never seen your site &mdash; and she is where your
+        most interesting results come from.</p>
+        <p><strong>The tasks.</strong> B2 says &ldquo;under
+        Preparation&rdquo; and scored 5 of 5 in 16 seconds; a task that
+        names the category tests reading. B4 is &ldquo;try the site&rdquo;
+        with more words; it cannot fail, and it did not. Ten of your
+        twenty-five cells are those two tasks. <strong>The help.</strong>
+        On B3 you told Tanner to &ldquo;try the sections at the bottom&rdquo;
+        and then counted his run as a success. The moment you tell a user
+        where to click <em>&ldquo;you are testing yourself, not the
+        design&rdquo;</em> &mdash; and in this case you were testing your
+        own knowledge that the block is hidden, which is a finding, not a
+        hint. That is the one significant error the band allows for.
+        <strong>Devices.</strong> The assignment says own phones; two of
+        five were on a laptop and one on somebody else&rsquo;s phone.
+        <strong>Order.</strong> Same five, same order, so B5 was always
+        the task people had practised for.</p>
+        <p>Developing, 10/15. The fix is the same as last time and it is
+        not effort: five ward teachers who have never seen your site, on
+        their own phones, tasks written from their next lessons, tasks that
+        never say a label, and when someone is stuck, silence.</p>
+      </aside>
+
+      <div class="docpage docpage--b">
+        <h3>3. What we saw</h3>
+        <p class="doc-stamp"><span class="fiction-badge">INVENTED QUOTE</span></p>
+        <p><strong>Cami</strong> got all five. She went straight to
+        Questions on B1 because she knew where it was. On B3 she searched
+        &ldquo;song&rdquo; and &ldquo;music&rdquo; and got no results both
+        times, then said <span class="inline-quote">&ldquo;oh wait, some of
+        them are only in the sections&rdquo;</span> from the tree test and
+        went to Teach By the Spirit and found it. About a minute and a half.
+        B4 she picked the open-with-a-personal-circumstance one because she
+        likes it. B5 she went to Love.</p>
+        <p><strong>Braxton</strong> got 3 of 5. On B1 he went to Teaching
+        Fundamentals and picked C21 which is close but not the answer. B2
+        Preparation, picked the pray-by-name one. B3 he searched
+        &ldquo;music,&rdquo; &ldquo;hymn,&rdquo; and &ldquo;sing&rdquo; and
+        got nothing every time and said <span class="inline-quote">&ldquo;is
+        it even in here?&rdquo;</span> and we let him stop after about three
+        minutes. B4 Engagement, B5 Love, both fine.</p>
+        <p><strong>Shanna</strong> got 3 of 5. B1 and B2 fine. B3 she
+        searched &ldquo;song,&rdquo; nothing, went to Spiritual Teaching and
+        picked Pictures and videos of Christ and said that was probably it.
+        B4 Preparation. B5 she went to Love and picked &ldquo;Statements:
+        feel God&rsquo;s love&rdquo; because a kid going through something
+        needs to feel God&rsquo;s love, which honestly is kind of right but
+        the answer was the parent one.</p>
+        <p><strong>Tanner</strong> got 5 of 5. He searched first on B1
+        (&ldquo;questions&rdquo;) and got the right one. B2 fine. B3 he
+        searched &ldquo;song&rdquo; and &ldquo;music,&rdquo; nothing, and
+        asked if it was even in there, so we told him to try the sections at
+        the bottom and he found it. B4 he clicked the Search tile and said
+        <span class="inline-quote">&ldquo;that&rsquo;s just search&rdquo;</span>
+        and went back and picked one. B5 he searched &ldquo;parents&rdquo;
+        and got no results (it&rsquo;s &ldquo;parent&rdquo; in the title)
+        and went to Love and found it.</p>
+        <p><strong>Jace</strong> got 3 of 5. B1 he picked the Pause one
+        (C14). B3 he searched &ldquo;sing&rdquo; and &ldquo;song,&rdquo;
+        nothing, said <span class="inline-quote">&ldquo;it&rsquo;s not in
+        here&rdquo;</span> and stopped. B4 Spiritual Teaching. B5 searched
+        &ldquo;parent&rdquo; and got it first try.</p>
+        <p>Altogether people got 19 out of 25 right, which is 76%. B3 was
+        the worst one (2 of 5, and one of those was Tanner with the hint).
+        Everybody searched on B3 and nobody got a result from the search.
+        Sorry this section is a little over a page.</p>
+      </div>
+
+      <div class="docpage docpage--b">
+        <h3>4. Analysis</h3>
+        <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span></p>
+        <p>76% is pretty good for a first prototype, and B2 and B4 were
+        100%, so basically when people know what they&rsquo;re looking for
+        they can find it. The search worked well when people used the exact
+        word (Tanner&rsquo;s &ldquo;questions,&rdquo; Jace&rsquo;s
+        &ldquo;parent&rdquo;).</p>
+        <p>The music one is the big problem. It&rsquo;s only under the
+        Teach By the Spirit section and not in any category, and it turns
+        out it&rsquo;s not in the search list either, which we didn&rsquo;t
+        realize until Braxton searched for it three different ways. Five
+        people searched for it and got ten &ldquo;No results&rdquo; between
+        them. The only two who found it were Cami, who remembered from the
+        tree test, and Tanner, who we told.</p>
+        <p>A couple of people (Shanna and Jace) clicked one of the
+        category buttons on the search results page to narrow it down and
+        it took them to the category page and their search was gone, which
+        was annoying for them.</p>
+        <p>Everyone liked the colors. Shanna said it looked professional.
+        Tanner said he didn&rsquo;t notice the search button at first
+        because everything is red, but he found it.</p>
+        <p>The Search tile got used a lot (3 of 5 people used search at
+        some point) so people do want to search.</p>
+      </div>
+
+      <aside class="grader" aria-label="Grader comment">
+        <p class="grader__head">Grader &middot; Results &amp; Analysis &middot; <span class="grader__pts">13/20 &mdash; Developing (capped)</span></p>
+        <p>First the thing you did well, because it is the thing the
+        tree-test grader told you would happen and you caught it yourselves:
+        <strong>C13 is orphaned, and your study proved it.</strong> Five
+        people, ten searches, ten &ldquo;No results,&rdquo; and the only
+        finds were memory and a hint. You also spotted &mdash; by watching,
+        not from the log &mdash; that the &ldquo;narrow&rdquo; buttons on the
+        search page throw the search away. Those two findings are real,
+        they are yours, and they are the reason this section is not a 7.</p>
+        <p>Now what caps it. <em>&ldquo;Results accurate but presented
+        participant-by-participant with little synthesis&rdquo;</em> is the
+        Developing band&rsquo;s first sentence and section 3 is five
+        paragraphs named Cami, Braxton, Shanna, Tanner, Jace. The method
+        page warns against exactly one number, and you led with it:
+        <em>&ldquo;counting tasks completed instead of cataloging
+        failures.&rdquo;</em> 76% is not a finding about your design; it is
+        ten cells from a task that names the answer and a task that cannot
+        fail, plus nine of fifteen on the three real ones &mdash; and the
+        assignment&rsquo;s own words are that this study &ldquo;doesn&rsquo;t
+        involve enough participants to calculate meaningful
+        statistics.&rdquo; Then the over-claims, which cap the criterion
+        regardless of polish: &ldquo;everyone liked the colors&rdquo; is one
+        person saying &ldquo;professional&rdquo; and another saying he
+        could not find the search button because everything is red, which
+        is the opposite finding, reported in the same paragraph. &ldquo;The
+        search worked well when people used the exact word&rdquo; is true
+        of two queries and false of ten; your own log has &ldquo;parents&rdquo;
+        returning nothing because the title says &ldquo;parent,&rdquo; and
+        that is not a user using the wrong word, it is a substring match.</p>
+        <p>Two calibration notes you can fix in an hour. Braxton&rsquo;s
+        C21 on B1 &mdash; &ldquo;resist answering everything yourself&rdquo;
+        &mdash; is a reasonable answer to &ldquo;nobody answers your
+        questions,&rdquo; and so is Jace&rsquo;s C14. You marked both wrong
+        because your key had one block in it. A task test with a one-block
+        key on a question that has three plausible answers is measuring the
+        key. And Shanna&rsquo;s C04 on B5, which you called &ldquo;kind of
+        right,&rdquo; is the most interesting cell in your study: a Primary
+        teacher read your Love category and found two blocks that both
+        sounded like the answer. That is a finding about the labels, and it
+        is sitting in your notes as an apology.</p>
+        <p>The raw data is graded at section 7; the short version is that
+        it exists and it cannot be tied to the analysis. 13/20.</p>
+      </aside>
+
+      <div class="docpage docpage--b">
+        <h3>5. What we are changing</h3>
+        <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span></p>
+        <p>We tried to do the &ldquo;because&rdquo; thing from last time.</p>
+        <ul>
+          <li>Because nobody could find the music skill except Cami and
+          Tanner-with-a-hint (2 of 5), and five people searched for it and
+          got ten no-results, we will add C13 to Spiritual Teaching and to
+          the search list.</li>
+          <li>Because &ldquo;parents&rdquo; didn&rsquo;t find
+          &ldquo;parent,&rdquo; we will make the search match partial words
+          better.</li>
+          <li>Because Shanna and Jace lost their search when they clicked a
+          category button on the results page, we will make those buttons
+          keep the search words.</li>
+          <li>Make the red on the buttons brighter so the search button
+          stands out more, since Tanner didn&rsquo;t notice it.</li>
+          <li>Add icons to the category tiles so people know what is in
+          them.</li>
+          <li>Probably rename Teaching Fundamentals since only Braxton
+          clicked it.</li>
+        </ul>
+      </div>
+
+      <div class="docpage docpage--b">
+        <h3>6. What we are keeping</h3>
+        <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span></p>
+        <ul>
+          <li>We are keeping Search as a tile on the home page because 3 of
+          5 people used search at some point, so it should be easy to
+          find.</li>
+          <li>We are keeping the manual sections view because that is how
+          people found the music one.</li>
+          <li>We are not changing the colors overall, everyone said they
+          looked nice.</li>
+        </ul>
+      </div>
+
+      <aside class="grader" aria-label="Grader comment">
+        <p class="grader__head">Grader &middot; Design Decisions &middot; <span class="grader__pts">17/25 &mdash; Developing</span></p>
+        <p>You did do the &ldquo;because&rdquo; thing, and it shows: this is
+        the best decisions section you have written, and it is nine points
+        better than your last one. Your first three bullets are real
+        decisions &mdash; each one names a result, each one commits to
+        something I could check. The C13 decision is the one the tree-test
+        grader wrote out for you as an example, and you have now written it
+        yourselves from your own data. That is the whole point of these
+        pages.</p>
+        <p>Where it stays Developing: <em>&ldquo;some decisions have no
+        visible tie to the data, or are too vague to commit to
+        anything.&rdquo;</em> Icons cite nothing. &ldquo;Probably
+        rename&rdquo; commits to nothing, and one person clicking a
+        two-block category is not a finding about its name. And the
+        brighter-red decision is the one I want you to sit with, because it
+        is tied to a finding and it is the wrong fix: Tanner could not find
+        the search button <em>because everything is red</em> &mdash; the
+        tiles, the links, the buttons, the borders. Your accent is spent
+        on every element, so it points at none of them. Making the button
+        redder makes the problem redder. The fix is to take the accent off
+        everything else. Go look at how Team A&rsquo;s build spends its one
+        accent per screen and where their four people&rsquo;s eyes went.</p>
+        <p>The keeps: one of the three is evidence-backed and the other two
+        are the same over-claims from section 4 wearing a different hat.
+        &ldquo;3 of 5 used search&rdquo; argues for a search box on every
+        page, which you have; it does not argue for search being a
+        <em>category</em>. Keeping the sections view &ldquo;because
+        that&rsquo;s how people found the music one&rdquo; keeps the symptom:
+        it was the only way to find it, and your first decision removes that
+        reason. Say instead: <em>&ldquo;Because C13 is reachable only from
+        the section view today, we will keep the section view until C13 is
+        filed in a category, then decide.&rdquo;</em> Same instinct, plus a
+        because, plus an end date.</p>
+        <p>17/25. You are one honest edit away from the top band on this
+        criterion: cut the two decisions that cite nothing, fix the red one,
+        and give the keeps their because.</p>
+      </aside>
+
+      <div class="docpage docpage--b">
+        <h3>7. Our log</h3>
+        <p class="doc-stamp"><span class="fiction-badge">FICTITIOUS DATA</span> The JSON is a real, downloadable file in this repository; every row in it is invented, and every &ldquo;results&rdquo; count was produced by their real search page.</p>
+        <p>Our log works between pages now and it saves searches too, so
+        this time we have an actual export. It&rsquo;s the &ldquo;copy our
+        log&rdquo; button from each device pasted together:
+        <a href="03-task-test-raw-team-b.json"><code>03-task-test-raw-team-b.json</code></a>.
+        There are three because Cami and Braxton were on the same phone and
+        Tanner and Jace were on the laptop and we forgot to hit &ldquo;start
+        over&rdquo; in between, so those two are run together. You can kind
+        of tell where one person stops because there is a gap in the times.
+        The times don&rsquo;t have the date on them. Clicks and searches are
+        in separate lists.</p>
+        <p>Here is the start of the laptop one so you can see the shape:</p>
+<pre class="rawtext">{
+  "device": "laptop",
+  "people": "Tanner then Jace",
+  "clicks": [
+    { "n": 1, "time": "9:05:27 PM", "page": "Principles of Teaching — Prototype v1 (Team B)", "clicked": "Search", "href": "search.html" },
+    { "n": 2, "time": "9:05:41 PM", "page": "Search — Prototype v1 (Team B)", "clicked": "Open ended searching questions", "href": "block-c16.html" },
+    { "n": 3, "time": "9:06:21 PM", "page": "Open-ended search questions — Prototype v1 (Team B)", "clicked": "Home", "href": "index.html" },
+    ...
+  ],
+  "searches": [
+    { "n": 1, "time": "9:05:34 PM", "query": "questions", "results": 1 },
+    { "n": 2, "time": "9:09:06 PM", "query": "song", "results": 0 },
+    { "n": 3, "time": "9:09:36 PM", "query": "music", "results": 0 },
+    ...
+  ]
+}</pre>
+      </div>
+
+      <aside class="grader" aria-label="Grader comment">
+        <p class="grader__head">Grader &middot; Results &amp; Analysis (raw data) &middot; <span class="grader__pts">appendix present; hard to connect</span></p>
+        <p>Real progress: this is an export, not a Sunday-night transcription,
+        and your search page now records what people typed. Both of those
+        are instrument improvements you made yourselves after the tree
+        test. Now look at what the instrument still cannot tell me. Three
+        files for five people, with no participant column and no date, so
+        the only way to find where Tanner ends and Jace begins is a gap in
+        the clock. Clicks in one list and searches in another, so when the
+        laptop log says a result was clicked at 9:05:41, I have to look at
+        the other list and guess that it followed the 9:05:34 query &mdash;
+        <em>&ldquo;raw data incomplete or hard to connect to the
+        analysis.&rdquo;</em> Notice that the second click&rsquo;s label
+        says &ldquo;Open ended searching questions&rdquo; and the page it
+        lands on says &ldquo;Open-ended search questions&rdquo;: your search
+        list and your pages disagree about the title of C16, and the log is
+        the only place that shows it. Two fixes before the final: a
+        participant field set at the start of each session, and a result
+        click that carries the query that produced it &mdash; one extra
+        property on the click. Team A&rsquo;s export has both, and it is why
+        their paths table can be re-derived by a stranger.</p>
+      </aside>
+
+      <div class="scorecard">
+        <p class="scorecard__title">Report B &middot; scorecard (Study Report Rubric, 60)</p>
+        <table class="study-table">
+          <tbody>
+            <tr><td>Methods</td><td>Developing &mdash; 3 of 5 from the population, one of them primed three times over; a label-echo task and a can&rsquo;t-fail task; a hint on B3; laptops</td><td class="scorecard__pts">10</td></tr>
+            <tr><td>Results &amp; Analysis</td><td>Developing (capped) &mdash; participant-by-participant; leads with a completion rate; two over-claims; found the C13 orphan and the lost-search buttons</td><td class="scorecard__pts">13</td></tr>
+            <tr><td>Design Decisions</td><td>Developing &mdash; three cited, checkable decisions; two untethered; one tied to a finding and pointed the wrong way; keeps mostly uncited</td><td class="scorecard__pts">17</td></tr>
+            <tr class="scorecard__total"><td>Turn-in 5 total</td><td></td><td class="scorecard__pts">40/60</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <section aria-labelledby="separates">
+      <h2 id="separates">What separates 60 from 40</h2>
+
+      <p>
+        Both teams watched a real teacher type a real word into a search
+        box and get nothing back. For Team&nbsp;A it was &ldquo;absent,&rdquo;
+        from a Sunbeams teacher who then gave up. For Team&nbsp;B it was
+        &ldquo;song,&rdquo; from all five people, ten times. Both teams
+        noticed. What they did next is most of the twenty points.
+      </p>
+      <p>
+        <strong>Team&nbsp;A priced it.</strong> One query of twelve returned
+        nothing; three more ranked the wrong block first for a reason they
+        could name (a two-letter word prefix-matching a label); one more put
+        eight unusable cards ahead of a usable one, and the participant fixed
+        it himself with a chip. Each of those became a numbered decision
+        with the offending query quoted and a one-line fix that can be
+        re-run against the same twelve queries next month. Then they refused
+        the fix the data seemed to be shouting for &mdash; a branch for
+        children who do not come &mdash; because the manual has nothing to
+        put in it, and said where the real fix goes instead.
+        <strong>Team&nbsp;B half-fixed it.</strong> They found that C13 was
+        reachable from one view and absent from their search list &mdash;
+        exactly what the tree-test grader had predicted &mdash; and wrote a
+        proper decision for it, their first. Then they kept the section view
+        &ldquo;because that&rsquo;s how people found the music one,&rdquo;
+        which keeps the symptom, and reported that the search &ldquo;worked
+        well when people used the exact word&rdquo; with ten no-results in
+        their own file.
+      </p>
+      <p>
+        <strong>Who you recruit is the study.</strong> Team&nbsp;A&rsquo;s
+        five all teach here, none had seen the site, and one was chosen
+        because his phone would break the layout &mdash; and he produced two
+        of the three failures and three of the eleven decisions.
+        Team&nbsp;B&rsquo;s five include a participant who has now done all
+        three of their studies and two roommates doing a task about a lesson
+        they will never teach. Ten of Team&nbsp;B&rsquo;s twenty-five cells
+        are a task that names the answer and a task that cannot fail. The
+        method page says the methods do not care about N; they care about
+        who. Both teams had N.
+      </p>
+      <p>
+        <strong>Count failures, not completions.</strong> Team&nbsp;A
+        reports 22 of 25 and then spends its page on the three that failed
+        and the eight that succeeded badly, each with a severity.
+        Team&nbsp;B reports 76% and calls it pretty good. The rubric&rsquo;s
+        word for that sentence is over-claiming, and it caps the criterion
+        regardless of polish &mdash; the same cap, for the same reason, as
+        their tree test. The instrument is the same story in miniature: one
+        export where every result tap carries the query that produced it,
+        against three files for five people where the clicks and the
+        searches cannot be joined.
+      </p>
+      <p>
+        <strong>In this chain, Report&nbsp;A is binding.</strong> Its eleven
+        decisions &mdash; promote the sixth branch and fill it, six tiles on
+        one phone screen, stop-list the function words and stop matching
+        two-letter prefixes, commit the absent-child vocabulary, rewrite four
+        situation leads to agree with their chips, re-subtitle the two prep
+        groups, label the manual button and open it in the same tab, make
+        card chips plain text, move the moment tiles below the problem
+        tiles, keep the leads, keep the accent &mdash; are what the
+        <a href="../prototypes/v1/cards/">card build</a>&rsquo;s successor
+        implements. Both prototypes are frozen as of this study, so every
+        citation above stays checkable; the final prototype is where the
+        changes land, and it is the last station in the chain.
+      </p>
+    </section>
+
+    <nav data-companion="arcnav"></nav>
+
+    <footer class="site-foot">
+      <p><a href="../index.html">&larr; The whole chain</a> &middot;
+         <a href="../prototypes/v1/">The prototypes these tests ran on &rarr;</a></p>
+    </footer>
+
+  </main>
+
+  <script src="../assets/studies-data.js" defer></script>
+  <script src="../assets/companion.js" defer></script>
+</body>
+</html>

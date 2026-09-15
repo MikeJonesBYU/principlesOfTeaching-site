@@ -229,9 +229,22 @@ IA 13 / Grounded 16).
   (57/60 — deductions on provenance: authored sentences, bent no-AI rule).
   Outside the graded chain: not binding, no Part 2; linked from the hub's
   prototype-v1 station via the registry's `alt` field.
-- **Task test (`task-test`).** Five users, talk-aloud, on their own phones.
-  Task success, paths from the real logs (fictitiously generated), quotes.
-  Results: how navigation is broken → final refinement list.
+- **Task test (`task-test`).** Settled and built 2026-09-15:
+  `studies/03-task-test.html`, graded pair on the Study Report Rubric
+  (Report A 60/60, Report B 40/60). Five users, talk-aloud, on their own
+  phones, five tasks written from the recruits' own next lessons; the
+  Canvas turn-in is two pages or less (participants; ≤1 page of what you
+  saw and heard, notes fine; analysis; changes; what you will not change).
+  Team A ran on the **card build** (v3, the newest build in its line) and
+  said so — the assignment's "your v1" became a line, and the freeze
+  attaches to what was tested; Team B ran on its own v1. Roster grew P21–P26.
+  Data discipline: `03-task-test-data.py` replays every run against the
+  real routes and re-implements the card build's search ranking, so every
+  rank/result count in the report is what the build would have logged;
+  emits `03-task-test-raw-team-a.csv` (export schema + participant/task
+  columns) and `03-task-test-raw-team-b.json` (Team B's untied two-stream
+  export, three blobs for five people). Report A's eleven decisions bind the
+  final prototype (see the page's closing section).
 - **Final prototype (`prototype-final`).** All refinements landed; single
   source, multiple views demonstrated end to end. Graduates: promoted to the
   site root as the next deployed Principles of Teaching site (real redeploy,

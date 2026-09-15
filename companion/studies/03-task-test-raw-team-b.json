@@ -1,0 +1,685 @@
+[
+  {
+    "device": "cami-iphone",
+    "people": "Cami then Braxton",
+    "clicks": [
+      {
+        "n": 1,
+        "time": "7:14:24 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Asking Great Questions 5 skills",
+        "href": "cat-questions.html"
+      },
+      {
+        "n": 2,
+        "time": "7:14:29 PM",
+        "page": "Asking Great Questions — Prototype v1 (Team B)",
+        "clicked": "Open-ended search questions",
+        "href": "block-c16.html"
+      },
+      {
+        "n": 3,
+        "time": "7:15:18 PM",
+        "page": "Open-ended search questions — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 4,
+        "time": "7:15:47 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Preparation 5 skills",
+        "href": "cat-preparation.html"
+      },
+      {
+        "n": 5,
+        "time": "7:15:50 PM",
+        "page": "Preparation — Prototype v1 (Team B)",
+        "clicked": "Search scriptures for depth",
+        "href": "block-c17.html"
+      },
+      {
+        "n": 6,
+        "time": "7:16:37 PM",
+        "page": "Search scriptures for depth — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 7,
+        "time": "7:17:26 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Search",
+        "href": "search.html"
+      },
+      {
+        "n": 8,
+        "time": "7:18:37 PM",
+        "page": "Search — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 9,
+        "time": "7:19:01 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Teach By the Spirit",
+        "href": "sec-teach-by-the-spirit.html"
+      },
+      {
+        "n": 10,
+        "time": "7:19:24 PM",
+        "page": "Teach By the Spirit — Prototype v1 (Team B)",
+        "clicked": "Use sacred music",
+        "href": "block-c13.html"
+      },
+      {
+        "n": 11,
+        "time": "7:19:17 PM",
+        "page": "Use sacred music — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 12,
+        "time": "7:19:48 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Asking Great Questions 5 skills",
+        "href": "cat-questions.html"
+      },
+      {
+        "n": 13,
+        "time": "7:19:54 PM",
+        "page": "Asking Great Questions — Prototype v1 (Team B)",
+        "clicked": "Open with a personal circumstance",
+        "href": "block-c20.html"
+      },
+      {
+        "n": 14,
+        "time": "7:20:47 PM",
+        "page": "Open with a personal circumstance — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 15,
+        "time": "7:21:16 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Love 2 skills",
+        "href": "cat-love.html"
+      },
+      {
+        "n": 16,
+        "time": "7:21:20 PM",
+        "page": "Love — Prototype v1 (Team B)",
+        "clicked": "Positive message to a parent",
+        "href": "block-c10.html"
+      },
+      {
+        "n": 17,
+        "time": "7:22:08 PM",
+        "page": "Positive message to a parent — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 18,
+        "time": "7:43:28 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Teaching Fundamentals 2 skills",
+        "href": "cat-teaching-fundamentals.html"
+      },
+      {
+        "n": 19,
+        "time": "7:43:37 PM",
+        "page": "Teaching Fundamentals — Prototype v1 (Team B)",
+        "clicked": "Resist answering everything yourself",
+        "href": "block-c21.html"
+      },
+      {
+        "n": 20,
+        "time": "7:44:34 PM",
+        "page": "Resist answering everything yourself — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 21,
+        "time": "7:45:05 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Preparation 5 skills",
+        "href": "cat-preparation.html"
+      },
+      {
+        "n": 22,
+        "time": "7:45:10 PM",
+        "page": "Preparation — Prototype v1 (Team B)",
+        "clicked": "Pray for students by name",
+        "href": "block-c08.html"
+      },
+      {
+        "n": 23,
+        "time": "7:46:01 PM",
+        "page": "Pray for students by name — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 24,
+        "time": "7:47:14 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Search",
+        "href": "search.html"
+      },
+      {
+        "n": 25,
+        "time": "7:50:16 PM",
+        "page": "Search — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 26,
+        "time": "7:50:51 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Keeping Them Engaged 2 skills",
+        "href": "cat-engagement.html"
+      },
+      {
+        "n": 27,
+        "time": "7:51:01 PM",
+        "page": "Keeping Them Engaged — Prototype v1 (Team B)",
+        "clicked": "Students are needed, not just welcome",
+        "href": "block-c09.html"
+      },
+      {
+        "n": 28,
+        "time": "7:52:01 PM",
+        "page": "Students are needed, not just welcome — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 29,
+        "time": "7:52:31 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Love 2 skills",
+        "href": "cat-love.html"
+      },
+      {
+        "n": 30,
+        "time": "7:52:36 PM",
+        "page": "Love — Prototype v1 (Team B)",
+        "clicked": "Positive message to a parent",
+        "href": "block-c10.html"
+      },
+      {
+        "n": 31,
+        "time": "7:53:26 PM",
+        "page": "Positive message to a parent — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      }
+    ],
+    "searches": [
+      {
+        "n": 1,
+        "time": "7:17:50 PM",
+        "query": "song",
+        "results": 0
+      },
+      {
+        "n": 2,
+        "time": "7:18:13 PM",
+        "query": "music",
+        "results": 0
+      },
+      {
+        "n": 3,
+        "time": "7:48:01 PM",
+        "query": "music",
+        "results": 0
+      },
+      {
+        "n": 4,
+        "time": "7:48:48 PM",
+        "query": "hymn",
+        "results": 0
+      },
+      {
+        "n": 5,
+        "time": "7:49:36 PM",
+        "query": "sing",
+        "results": 0
+      }
+    ]
+  },
+  {
+    "device": "shanna-iphone",
+    "people": "Shanna",
+    "clicks": [
+      {
+        "n": 1,
+        "time": "6:08:28 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Asking Great Questions 5 skills",
+        "href": "cat-questions.html"
+      },
+      {
+        "n": 2,
+        "time": "6:08:35 PM",
+        "page": "Asking Great Questions — Prototype v1 (Team B)",
+        "clicked": "Open-ended search questions",
+        "href": "block-c16.html"
+      },
+      {
+        "n": 3,
+        "time": "6:09:30 PM",
+        "page": "Open-ended search questions — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 4,
+        "time": "6:10:00 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Preparation 5 skills",
+        "href": "cat-preparation.html"
+      },
+      {
+        "n": 5,
+        "time": "6:10:05 PM",
+        "page": "Preparation — Prototype v1 (Team B)",
+        "clicked": "Follow up on past invitations",
+        "href": "block-c24.html"
+      },
+      {
+        "n": 6,
+        "time": "6:10:54 PM",
+        "page": "Follow up on past invitations — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 7,
+        "time": "6:11:47 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Search",
+        "href": "search.html"
+      },
+      {
+        "n": 8,
+        "time": "6:12:43 PM",
+        "page": "Search — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 9,
+        "time": "6:13:11 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Spiritual Teaching 4 skills",
+        "href": "cat-spiritual-teaching.html"
+      },
+      {
+        "n": 10,
+        "time": "6:13:39 PM",
+        "page": "Spiritual Teaching — Prototype v1 (Team B)",
+        "clicked": "Pictures &amp; videos of Christ",
+        "href": "block-c02.html"
+      },
+      {
+        "n": 11,
+        "time": "6:13:23 PM",
+        "page": "Pictures &amp; videos of Christ — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 12,
+        "time": "6:14:00 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Preparation 5 skills",
+        "href": "cat-preparation.html"
+      },
+      {
+        "n": 13,
+        "time": "6:14:12 PM",
+        "page": "Preparation — Prototype v1 (Team B)",
+        "clicked": "Opening invitation tied to outcome",
+        "href": "block-c22.html"
+      },
+      {
+        "n": 14,
+        "time": "6:15:15 PM",
+        "page": "Opening invitation tied to outcome — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 15,
+        "time": "6:15:50 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Love 2 skills",
+        "href": "cat-love.html"
+      },
+      {
+        "n": 16,
+        "time": "6:15:59 PM",
+        "page": "Love — Prototype v1 (Team B)",
+        "clicked": "Statements: feel God&rsquo;s love",
+        "href": "block-c04.html"
+      },
+      {
+        "n": 17,
+        "time": "6:16:58 PM",
+        "page": "Statements: feel God&rsquo;s love — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      }
+    ],
+    "searches": [
+      {
+        "n": 1,
+        "time": "6:12:15 PM",
+        "query": "song",
+        "results": 0
+      }
+    ]
+  },
+  {
+    "device": "laptop",
+    "people": "Tanner then Jace",
+    "clicks": [
+      {
+        "n": 1,
+        "time": "9:05:27 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Search",
+        "href": "search.html"
+      },
+      {
+        "n": 2,
+        "time": "9:05:41 PM",
+        "page": "Search — Prototype v1 (Team B)",
+        "clicked": "Open ended searching questions",
+        "href": "block-c16.html"
+      },
+      {
+        "n": 3,
+        "time": "9:06:21 PM",
+        "page": "Open-ended search questions — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 4,
+        "time": "9:06:50 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Preparation 5 skills",
+        "href": "cat-preparation.html"
+      },
+      {
+        "n": 5,
+        "time": "9:06:54 PM",
+        "page": "Preparation — Prototype v1 (Team B)",
+        "clicked": "Ask about their interests",
+        "href": "block-c06.html"
+      },
+      {
+        "n": 6,
+        "time": "9:07:41 PM",
+        "page": "Ask about their interests — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 7,
+        "time": "9:08:36 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Search",
+        "href": "search.html"
+      },
+      {
+        "n": 8,
+        "time": "9:10:06 PM",
+        "page": "Search — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 9,
+        "time": "9:10:36 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Teach By the Spirit",
+        "href": "sec-teach-by-the-spirit.html"
+      },
+      {
+        "n": 10,
+        "time": "9:11:06 PM",
+        "page": "Teach By the Spirit — Prototype v1 (Team B)",
+        "clicked": "Use sacred music",
+        "href": "block-c13.html"
+      },
+      {
+        "n": 11,
+        "time": "9:10:46 PM",
+        "page": "Use sacred music — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 12,
+        "time": "9:11:19 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Search look up a skill by name",
+        "href": "search.html"
+      },
+      {
+        "n": 13,
+        "time": "9:11:27 PM",
+        "page": "Search — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 14,
+        "time": "9:11:36 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Teaching Fundamentals 2 skills",
+        "href": "cat-teaching-fundamentals.html"
+      },
+      {
+        "n": 15,
+        "time": "9:11:44 PM",
+        "page": "Teaching Fundamentals — Prototype v1 (Team B)",
+        "clicked": "Check learning before moving on",
+        "href": "block-c11.html"
+      },
+      {
+        "n": 16,
+        "time": "9:12:24 PM",
+        "page": "Check learning before moving on — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 17,
+        "time": "9:13:03 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Search",
+        "href": "search.html"
+      },
+      {
+        "n": 18,
+        "time": "9:13:30 PM",
+        "page": "Search — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 19,
+        "time": "9:13:44 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Love 2 skills",
+        "href": "cat-love.html"
+      },
+      {
+        "n": 20,
+        "time": "9:13:57 PM",
+        "page": "Love — Prototype v1 (Team B)",
+        "clicked": "Positive message to a parent",
+        "href": "block-c10.html"
+      },
+      {
+        "n": 21,
+        "time": "9:14:10 PM",
+        "page": "Positive message to a parent — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 22,
+        "time": "9:29:27 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Asking Great Questions 5 skills",
+        "href": "cat-questions.html"
+      },
+      {
+        "n": 23,
+        "time": "9:29:34 PM",
+        "page": "Asking Great Questions — Prototype v1 (Team B)",
+        "clicked": "Pause: &ldquo;what can I ask them?&rdquo;",
+        "href": "block-c14.html"
+      },
+      {
+        "n": 24,
+        "time": "9:30:27 PM",
+        "page": "Pause: &ldquo;what can I ask them?&rdquo; — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 25,
+        "time": "9:30:55 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Preparation 5 skills",
+        "href": "cat-preparation.html"
+      },
+      {
+        "n": 26,
+        "time": "9:30:58 PM",
+        "page": "Preparation — Prototype v1 (Team B)",
+        "clicked": "Search scriptures for depth",
+        "href": "block-c17.html"
+      },
+      {
+        "n": 27,
+        "time": "9:31:44 PM",
+        "page": "Search scriptures for depth — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 28,
+        "time": "9:32:56 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Search",
+        "href": "search.html"
+      },
+      {
+        "n": 29,
+        "time": "9:35:09 PM",
+        "page": "Search — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 30,
+        "time": "9:35:41 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Spiritual Teaching 4 skills",
+        "href": "cat-spiritual-teaching.html"
+      },
+      {
+        "n": 31,
+        "time": "9:35:48 PM",
+        "page": "Spiritual Teaching — Prototype v1 (Team B)",
+        "clicked": "Connect learning to Christ&rsquo;s example",
+        "href": "block-c01.html"
+      },
+      {
+        "n": 32,
+        "time": "9:36:43 PM",
+        "page": "Connect learning to Christ&rsquo;s example — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      },
+      {
+        "n": 33,
+        "time": "9:37:20 PM",
+        "page": "Principles of Teaching — Prototype v1 (Team B)",
+        "clicked": "Search",
+        "href": "search.html"
+      },
+      {
+        "n": 34,
+        "time": "9:37:44 PM",
+        "page": "Search — Prototype v1 (Team B)",
+        "clicked": "Positive message to a parent",
+        "href": "block-c10.html"
+      },
+      {
+        "n": 35,
+        "time": "9:38:24 PM",
+        "page": "Positive message to a parent — Prototype v1 (Team B)",
+        "clicked": "Home",
+        "href": "index.html"
+      }
+    ],
+    "searches": [
+      {
+        "n": 1,
+        "time": "9:05:34 PM",
+        "query": "questions",
+        "results": 1
+      },
+      {
+        "n": 2,
+        "time": "9:09:06 PM",
+        "query": "song",
+        "results": 0
+      },
+      {
+        "n": 3,
+        "time": "9:09:36 PM",
+        "query": "music",
+        "results": 0
+      },
+      {
+        "n": 4,
+        "time": "9:13:16 PM",
+        "query": "parents",
+        "results": 0
+      },
+      {
+        "n": 5,
+        "time": "9:33:42 PM",
+        "query": "sing",
+        "results": 0
+      },
+      {
+        "n": 6,
+        "time": "9:34:29 PM",
+        "query": "song",
+        "results": 0
+      },
+      {
+        "n": 7,
+        "time": "9:37:32 PM",
+        "query": "parent",
+        "results": 1
+      }
+    ]
+  }
+]

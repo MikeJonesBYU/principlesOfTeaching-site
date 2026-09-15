@@ -46,7 +46,7 @@
    the canonical ones as of 2026-09-14.
    ========================================================================== */
 window.CS356_COMPANION = {
-  version: "2026-09-14",
+  version: "2026-09-15",
 
   /* Every Canvas `slug` in this file hangs off this base — one course id,
      one place to change it. */
@@ -186,7 +186,7 @@ window.CS356_COMPANION = {
       turnin: 4,
       title: "First functional prototype",
       fidelity: "functional",
-      status: "built",
+      status: "frozen",
       path: "prototypes/v1/",
       /* The two teams' Turn-in 4 reports are not written yet: they will be
          graded on their own page, on the Prototype Rubric, before the task
@@ -222,7 +222,7 @@ window.CS356_COMPANION = {
           note: "the semantic build with every listing redesigned into an informative skill card — situation, manual sentence, first move, prep — on a simpler shell; each change traced to the studies and the ward in the revision notes"
         }
       ],
-      shows: "Two example turn-ins again. Both teams add color, layout, and a search feature invented from study vocabulary — one steers attention with a single sparing accent, one doesn't. Every click and every search query is logged for the task test. Then the prototype keeps evolving: two instructor revisions of Team A's build, each one bet at a time — v2 grows the search into a precomputed meaning index (no server, no AI call at lookup time); v3 redesigns every listing into a skill card and pares the shell down."
+      shows: "Two example turn-ins again. Both teams add color, layout, and a search feature invented from study vocabulary — one steers attention with a single sparing accent, one doesn't. Every click and every search query is logged for the task test. Then the prototype keeps evolving: two instructor revisions of Team A's build, each one bet at a time — v2 grows the search into a precomputed meaning index (no server, no AI call at lookup time); v3 redesigns every listing into a skill card and pares the shell down. The task test ran on v3, and every build here is frozen as of that study."
     },
     {
       id: "task-test",
@@ -230,14 +230,14 @@ window.CS356_COMPANION = {
       turnin: 5,
       title: "Five-user task test",
       method: "Five-user task test (talk-aloud), on participants' own phones",
-      status: "draft",
+      status: "published",
       page: "studies/03-task-test.html",
       question: "Does the visual design work in real use — and where does navigation break?",
       canvas: {
         method: { slug: "5-user-task-test", title: "5-User Task Test" }
       },
       feeds: "prototype-final",
-      shows: "Task success, real navigation paths from the logs, and the final refinement list."
+      shows: "Two complete task-test reports, one per team, each run on that team's own functional prototype with five fresh ward members on their own phones — Team A on the newest build in its line, the card build — and graded on the study rubric: five tasks from the recruits' own next lessons, a severity-sorted failure catalogue, every path and search rank from the log, and the eleven decisions that bind the final prototype."
     },
     {
       id: "prototype-final",
