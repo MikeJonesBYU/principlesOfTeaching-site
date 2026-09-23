@@ -49,6 +49,15 @@ This is the single most important editorial rule of the companion.
   (CONTENT-PLAN §2 has the full statement).
 - The fictitious setting is the **Timpanogos Shadows Ward** (invented Utah
   County unit; content authored by the instructor — see CONTENT-PLAN §7).
+- **One parallel setting (added 2026-09-23): the Northern Finland stake
+  version** — the card sort re-run on the same 24 cards with invented
+  members of the *real* Jyväskylä Finland Stake (CONTENT-PLAN §10). A real
+  unit tightens the contract: invent people only (no invented stake
+  statistics — published figures with sources instead; no invented person
+  in a leadership calling of a real unit; every general claim about its
+  congregations stamped SPECULATION). Its findings are researched
+  hypotheses, not instructor conviction (Rule 1 does not hold, and the pages
+  say so), and nothing it decides is built.
 
 Marking standard ("very, very clearly marked"):
 
@@ -56,7 +65,8 @@ Marking standard ("very, very clearly marked"):
    canonical wording is CONTENT-PLAN §8 (single source for boilerplate):
    *"Fictitious teaching example. All participants, quotes, and data on this
    page are invented for CS 356. The site and its design decisions are real."*
-   Links to `fiction.html`.
+   Links to `fiction.html`. A variant page (§5) adds its own `bannerNote`
+   as a second line under the canonical text — added, never paraphrased in.
 2. **`.fiction-badge`** component stamped directly on every table, chart, quote
    block, or number that contains invented data. Default badge text:
    "FICTITIOUS DATA"; on quotation blocks the variant "INVENTED QUOTE" is
@@ -112,6 +122,13 @@ companion/
     final/                    load companion.js/css. Each has its own single
                               source (e.g. wireframe-data.js). Frozen once the
                               study that tests them has "run" (§6).
+  finland/                    The Northern Finland stake version (a variant, §5)
+    index.html                The variant's hub: what it is, its chain, what moved
+    stake.html                "The Jyväskylä Finland Stake, imagined" (its ward.html)
+    studies/
+      01-card-sort.html       The card sort re-run: graded pair + two-stake comparison
+      01-card-sort-data.py    Its data; reads the deck and the Utah piles from
+                              ../../studies/01-card-sort-data.py (no retyping)
   assets/
     companion.css             Companion's own look (deliberately distinct from the
                               teaching site — this is a site ABOUT that site)
@@ -227,6 +244,23 @@ registry entry.
 **No-dead-links rule:** stations that aren't finished render as clearly
 labeled, unlinked "in progress" items. Only `status: "published"` studies and
 `status: "built" | "frozen" | "shipped"` prototypes become links.
+
+**Variants: the same chain in another setting (added 2026-09-23).** A
+variant re-runs stations of the chain with different (invented) people and
+the same instruments, to show how much of a study's result belongs to its
+population. `variants[]` in the registry carries, per variant: `id`,
+`title`, `navLabel`, `setting`, `hub`, `settingPage`, `settingLabel`,
+`blurb`, `bannerNote`, and `stations: { <arc id>: { status, page, title,
+shows } }` for only the stations it has re-run. A variant never edits
+`arc[]` or `turnins[]` — it borrows their order and titles. Pages declare
+`<body data-variant="<id>">`; `companion.js` then adds the banner note,
+swaps the masthead row to Home · <variant> · What's real · <setting page> ·
+The live site, and walks the arc nav through the variant's own pages
+(unrun stations render unlinked, "Not run in this setting"). Two render
+hooks: `data-companion="variants"` (main hub list) and
+`data-companion="variant-chain"` (the variant's own hub). The main hub's
+station card also gets a "Re-run elsewhere" chip for each published variant
+page. Variant decisions are never binding on the chain.
 
 **Change policy:** slugs and URLs are stable once pushed to the public site. A
 retired study keeps its URL with a "retired" note rather than being deleted

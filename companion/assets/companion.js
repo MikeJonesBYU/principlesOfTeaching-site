@@ -19,6 +19,16 @@
           <nav data-companion="arcnav">   prev/next arc nav (study pages; the
                                           page identifies itself with
                                           <body data-arc="card-sort">)
+          <div data-companion="variants"> the parallel settings that re-run
+                                          stations of the chain (hub)
+          <div data-companion="variant-chain">
+                                          one variant's own view of the chain
+                                          (that variant's hub page)
+        A page that belongs to a VARIANT (a re-run of the chain in another
+        setting, registry `variants[]`) says so with
+        <body data-variant="finland">: the banner gains the variant's note,
+        the masthead row gains the variant's own buttons, and the arc nav
+        walks the variant's pages instead of the main chain's.
      3. Keeps the site free of dead links: stations that are not finished render
         as clearly labeled, UNLINKED "in progress" items. Only studies with
         status "published" and prototypes with status "built"/"frozen"/"shipped"
@@ -77,6 +87,22 @@
     { page: null,      href: '../',          label: 'The live site' }
   ];
 
+  /* On a variant's pages the row keeps Home and the honesty page, swaps the
+     ward for the variant's own roster page, and adds the variant's hub —
+     both read from the registry's variants[] entry. Pages mark themselves
+     <body data-page="variant-hub"> / "variant-setting" to be the selected
+     button. */
+  function navFor(variant) {
+    if (!variant) { return NAV; }
+    return [
+      NAV[0],
+      { page: 'variant-hub', href: variant.hub, label: variant.navLabel || variant.title },
+      NAV[1],
+      { page: 'variant-setting', href: variant.settingPage, label: variant.settingLabel || 'The setting' },
+      NAV[3]
+    ];
+  }
+
   var LABELS = {
     inProgress: 'In progress',
     studyPending: 'Page not written yet',
@@ -100,6 +126,9 @@
     runsOn: 'Runs on',
     canvasMethod: 'Method on Canvas',
     canvasReading: 'Course reading',
+    notRunHere: 'Not run in this setting',
+    rerun: 'Re-run elsewhere',
+    mainVersion: 'the Timpanogos version',
     pairDown: 'that study runs on this exact build',
     pairUp: 'the build this study ran on',
     noRegistry: 'The companion registry did not load, so this section is empty.'
@@ -197,7 +226,10 @@
 
   /* ------------------------------------------------------------- the banner */
 
+  /* The canonical wording never changes. A variant page adds its own note
+     as a second line underneath — added, never paraphrased in. */
   function buildBanner() {
+    var variant = currentVariant(registry());
     return h('div', { 'class': 'fiction-banner', 'role': 'note',
                       'aria-label': 'Fictitious teaching example' }, [
       h('div', { 'class': 'fiction-banner__inner' }, [
@@ -207,7 +239,11 @@
         ' ',
         h('a', { 'class': 'fiction-banner__link', 'href': resolve('fiction.html') },
           BANNER.link)
-      ])
+      ]),
+      variant && variant.bannerNote
+        ? h('div', { 'class': 'fiction-banner__inner fiction-banner__variant' },
+            variant.bannerNote)
+        : null
     ]);
   }
 
@@ -239,7 +275,7 @@
 
     var nav = h('nav', { 'class': 'masthead__nav',
                          'aria-label': 'Companion sections' });
-    each(NAV, function (item) {
+    each(navFor(currentVariant(registry())), function (item) {
       var attrs = { 'class': 'btn', 'href': resolve(item.href) };
       if (item.page && item.page === current) { attrs['aria-current'] = 'page'; }
       nav.appendChild(h('a', attrs, item.label));
@@ -266,6 +302,33 @@
     var data = window.CS356_COMPANION;
     if (!data || !isArray(data.arc)) { return null; }
     return data;
+  }
+
+  /* ------------------------------------------------------ variant accessors
+     A variant borrows the arc's order and titles; per station it says only
+     whether it has its own page. */
+
+  function variantById(data, id) {
+    if (!data || !isArray(data.variants)) { return null; }
+    for (var i = 0; i < data.variants.length; i++) {
+      if (data.variants[i].id === id) { return data.variants[i]; }
+    }
+    return null;
+  }
+
+  /* The variant this page belongs to, from <body data-variant="…">. */
+  function currentVariant(data) {
+    var id = document.body && document.body.getAttribute('data-variant');
+    return id ? variantById(data, id) : null;
+  }
+
+  function variantStation(variant, id) {
+    return (variant && variant.stations && variant.stations[id]) || null;
+  }
+
+  /* Same no-dead-links rule: only a published variant page is a link. */
+  function variantStationIsLive(vs) {
+    return !!(vs && vs.status === 'published' && vs.page);
   }
 
   function stationById(data, id) {
@@ -516,6 +579,18 @@
        station, plus the concept readings it leans on. */
     each(canvasRows(data, station), function (row) { body.push(row); });
 
+    /* The same station re-run in another setting (registry variants[]). */
+    each(data.variants, function (variant) {
+      var vs = variantStation(variant, station.id);
+      if (!variantStationIsLive(vs)) { return; }
+      body.push(h('p', { 'class': 'arc-item__links' }, [
+        h('span', { 'class': 'micro-label' }, LABELS.rerun),
+        ' ',
+        h('a', { 'class': 'chip', 'href': resolve(vs.page) }, vs.title || variant.title),
+        ' — ' + (variant.setting ? 'with ' + variant.setting : variant.title)
+      ]));
+    });
+
     /* Cross-link. A build gets the pair band pointing at the study that tests
        it; a study gets the plain line naming the turn-in its findings inform. */
     if (pairedDown) {
@@ -733,7 +808,7 @@
 
   /* Every station is its own turn-in now, so each neighbor is simply named
      with its turn-in number. */
-  function navSide(station, direction) {
+  function navSide(station, direction, variant) {
     var label = direction === 'prev' ? 'Previous' : 'Next';
     var classes = 'arcnav__side arcnav__side--' + direction;
     if (!station) {
@@ -744,6 +819,14 @@
       ]);
     }
     var where = station.turnin ? ' — turn-in ' + station.turnin : '';
+    if (variant) {
+      var vs = variantStation(variant, station.id);
+      return h('span', { 'class': classes }, [
+        h('span', { 'class': 'micro-label' }, label + where),
+        linkOrPending(variantStationIsLive(vs), resolve(vs && vs.page),
+          (vs && vs.title) || station.title, LABELS.notRunHere, 'arcnav__title')
+      ]);
+    }
     return h('span', { 'class': classes }, [
       h('span', { 'class': 'micro-label' }, label + where),
       linkOrPending(stationIsLive(station), resolve(stationHref(station)),
@@ -751,7 +834,7 @@
     ]);
   }
 
-  function renderArcNav(container, data, currentId) {
+  function renderArcNav(container, data, currentId, variant) {
     var index = -1;
     for (var i = 0; i < data.arc.length; i++) {
       if (data.arc[i].id === currentId) { index = i; break; }
@@ -762,13 +845,100 @@
       container.className = (container.className ? container.className + ' ' : '') + 'arcnav';
     }
     var here = data.arc[index].turnin;
+    var hubText = variant
+      ? (variant.navLabel || variant.title) + (here ? ' — you are in turn-in ' + here : '')
+      : (here ? 'The whole chain — you are in turn-in ' + here : 'The whole chain');
     clear(container);
     append(container, [
-      navSide(index > 0 ? data.arc[index - 1] : null, 'prev'),
-      h('a', { 'class': 'arcnav__hub', 'href': resolve('index.html') },
-        here ? 'The whole chain — you are in turn-in ' + here : 'The whole chain'),
-      navSide(index < data.arc.length - 1 ? data.arc[index + 1] : null, 'next')
+      navSide(index > 0 ? data.arc[index - 1] : null, 'prev', variant),
+      h('a', { 'class': 'arcnav__hub',
+               'href': resolve(variant ? variant.hub : 'index.html') }, hubText),
+      navSide(index < data.arc.length - 1 ? data.arc[index + 1] : null, 'next', variant)
     ]);
+  }
+
+  /* ------------------------------------------------------------- variants --
+     The main hub lists every variant; a variant's own hub draws the chain as
+     that setting sees it — its re-run stations as links, the rest as
+     unlinked "Not run in this setting" items that point back at the main
+     chain's version of the same station. */
+
+  function renderVariants(node, data) {
+    clear(node);
+    if (!isArray(data.variants) || !data.variants.length) { return; }
+    var list = h('ul', { 'class': 'stack-list' });
+    each(data.variants, function (variant) {
+      var reruns = [];
+      each(data.arc, function (station) {
+        var vs = variantStation(variant, station.id);
+        if (!variantStationIsLive(vs)) { return; }
+        if (reruns.length) { reruns.push(' '); }
+        reruns.push(h('a', { 'class': 'chip', 'href': resolve(vs.page) },
+          vs.title || station.title));
+      });
+      list.appendChild(h('li', null, [
+        h('a', { 'href': resolve(variant.hub) }, h('strong', null, variant.title)),
+        variant.blurb ? h('p', { 'class': 'u-tight' }, variant.blurb) : null,
+        h('p', { 'class': 'arc-item__links' }, [
+          h('span', { 'class': 'micro-label' }, 'Re-run so far'), ' '
+        ].concat(reruns.length ? reruns : [h('span', { 'class': 'is-pending' }, 'nothing yet')]).concat([
+          ' ',
+          variant.settingPage
+            ? h('a', { 'class': 'chip', 'href': resolve(variant.settingPage) },
+                variant.settingLabel || 'The setting')
+            : null
+        ]))
+      ]));
+    });
+    append(node, list);
+  }
+
+  function renderVariantChain(node, data, variant) {
+    clear(node);
+    if (!variant) { return; }
+    var numbers = stationNumbers(data);
+    var list = h('ol', { 'class': 'arc-list' });
+    each(data.arc, function (station) {
+      var vs = variantStation(variant, station.id);
+      var live = variantStationIsLive(vs);
+      var isProto = station.kind === 'prototype';
+      var num = numbers[station.id] || null;
+      var body = [
+        h('p', { 'class': 'arc-item__role arc-item__role--' + (isProto ? 'build' : 'study') },
+          (isProto ? LABELS.build : LABELS.study) +
+          (station.turnin ? ' · Turn-in ' + station.turnin : '')),
+        h('h4', { 'class': 'arc-item__title' }, [
+          linkOrPending(live, resolve(vs && vs.page),
+            (vs && vs.title) || station.title, LABELS.notRunHere)
+        ])
+      ];
+      if (live && vs.shows) {
+        body.push(h('p', { 'class': 'arc-item__finding' }, [
+          h('span', { 'class': 'micro-label' }, 'Delivers'), ' ', vs.shows
+        ]));
+      }
+      if (stationIsLive(station)) {
+        body.push(h('p', { 'class': 'arc-item__links' }, [
+          h('span', { 'class': 'micro-label' }, live ? 'Compare with' : 'Meanwhile'),
+          ' ',
+          h('a', { 'class': 'chip', 'href': resolve(stationHref(station)) },
+            station.title + ' — ' + LABELS.mainVersion)
+        ]));
+      }
+      list.appendChild(h('li', {
+        'class': 'arc-item' + (isProto ? ' arc-item--prototype' : ' arc-item--study') +
+          (live ? '' : ' arc-item--pending')
+      }, [
+        h('div', { 'class': 'arc-item__marker' }, [
+          h('span', { 'class': 'arc-marker arc-marker--' + (isProto ? 'build' : 'study') }, [
+            h('span', { 'class': 'arc-marker__kind' }, num ? num.kind : ''),
+            h('span', { 'class': 'arc-marker__n' }, num ? String(num.n) : '')
+          ])
+        ]),
+        h('div', { 'class': 'arc-item__body' }, body)
+      ]));
+    });
+    append(node, list);
   }
 
   /* The two Canvas index pages, rendered from the registry so the course id
@@ -806,7 +976,12 @@
       } else if (what === 'arcnav') {
         var current = node.getAttribute('data-arc') ||
           (document.body && document.body.getAttribute('data-arc'));
-        if (current) { renderArcNav(node, data, current); }
+        if (current) { renderArcNav(node, data, current, currentVariant(data)); }
+      } else if (what === 'variants') {
+        renderVariants(node, data);
+      } else if (what === 'variant-chain') {
+        renderVariantChain(node, data,
+          variantById(data, node.getAttribute('data-variant')) || currentVariant(data));
       }
     });
   }

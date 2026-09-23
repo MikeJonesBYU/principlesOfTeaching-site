@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Jyväskylä Finland Stake, imagined — CS 356 Companion</title>
+  <meta name="description" content="The setting for the companion's Northern Finland stake version: a real stake, twelve invented members with pronunciation guides, the published facts the fiction stands on, and the ways this stake might differ from the Timpanogos Shadows Ward.">
+  <link rel="stylesheet" href="../assets/companion.css">
+  <style>
+    /* Page-scoped, carried over from ward.html so the two roster pages read
+       as siblings: a small data table, a roster entry header, a quote block.
+       Plus one thing ward.html does not need — a pronunciation line. */
+
+    .ward-table__scroll { overflow-x: auto; }
+    .ward-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .95rem;
+      margin: 0;
+    }
+    .ward-table th,
+    .ward-table td {
+      text-align: left;
+      vertical-align: top;
+      padding: 8px 12px 8px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .ward-table thead th {
+      font-family: var(--mono);
+      font-size: .7rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 2px solid var(--rule-strong);
+      white-space: nowrap;
+    }
+    .ward-table tbody tr:last-child td { border-bottom: 0; }
+    .ward-table .num { font-family: var(--mono); white-space: nowrap; }
+
+    .person {
+      border-top: 1px solid var(--rule);
+      padding: 20px 0 6px;
+    }
+    .person:first-of-type { border-top: 0; padding-top: 4px; }
+    .person__head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 6px 10px;
+      margin: 0 0 4px;
+    }
+    .person__id {
+      font-family: var(--mono);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: var(--panel);
+      background: var(--accent);
+      border-radius: 4px;
+      padding: 2px 8px;
+    }
+    .person__name { font-size: 1.08rem; margin: 0; }
+    /* Callings here run long ("Sunday School teacher · adults · Kajaani
+       Branch"); let the pill wrap on a phone instead of pushing the page. */
+    .person__head .pill { white-space: normal; max-width: 100%; }
+    .person__say {
+      margin: 0 0 4px;
+      font-size: .92rem;
+      color: var(--ink-soft);
+    }
+    .person__say em { font-style: normal; font-weight: 600; letter-spacing: .02em; }
+    .person__meta {
+      font-family: var(--mono);
+      font-size: .76rem;
+      color: var(--muted);
+      margin: 0 0 10px;
+      line-height: 1.5;
+    }
+
+    .ward-quote {
+      margin: 12px 0 0;
+      padding: 4px 0 4px 14px;
+      border-left: 3px dashed var(--accent);
+      color: var(--ink-soft);
+    }
+    .ward-quote p { margin: 0 0 6px; }
+    .ward-quote cite {
+      display: block;
+      font-style: normal;
+      font-family: var(--mono);
+      font-size: .72rem;
+      letter-spacing: .06em;
+      color: var(--muted);
+    }
+
+    .roster-light { list-style: none; margin: 0; padding: 0; }
+    .roster-light > li {
+      border-top: 1px solid var(--rule);
+      padding: 12px 0;
+    }
+    .roster-light > li:last-child { border-bottom: 1px solid var(--rule); }
+
+    .say-cols {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin: 18px 0 0;
+    }
+    .say-list { margin: 0; padding-left: 20px; }
+    .say-list li { margin-bottom: 7px; }
+    .say-list li:last-child { margin-bottom: 0; }
+    .say-tail { margin: 12px 0 0; }
+
+    .sources { font-size: .9rem; padding-left: 20px; }
+    .sources li { margin-bottom: 6px; }
+
+    .u-nudge-left { margin-left: 6px; }
+    .roster-subhead { margin-top: 28px; }
+    .table-caption { margin: 0 0 10px; }
+  </style>
+</head>
+<body data-page="variant-setting" data-variant="finland">
+
+  <main class="wrap">
+
+    <header class="site-head">
+      <p class="kicker">CS 356 Companion &middot; Northern Finland stake version &middot; The setting</p>
+      <h1>The Jyväskylä Finland Stake, imagined</h1>
+      <p class="section-note">
+        <strong>Jyväskylä</strong> is said <em>YEW-vass-kew-la</em>: stress on
+        the first syllable, the <em>y</em> is the <em>ü</em> in German
+        <em>über</em>, and the <em>ä</em> is the <em>a</em> in
+        <em>cat</em>. Every name on this page has its own guide.
+      </p>
+      <p class="lead">
+        The Timpanogos Shadows Ward is one kind of place to teach a gospel
+        class: a big, settled Utah ward where nobody drives far and everyone
+        already knows the words. This page imagines a very different one
+        &mdash; the stake that covers the northern and eastern two-thirds of
+        Finland, from the lakes around Jyväskylä to Rovaniemi on the Arctic
+        Circle &mdash; so the card sort can be run again with different
+        people and the same cards. It lets us ask the question every
+        card-sort report ought to ask itself: <em>how much of what we found
+        belongs to the people we asked?</em>
+      </p>
+      <p class="lead">
+        Like the <a href="../ward.html">ward page</a>, this is a reference
+        sheet. When the Finnish study says &ldquo;F03,&rdquo; it means the
+        person listed under F03 here, and it always will. The IDs start with
+        F so they can never be confused with the ward&rsquo;s P01&ndash;P26.
+      </p>
+    </header>
+
+    <section class="panel panel--callout" aria-labelledby="scope">
+      <h2 id="scope">Scope note: a real stake, invented people</h2>
+      <p>
+        <span class="fiction-badge">FICTITIOUS DATA</span>
+      </p>
+      <p>
+        <strong>The stake is real. The people on this page are not.</strong>
+        The Jyväskylä Finland Stake was organized in May 2021 and takes in
+        the congregations of central, eastern, and northern Finland
+        (sources at the bottom of the page). Nobody on this page belongs to
+        it, because nobody on this page exists. The twelve people, their
+        callings, families, jobs, and phones, and every word in quotation
+        marks, were made up entirely by AI for this course. None of them is
+        based on a real person: not a member of the real stake, not anyone
+        known to Professor Mike Jones, not anyone else. Their names were
+        picked from among the commonest in each language so that none of
+        them points at anyone.
+      </p>
+      <p>
+        <strong>We did not invent the stake&rsquo;s own numbers.</strong>
+        The ward page has a table of invented ward figures. This page does
+        not, because a real stake has real numbers &mdash; membership,
+        attendance, how many teachers it calls &mdash; and they are not ours
+        to make up. Every number here about Finland, the Church, or the stake
+        is a published figure, with its source; the numbers attached to the
+        invented people are as invented as they are. Where the page
+        describes the stake&rsquo;s congregations in general terms (how big
+        a class is, who sits in it), that description is stamped
+        <span class="fiction-badge">SPECULATION</span>. For the same reason,
+        no invented person here holds a leadership calling in a real unit.
+        They teach classes, or they sit in them.
+      </p>
+      <p class="u-flush-bottom">
+        <a href="../fiction.html">The full statement of what is real and what is not &rarr;</a>
+      </p>
+    </section>
+
+    <section class="panel panel--callout" aria-labelledby="speculation">
+      <h2 id="speculation">Speculation note: this page guesses twice</h2>
+      <p>
+        <span class="fiction-badge">SPECULATION</span>
+        <span class="micro-label u-nudge-left">Written September 2026 &middot; set November 2026</span>
+      </p>
+      <p>
+        <strong>It guesses about the future.</strong> Like the ward page, it
+        is set ten weeks into the new Sunday schedule: sacrament meeting,
+        then twenty-five minutes of Sunday School every week, then
+        twenty-five minutes of elders quorum, Relief Society, Young Women, or
+        an Aaronic Priesthood quorum every week, with Primary for fifty-five
+        minutes alongside. That schedule is real. It began in congregations
+        worldwide on 6&nbsp;September 2026. This page was written that same
+        month, so it describes November before November happened.
+      </p>
+      <p class="u-flush-bottom">
+        <strong>It guesses about people it has never met, and that is the
+        bigger guess.</strong> The ward page&rsquo;s findings encode what the
+        instructor believes about teachers he has spent years around.
+        <em>Nothing on this page has that backing.</em> It was built from
+        published sources &mdash; Church statistics, Finnish census and
+        education figures, research on Finnish communication &mdash; plus
+        reasoning about how those facts might show up in a Sunday
+        classroom. No Finnish Latter-day Saint was asked. Every sentence about
+        how people in this stake think, feel, or teach is a hypothesis. Read
+        the page as the starting point for a real study, because only a real
+        study could tell you whether any of it is true.
+      </p>
+    </section>
+
+    <section aria-labelledby="say">
+      <h2 id="say">How to say the names</h2>
+      <p class="section-note">
+        Finnish spelling is almost perfectly regular, so a handful of rules
+        will carry you through every name on this page.
+      </p>
+      <div class="panel">
+        <ul class="stack-list">
+          <li>
+            <strong>Stress is always on the first syllable.</strong>
+            <p class="u-tight"><em>JUK-ka</em>, never <em>juk-KA</em>. <em>KA-jaa-ni</em>, never <em>ka-JAA-ni</em>.</p>
+          </li>
+          <li>
+            <strong><em>j</em> is an English <em>y</em>.</strong>
+            <p class="u-tight">Jukka is <em>YOOK-kah</em>; Kajaani is <em>KAH-yah-nee</em>.</p>
+          </li>
+          <li>
+            <strong>Three vowels English does not have.</strong>
+            <p class="u-tight">
+              <em>ä</em> is the <em>a</em> in <em>cat</em>. <em>ö</em> is
+              the vowel in <em>fur</em>, without the <em>r</em>. <em>y</em>
+              is German <em>ü</em>: say <em>ee</em> with your lips rounded.
+            </p>
+          </li>
+          <li>
+            <strong>Double letters are held longer, and it matters.</strong>
+            <p class="u-tight">
+              The <em>kk</em> in Pekka and Jukka is a real pause on the
+              <em>k</em>; the <em>ii</em> in Liisa is a long
+              <em>ee</em>.
+            </p>
+          </li>
+          <li>
+            <strong>Vowel pairs glide in one syllable, and every letter is sounded.</strong>
+            <p class="u-tight">
+              <em>ai</em> as in <em>eye</em>, <em>ei</em> as in
+              <em>eight</em>, <em>uo</em> like <em>oo-o</em>, <em>ie</em>
+              like <em>ee-e</em>. No letter is silent, including a final
+              <em>e</em>.
+            </p>
+          </li>
+          <li>
+            <strong>The places.</strong>
+            <p class="u-tight">
+              Jyväskylä <em>YEW-vass-kew-la</em> &middot; Oulu
+              <em>OH-loo</em> &middot; Kuopio <em>KWOH-pee-oh</em> &middot;
+              Kajaani <em>KAH-yah-nee</em> &middot; Rovaniemi
+              <em>ROH-vah-nyeh-mee</em> &middot; Sodankylä
+              <em>SOH-dahn-kew-la</em> &middot; Espoo <em>ESS-poh</em>
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="geography">
+      <h2 id="geography">Stake geography and rhythm</h2>
+
+      <div class="img-slot" role="img" aria-label="Placeholder for a picture of Lake Jyväsjärvi at dusk in November">
+        <span class="img-slot__tag">Image placeholder</span>
+        <p class="img-slot__desc">
+          Imagined picture: Lake Jyväsjärvi at about half past three on a
+          November afternoon, already dusk &mdash; the first skin of ice at
+          the shore, the harbour lights of Lutakko on, the city low and dark
+          behind. A real, freely licensed photograph belongs here once one
+          can be sourced and credited.
+        </p>
+      </div>
+
+      <p>
+        <strong>What is real.</strong> The stake was organized on
+        16&nbsp;May&nbsp;2021 from three districts (Oulu, Pietarsaari, and
+        Kuopio) and two wards (Jyväskylä and Lappeenranta). It has twelve
+        congregations, among them the wards in Jyväskylä, Kuopio, and Oulu
+        and the branches in Kajaani and Rovaniemi where the people on this
+        page are imagined to live. By area it is the largest stake in
+        Finland. The distances are real too. Jyväskylä to Kuopio is about 150
+        kilometres, and Jyväskylä to Oulu about 340. Oulu to Rovaniemi is
+        about 220 more, and Rovaniemi to Sodankylä 130 more again. The
+        Helsinki Finland Temple, in Espoo, is three hours&rsquo; drive from
+        Jyväskylä and more than eight hundred kilometres from Rovaniemi. In
+        late November Jyväskylä gets about six hours of daylight, Oulu about
+        five, and Rovaniemi less than that. Winter tyres are compulsory from
+        December, and the roads can be icy from October to April.
+      </p>
+
+      <div class="panel">
+        <p class="u-flush-top">
+          <span class="fiction-badge">SPECULATION</span>
+          <span class="micro-label u-nudge-left">How we imagine a Sunday here</span>
+        </p>
+        <p>
+          In the congregations these people attend, a Sunday School class is
+          often a handful of people. A Primary class may hold every child
+          from four to ten. In some rooms someone is quietly interpreting at
+          the side, and in others nobody is, and the newest members follow
+          as best they can. When the roads are bad, a family that lives two
+          hours from its branch joins the classes on a laptop with the
+          branch president&rsquo;s permission. (The Church&rsquo;s handbook
+          lets local leaders authorize remote participation in some
+          meetings; this page assumes one family&rsquo;s arrangement, not a
+          stake practice.)
+        </p>
+        <p class="u-flush-bottom">
+          The five-minute transition barely exists in a small branch, where
+          the Sunday School class and the Relief Society are the same eight
+          women, twenty-five minutes apart, on the same chairs. Stake
+          conference is a six-hour drive for some. The temple is a stake
+          bus trip, planned months ahead. Weekly Sunday School in a branch
+          with two teachers means your turn comes every other week.
+        </p>
+      </div>
+    </section>
+
+    <section aria-labelledby="numbers">
+      <h2 id="numbers">Finland, in published numbers</h2>
+      <p class="section-note">
+        These figures are real and sourced (see the list at the bottom). None
+        of them is the stake&rsquo;s own, and none was invented. The right-hand
+        column is our reasoning about why each might matter to a card sort.
+        It is a hypothesis, not a finding.
+      </p>
+      <div class="panel">
+        <div class="ward-table__scroll">
+          <table class="ward-table">
+            <caption class="section-note table-caption">
+              Finland and the Church in Finland &mdash; published figures, gathered September 2026.
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Measure</th>
+                <th scope="col">Figure</th>
+                <th scope="col">Why it might matter</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Church members in Finland (end of 2025)</td>
+                <td class="num">5,024</td>
+                <td>In 29 congregations: three stakes, one mission, one temple. The invented Timpanogos Shadows Ward alone would be about a thirteenth of the country.</td>
+              </tr>
+              <tr>
+                <td>The Jyväskylä Finland Stake</td>
+                <td class="num">12 units</td>
+                <td>Organized 2021. The largest Finnish stake by area, so distance is part of Sunday for many of its members.</td>
+              </tr>
+              <tr>
+                <td>Helsinki Finland Temple, Espoo</td>
+                <td class="num">2006</td>
+                <td>Dedicated 22 October 2006. About 285&nbsp;km from Jyväskylä, 610 from Oulu, 830 from Rovaniemi.</td>
+              </tr>
+              <tr>
+                <td>Finns in the Evangelical Lutheran Church (end of 2025)</td>
+                <td class="num">61.1%</td>
+                <td>The religious culture almost every member grew up inside, whether or not they were ever part of it.</td>
+              </tr>
+              <tr>
+                <td>15-year-olds attending Lutheran confirmation school (2025)</td>
+                <td class="num">~72%</td>
+                <td>A rite of passage most of their friends share and Latter-day Saint teenagers mostly do not.</td>
+              </tr>
+              <tr>
+                <td>Degree required to be a qualified teacher</td>
+                <td class="num">Master&rsquo;s</td>
+                <td>Here a trained teacher has had about five years of university. Some of the people who teach on Sunday also teach on Monday.</td>
+              </tr>
+              <tr>
+                <td>Jyväskylä</td>
+                <td class="num">~150,000</td>
+                <td>Home since 1863 of Finland&rsquo;s first Finnish-language teacher-training college, now the University of Jyväskylä (about 15,000 students).</td>
+              </tr>
+              <tr>
+                <td>People born in the Philippines living in Finland (2025)</td>
+                <td class="num">~19,400</td>
+                <td>Up from about 6,200 in 2020, much of it through nurse recruitment. Many congregations now include new members from far away.</td>
+              </tr>
+              <tr>
+                <td>Temporary-protection applications from Ukrainians, 2022&ndash;24</td>
+                <td class="num">~74,000</td>
+                <td>People who arrived fast, many with a profession, some already members, and most still learning Finnish.</td>
+              </tr>
+              <tr>
+                <td>Daylight on 25 November</td>
+                <td class="num">~6 h / ~4.5 h</td>
+                <td>Jyväskylä / Rovaniemi. The drive to church in November is a drive in the dark.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="corps">
+      <h2 id="corps">The teaching corps, as we imagine it</h2>
+      <p class="fiction-note">
+        <span class="fiction-badge">SPECULATION</span>
+        A general picture reasoned from the facts above, not a description of
+        the real stake&rsquo;s teachers, whom we have not met.
+      </p>
+
+      <div class="panel">
+        <ul class="stack-list">
+          <li>
+            <strong>Classes are small, and mixed.</strong>
+            <p class="u-tight">
+              One Primary class for every child from four to ten. One youth
+              Sunday School class for everyone from twelve to seventeen. One
+              adult class, with the same dozen people in it every week. A
+              class of three is not a failure here; it is simply how many
+              people there are.
+            </p>
+          </li>
+          <li>
+            <strong>More than one language in the room.</strong>
+            <p class="u-tight">
+              Finnish first. English as the bridge nobody grew up speaking but
+              most people can use. And a few members learning Finnish &mdash;
+              from Ukraine, the Philippines, West Africa &mdash; who follow
+              a Finnish lesson at the speed of their vocabulary.
+            </p>
+          </li>
+          <li>
+            <strong>Some are trained teachers; most are not.</strong>
+            <p class="u-tight">
+              In a country where a classroom teacher holds a master&rsquo;s
+              degree, a few people in every congregation teach for a
+              living, and they may use the vocabulary of that profession
+              without embarrassment. Many adults are converts who learned
+              the gospel from missionaries and manuals.
+            </p>
+          </li>
+          <li>
+            <strong>Silence may mean something different.</strong>
+            <p class="u-tight">
+              A well-known 1985 essay by two Finnish linguists, &ldquo;The
+              Silent Finn,&rdquo; described long conversational pauses as
+              ordinary in Finland rather than awkward. Finnish communication
+              researchers have argued ever since about how much of that is
+              myth. A teacher raised with it might hear a twenty-second
+              silence as thinking rather than failure. Whether that happens
+              in a Sunday class is exactly the kind of question a study
+              should check rather than assume.
+            </p>
+          </li>
+          <li>
+            <strong>Faith may be more private than performed.</strong>
+            <p class="u-tight">
+              Finland is often described as a country of &ldquo;belonging
+              without believing,&rdquo; where religion is a private matter.
+              Converts carry that culture into a church that asks them to
+              bear testimony aloud. How that shows up on a Sunday, if it does
+              at all, is a hypothesis this page cannot settle.
+            </p>
+          </li>
+          <li>
+            <strong>Devices: the phone, and for some a laptop on Sunday.</strong>
+            <p class="u-tight">
+              Gospel Library in Finnish on a phone, the manual as the Finnish
+              edition of <em>Teaching in the Savior&rsquo;s Way</em>, and in
+              the far-flung families the laptop that carries the video link.
+            </p>
+          </li>
+        </ul>
+      </div>
+
+      <h3 class="roster-subhead">Ten weeks in</h3>
+      <p class="fiction-note">
+        <span class="fiction-badge">SPECULATION</span>
+        What the new schedule might have done to a small, spread-out stake
+        between September and November &mdash; guessed in September.
+      </p>
+      <div class="panel">
+        <ul class="stack-list">
+          <li>
+            <strong>Twenty-five minutes with three people is a different clock.</strong>
+            <p class="u-tight">
+              In a class of three a real discussion can finish. The Utah
+              ward&rsquo;s twenty-five-minute wall is less a wall here than a
+              frame.
+            </p>
+          </li>
+          <li>
+            <strong>Weekly classes, with the same few teachers.</strong>
+            <p class="u-tight">
+              A branch with two Sunday School teachers now gives each of them
+              a turn every other week. It is the same doubling the Utah
+              ward&rsquo;s Relief Society feels, arriving everywhere at once.
+            </p>
+          </li>
+          <li>
+            <strong>Two windows instead of one.</strong>
+            <p class="u-tight">
+              For a family on a video link, the second hour is now two
+              twenty-five-minute classes, and the connection has to hold for
+              both.
+            </p>
+          </li>
+          <li>
+            <strong>What got better.</strong>
+            <p class="u-tight">
+              A weekly class means that for the first time, a thread started
+              one Sunday is still warm the next. And the monthly teacher
+              council, held during a class period, is the first time some
+              branches&rsquo; teachers have sat in a room together to talk
+              about teaching &mdash; even when the room holds two people.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="roster">
+      <h2 id="roster">The participant roster</h2>
+      <p class="section-note">
+        Twelve people. Seven are written out because the card sort leans on
+        them; five are sketched and can be filled in later without changing
+        an ID. <strong>IDs are permanent.</strong> F05 is Liisa Niemi in every
+        study that ever runs in this setting, with the same branch, the same
+        laptop, and the same drive.
+      </p>
+
+      <p class="fiction-note">
+        <span class="fiction-badge">FICTITIOUS DATA</span>
+        <span class="fiction-badge">SPECULATION</span>
+        Every person, calling, age, occupation, device, and quotation here is
+        invented, and so is every thought about teaching that they express.
+        They belong to no real congregation. The places they live are real;
+        they are not.
+      </p>
+
+      <div class="img-slot" role="img" aria-label="Placeholder for a group illustration of the invented participants">
+        <span class="img-slot__tag">Image placeholder</span>
+        <p class="img-slot__desc">
+          Imagined picture: a flat-style illustrated group portrait of the
+          twelve invented members, in winter coats in a meetinghouse foyer,
+          hymnbooks and phones in hand. It should be drawn, not
+          photographed, so that no one could mistake them for real people.
+          Same illustration style as the ward page&rsquo;s group portrait.
+        </p>
+      </div>
+
+      <h3 class="roster-subhead">The seven the study leans on</h3>
+
+      <article class="person">
+        <div class="person__head">
+          <span class="person__id">F01</span>
+          <h4 class="person__name">Aino Karjalainen</h4>
+          <span class="pill">Relief Society teacher &middot; Jyväskylä Ward</span>
+        </div>
+        <p class="person__say">Say it: <em>EYE-no KAR-yah-lye-nen</em></p>
+        <p class="person__meta">
+          63 &middot; baptized 1984 &middot; class teacher, grades
+          1&ndash;6, 37 years in Jyväskylä schools, retired 2025 &middot;
+          iPad, and a ring binder she has kept since 1991
+        </p>
+        <p>
+          Trained as a class teacher at the University of Jyväskylä in the
+          early eighties, in the city where Finland&rsquo;s first
+          Finnish-language teacher college opened in 1863 &mdash; a fact she
+          will mention once, drily. Baptized at twenty-one, after two
+          American missionaries asked her better questions than her
+          professors had. Her husband Markku belongs to the Lutheran church
+          and has come faithfully to every baptism, farewell, and Christmas
+          program for forty years. For her whole career she wrote to parents
+          most weeks &mdash; in the notebook that went home in the school
+          bag, later through the school&rsquo;s online system &mdash; so
+          telling a mother something good about her child is simply part of
+          the job to her. She calls wait time &ldquo;wait time&rdquo;
+          because that is what it is called. What she worries about on
+          Sunday is the one thing her training never covered: of the twelve
+          women in front of her, three are still new to Finnish, and she
+          cannot tell whose silence she is waiting through.
+        </p>
+        <blockquote class="ward-quote">
+          <p>
+            &ldquo;A silence in a room of Finnish ten-year-olds I can read
+            like a book. A silence in Relief Society has three languages in
+            it.&rdquo;
+          </p>
+          <cite>
+            <span class="fiction-badge">Invented quote</span>
+            Aino Karjalainen (F01), in translation
+          </cite>
+        </blockquote>
+      </article>
+
+      <article class="person">
+        <div class="person__head">
+          <span class="person__id">F02</span>
+          <h4 class="person__name">Jukka Heikkinen</h4>
+          <span class="pill">Sunday School teacher &middot; adults &middot; Oulu Ward</span>
+        </div>
+        <p class="person__say">Say it: <em>YOOK-kah HAYK-kih-nen</em></p>
+        <p class="person__meta">
+          49 &middot; born in the Church; his parents joined in Oulu in the
+          1970s &middot; test engineer, radio systems &middot; Android phone;
+          cycles to work all winter
+        </p>
+        <p>
+          Second-generation member, missionary in England in the late
+          nineties, four children, two of them teenagers. An engineer in
+          Oulu&rsquo;s radio-technology industry, and one of the Oulu people
+          who cycle to work at twenty below and see nothing remarkable in it.
+          He teaches the adult class, the same dozen people most weeks. He is
+          comfortable with quiet because he grew up in it: he asks a
+          question and waits, the class waits with him, sometimes for twenty
+          seconds, and then someone answers carefully and well. The silence
+          is not what worries him. What worries him is that there are two
+          kinds, and from the front of the room he cannot always tell which
+          one he is looking at. The weekly schedule suits him &mdash; a
+          shorter lesson, one question. He prepares in fifteen minutes on his
+          phone over lunch and then thinks about it on the bike home.
+        </p>
+        <blockquote class="ward-quote">
+          <p>
+            &ldquo;Finnish silence comes in two kinds: the thinking kind and
+            the please-don&rsquo;t-ask-me kind. From the front of the room
+            they look exactly the same.&rdquo;
+          </p>
+          <cite>
+            <span class="fiction-badge">Invented quote</span>
+            Jukka Heikkinen (F02), in translation
+          </cite>
+        </blockquote>
+      </article>
+
+      <article class="person">
+        <div class="person__head">
+          <span class="person__id">F03</span>
+          <h4 class="person__name">Maricel Virtanen</h4>
+          <span class="pill">Primary teacher &middot; ages 4&ndash;8 &middot; Jyväskylä Ward</span>
+        </div>
+        <p class="person__say">Say it: <em>mah-ree-SELL VEER-tah-nen</em> (Maricel is Filipino and stressed at the end; Virtanen is Finnish and stressed at the front)</p>
+        <p class="person__meta">
+          34 &middot; baptized at 15 in Cebu &middot; registered nurse,
+          hospital ward &middot; iPhone; Gospel Library open in English and
+          Finnish side by side
+        </p>
+        <p>
+          Came from Cebu in 2022, one of the thousands of Filipino nurses
+          recruited into Finnish health care. She worked as a care assistant
+          while she passed her language exams and has been licensed as a
+          nurse in Finland since 2025. She married Antti Virtanen, whom she
+          met in the ward, and their daughter is two. Finnish is her third language, and she teaches
+          Primary in it to six children from four to eight, who correct her
+          grammar kindly and constantly. She grew up in a Cebu Primary of
+          forty children, where the problem was noise. Here it is the
+          opposite: the children are polite, attentive, and quiet, and she
+          honestly cannot tell whether they are interested. Warm, quick, and
+          the loudest laugh in the building.
+        </p>
+        <blockquote class="ward-quote">
+          <p>
+            &ldquo;In Cebu my problem was forty children talking. Here my
+            problem is six children listening, and I don&rsquo;t know what
+            they&rsquo;re thinking.&rdquo;
+          </p>
+          <cite>
+            <span class="fiction-badge">Invented quote</span>
+            Maricel Virtanen (F03)
+          </cite>
+        </blockquote>
+      </article>
+
+      <article class="person">
+        <div class="person__head">
+          <span class="person__id">F04</span>
+          <h4 class="person__name">Eero Laitinen</h4>
+          <span class="pill">Sunday School teacher &middot; youth &middot; Jyväskylä Ward</span>
+        </div>
+        <p class="person__say">Say it: <em>AY-roh LYE-tih-nen</em></p>
+        <p class="person__meta">
+          23 &middot; born in the Church &middot; IT student at the
+          university of applied sciences; weekend warehouse shifts &middot;
+          Android phone, and he does everything on it
+        </p>
+        <p>
+          Did his military service at nineteen, then served a mission in
+          Poland, and has been home since early 2025. He studies information
+          technology and plays floorball on Tuesday nights. His calling is
+          the youth Sunday School class: every twelve- to seventeen-year-old
+          in the ward, five on the roll, three on most Sundays, and two of
+          them his cousins. He teaches the way his mission taught him to
+          teach &mdash; questions, the Spirit, invitations, follow-up
+          &mdash; and it mostly works, except that teenagers are not
+          investigators and do not want to be followed up on. This summer
+          he went to Festinord, the Nordic young single adult conference, in
+          Ikaalinen, with seven hundred other young adults. He came home sure
+          that his three need more of each other than a class of three can
+          give them.
+        </p>
+        <blockquote class="ward-quote">
+          <p>
+            &ldquo;On my mission I knew how to teach. Then I got three
+            fifteen-year-olds who already know everything I was going to
+            say.&rdquo;
+          </p>
+          <cite>
+            <span class="fiction-badge">Invented quote</span>
+            Eero Laitinen (F04), in translation
+          </cite>
+        </blockquote>
+      </article>
+
+      <article class="person">
+        <div class="person__head">
+          <span class="person__id">F05</span>
+          <h4 class="person__name">Liisa Niemi</h4>
+          <span class="pill">Primary teacher &middot; Rovaniemi Branch</span>
+        </div>
+        <p class="person__say">Say it: <em>LEE-sah NYEH-mee</em></p>
+        <p class="person__meta">
+          41 &middot; baptized at 8; her parents joined in Kemi in the 1980s
+          &middot; practical nurse, health centre in Sodankylä &middot;
+          iPhone, and the family laptop on Sundays
+        </p>
+        <p>
+          Lives in Sodankylä, 130 kilometres north of the branch: an hour
+          and a half in summer, longer and darker in November, when the sun
+          is up for barely four hours. Her husband Janne drives a
+          snowplough on a road-maintenance contract from October to April.
+          They have three children, two of them in the branch&rsquo;s one
+          Primary class. From November the family drives to Rovaniemi two
+          Sundays a month. On the other Sundays, with the branch
+          president&rsquo;s permission, they join the classes on a laptop
+          propped on the kitchen table. Liisa is one of the branch&rsquo;s
+          two Primary teachers, and on the Sundays she stays home the other
+          teacher holds the laptop up so her children can see the picture.
+          Her classroom is really three places &mdash; the chapel, the
+          screen, and her own kitchen &mdash; and she has stopped pretending
+          they are the same place.
+        </p>
+        <blockquote class="ward-quote">
+          <p>
+            &ldquo;Half my class is on a laptop propped against a hymnbook.
+            You can&rsquo;t hand a picture of Jesus through a laptop.&rdquo;
+          </p>
+          <cite>
+            <span class="fiction-badge">Invented quote</span>
+            Liisa Niemi (F05), in translation
+          </cite>
+        </blockquote>
+      </article>
+
+      <article class="person">
+        <div class="person__head">
+          <span class="person__id">F06</span>
+          <h4 class="person__name">Oksana Kovalenko</h4>
+          <span class="pill">Relief Society teacher &middot; Kuopio Ward</span>
+        </div>
+        <p class="person__say">Say it: <em>ok-SAH-nah ko-vah-LEN-ko</em> (Ukrainian; the stress is not on the first syllable)</p>
+        <p class="person__meta">
+          46 &middot; baptized 2009 in Kharkiv &middot; hospital kitchen
+          assistant; taught secondary-school chemistry for twenty years
+          before 2022 &middot; Samsung phone, Gospel Library in Ukrainian
+        </p>
+        <p>
+          Came to Kuopio in the spring of 2022 with her son Danylo. He is
+          seventeen now, fluent in Finnish, and embarrassed by her accent.
+          She taught chemistry in a Kharkiv secondary school for twenty
+          years. While her qualifications are being assessed, she works in a
+          hospital kitchen and studies Finnish in the evenings; she is at B1
+          and climbing. In the spring she was called to teach Relief
+          Society, and she does it in careful, prepared Finnish. She writes
+          the lesson out, runs it through a translation app, corrects the
+          app, and practises it aloud on the bus. Every question she asks is
+          a risk, because she has to understand the answer. She is precise,
+          dryly funny, and formidably organized, and she plans every lesson
+          on the skeleton she was trained in and inspected against for two
+          decades.
+        </p>
+        <blockquote class="ward-quote">
+          <p>
+            &ldquo;Every lesson has a skeleton. In Kharkiv an inspector
+            checked the skeleton. Here nobody checks, so I check.&rdquo;
+          </p>
+          <cite>
+            <span class="fiction-badge">Invented quote</span>
+            Oksana Kovalenko (F06)
+          </cite>
+        </blockquote>
+      </article>
+
+      <article class="person">
+        <div class="person__head">
+          <span class="person__id">F07</span>
+          <h4 class="person__name">Tuula Hämäläinen</h4>
+          <span class="pill">Sunday School teacher &middot; adults &middot; Kajaani Branch</span>
+        </div>
+        <p class="person__say">Say it: <em>TOO-lah HA-ma-lye-nen</em> (both <em>a</em>s in <em>Hämä-</em> as in <em>cat</em>)</p>
+        <p class="person__meta">
+          72 &middot; baptized 1974 with her husband Pekka &middot; retired
+          bank clerk &middot; iPad with the text at maximum; a printed
+          hymnbook she will not give up
+        </p>
+        <p>
+          Grew up on a farm in Kainuu and was confirmed in the Lutheran
+          church at fifteen, like everyone she knew. She and Pekka joined the
+          Church at twenty, two years after the missionaries first knocked.
+          She has spent fifty-two years in the same small branch and taught
+          every class it has, some of them twice. Now she teaches one of the
+          adult classes: seven or eight people on most Sundays, in a room
+          where the Sunday School class and the Relief Society are the same
+          women on the same chairs, twenty-five minutes apart. She believes,
+          with the calm of a lifetime, that the quiet at the start of a
+          meeting is where the Spirit comes in, and that you should not rush
+          it. Singing matters to her more than she can say, and that is her
+          whole point: she has watched Finns sing words together that not one
+          of them would ever say alone.
+        </p>
+        <blockquote class="ward-quote">
+          <p>&ldquo;Finns will sing what they would never say.&rdquo;</p>
+          <cite>
+            <span class="fiction-badge">Invented quote</span>
+            Tuula Hämäläinen (F07), in translation
+          </cite>
+        </blockquote>
+      </article>
+
+      <h3 class="roster-subhead">The rest of the pool</h3>
+      <p class="section-note">
+        Sketched, not developed. A study may write any of them out in full
+        later; the ID stays the same when it does.
+      </p>
+
+      <ul class="roster-light">
+        <li>
+          <div class="person__head">
+            <span class="person__id">F08</span>
+            <h4 class="person__name">Pekka Hämäläinen</h4>
+            <span class="pill">Class member &middot; Kajaani Branch</span>
+          </div>
+          <p class="person__say">Say it: <em>PEK-kah HA-ma-lye-nen</em></p>
+          <p class="person__meta">74 &middot; baptized 1974 &middot; retired log-truck driver &middot; a flip phone, and Tuula&rsquo;s iPad</p>
+          <p class="u-tight">
+            Tuula&rsquo;s husband (F07), who sorted the cards with her as a
+            pair. He has no teaching calling at the moment and sets out the
+            chairs every Sunday. He holds strong opinions, cheerfully, about
+            where testimony belongs.
+          </p>
+        </li>
+        <li>
+          <div class="person__head">
+            <span class="person__id">F09</span>
+            <h4 class="person__name">Samuel Owusu</h4>
+            <span class="pill">Elders quorum instructor &middot; Jyväskylä Ward</span>
+          </div>
+          <p class="person__say">Say it: <em>SAM-yoo-el oh-WOO-soo</em> (an Akan surname, from Ghana)</p>
+          <p class="person__meta">31 &middot; baptized at 17 in Kumasi &middot; doctoral researcher in education, University of Jyväskylä &middot; Android phone</p>
+          <p class="u-tight">
+            Arrived in 2023 with his wife Abena; their son was born in
+            Jyväskylä. He is one of the quorum&rsquo;s instructors and
+            teaches in English because the quorum asked him to. Most of them
+            answer in Finnish, which he understands better than he speaks.
+            He grew up in wards where testimony is loud and frequent, and he
+            finds the Finnish quiet restful and a little unnerving.
+          </p>
+        </li>
+        <li>
+          <div class="person__head">
+            <span class="person__id">F10</span>
+            <h4 class="person__name">Venla Mäkinen</h4>
+            <span class="pill">Class member &middot; youth &middot; Jyväskylä Ward</span>
+          </div>
+          <p class="person__say">Say it: <em>VEN-lah MA-kih-nen</em></p>
+          <p class="person__meta">16 &middot; born in the Church &middot; upper-secondary student &middot; iPhone</p>
+          <p class="u-tight">
+            In Eero&rsquo;s youth class (F04). Most of her school friends
+            went to Lutheran confirmation camp at fifteen; she did not, and
+            she noticed. She is not a teacher, which is exactly why one of
+            the two card-sort reports should not have recruited her.
+          </p>
+        </li>
+        <li>
+          <div class="person__head">
+            <span class="person__id">F11</span>
+            <h4 class="person__name">Mikko Salonen</h4>
+            <span class="pill">Sunday School teacher &middot; adults &middot; Jyväskylä Ward</span>
+          </div>
+          <p class="person__say">Say it: <em>MIK-koh SAH-lo-nen</em></p>
+          <p class="person__meta">55 &middot; baptized 1990 &middot; municipal engineer &middot; iPhone and a work laptop</p>
+          <p class="u-tight">
+            Teaches one of the ward&rsquo;s adult classes and knows everyone
+            in it. He is the first Finnish teacher a student team would find
+            if they went looking for one, which is both why he is useful and
+            why he is not enough.
+          </p>
+        </li>
+        <li>
+          <div class="person__head">
+            <span class="person__id">F12</span>
+            <h4 class="person__name">Hanna Lehtonen</h4>
+            <span class="pill">Primary teacher &middot; Oulu Ward</span>
+          </div>
+          <p class="person__say">Say it: <em>HAHN-nah LEH-toh-nen</em></p>
+          <p class="person__meta">29 &middot; born in the Church &middot; speech therapist, part-time &middot; iPhone</p>
+          <p class="u-tight">
+            Two small children and one class of seven- to eleven-year-olds.
+            Sketched only; she is in neither card sort.
+          </p>
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="talk">
+      <h2 id="talk">How this stake might talk &mdash; in translation</h2>
+      <p class="section-note">
+        The ward page records ward speech as raw material for the studies.
+        This is the same idea, with two extra layers of distance: it is
+        guessed rather than recalled, and most of it would be said in Finnish
+        and is given here in English.
+      </p>
+
+      <p class="fiction-note">
+        <span class="fiction-badge">FICTITIOUS DATA</span>
+        <span class="fiction-badge">SPECULATION</span>
+        Nobody said any of these. They were written to test a hypothesis
+        about a real place, which makes them more dangerous to mistake for
+        evidence than the ward page&rsquo;s, not less.
+      </p>
+
+      <div class="say-cols">
+        <div class="panel">
+          <h3>What they might say</h3>
+          <ul class="say-list">
+            <li>&ldquo;It went quite well.&rdquo; <em>(close to the highest praise available)</em></li>
+            <li>&ldquo;It wasn&rsquo;t bad.&rdquo; <em>(higher)</em></li>
+            <li>&ldquo;Nobody said anything, but it was a good silence.&rdquo;</li>
+            <li>&ldquo;Give them a moment. They&rsquo;re thinking.&rdquo;</li>
+            <li>&ldquo;I&rsquo;ll read the question again.&rdquo;</li>
+            <li>&ldquo;Did the connection hold?&rdquo;</li>
+            <li>&ldquo;Could you say that in English? Slower?&rdquo;</li>
+            <li>&ldquo;It&rsquo;s my turn again already.&rdquo;</li>
+            <li>&ldquo;Let&rsquo;s sing the second verse too.&rdquo;</li>
+            <li>&ldquo;Who&rsquo;s bringing the laptop?&rdquo;</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3>What they might rarely say in class</h3>
+          <ul class="say-list">
+            <li>&ldquo;Let&rsquo;s go around the room and everyone share.&rdquo;</li>
+            <li>&ldquo;I felt the Spirit so strongly.&rdquo; <em>(of themselves, out loud, in a class)</em></li>
+            <li>&ldquo;I know with every fibre of my being.&rdquo; <em>(an idiom that does not translate)</em></li>
+            <li>&ldquo;That was awesome!&rdquo;</li>
+            <li>Anyone&rsquo;s name, called on without warning</li>
+          </ul>
+          <p class="say-tail">
+            And one difference from the Utah ward runs the other way. For the
+            trained teachers, words like <strong>wait time</strong>,
+            <strong>interaction</strong>, and <strong>learning</strong> are
+            ordinary. They are the vocabulary of a respected profession, and
+            nobody here is embarrassed to use it.
+          </p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>A few more habits of speech</h3>
+        <ul class="stack-list">
+          <li>
+            <strong>One word with no English partner.</strong>
+            <p class="u-tight">
+              The Lutheran church&rsquo;s word for turning toward God in
+              prayer and quiet is <em>hiljentyminen</em>, literally
+              &ldquo;becoming quiet.&rdquo; A member raised Lutheran might
+              reach for it for the stillness at the start of a meeting.
+              English gives you either &ldquo;stillness&rdquo; or
+              &ldquo;devotion,&rdquo; and each is half of the word.
+            </p>
+          </li>
+          <li>
+            <strong>Understatement is the register.</strong>
+            <p class="u-tight">
+              &ldquo;Quite good&rdquo; is warm, and &ldquo;not bad&rdquo;
+              is warmer. An American superlative translated literally sounds
+              either sarcastic or like a sales pitch.
+            </p>
+          </li>
+          <li>
+            <strong>English is the bridge, and nobody&rsquo;s first language.</strong>
+            <p class="u-tight">
+              In a room of Finns, a Filipino nurse, a Ukrainian chemist,
+              and a Ghanaian researcher, English is the language nobody&rsquo;s
+              mother spoke and nearly everybody can use. That makes a lesson
+              taught in it plainer, and a joke told in it riskier.
+            </p>
+          </li>
+          <li>
+            <strong>&ldquo;The app&rdquo; and &ldquo;the manual.&rdquo;</strong>
+            <p class="u-tight">
+              As in Utah, &ldquo;the app&rdquo; is Gospel Library &mdash;
+              here in Finnish &mdash; and &ldquo;the manual&rdquo; is the
+              Finnish edition of <em>Teaching in the Savior&rsquo;s
+              Way</em>. The skills the card sort uses come from a manual we
+              could not find in Finnish, which is its own small finding about
+              the site the studies examine.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="why">
+      <h2 id="why">Why run the card sort again here</h2>
+      <p class="section-note">
+        Written before the study, as the hypotheses a team would bring to it.
+        The Finnish study page reports what the (equally invented) sorters
+        actually did.
+      </p>
+      <p class="fiction-note">
+        <span class="fiction-badge">SPECULATION</span>
+        The right-hand columns are guesses, not findings.
+      </p>
+      <div class="panel">
+        <div class="ward-table__scroll">
+          <table class="ward-table">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Timpanogos Shadows Ward</th>
+                <th scope="col">Jyväskylä Finland Stake</th>
+                <th scope="col">What it might do to a card sort</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>A class</td>
+                <td>10&ndash;25 people, one age group</td>
+                <td>Often 3&ndash;12, sometimes every age at once</td>
+                <td>Does &ldquo;getting people to talk&rdquo; mean the same thing with three people?</td>
+              </tr>
+              <tr>
+                <td>Distance</td>
+                <td>Everyone within six streets</td>
+                <td>Up to 130&nbsp;km; some join by video</td>
+                <td>Does <em>where</em> the class happens become a way to sort?</td>
+              </tr>
+              <tr>
+                <td>Language</td>
+                <td>English, one shared vocabulary</td>
+                <td>Finnish first, English as a bridge, some learners</td>
+                <td>Do the labels survive translation?</td>
+              </tr>
+              <tr>
+                <td>Training</td>
+                <td>Essentially none</td>
+                <td>Some trained teachers with master&rsquo;s degrees</td>
+                <td>Is professional vocabulary disowned, or ordinary?</td>
+              </tr>
+              <tr>
+                <td>Silence</td>
+                <td>A problem to fix</td>
+                <td>Possibly an ordinary turn in a conversation</td>
+                <td>Are the discussion skills about talk, or about waiting?</td>
+              </tr>
+              <tr>
+                <td>Faith in words</td>
+                <td>Testimony is frequent and public</td>
+                <td>Possibly more private</td>
+                <td>Does testimony stay with the Savior, or move?</td>
+              </tr>
+              <tr>
+                <td>Background</td>
+                <td>Born in the Church, long tenure</td>
+                <td>Converts, Lutheran families, returned missionaries, newcomers</td>
+                <td>Do the manual&rsquo;s categories show up &mdash; or a mission&rsquo;s?</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="usage">
+      <h2 id="usage">How the studies use this page</h2>
+      <div class="panel panel--callout">
+        <ul class="stack-list">
+          <li>
+            <strong>IDs are permanent, and they are F-numbers.</strong>
+            <p class="u-tight">
+              A study in this setting cites participants as F01&hellip;F12.
+              IDs are never reassigned, and a person&rsquo;s calling,
+              congregation, device, and personality stay fixed. New people
+              join at the end of the list. The ward&rsquo;s P-numbers and
+              these F-numbers never mix.
+            </p>
+          </li>
+          <li>
+            <strong>A real stake is handled differently from an invented ward.</strong>
+            <p class="u-tight">
+              No invented person holds a leadership calling in a real unit.
+              No stake statistic is invented. Every general claim about the
+              stake&rsquo;s congregations carries a SPECULATION stamp.
+            </p>
+          </li>
+          <li>
+            <strong>The talk section is source material, not findings.</strong>
+            <p class="u-tight">
+              It records guesses about how these people might talk. What a
+              study does with the people &mdash; what they sorted, what they
+              wrote on their piles &mdash; belongs to the study.
+            </p>
+          </li>
+          <li>
+            <strong>This page invents people. It does not invent the site, or Finland.</strong>
+            <p class="u-tight">
+              The skills the studies sort are real and live on the
+              <a href="../../">teaching site</a>, and the published facts
+              are listed below with their sources.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="sources">
+      <h2 id="sources">Sources for the real facts</h2>
+      <p class="section-note">
+        Gathered in September 2026 through web search. The Church&rsquo;s
+        own sites could not be opened from the environment this page was
+        built in, so check the key figures against them before relying on
+        them.
+      </p>
+      <ol class="sources">
+        <li>Church membership, congregations, and stakes in Finland: <a href="https://www.churchofjesuschrist.org/learn/facts-statistics/finland?lang=eng">Facts and Statistics: Finland</a>.</li>
+        <li>The Jyväskylä stake&rsquo;s organization (2021), the units it was formed from, and its twelve congregations: <a href="https://www.jeesuksenkristuksenkirkko.org/suomeen-kolmas-vaarna-%E2%80%93-jyv%C3%A4skyl%C3%A4n-vaarna-on-nyt-j%C3%A4rjestetty?lang=fin-fi">the Church in Finland&rsquo;s news release</a> (in Finnish).</li>
+        <li>Helsinki Finland Temple, dedicated 22 October 2006: <a href="https://www.thechurchnews.com/2006/10/28/23234082/temple-dedicated-in-helsinki-finland/">Church News</a>.</li>
+        <li>The 2026 Sunday schedule, effective 6 September 2026: <a href="https://newsroom.churchofjesuschrist.org/article/changes-sunday-meeting-schedule">Newsroom</a>.</li>
+        <li>Remote participation in some meetings, at a leader&rsquo;s authorization: <a href="https://www.churchofjesuschrist.org/study/manual/general-handbook/29-meetings-in-the-church?lang=eng">General Handbook, chapter 29</a>.</li>
+        <li>Festinord 2026 in Ikaalinen: <a href="https://www.thechurchnews.com/living-faith/2026/09/17/2026-festinord-60th-anniversary-finland-use-the-gems-of-his-happiness/">Church News</a>.</li>
+        <li><em>Teaching in the Savior&rsquo;s Way</em> in Finnish: <a href="https://www.churchofjesuschrist.org/study/manual/teaching-in-the-saviors-way-2022?lang=fin">Gospel Library</a>.</li>
+        <li>Jyväskylä&rsquo;s population: <a href="https://www.jyvaskyla.fi/en/news/2025-09-29_jyvaskylas-population-exceeded-milestone-150000-inhabitants">City of Jyväskylä</a>. The 1863 teacher seminary: <a href="https://www.jyu.fi/en/university/history-and-campus">University of Jyväskylä</a>.</li>
+        <li>Teacher education and the master&rsquo;s requirement: <a href="https://www.educationfinland.fi/teachereducation/tt-finnish-model">Education Finland</a>.</li>
+        <li>Lutheran church membership and confirmation-school participation: <a href="https://evl.fi/tiedote/rippikoulussa-kirkkoon-liittyneiden-ja-kastettujen-nuorten-maara-kasvoi-edelleen-vuonna-2025/">Evangelical Lutheran Church of Finland</a>. The church&rsquo;s own page on <em>hiljentyminen</em>: <a href="https://evl.fi/hiljentyminen/">evl.fi</a>.</li>
+        <li>Finnish silence: Jaakko Lehtonen and Kari Sajavaara, &ldquo;The Silent Finn,&rdquo; in D. Tannen and M. Saville-Troike (eds.), <em>Perspectives on Silence</em> (Ablex, 1985), 193&ndash;201.</li>
+        <li>Filipino-born residents of Finland: <a href="https://en.wikipedia.org/wiki/Filipinos_in_Finland">Wikipedia, citing Statistics Finland</a>. Temporary protection for Ukrainians: <a href="https://migri.fi/en/-/temporary-protection-for-ukrainians-fleeing-war-extended-until-4-march-2027">Finnish Immigration Service</a>.</li>
+        <li>Winter driving rules: <a href="https://www.visitfinland.com/en/articles/guide-to-drive-in-finland/">Visit Finland</a>. Daylight hours were computed from the standard sunrise equation for 25 November and are approximate.</li>
+      </ol>
+    </section>
+
+    <footer class="site-foot">
+      <p>
+        <a href="index.html">&larr; The Northern Finland stake version</a>
+        &nbsp;&middot;&nbsp;
+        <a href="../ward.html">The Timpanogos Shadows Ward</a>
+        &nbsp;&middot;&nbsp;
+        <a href="../fiction.html">What&rsquo;s real and what&rsquo;s not</a>
+      </p>
+      <p>
+        The Jyväskylä Finland Stake is real. None of the people described
+        here exists, and nothing on this page describes any real member of
+        it. The live teaching site contains no links to this companion.
+      </p>
+    </footer>
+
+  </main>
+
+  <script src="../assets/studies-data.js" defer></script>
+  <script src="../assets/companion.js" defer></script>
+</body>
+</html>

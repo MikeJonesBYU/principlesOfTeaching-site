@@ -111,6 +111,13 @@ a:focus-visible,
 }
 .fiction-banner__link:hover { color: #ffd9c6; }
 .fiction-banner a:focus-visible { outline-color: #ffd9c6; }
+/* A variant page's own note, under the canonical line (never replacing it). */
+.fiction-banner__variant {
+  border-top: 1px solid rgba(255, 244, 234, .28);
+  padding-top: 8px;
+  font-size: .86rem;
+  color: #f6e2d5;
+}
 
 /* Stamped on any table, chart, quote, figure, or number that is invented. */
 .fiction-badge {

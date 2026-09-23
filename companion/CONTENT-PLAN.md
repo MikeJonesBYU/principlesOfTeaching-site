@@ -366,3 +366,52 @@ Scope-note opener (per study page, adapted):
 - Deferred course elements: search spec; add-attribute-after-v1.
 - Eventually: the promotion mechanics for `prototype-final` → site root
   (redeploy checklist, redirects if URLs change, i18n handling).
+
+## 10. Parallel setting: the Northern Finland stake version (2026-09-23)
+
+A **variant** (ARCHITECTURE §5): the card sort re-run, same assignment,
+same rubric, same 24 cards (read from the Timpanogos data file, never
+retyped), with invented members of the **real Jyväskylä Finland Stake**
+(organized 16 May 2021; 12 congregations; central, eastern, and northern
+Finland). Built at the instructor's request as a parallel to the ward;
+everything presented in English (Finnish-deck labels in the team's
+translation, flagged where the translators disagreed).
+
+- **Pages.** `finland/index.html` (variant hub), `finland/stake.html`
+  (setting + roster, the variant's `ward.html`), `finland/studies/
+  01-card-sort.html` (graded pair + two-stake comparison), and
+  `01-card-sort-data.py` beside it (computes every count; emits the page's
+  figures/tables with `python3 01-card-sort-data.py out.json`).
+- **Roster.** IDs **F01–F12**, never mixed with P-numbers. Seven written
+  out (F01 Aino Karjalainen, RS, Jyväskylä; F02 Jukka Heikkinen, SS adults,
+  Oulu; F03 Maricel Virtanen, Primary 4–8, Jyväskylä; F04 Eero Laitinen, SS
+  youth, Jyväskylä; F05 Liisa Niemi, Primary, Rovaniemi, lives in Sodankylä;
+  F06 Oksana Kovalenko, RS, Kuopio; F07 Tuula Hämäläinen, SS adults,
+  Kajaani), five sketched (F08 Pekka Hämäläinen, F09 Samuel Owusu, F10 Venla
+  Mäkinen, F11 Mikko Salonen, F12 Hanna Lehtonen). Every name has a
+  pronunciation guide.
+- **Real-unit rules** (stricter than the ward): invent people only; no
+  invented stake statistics (published, sourced figures instead); no
+  invented person in a leadership calling of a real unit; every general
+  claim about the stake's congregations stamped SPECULATION; the findings
+  are researched hypotheses, not instructor conviction, and say so.
+- **The study.** Report A 60/60 (nine people, eight sorts, five
+  congregations, mailed physical decks sorted on video, Finnish and English
+  decks, two-translator label check) → six categories (Before Sunday; Asking
+  and waiting; The Savior; Knowing the people; Stillness and the Spirit;
+  Saying it out loud), two facets (who's in the room; where), labels
+  harvested separately per language. Report B 25/60 (one ward, English-only
+  deck, a non-teacher, a lost group board, a nationality stereotype in place
+  of analysis, the Utah categories adopted wholesale). Then "Same deck, two
+  stakes": clusters travelled, labels didn't; the Spirit category returned
+  as quiet; testimony left the Savior; the room became a facet — and why
+  single source, multiple views absorbs a change of population.
+- **Not binding.** No prototype implements the Finland decisions.
+
+Open for this version: a real header photograph (Wikimedia Commons
+candidates noted in the build session — `Jyväskylä winter panorama.jpg`,
+`Lake-Jyväsjärvi-panorama.jpg`, `MS Rhea and SS Suomi in Jyvaskyla
+harbour.jpg` — licences unverified; the environment could not reach
+Commons); spot-check the sourced figures against churchofjesuschrist.org
+(unreachable from the build environment); whether the tree test is ever
+re-run here.

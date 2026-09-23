@@ -32,6 +32,10 @@
 
    Slugs are stable once public — students bookmark them. Never rename.
 
+   VARIANTS (added 2026-09-23). variants[] re-runs stations of this same
+   chain in another setting with other invented people — the Northern
+   Finland stake version is the first. See the block at the end of the file.
+
    CANVAS CROSS-LINKS. The companion is the worked example; the Canvas course
    is where the method itself is taught. Each station may carry:
 
@@ -46,7 +50,7 @@
    the canonical ones as of 2026-09-14.
    ========================================================================== */
 window.CS356_COMPANION = {
-  version: "2026-09-15",
+  version: "2026-09-23",
 
   /* Every Canvas `slug` in this file hangs off this base — one course id,
      one place to change it. */
@@ -255,6 +259,55 @@ window.CS356_COMPANION = {
       },
       testedBy: null,
       shows: "Everything brought together on single source, multiple views, grounded in all three studies. This prototype graduates to become the next deployed Principles of Teaching site."
+    }
+  ],
+
+  /* -------------------------------------------------------------- variants
+     A VARIANT re-runs stations of the same chain in a different setting,
+     with invented people — same instruments, different people — so students can
+     see how much of a study's result belongs to its population. Added
+     2026-09-23 with the Northern Finland stake version.
+
+     A variant never touches arc[] or turnins[]: it borrows their order and
+     titles and says, per station, whether it has its own page. Stations it
+     has not re-run render as unlinked "Not run in this setting" items (the
+     no-dead-links rule again), pointing back at the main chain's version.
+
+     Nothing in a variant is binding. Its design decisions are written as
+     the worked example requires, but no prototype implements them; the
+     banner note below says so on every one of its pages.
+
+       id           stable slug; pages declare <body data-variant="…">
+       title        the variant's name as the hub prints it
+       navLabel     its button in the masthead row, on its own pages
+       setting      the unit it is set in (the Finland variant's is REAL:
+                  a real stake, invented people — see fiction.html)
+       hub          the variant's own landing page (relative to companion/)
+       settingPage  its roster page — the variant's ward.html
+       settingLabel that page's masthead button
+       blurb        one paragraph for the main hub
+       bannerNote   appended to the fiction banner on the variant's pages
+       stations     { <arc id>: { status, page, title, shows } } — only the
+                    stations this variant has re-run                       */
+  variants: [
+    {
+      id: "finland",
+      title: "The Northern Finland stake version",
+      navLabel: "Finland version",
+      setting: "the Jyväskylä Finland Stake",
+      hub: "finland/index.html",
+      settingPage: "finland/stake.html",
+      settingLabel: "The stake",
+      blurb: "The same card sort, the same 24 cards, re-run with nine invented members of a real stake — the Jyväskylä Finland Stake, which reaches from the lakes of central Finland to Rovaniemi on the Arctic Circle, where a class can be three people, a laptop, and two languages. The clusters travelled; the labels, the Spirit, and the room did not.",
+      bannerNote: "Northern Finland stake version: the stake is real; the people on these pages are not. What they think and say is speculation built from published sources and never checked with real members, and its design decisions are not built into anything.",
+      stations: {
+        "card-sort": {
+          status: "published",
+          page: "finland/studies/01-card-sort.html",
+          title: "Open card sort, re-run in Finland",
+          shows: "Two graded turn-ins for the same assignment, run with the Jyväskylä Finland Stake on the Timpanogos team's own 24-card deck — plus a side-by-side of what held and what moved between the two stakes."
+        }
+      }
     }
   ]
 };
