@@ -298,7 +298,7 @@ window.CS356_COMPANION = {
       hub: "finland/index.html",
       settingPage: "finland/stake.html",
       settingLabel: "The stake",
-      blurb: "The same card sort, the same 24 cards, re-run with nine invented members of a real stake — the Jyväskylä Finland Stake, which reaches from the lakes of central Finland to Rovaniemi on the Arctic Circle, where a class can be three people, a laptop, and two languages. The clusters travelled; the labels, the Spirit, and the room did not.",
+      blurb: "The same card sort, the same 24 cards, re-run with nine invented members of a real stake — the Jyväskylä Finland Stake, which reaches from the lakes of central Finland to Rovaniemi on the Arctic Circle. In the invented study the clusters travelled; the labels, the Spirit, and the room did not.",
       bannerNote: "Northern Finland stake version: the stake is real; the people on these pages are not. What they think and say is speculation built from published sources and never checked with real members, and its design decisions are not built into anything.",
       stations: {
         "card-sort": {

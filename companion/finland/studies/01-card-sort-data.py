@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Invented card-sort dataset for the CS 356 companion's NORTHERN FINLAND
 version: the same open card sort, the same 24-card deck, re-run (in fiction)
-with members of the invented Jyväskylä Finland Stake.
+with invented members of the real Jyväskylä Finland Stake.
 
 Stats are COMPUTED from the pile data so the analysis prose can never drift
 from the appendix. The deck is not retyped here: CARDS is read straight out of
@@ -40,9 +40,10 @@ def _read_assignments(path, names):
     return found
 
 
-_utah = _read_assignments(UTAH_FILE, {"CARDS", "SORTS"})
+_utah = _read_assignments(UTAH_FILE, {"CARDS", "SORTS", "STD"})
 CARDS = _utah["CARDS"]          # C-number -> (skill id, section, verbatim, handle)
 UTAH_SORTS = _utah["SORTS"]
+UTAH_STD = _utah["STD"]         # the Timpanogos report's own standardization
 assert sorted(CARDS) == list(range(1, 25))
 
 # sorts: (sort id, participant(s), scheme note, deck language, [(pile label, [cards])])
@@ -282,17 +283,18 @@ setting_sorts = sorted({sid for sid, _, _, _, piles in SORTS
 print(f"\nSORTS WITH A SETTING PILE: {len(setting_sorts)}/8 {setting_sorts}")
 
 # ---------------------------------------------------------- the two stakes
-# Timpanogos buckets, for the rows that need them (from the Utah STD map's
-# meaning, restated here as the pile labels that carried each idea).
-UT_SPIRIT = {"By the Spirit"}
-UT_ATTN = {"Keeping their attention", "Keeping seven-year-olds alive", "Engagement"}
+# Bucket counts use each study's OWN standardization map: the Timpanogos
+# report's STD (read from its data file above) and this study's STD.
 
 
-def sorts_with(sorts, unpack, labels):
-    return sum(1 for s in sorts if any(l in labels for l, _ in unpack(s)))
+def sorts_in_bucket(sorts, unpack, std, test):
+    return sum(1 for s in sorts if any(test(std[l]) for l, _ in unpack(s)))
 
 
-FI_STILL = {l for l, b in STD.items() if b == "STILL"}
+is_spirit_ut = lambda b: b == "SPIRIT"
+is_spirit_fi = lambda b: b == "STILL"
+is_attn = lambda b: b == "ATTN"
+is_setting = lambda b: b.startswith("SETTING")
 compare = [
     ("C01 + C05 in the same pile (the Savior pair)",
      together(UPAIR, 1, 5), together(PAIR, 1, 5), "held"),
@@ -313,15 +315,16 @@ compare = [
     ("C08 + C13 in the same pile (pray / sacred music)",
      together(UPAIR, 8, 13), together(PAIR, 8, 13), "moved"),
     ("Sorts with a Spirit or stillness pile",
-     sorts_with(UTAH_SORTS, ut_piles, UT_SPIRIT), sorts_with(SORTS, fi_piles, FI_STILL), "moved"),
+     sorts_in_bucket(UTAH_SORTS, ut_piles, UTAH_STD, is_spirit_ut),
+     sorts_in_bucket(SORTS, fi_piles, STD, is_spirit_fi), "moved"),
     ("Sorts with a keeping-their-attention pile",
-     sorts_with(UTAH_SORTS, ut_piles, UT_ATTN), 0, "moved"),
+     sorts_in_bucket(UTAH_SORTS, ut_piles, UTAH_STD, is_attn),
+     sorts_in_bucket(SORTS, fi_piles, STD, is_attn), "moved"),
     ("Sorts with a pile built on who is in the room, or where",
-     0, len(setting_sorts), "moved"),
+     sorts_in_bucket(UTAH_SORTS, ut_piles, UTAH_STD, is_setting),
+     sorts_in_bucket(SORTS, fi_piles, STD, is_setting), "moved"),
 ]
-# The Timpanogos report counted no setting piles; confirm it has none to count.
-assert not any("little" in l.lower() or "video" in l.lower() for s in UTAH_SORTS for l, _ in s[3])
-assert not any(l in UT_ATTN for s in SORTS for l, _ in s[4])
+assert compare[-1][2] == len(setting_sorts)
 print("\nTHE TWO STAKES (Timpanogos Shadows Ward -> Jyväskylä Finland Stake):")
 for label, ut, fi, kind in compare:
     print(f"  [{kind:17s}] UT {ut}/8 -> FI {fi}/8   {label}")
