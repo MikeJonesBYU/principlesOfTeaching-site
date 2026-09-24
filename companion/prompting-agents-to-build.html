@@ -135,7 +135,7 @@
   which was made up entirely by AI for this course; "Team A" and "Team B," which are fictional student teams (agents built both
   wireframes from the instructor's packets); and every tree-test participant and number, stamped <span class="fiction-badge">Fictitious data</span>.
   Prompts marked <span class="stamp recon">Reconstructed</span> condense several real prompts into one. Nobody typed them as shown.
-  Prompts marked <span class="stamp illus">Illustrative</span> are weak examples written for this page.</p>
+  Prompts marked <span class="stamp illus">Illustrative</span> are weak and stronger examples written for this page. The full statement is on <a href="fiction.html">what's real and what's not</a>.</p>
 </div>
 
 <nav class="panel" aria-label="On this page">
@@ -156,7 +156,7 @@
 
 <!-- ============================================================ 1 -->
 <h2 id="s1"><span class="num">1</span>The whole workflow in one picture</h2>
-<p>Here is the sequence the instructor used. Each box is a separate prompt or a separate agent. The files along the bottom
+<p>Here is the sequence the instructor used, plus one habit (checking the read-back in box 2) learned from what went wrong. Each box is a separate prompt or a separate agent. The files along the bottom
 last longer than any one conversation, and later prompts point at them by name instead of repeating them.</p>
 
 <figure>
@@ -229,7 +229,7 @@ last longer than any one conversation, and later prompts point at them by name i
   <path class="ln" d="M710 200 H738"/>
   <path class="lnr" d="M635 240 C635 272 455 272 455 242"/>
   <text class="rt" x="470" y="282">FAIL or nits → back to the SAME builder</text>
-  <path class="ln" d="M635 112 V158" />
+  <path class="ln" d="M600 112 C600 140 470 136 462 158" />
 
   <rect class="doc" x="40" y="312" width="140" height="52" rx="6"/>
   <text class="m" x="52" y="334">wireframe spec</text>
@@ -252,7 +252,7 @@ last longer than any one conversation, and later prompts point at them by name i
 </svg>
 </div>
 <figcaption>Gold is where you type. Teal, purple, and red are three different agents with three different jobs. The dashed files
-are why the actual "build it" prompt could be five sentences long (section 3).</figcaption>
+are why the actual "build it" prompt could be one short paragraph (section 3).</figcaption>
 </figure>
 
 <p>You don't need a team of agents to use this. With a single chat assistant, you play the coordinator yourself,
@@ -262,7 +262,7 @@ and you open a <em>second, fresh chat</em> as the verifier. Keeping those roles 
 <h2 id="s2"><span class="num">2</span>What an agent assumes if you don't say</h2>
 <p>A coding agent knows a lot about code and nothing about your project. Anything you leave unsaid, it fills with the most
 common version of the thing. For a wireframe with instrumentation, the most common version looks a lot like
-<a href="prototypes/wireframe/team-b/">Team B's</a>, which was built on purpose to show these defaults.</p>
+<a href="prototypes/wireframe/team-b/">Team B's</a>, whose flaws were engineered on purpose to model a hurried team's shortcuts.</p>
 
 <div class="tbl-wrap">
 <table>
@@ -273,7 +273,7 @@ common version of the thing. For a wireframe with instrumentation, the most comm
       <td>"one data file; every page is a filter over it; no block hand-placed in HTML"</td></tr>
   <tr><td>"record clicks"</td><td><code>console.log</code>, or an array that resets when the page changes (Team B's log does exactly this)</td>
       <td>the fields, where they're stored, the export format, and when logging stops</td></tr>
-  <tr><td>"a test mode"</td><td>The happy path only: no give-up, and a reload loses the run</td>
+  <tr><td>"a test mode"</td><td>The happy path only: a reload mid-run loses the run</td>
       <td>the states: give up, reload mid-run, resume, end early</td></tr>
   <tr><td>"make sure it works"</td><td>"I built it and it looks right"</td>
       <td>a self-check list you can audit, plus a check by someone other than the builder</td></tr>
@@ -325,8 +325,8 @@ answers he <em>typed</em>, because each one corrected something the agent had qu
 <pre>ok remember that spec as the wireframe spec.</pre>
 </div>
 
-<p>That payoff comes forty minutes later. The prompt that launched the actual build is five sentences long, because it points at
-documents instead of restating them:</p>
+<p>That payoff comes half an hour later. The prompt that launched the actual build is one short paragraph, because it names five documents
+plus the card-sort study instead of restating them:</p>
 
 <div class="prompt real">
   <div class="who"><b>Instructor → coordinator</b> · the "build it" prompt, complete · <span class="stamp verbatim">Verbatim</span></div>
@@ -460,10 +460,10 @@ function skillsAt(momentKey) {
 <pre>the ones built into the wireframe should be the ones they use for this test.  That's why they are in the wirframe.</pre>
 </div>
 
-<p>So the build packet told the builder who would consume its output. That one sentence changes how an agent weighs every edge case:</p>
+<p>The build packet, written hours before that interview, had already told the builder who would consume its output. That one sentence changes how an agent weighs every edge case:</p>
 <div class="prompt real">
   <div class="who"><b>Coordinator → builder</b> · packet W-A, fiction framing (excerpt) · <span class="stamp verbatim">Verbatim</span></div>
-<pre>It is a REAL, working artifact. <mark>The next study (tree test) will run against it, and its bonus test mode becomes that study's instrument.</mark></pre>
+<pre>[…] It is a REAL, working artifact. <mark>The next study (tree test) will run against it, and its bonus test mode becomes that study's instrument.</mark></pre>
 </div>
 
 <h3>Name the fields, the storage, the export, and the isolation</h3>
@@ -482,7 +482,7 @@ function skillsAt(momentKey) {
   <div>
     <div class="prompt real">
       <div class="who"><b>Packet W-A, req. 5–6</b> (excerpt) · <span class="stamp verbatim">Verbatim</span></div>
-<pre><mark>every navigation click appends `{t, from, to, label}`</mark>; persists in localStorage across sessions; a log view (#log) lists entries with Export JSON, Export CSV (blob download), copy-to-clipboard fallback, and a clear-log control.
+<pre>[…] <mark>every navigation click appends `{t, from, to, label}`</mark>; persists in localStorage across sessions; a log view (#log) lists entries with Export JSON, Export CSV (blob download), copy-to-clipboard fallback, and a clear-log control.
 […]
 reaching ANY L3 skill page ends the task, recording <mark>{taskId, endpointSkillId, expectedSkillId, seconds, path[]}</mark> […] <mark>While a test run is active, suppress/segregate normal #log recording so the two instruments don't cross-contaminate.</mark></pre>
     </div>
@@ -537,7 +537,7 @@ leak into the normal click log. The give-up edge wasn't in the spec at all. The 
 "A tree test without a give-up produces false hits," and the coordinator accepted it.</figcaption>
 </figure>
 
-<p>Because the export format was specified exactly, it became the tree test's raw-data format without any translation. One row per task per run:</p>
+<p>Because the recorded fields were specified exactly, the builder's export became the tree test's raw-data format without any translation. One row per task per run:</p>
 <pre><span class="file">Team A's results export · header row</span><code>runId,startedAt,finishedAt,taskId,scenario,expectedSkillId,endpointSkillId,asFiled,seconds,clicks,path</code></pre>
 
 <div class="panel leak">
@@ -548,7 +548,7 @@ leak into the normal click log. The give-up edge wasn't in the spec at all. The 
 
 <!-- ============================================================ 6 -->
 <h2 id="s6"><span class="num">6</span>Builder, verifier, and the loop between them</h2>
-<p>The instructor set this up once, in a file (<code>DELEGATION.md</code>), before any wireframe existed. Three of its rules carry most of the weight:</p>
+<p>Before any wireframe existed, the instructor had an agent write this setup into a file (<code>DELEGATION.md</code>). Three of its rules carry most of the weight:</p>
 <ul class="tight">
   <li><b>"Separation of duties.</b> The agent that built a thing never verifies it. Verifiers get a fresh context and are instructed to bias toward FAIL."</li>
   <li><b>"One task, one packet, one agent."</b></li>
@@ -558,7 +558,7 @@ leak into the normal click log. The give-up edge wasn't in the spec at all. The 
 builder's file list, and give it the verifier's instructions below.</p>
 
 <h3>Anatomy of a task packet</h3>
-<p>Every packet the coordinator wrote had the same parts. Here is packet W-A reduced to its skeleton. The full text is about 900 words.</p>
+<p>Every packet the coordinator wrote had the same parts. Here is packet W-A reduced to its skeleton. The full text is about 1,100 words.</p>
 
 <div class="anat">
 <pre><code><span class="tag">1</span>TASK PACKET W-A — Build Team A's wireframe prototype
@@ -611,14 +611,14 @@ but did not fix.</code></pre>
 <pre>Live-load from a /tmp copy (servers can't read ~/Documents): crawl both views for 53/53 reachability; click a skill from each view; verify end state + manual URL; exercise the click log (record, persist across reload, export JSON+CSV, clear); <mark>run at least 3 test-mode tasks including one give-up; reload mid-run to check persistence</mark>; check #results content and exports; confirm log/test segregation; console must stay clean.</pre>
 </div>
 
-<p>The first build met every listed criterion. The verifier still returned <b>PASS-WITH-NITS</b>, and every nit came from actually using the app:</p>
+<p>The first build met every listed criterion. The verifier still returned <b>PASS-WITH-NITS</b> with four nits. It found them by <em>exercising</em> the app: reloading mid-run and clicking every link in every phase.</p>
 <div class="tbl-wrap">
 <table>
-  <tr><th>What the verifier found</th><th>How it found it</th></tr>
-  <tr><td>Three links on the run-summary screen did nothing</td><td>Clicked every link in every phase</td></tr>
-  <tr><td>The clock showed "0.0s" at the moment of arrival</td><td>Watched the screen, not the code</td></tr>
-  <tr><td>"1 seconds"</td><td>Read the output</td></tr>
-  <tr><td>A reload mid-run silently dropped the participant into normal browsing, and their clicks leaked into the click log</td><td>Reloaded mid-run, as instructed</td></tr>
+  <tr><th>What the verifier found</th></tr>
+  <tr><td>Three links on the run-summary screen did nothing</td></tr>
+  <tr><td>The clock showed "0.0s" at the moment of arrival</td></tr>
+  <tr><td>"1 seconds"</td></tr>
+  <tr><td>A reload mid-run silently dropped the participant into normal browsing, and their clicks leaked into the click log</td></tr>
 </table>
 </div>
 
@@ -679,7 +679,7 @@ or a decision clause"), and the coordinator accepted it.</p>
   </div>
   <div class="prompt strong">
     <div class="who"><span class="verdict s">Stronger revision</span> · <span class="stamp illus">Illustrative</span></div>
-<pre>Cut section 2 by 40%: cut narration and restatement, keep every number. In the results table, one row per task with columns: task (3–4 word name), predicted first click, actual first click + count, MATCH/MISS. The reader is our TA, who has never seen our task ids.</pre>
+<pre>Cut section 2 by 40%: cut narration and restatement, keep every number. In the results table, one row per task with columns: task (3–4 word name), predicted first click, actual first click + count, MATCH/MISS. The reader is our grader, who has never seen our task ids.</pre>
   </div>
 </div>
 
@@ -703,7 +703,7 @@ or a decision clause"), and the coordinator accepted it.</p>
   <div class="pit">
     <h3>Parallel agents, one file</h3>
     <p>At a later rung, two builders ran in parallel and one truncated a shared local config file to zero bytes. The file was untracked, so git couldn't
-    bring it back, and the two agents then fought over it. At the same time, another session was editing the shared CSS.</p>
+    bring it back, and the two agents then fought over it. In a separate incident the day before, another session edited the shared CSS, JS, and registry while a builder was revising the tree-test report.</p>
     <p class="fix"><b>Do this:</b> give each agent a fenced list of allowed files. Shared files (config, stylesheets, the data file) belong to one owner, usually you.</p>
   </div>
   <div class="pit">
