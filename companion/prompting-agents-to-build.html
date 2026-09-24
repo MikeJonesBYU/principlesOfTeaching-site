@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prompting Agents to Build — the wireframe and its test mode</title>
+<meta name="description" content="A visual tutorial for CS 356: how to prompt an AI agent, or a team of agents, to build a clickable wireframe with tree-test instrumentation. Real prompts from the companion's Team A build, weak versions beside them, and a template for your own project.">
+<style>
+  :root {
+    --ink:#1f2a30; --muted:#5d6b72; --line:#e2e7ea; --bg:#f6f8f9; --panel:#fff;
+    --link:#0b5fa5; --radius:10px; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --s0:#1f7a8c; --s1:#c79100; --s2:#9b3b4e; --s3:#b8651b; --s4:#2f8a52; --s5:#6b5ea8;
+    --weak:#9b3b4e; --strong:#2f8a52; --fiction:#b3261e;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+         color:var(--ink); background:var(--bg); line-height:1.5; }
+  .wrap { max-width:960px; margin:0 auto; padding:32px 22px 100px; }
+  header.top { border-bottom:2px solid var(--line); padding-bottom:18px; margin-bottom:28px; }
+  .kicker { font-size:.78rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 6px; }
+  .back { font-size:.85rem; margin:0 0 14px; }
+  h1 { font-size:2rem; line-height:1.15; margin:0 0 10px; }
+  .lede { font-size:1.08rem; color:var(--muted); margin:0; max-width:64ch; }
+  h2 { font-size:1.45rem; margin:52px 0 8px; padding-top:8px; }
+  h2 .num { display:inline-grid; place-items:center; width:1.7em; height:1.7em; border-radius:50%;
+            background:var(--ink); color:#fff; font-size:.75em; margin-right:10px; vertical-align:.15em; }
+  h3 { font-size:1.08rem; margin:26px 0 6px; }
+  p { margin:0 0 12px; max-width:72ch; }
+  a { color:var(--link); }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px; margin:14px 0; }
+  .panel > :last-child { margin-bottom:0; }
+  .note { border-left:5px solid var(--s1); }
+  .leak { border-left:5px solid var(--s2); }
+  .rule { border-left:5px solid var(--s0); }
+  .rule b:first-child { color:var(--s0); }
+  code { font-family:var(--mono); font-size:.86em; background:#eef1f3; padding:1px 5px; border-radius:4px; overflow-wrap:anywhere; }
+  pre { margin:12px 0; padding:14px 16px; background:#1f2a30; color:#e8edf0; border-radius:var(--radius);
+        overflow-x:auto; font-family:var(--mono); font-size:.8rem; line-height:1.5; }
+  pre code { background:none; padding:0; color:inherit; font-size:inherit; }
+  pre .c { color:#8fa3ad; font-style:italic; }
+  pre .file { display:block; color:#8fa3ad; margin-bottom:8px; font-style:normal; border-bottom:1px solid #35434a; padding-bottom:6px; }
+  figure { margin:18px 0 22px; }
+  figcaption { font-size:.85rem; color:var(--muted); margin-top:8px; }
+  .fig-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .fig-scroll svg { min-width:600px; display:block; }
+  table { border-collapse:collapse; width:100%; font-size:.92rem; margin:12px 0; background:var(--panel); }
+  th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
+  .tbl-wrap { overflow-x:auto; }
+  ul.tight { padding-left:20px; } ul.tight li { margin:3px 0; }
+  .two { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media (max-width:720px) { .two { grid-template-columns:1fr; } }
+  footer { margin-top:56px; color:var(--muted); font-size:.85rem; border-top:1px solid var(--line); padding-top:14px; }
+
+  /* Source stamps. Red is reserved for the fiction contract (ARCHITECTURE §2, §7). */
+  .stamp { display:inline-block; font-size:.66rem; font-weight:800; letter-spacing:.07em; text-transform:uppercase;
+           padding:2px 7px; border-radius:4px; vertical-align:.12em; white-space:nowrap; border:1.5px solid currentColor; }
+  .stamp.verbatim { color:var(--s0); }
+  .stamp.recon { color:var(--s5); }
+  .stamp.illus { color:var(--muted); }
+  .fiction-badge { display:inline-block; font-size:.66rem; font-weight:800; letter-spacing:.07em; text-transform:uppercase;
+                   color:#fff; background:var(--fiction); padding:2px 7px; border-radius:4px; vertical-align:.12em; white-space:nowrap; }
+
+  /* A quoted prompt: what someone actually typed (or a labeled stand-in). */
+  .prompt { background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); margin:14px 0; overflow:hidden; }
+  .prompt .who { display:flex; flex-wrap:wrap; gap:6px 10px; align-items:center; font-size:.78rem; color:var(--muted);
+                 padding:8px 14px; border-bottom:1px solid var(--line); background:#fafbfc; }
+  .prompt .who b { color:var(--ink); }
+  .prompt pre { margin:0; border-radius:0; background:none; color:var(--ink); white-space:pre-wrap; overflow-wrap:anywhere;
+                font-size:.84rem; line-height:1.55; padding:12px 14px; }
+  .prompt pre mark { background:#fff1c2; color:inherit; padding:0 1px; border-radius:2px; }
+  .prompt.weak { border-left:5px solid var(--weak); }
+  .prompt.strong { border-left:5px solid var(--strong); }
+  .prompt.real { border-left:5px solid var(--s0); }
+  .prompt.recon { border-left:5px solid var(--s5); }
+  .why { font-size:.9rem; margin:6px 0 0; padding-left:18px; }
+  .why li { margin:4px 0; }
+  .verdict { font-weight:800; font-size:.72rem; letter-spacing:.07em; text-transform:uppercase; }
+  .verdict.w { color:var(--weak); } .verdict.s { color:var(--strong); }
+
+  /* Prompt anatomy: numbered callouts inside a packet, legend beside it. */
+  .anat { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:16px; align-items:start; }
+  @media (max-width:760px) { .anat { grid-template-columns:1fr; } }
+  .anat pre { white-space:pre-wrap; overflow-wrap:anywhere; }
+  .tag { display:inline-grid; place-items:center; width:1.45em; height:1.45em; border-radius:50%; background:var(--s1);
+         color:#1f2a30; font-weight:800; font-size:.78em; margin-right:4px; font-family:-apple-system,Segoe UI,Roboto,sans-serif; }
+  ol.legend { list-style:none; padding:0; margin:0; }
+  ol.legend li { display:grid; grid-template-columns:28px 1fr; gap:6px; margin:0 0 10px; font-size:.9rem; }
+  ol.legend li b { display:block; }
+
+  ol.steps { padding-left:0; list-style:none; counter-reset:s; }
+  ol.steps > li { counter-increment:s; margin:0 0 14px; padding-left:46px; position:relative; }
+  ol.steps > li::before { content:counter(s); position:absolute; left:0; top:0; width:32px; height:32px; border-radius:50%;
+                          background:var(--s0); color:#fff; font-weight:800; display:grid; place-items:center; }
+
+  .pits { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media (max-width:720px) { .pits { grid-template-columns:1fr; } }
+  .pit { background:var(--panel); border:1px solid var(--line); border-top:5px solid var(--s3); border-radius:var(--radius); padding:14px 16px; }
+  .pit h3 { margin-top:0; }
+  .pit p:last-child { margin-bottom:0; }
+  .pit .fix { font-size:.9rem; background:#f1f7f3; border-radius:6px; padding:8px 10px; }
+
+  .checklist { list-style:none; padding:0; margin:0; }
+  .checklist li { margin:0; border-bottom:1px solid var(--line); }
+  .checklist li:last-child { border-bottom:0; }
+  .checklist label { display:grid; grid-template-columns:24px 1fr; gap:8px; padding:8px 2px; cursor:pointer; }
+  .checklist input { width:18px; height:18px; margin:2px 0 0; }
+  .checklist small { display:block; color:var(--muted); }
+  .checklist h4 { margin:14px 0 4px; font-size:.78rem; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); }
+  .copybtn { font:inherit; font-size:.82rem; padding:5px 12px; border:1px solid var(--line); background:var(--panel); border-radius:999px; cursor:pointer; }
+  .copybtn:hover { border-color:var(--link); }
+  .toc { columns:2; column-gap:28px; font-size:.92rem; padding-left:20px; margin:8px 0 0; }
+  @media (max-width:560px) { .toc { columns:1; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <p class="back"><a href="index.html">← Back to the companion hub</a> · <a href="prototypes/wireframe/team-a/">Team A's wireframe</a> · <a href="wireframe-report.html">the graded reports</a></p>
+  <p class="kicker">CS 356 · Turn-in 2, the wireframe · Building with AI agents</p>
+  <h1>Prompting Agents to Build</h1>
+  <p class="lede">Team A's wireframe is four files. One data file holds all 53 blocks, every page is a filter over that file,
+  and a built-in test mode later served as the instrument for the whole tree test. AI agents built it, and the prompts
+  that got them there are unusually well documented. This tutorial walks through those prompts: what the instructor told the agents,
+  what the agents got wrong anyway, and what you should say when you build yours.</p>
+  <p class="lede" style="margin-top:10px">The short version: <b>the prompt that says "build it" is the easy part.</b> The work happens
+  before it (a spec you were interviewed into) and after it (someone other than the builder checking the result).</p>
+</header>
+
+<div class="panel note">
+  <p><b>What is real on this page and what is not.</b> Real: the instructor's prompts, quoted
+  <span class="stamp verbatim">Verbatim</span> with typos kept and cuts marked […]; the task packets the agents received; the
+  verifier findings; and the two wireframes and their code, which really were built this way. Invented: the Timpanogos Shadows Ward,
+  which was made up entirely by AI for this course; "Team A" and "Team B," which are fictional student teams (agents built both
+  wireframes from the instructor's packets); and every tree-test participant and number, stamped <span class="fiction-badge">Fictitious data</span>.
+  Prompts marked <span class="stamp recon">Reconstructed</span> condense several real prompts into one. Nobody typed them as shown.
+  Prompts marked <span class="stamp illus">Illustrative</span> are weak examples written for this page.</p>
+</div>
+
+<nav class="panel" aria-label="On this page">
+  <b>On this page</b>
+  <ol class="toc">
+    <li><a href="#s1">The whole workflow in one picture</a></li>
+    <li><a href="#s2">What an agent assumes if you don't say</a></li>
+    <li><a href="#s3">Spec before build: get interviewed</a></li>
+    <li><a href="#s4">Ask for a data contract, not a feature</a></li>
+    <li><a href="#s5">Design the instrument for the next study</a></li>
+    <li><a href="#s6">Builder, verifier, and the loop between them</a></li>
+    <li><a href="#s7">Revision prompts: quantified and diagnostic</a></li>
+    <li><a href="#s8">Four pitfalls from this build</a></li>
+    <li><a href="#s9">Your template (for your domain)</a></li>
+    <li><a href="#s10">The checklist</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ 1 -->
+<h2 id="s1"><span class="num">1</span>The whole workflow in one picture</h2>
+<p>Here is the sequence the instructor used. Each box is a separate prompt or a separate agent. The files along the bottom
+last longer than any one conversation, and later prompts point at them by name instead of repeating them.</p>
+
+<figure>
+<div class="fig-scroll">
+<svg viewBox="0 0 900 380" width="100%" role="img" aria-label="Workflow: interview, approved spec, task packet, builder, verifier, freeze, next study. Verifier failures loop back to the same builder. Persistent files feed the packet.">
+  <defs>
+    <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#5d6b72"/></marker>
+    <marker id="a1r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9b3b4e"/></marker>
+  </defs>
+  <style>
+    .bx{fill:#fff;stroke:#c9d2d7;stroke-width:1.5}
+    .you{fill:#fff7e0;stroke:#c79100;stroke-width:2}
+    .co{fill:#e7f1f3;stroke:#1f7a8c;stroke-width:2}
+    .bu{fill:#efecf7;stroke:#6b5ea8;stroke-width:2}
+    .ve{fill:#f6e6ea;stroke:#9b3b4e;stroke-width:2}
+    .fz{fill:#eef1f3;stroke:#5d6b72;stroke-width:2}
+    .doc{fill:#fff;stroke:#9aa5ab;stroke-width:1.5;stroke-dasharray:5 4}
+    .t{font:700 14px -apple-system,Segoe UI,Roboto,sans-serif;fill:#1f2a30}
+    .s{font:12px -apple-system,Segoe UI,Roboto,sans-serif;fill:#5d6b72}
+    .m{font:11.5px ui-monospace,Menlo,monospace;fill:#5d6b72}
+    .ln{stroke:#5d6b72;stroke-width:1.6;fill:none;marker-end:url(#a1)}
+    .lnr{stroke:#9b3b4e;stroke-width:1.8;fill:none;marker-end:url(#a1r)}
+    .lnd{stroke:#9aa5ab;stroke-width:1.3;fill:none;stroke-dasharray:4 4;marker-end:url(#a1)}
+    .rt{font:700 12px -apple-system,Segoe UI,Roboto,sans-serif;fill:#9b3b4e}
+    .lane{font:800 11px -apple-system,Segoe UI,Roboto,sans-serif;fill:#5d6b72;letter-spacing:.08em}
+  </style>
+  <text class="lane" x="12" y="24">YOU</text>
+  <text class="lane" x="12" y="150">AGENTS</text>
+  <text class="lane" x="888" y="300" text-anchor="end">FILES THAT OUTLIVE THE CHAT</text>
+
+  <rect class="you" x="20" y="36" width="150" height="76" rx="8"/>
+  <text class="t" x="34" y="60">1 · Interview</text>
+  <text class="s" x="34" y="80">agent asks, one at a</text>
+  <text class="s" x="34" y="96">time, multiple choice</text>
+
+  <rect class="you" x="200" y="36" width="150" height="76" rx="8"/>
+  <text class="t" x="214" y="60">2 · Approve spec</text>
+  <text class="s" x="214" y="80">read it back; check</text>
+  <text class="s" x="214" y="96">every "all / every / both"</text>
+
+  <rect class="co" x="200" y="160" width="150" height="80" rx="8"/>
+  <text class="t" x="214" y="184">3 · Task packet</text>
+  <text class="s" x="214" y="204">coordinator writes it:</text>
+  <text class="s" x="214" y="220">contract, files, checks</text>
+
+  <rect class="bu" x="380" y="160" width="150" height="80" rx="8"/>
+  <text class="t" x="394" y="184">4 · Builder</text>
+  <text class="s" x="394" y="204">builds ONE thing,</text>
+  <text class="s" x="394" y="220">self-checks, reports</text>
+
+  <rect class="ve" x="560" y="160" width="150" height="80" rx="8"/>
+  <text class="t" x="574" y="184">5 · Verifier</text>
+  <text class="s" x="574" y="204">fresh context, uses</text>
+  <text class="s" x="574" y="220">the app, fixes nothing</text>
+
+  <rect class="fz" x="740" y="160" width="145" height="80" rx="8"/>
+  <text class="t" x="754" y="184">6 · Freeze</text>
+  <text class="s" x="754" y="204">the tree test runs</text>
+  <text class="s" x="754" y="220">on this exact build</text>
+
+  <rect class="you" x="560" y="36" width="150" height="76" rx="8"/>
+  <text class="t" x="574" y="60">7 · Revise</text>
+  <text class="s" x="574" y="80">quantified notes:</text>
+  <text class="s" x="574" y="96">"40% shorter", "bullets"</text>
+
+  <path class="ln" d="M170 74 H198"/>
+  <path class="ln" d="M275 112 V158"/>
+  <path class="ln" d="M350 200 H378"/>
+  <path class="ln" d="M530 200 H558"/>
+  <path class="ln" d="M710 200 H738"/>
+  <path class="lnr" d="M635 240 C635 272 455 272 455 242"/>
+  <text class="rt" x="470" y="282">FAIL or nits → back to the SAME builder</text>
+  <path class="ln" d="M635 112 V158" />
+
+  <rect class="doc" x="40" y="312" width="140" height="52" rx="6"/>
+  <text class="m" x="52" y="334">wireframe spec</text>
+  <text class="s" x="52" y="352">"remember that spec"</text>
+  <rect class="doc" x="200" y="312" width="140" height="52" rx="6"/>
+  <text class="m" x="212" y="334">DELEGATION.md</text>
+  <text class="s" x="212" y="352">how the loop runs</text>
+  <rect class="doc" x="360" y="312" width="140" height="52" rx="6"/>
+  <text class="m" x="372" y="334">ARCHITECTURE.md</text>
+  <text class="s" x="372" y="352">rules, quality gates</text>
+  <rect class="doc" x="520" y="312" width="140" height="52" rx="6"/>
+  <text class="m" x="532" y="334">rubric + recipe</text>
+  <text class="s" x="532" y="352">what "good" means</text>
+  <rect class="doc" x="680" y="312" width="140" height="52" rx="6"/>
+  <text class="m" x="692" y="334">card-sort study</text>
+  <text class="s" x="692" y="352">what it's grounded in</text>
+  <path class="lnd" d="M110 312 C110 270 240 270 260 242"/>
+  <path class="lnd" d="M270 312 V244"/>
+  <path class="lnd" d="M430 312 C430 280 300 280 292 244"/>
+</svg>
+</div>
+<figcaption>Gold is where you type. Teal, purple, and red are three different agents with three different jobs. The dashed files
+are why the actual "build it" prompt could be five sentences long (section 3).</figcaption>
+</figure>
+
+<p>You don't need a team of agents to use this. With a single chat assistant, you play the coordinator yourself,
+and you open a <em>second, fresh chat</em> as the verifier. Keeping those roles in separate conversations is the part that matters, not how many agents you run.</p>
+
+<!-- ============================================================ 2 -->
+<h2 id="s2"><span class="num">2</span>What an agent assumes if you don't say</h2>
+<p>A coding agent knows a lot about code and nothing about your project. Anything you leave unsaid, it fills with the most
+common version of the thing. For a wireframe with instrumentation, the most common version looks a lot like
+<a href="prototypes/wireframe/team-b/">Team B's</a>, which was built on purpose to show these defaults.</p>
+
+<div class="tbl-wrap">
+<table>
+  <tr><th>You say</th><th>The agent's likely default</th><th>What to say instead</th></tr>
+  <tr><td>"a wireframe"</td><td>A tidy styled page with default blue links and a second heading font</td>
+      <td>"black/white/gray only, one system font, generic gray boxes; links black and underlined"</td></tr>
+  <tr><td>"two ways to browse"</td><td>Two hand-built menus, each with its own copy of the items. The copies drift apart.</td>
+      <td>"one data file; every page is a filter over it; no block hand-placed in HTML"</td></tr>
+  <tr><td>"record clicks"</td><td><code>console.log</code>, or an array that resets when the page changes (Team B's log does exactly this)</td>
+      <td>the fields, where they're stored, the export format, and when logging stops</td></tr>
+  <tr><td>"a test mode"</td><td>The happy path only: no give-up, and a reload loses the run</td>
+      <td>the states: give up, reload mid-run, resume, end early</td></tr>
+  <tr><td>"make sure it works"</td><td>"I built it and it looks right"</td>
+      <td>a self-check list you can audit, plus a check by someone other than the builder</td></tr>
+  <tr><td>(nothing about readers)</td><td>Its own ids in every table: <code>006.title_number1</code>, T02</td>
+      <td>who reads the output and what names they know</td></tr>
+</table>
+</div>
+
+<!-- ============================================================ 3 -->
+<h2 id="s3"><span class="num">3</span>Spec before build: get interviewed</h2>
+<p>The instructor's founding prompt for the wireframe didn't ask for any code. It listed what he wanted, then asked the agent to
+ask <em>him</em> questions. Here it is, lightly trimmed.</p>
+
+<div class="prompt real">
+  <div class="who"><b>Instructor → coordinator</b> · the founding prompt · <span class="stamp verbatim">Verbatim</span></div>
+<pre>ok now we need to work on the wireframe assignment description.  I'm going to give you a few things that i want to see then <mark>I want you to ask me some questions</mark> to get a better idea of what I'm looking for and then I want you to give me a bullet list of assignment requirements like "what to turn in" […]
+Ok, here's what I want:
+a wireframe.  Which means no color, no serious typography, one font, <mark>literally black and white with generic boxes</mark>.   I want the wireframe to be strongly grounded in the categories and organization of the card sorting results.   I want the wireframe to have <mark>2 categorizations of the information blocks</mark> grounded in the card sort.  This encourages single source multiple views and gets students thinking in PMEST terms. […]
+I want at least 2 levels of heirarchy agein grounded in the card sorting .
+and for functionality users should be able to click through the hierarchy and select their information block.   <mark>The wireframe should record click sequences.</mark>  For bonus credit, the wireframe should have an interaction sequence that works like this:  present first scenario.  have an "ok" button.  then start a timer and record clicks.  When the user reaches the end of the hierarchy record where they ended up and pause and move on the to next task.   repeat for all tasks.  randomize the order.   make the whole thing so we can come back later and see the results.
+Ok ask me questions to elucidate the spec.   Then we will boil it down to what to turn in.</pre>
+</div>
+
+<p>The agent came back with a long numbered list of questions. The instructor's reply is the most reusable sentence in this tutorial:</p>
+
+<div class="prompt real">
+  <div class="who"><b>Instructor → coordinator</b> · three minutes later · <span class="stamp verbatim">Verbatim</span></div>
+<pre>no ask me one at a time with muliple choice options.</pre>
+</div>
+
+<p>Thirteen questions followed, one at a time. Most answers were a click on one of the offered options. The useful moments were the
+answers he <em>typed</em>, because each one corrected something the agent had quietly assumed:</p>
+
+<div class="tbl-wrap">
+<table>
+  <tr><th>The agent assumed…</th><th>…so the instructor typed <span class="stamp verbatim">Verbatim</span></th></tr>
+  <tr><td>The spec was about this one worked example</td>
+      <td>"ah, you see the students will be doing a different set of informatoin blocks in an entirely different problem.  Right now we are working on a generic spec for wireframes, I should have made that clear."</td></tr>
+  <tr><td>"Built with" meant choosing a technology</td>
+      <td>"has to run in a browser, they need to be able to give me a url I can open and all AI use is encouraged and expected during the build."</td></tr>
+  <tr><td>The number of scenarios was open</td>
+      <td>"team writes them, and they need to write 10"</td></tr>
+</table>
+</div>
+
+<p>Then the agent summarized the spec as bullets, and the instructor made it permanent:</p>
+<div class="prompt real">
+  <div class="who"><b>Instructor → coordinator</b> · <span class="stamp verbatim">Verbatim</span></div>
+<pre>ok remember that spec as the wireframe spec.</pre>
+</div>
+
+<p>That payoff comes forty minutes later. The prompt that launched the actual build is five sentences long, because it points at
+documents instead of restating them:</p>
+
+<div class="prompt real">
+  <div class="who"><b>Instructor → coordinator</b> · the "build it" prompt, complete · <span class="stamp verbatim">Verbatim</span></div>
+<pre>ok now for the big step.  Time to make two wireframe prototypes <mark>following my spec for wireframes</mark>,  Read <mark>the file that describes how we delegate work</mark> to opus agents with a fable agent doing the management.   Read <mark>the file that describes how to write examples of student work</mark>.  Review <mark>the architeture file</mark> for the companion website.  This prototype is the wireframe prototype for the companion site.   The spec is the wireframe spec, <mark>the rubric</mark> is the generic project one we just made.  The card sorting study to use is <mark>the one that's part of the companion website</mark>.    read all those files, make a plan and get to work. <mark>ask me questions one at a time if you need to.</mark></pre>
+</div>
+
+<div class="two">
+  <div>
+    <div class="prompt weak">
+      <div class="who"><span class="verdict w">Weak</span> · <span class="stamp illus">Illustrative</span></div>
+<pre>Build me a wireframe website for our IA project with two navigation menus and click tracking. Make it look clean.</pre>
+    </div>
+    <ul class="why">
+      <li>Every decision in it is the agent's to make, and it will make the common one (section 2).</li>
+      <li>"Clean" invites styling that the fidelity rule forbids.</li>
+      <li>Nothing tells the agent where the categories come from.</li>
+    </ul>
+  </div>
+  <div>
+    <div class="prompt strong">
+      <div class="who"><span class="verdict s">Stronger</span> · <span class="stamp illus">Illustrative</span></div>
+<pre>Read spec.md and card-sort-analysis.md. Before writing any code, ask me questions ONE AT A TIME, multiple choice, until you can write a bullet-list spec. Then read the spec back to me and wait for my OK. Don't build yet.</pre>
+    </div>
+    <ul class="why">
+      <li>It produces the spec before it produces code.</li>
+      <li>One question at a time means you actually read each one.</li>
+      <li>"Wait for my OK" gives you a checkpoint you control.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="panel rule">
+  <p><b>Rule of thumb.</b> When none of the multiple-choice options fits, <em>type your own answer</em>. The options show you what
+  the agent believes about your project. Clicking "Recommended" on each one approves those beliefs without reading them.</p>
+</div>
+
+<!-- ============================================================ 4 -->
+<h2 id="s4"><span class="num">4</span>Ask for a data contract, not a feature</h2>
+<p>"Two categorizations" is a feature. The instruction that made Team A's wireframe work was a <em>contract</em>: the exact shape of
+the data, and a rule about how pages may use it. This is from the task packet the builder received:</p>
+
+<div class="prompt real">
+  <div class="who"><b>Coordinator → builder</b> · packet W-A, build requirements 2–3 (excerpt) · <span class="stamp verbatim">Verbatim</span></div>
+<pre>2. **wireframe-data.js** — `window.WIREFRAME_DATA`, the single source: all 53 skills, each `{ id, name (verbatim from skills-data.js), url (real manual url), category, group, moment: [...] }`.
+   […]
+3. **Rendering rule (the exhibit)**: every page renders by selecting on attributes from WIREFRAME_DATA. No skill hand-placed in HTML anywhere.</pre>
+</div>
+
+<figure>
+<div class="fig-scroll">
+<svg viewBox="0 0 900 330" width="100%" role="img" aria-label="One data file with records carrying category, group and moment attributes; filters produce the category view, the moment view, the leaf page and the test tasks. Contrast: Team B's hand-copied pages drift.">
+  <defs><marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#5d6b72"/></marker></defs>
+  <style>
+    .src2{fill:#e7f1f3;stroke:#1f7a8c;stroke-width:2.5}
+    .vw{fill:#fff;stroke:#c9d2d7;stroke-width:1.5}
+    .bad{fill:#fbf1f3;stroke:#9b3b4e;stroke-width:1.5}
+    .t2{font:700 14px -apple-system,Segoe UI,Roboto,sans-serif;fill:#1f2a30}
+    .s2{font:12px -apple-system,Segoe UI,Roboto,sans-serif;fill:#5d6b72}
+    .m2{font:11.5px ui-monospace,Menlo,monospace;fill:#1f2a30}
+    .f2{font:11.5px ui-monospace,Menlo,monospace;fill:#1f7a8c}
+    .ln2{stroke:#5d6b72;stroke-width:1.5;fill:none;marker-end:url(#a2)}
+    .x2{font:700 12px -apple-system,Segoe UI,Roboto,sans-serif;fill:#9b3b4e}
+  </style>
+  <rect class="src2" x="20" y="30" width="300" height="200" rx="10"/>
+  <text class="t2" x="36" y="56">wireframe-data.js · the single source</text>
+  <text class="m2" x="36" y="84">skills: [ 53 records ]</text>
+  <text class="m2" x="36" y="106">{ id, name, url,</text>
+  <text class="m2" x="48" y="126">category: "Getting people…",</text>
+  <text class="m2" x="48" y="146">group: "Not answering it…",</text>
+  <text class="m2" x="48" y="166">moment: ["during","after"] }</text>
+  <text class="m2" x="36" y="192">tasks: [ 10 × {id, scenario,</text>
+  <text class="m2" x="48" y="212">expect} ]</text>
+
+  <rect class="vw" x="440" y="20" width="200" height="54" rx="8"/>
+  <text class="t2" x="454" y="42">Category view</text>
+  <text class="f2" x="454" y="62">filter(category, group)</text>
+  <rect class="vw" x="440" y="88" width="200" height="54" rx="8"/>
+  <text class="t2" x="454" y="110">Moment view</text>
+  <text class="f2" x="454" y="130">filter(moment includes m)</text>
+  <rect class="vw" x="440" y="156" width="200" height="54" rx="8"/>
+  <text class="t2" x="454" y="178">Leaf page</text>
+  <text class="f2" x="454" y="198">find(id)</text>
+  <rect class="vw" x="440" y="224" width="200" height="54" rx="8"/>
+  <text class="t2" x="454" y="246">Test mode</text>
+  <text class="f2" x="454" y="266">tasks[].expect → a leaf</text>
+  <path class="ln2" d="M320 90 C380 90 380 47 438 47"/>
+  <path class="ln2" d="M320 120 C380 120 380 115 438 115"/>
+  <path class="ln2" d="M320 150 C380 150 380 183 438 183"/>
+  <path class="ln2" d="M320 200 C380 200 380 251 438 251"/>
+
+  <rect class="bad" x="680" y="20" width="200" height="258" rx="8"/>
+  <text class="t2" x="694" y="44">Team B instead</text>
+  <text class="s2" x="694" y="66">34 hand-written pages.</text>
+  <text class="s2" x="694" y="84">Each block is typed into</text>
+  <text class="s2" x="694" y="102">every page that lists it.</text>
+  <rect x="700" y="118" width="70" height="40" rx="4" fill="#fff" stroke="#c9d2d7"/>
+  <rect x="790" y="118" width="70" height="40" rx="4" fill="#fff" stroke="#c9d2d7"/>
+  <text class="m2" x="708" y="143">view 1</text>
+  <text class="m2" x="798" y="143">view 2</text>
+  <text class="x2" x="694" y="186">Two blocks in view 1 never</text>
+  <text class="x2" x="694" y="204">made it into view 2, and</text>
+  <text class="x2" x="694" y="222">nothing on the site says so.</text>
+  <text class="s2" x="694" y="252">A copy is a second source,</text>
+  <text class="s2" x="694" y="270">and copies drift.</text>
+</svg>
+</div>
+<figcaption>Every screen in Team A's app is a filter over one array. Team B hand-copied its blocks into each page and lost two
+of them from the second view. Views built by filtering one list can't disagree with each other.</figcaption>
+</figure>
+
+<p>Here is what the rule looks like in the finished code. It's short, because the contract did the design work:</p>
+<pre><span class="file">prototypes/wireframe/team-a/app.js</span><code>function skillsInGroup(groupName) {
+  return D.skills.filter(function (s) { return s.group === groupName; });
+}
+function skillsAt(momentKey) {
+  return D.skills.filter(function (s) { return s.moment.indexOf(momentKey) !== -1; });
+}</code></pre>
+
+<div class="panel rule">
+  <p><b>Make the rule checkable.</b> "Single source" is easy to claim. The verifier checked it with a search: skill ids and
+  manual URLs appear in <code>app.js</code> and <code>index.html</code> zero times. When you write an architectural rule,
+  also write the test that would catch someone breaking it.</p>
+</div>
+
+<!-- ============================================================ 5 -->
+<h2 id="s5"><span class="num">5</span>Design the instrument for the next study</h2>
+<p>The test mode wasn't decoration. When the instructor specced the tree test, he said why the scenarios live inside the wireframe:</p>
+
+<div class="prompt real">
+  <div class="who"><b>Instructor → coordinator</b> · a typed answer in the tree-test interview · <span class="stamp verbatim">Verbatim</span></div>
+<pre>the ones built into the wireframe should be the ones they use for this test.  That's why they are in the wirframe.</pre>
+</div>
+
+<p>So the build packet told the builder who would consume its output. That one sentence changes how an agent weighs every edge case:</p>
+<div class="prompt real">
+  <div class="who"><b>Coordinator → builder</b> · packet W-A, fiction framing (excerpt) · <span class="stamp verbatim">Verbatim</span></div>
+<pre>It is a REAL, working artifact. <mark>The next study (tree test) will run against it, and its bonus test mode becomes that study's instrument.</mark></pre>
+</div>
+
+<h3>Name the fields, the storage, the export, and the isolation</h3>
+<div class="two">
+  <div>
+    <div class="prompt weak">
+      <div class="who"><span class="verdict w">Weak</span> · <span class="stamp illus">Illustrative</span></div>
+<pre>Add click tracking and a test mode where users do tasks with a timer. Save the results.</pre>
+    </div>
+    <ul class="why">
+      <li>Which clicks? Stored where? For how long?</li>
+      <li>Results in what format? Can they be exported?</li>
+      <li>What happens if someone gives up, or reloads?</li>
+    </ul>
+  </div>
+  <div>
+    <div class="prompt real">
+      <div class="who"><b>Packet W-A, req. 5–6</b> (excerpt) · <span class="stamp verbatim">Verbatim</span></div>
+<pre><mark>every navigation click appends `{t, from, to, label}`</mark>; persists in localStorage across sessions; a log view (#log) lists entries with Export JSON, Export CSV (blob download), copy-to-clipboard fallback, and a clear-log control.
+[…]
+reaching ANY L3 skill page ends the task, recording <mark>{taskId, endpointSkillId, expectedSkillId, seconds, path[]}</mark> […] <mark>While a test run is active, suppress/segregate normal #log recording so the two instruments don't cross-contaminate.</mark></pre>
+    </div>
+  </div>
+</div>
+
+<p>The test mode's flow is really a small state machine. If you draw it before you prompt, you can hand the agent the states and ask
+what happens at each edge. Here is the one that shipped. Its dashed parts were <em>not</em> in the first build, and a verifier found
+them missing (section 6).</p>
+
+<figure>
+<div class="fig-scroll">
+<svg viewBox="0 0 900 300" width="100%" role="img" aria-label="Test-mode state machine: idle, brief, running, recorded, done; give up from running; interrupted on reload with resume or end run.">
+  <defs>
+    <marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#5d6b72"/></marker>
+  </defs>
+  <style>
+    .st{fill:#fff;stroke:#1f7a8c;stroke-width:2}
+    .st2{fill:#fff;stroke:#9b3b4e;stroke-width:2;stroke-dasharray:6 4}
+    .t3{font:700 14px ui-monospace,Menlo,monospace;fill:#1f2a30}
+    .s3{font:12px -apple-system,Segoe UI,Roboto,sans-serif;fill:#5d6b72}
+    .e3{font:600 12px -apple-system,Segoe UI,Roboto,sans-serif;fill:#1f7a8c}
+    .r3{font:600 12px -apple-system,Segoe UI,Roboto,sans-serif;fill:#9b3b4e}
+    .ln3{stroke:#5d6b72;stroke-width:1.6;fill:none;marker-end:url(#a3)}
+    .ln3d{stroke:#9b3b4e;stroke-width:1.6;fill:none;stroke-dasharray:5 4;marker-end:url(#a3)}
+  </style>
+  <rect class="st" x="20" y="70" width="110" height="56" rx="28"/><text class="t3" x="52" y="103">idle</text>
+  <rect class="st" x="190" y="70" width="120" height="56" rx="28"/><text class="t3" x="222" y="103">brief</text>
+  <rect class="st" x="370" y="70" width="130" height="56" rx="28"/><text class="t3" x="398" y="103">running</text>
+  <rect class="st" x="560" y="70" width="130" height="56" rx="28"/><text class="t3" x="585" y="103">recorded</text>
+  <rect class="st" x="760" y="70" width="110" height="56" rx="28"/><text class="t3" x="795" y="103">done</text>
+  <rect class="st2" x="330" y="210" width="170" height="56" rx="28"/><text class="t3" x="360" y="243">interrupted</text>
+
+  <path class="ln3" d="M130 98 H188"/><text class="e3" x="136" y="88">Start run</text>
+  <text class="s3" x="136" y="146">shuffle 10 tasks</text>
+  <path class="ln3" d="M310 98 H368"/><text class="e3" x="318" y="88">OK</text>
+  <text class="s3" x="296" y="146">timer starts</text>
+  <path class="ln3" d="M500 90 H558"/><text class="e3" x="506" y="62">reach any leaf</text>
+  <path class="ln3" d="M500 110 H558"/><text class="r3" x="506" y="146">"I would give up"</text>
+  <text class="s3" x="506" y="164">endpoint = null</text>
+  <path class="ln3" d="M625 70 C625 22 250 22 250 68"/><text class="e3" x="400" y="18">Next situation</text>
+  <path class="ln3" d="M690 98 H758"/><text class="e3" x="697" y="88">after #10</text>
+  <text class="s3" x="560" y="192">saved after EVERY task</text>
+
+  <path class="ln3d" d="M425 126 V206"/><text class="r3" x="433" y="186">reload mid-run</text>
+  <path class="ln3d" d="M330 238 C262 238 250 200 250 130"/><text class="r3" x="120" y="262">Resume → same order</text>
+  <path class="ln3d" d="M500 238 C700 238 815 200 815 130"/><text class="r3" x="600" y="266">End run → "ended early"</text>
+</svg>
+</div>
+<figcaption>Solid: what the first build did. Dashed red: added after the verifier reloaded the page mid-run and watched test clicks
+leak into the normal click log. The give-up edge wasn't in the spec at all. The builder proposed it on its own, reasoning that
+"A tree test without a give-up produces false hits," and the coordinator accepted it.</figcaption>
+</figure>
+
+<p>Because the export format was specified exactly, it became the tree test's raw-data format without any translation. One row per task per run:</p>
+<pre><span class="file">Team A's results export · header row</span><code>runId,startedAt,finishedAt,taskId,scenario,expectedSkillId,endpointSkillId,asFiled,seconds,clicks,path</code></pre>
+
+<div class="panel leak">
+  <p><b>Contrast: Team B's log.</b> It keeps clicks in an in-memory array on each page, shows a counter, and exports only the
+  current page's clicks. Every navigation wipes it. The code works exactly as written; the <em>design</em> can't record a click
+  sequence. That's what "record clicks" produces when nobody says where the clicks go.</p>
+</div>
+
+<!-- ============================================================ 6 -->
+<h2 id="s6"><span class="num">6</span>Builder, verifier, and the loop between them</h2>
+<p>The instructor set this up once, in a file (<code>DELEGATION.md</code>), before any wireframe existed. Three of its rules carry most of the weight:</p>
+<ul class="tight">
+  <li><b>"Separation of duties.</b> The agent that built a thing never verifies it. Verifiers get a fresh context and are instructed to bias toward FAIL."</li>
+  <li><b>"One task, one packet, one agent."</b></li>
+  <li><b>"Never two agents on one file."</b></li>
+</ul>
+<p>You don't need agent-definition files to follow them. With one chat assistant, open a new chat, paste it the packet and the
+builder's file list, and give it the verifier's instructions below.</p>
+
+<h3>Anatomy of a task packet</h3>
+<p>Every packet the coordinator wrote had the same parts. Here is packet W-A reduced to its skeleton. The full text is about 900 words.</p>
+
+<div class="anat">
+<pre><code><span class="tag">1</span>TASK PACKET W-A — Build Team A's wireframe prototype
+   (the strong team's turn-in).
+
+<span class="tag">2</span>## Read first
+1. companion/ARCHITECTURE.md (esp. §2 honest-fiction,
+   §6 prototypes, §8 quality gates)
+[…]
+
+<span class="tag">3</span>## Fiction framing
+[…] The next study (tree test) will run against it,
+and its bonus test mode becomes that study's instrument.
+
+<span class="tag">4</span>## The assignment spec the artifact must satisfy
+[…]
+## Build requirements
+1. **Files**: index.html + wireframe-data.js + app.js
+   + wireframe.css […]
+
+<span class="tag">5</span>## Allowed files
+Create/modify ONLY within
+companion/prototypes/wireframe/team-a/. Touch nothing else
+
+<span class="tag">6</span>## Self-check before reporting
+- Write and run a quick node script […] validating
+  wireframe-data.js: exactly 53 skills […]
+- Grayscale audit: grep your CSS/HTML for color values
+
+<span class="tag">7</span>## Report back
+(1) files created, (2) each acceptance criterion →
+met/not-met, (3) the 10 scenarios you wrote […]
+(5) deviations, (6) anything out-of-scope you noticed
+but did not fix.</code></pre>
+<ol class="legend">
+  <li><span class="tag">1</span><span><b>One deliverable, named.</b> One sentence says what "done" produces.</span></li>
+  <li><span class="tag">2</span><span><b>Read first, with reasons.</b> Point at the files; don't paste them.</span></li>
+  <li><span class="tag">3</span><span><b>Who uses this next.</b> This is what makes the edge cases matter to the agent.</span></li>
+  <li><span class="tag">4</span><span><b>Requirements as contracts.</b> File names, data shapes, event fields, flows (section 4).</span></li>
+  <li><span class="tag">5</span><span><b>A fence.</b> Allowed files, and "touch nothing else." This is how parallel agents avoid colliding.</span></li>
+  <li><span class="tag">6</span><span><b>Definition of done.</b> Checks the builder must run, not just "test it."</span></li>
+  <li><span class="tag">7</span><span><b>A report you can audit.</b> Criterion by criterion, plus deviations and anything it noticed but left alone.</span></li>
+</ol>
+</div>
+
+<h3>The verifier's job: use the thing, fix nothing</h3>
+<p>The verifier packet restated the acceptance criteria and then said how to check them. Notice that the checks are <em>actions</em>:</p>
+<div class="prompt real">
+  <div class="who"><b>Coordinator → verifier</b> · VERIFY W-A, "How to verify" item 3 · <span class="stamp verbatim">Verbatim</span></div>
+<pre>Live-load from a /tmp copy (servers can't read ~/Documents): crawl both views for 53/53 reachability; click a skill from each view; verify end state + manual URL; exercise the click log (record, persist across reload, export JSON+CSV, clear); <mark>run at least 3 test-mode tasks including one give-up; reload mid-run to check persistence</mark>; check #results content and exports; confirm log/test segregation; console must stay clean.</pre>
+</div>
+
+<p>The first build met every listed criterion. The verifier still returned <b>PASS-WITH-NITS</b>, and every nit came from actually using the app:</p>
+<div class="tbl-wrap">
+<table>
+  <tr><th>What the verifier found</th><th>How it found it</th></tr>
+  <tr><td>Three links on the run-summary screen did nothing</td><td>Clicked every link in every phase</td></tr>
+  <tr><td>The clock showed "0.0s" at the moment of arrival</td><td>Watched the screen, not the code</td></tr>
+  <tr><td>"1 seconds"</td><td>Read the output</td></tr>
+  <tr><td>A reload mid-run silently dropped the participant into normal browsing, and their clicks leaked into the click log</td><td>Reloaded mid-run, as instructed</td></tr>
+</table>
+</div>
+
+<p>The fixes went back to the <em>same</em> builder, which still had its context, and the coordinator said why they couldn't wait:</p>
+<div class="prompt real">
+  <div class="who"><b>Coordinator → the same builder</b> · fix packet (opening, and item 4) · <span class="stamp verbatim">Verbatim</span></div>
+<pre>Verifier returned PASS-WITH-NITS on W-A. <mark>The freeze rule means these get fixed NOW, before the tree test cites the artifact.</mark> Fix all four in companion/prototypes/wireframe/team-a/ (touch nothing else), self-verify live, and report back:
+[…]
+4. Mid-run reload: completed results persist (good) but the in-memory run is never rehydrated, so the participant silently lands back in normal browsing and their subsequent clicks leak into the normal click log. <mark>Since this artifact becomes the tree-test instrument, add graceful interruption handling</mark>: on boot, if a stored run is unfinished, show an explicit "your run was interrupted" state offering Resume (continue at the next task) or End run (mark it finished-incomplete). Either path must keep the log/test segregation guarantee intact.</pre>
+</div>
+<p>Then a <em>targeted</em> re-verify: the same verifier checked only those four items plus a regression spot-check. It passed.</p>
+
+<div class="panel note">
+  <p><b>Pre-clear good deviations.</b> The builder added a give-up button and a 1.1-second pause on the end state, neither of which
+  was requested. The coordinator listed both in the verifier's packet under "Accepted deviations (do NOT flag these)." Ask builders
+  to report deviations with reasons, then decide on them yourself <em>before</em> verification.</p>
+</div>
+
+<!-- ============================================================ 7 -->
+<h2 id="s7"><span class="num">7</span>Revision prompts: quantified and diagnostic</h2>
+<p>After seeing the graded tree-test report, the instructor sent twelve edit notes in one message. Here are some of them:</p>
+
+<div class="prompt real">
+  <div class="who"><b>Instructor → coordinator</b> · revision notes (excerpt) · <span class="stamp verbatim">Verbatim</span></div>
+<pre>make the intro paragraph much much shorter.   for the high performing report, use bullet points in the analysis and be much more concise.
+make section 1.2 <mark>shorter by 40%</mark>
+[…]
+in the report a part 2, every time you mention one of the 10 teasks anywhere also include a 3-4 short form so I can remember what the task is.  <mark>T02 doesn't mean much to me.</mark>  […]
+Making the table in 3 <mark>easier to tell if there was consencus and if it matched the expected results</mark> is ipmortant.
+make listening notes <mark>1/2 as long</mark> and make it bullet points. also you forgot explicitely mark all fake quotes as fake.
+[…]
+ok fix all that in the group a reports.</pre>
+</div>
+
+<p>Every note is a number, a format, or a named reader's need. Even so, the first pass cut 11–25% where 40% was asked. The builder
+said so openly ("Partly met"). The follow-up didn't say "try harder." It diagnosed <em>what kind</em> of cutting had gone wrong:</p>
+
+<div class="prompt real">
+  <div class="who"><b>Coordinator → the same builder</b> · second pass (excerpt) · <span class="stamp verbatim">Verbatim</span></div>
+<pre>[…] <mark>**Hit the targets — but not by dropping citations.**</mark> Preserving evidence was the right instinct; the problem is that <mark>you cut elaboration where you should have cut *narration*.</mark>
+[…]
+Cut these, aggressively:
+- **Narration of their own process.** […]
+- **Transitions and framing.** "It is worth saying that…", "What this tells us is…" […]
+- **Restatement.** […]
+- **Hedging and self-justification.** […]
+- **Second halves of sentences** that gloss what the first half already said.
+
+<mark>Do NOT cut:</mark> any cited number, any "Because [result], we will [decision]" clause, any of the six decisions, any finding, the calibration caveat, or the short-form task names.</pre>
+</div>
+<p>The second pass reached 30–39%. The one section held at 30% came back with a stated reason ("every remaining word is a citation
+or a decision clause"), and the coordinator accepted it.</p>
+
+<div class="two">
+  <div class="prompt weak">
+    <div class="who"><span class="verdict w">Weak revision</span> · <span class="stamp illus">Illustrative</span></div>
+<pre>This is too long and the table is confusing. Make it better.</pre>
+  </div>
+  <div class="prompt strong">
+    <div class="who"><span class="verdict s">Stronger revision</span> · <span class="stamp illus">Illustrative</span></div>
+<pre>Cut section 2 by 40%: cut narration and restatement, keep every number. In the results table, one row per task with columns: task (3–4 word name), predicted first click, actual first click + count, MATCH/MISS. The reader is our TA, who has never seen our task ids.</pre>
+  </div>
+</div>
+
+<!-- ============================================================ 8 -->
+<h2 id="s8"><span class="num">8</span>Four pitfalls from this build</h2>
+<div class="pits">
+  <div class="pit">
+    <h3>The coverage rule, caught late</h3>
+    <p>The agent's spec summary said both views "must reach every block." The instructor approved it without noticing. Hours later a
+    report boasted "53/53 in both views," the coordinator flagged the conflict with the approved spec, and the instructor gave the real rule:</p>
+    <p><span class="stamp verbatim">Verbatim</span> "Every block needs to be reachable in one organizational view of the blocks or another but not every block needs to be reachable in every organizational view."</p>
+    <p class="fix"><b>Do this:</b> when an agent reads your spec back, check every <i>all, every, both, must, never</i>. Those quantifiers are where a summary quietly changes your requirements.</p>
+  </div>
+  <div class="pit">
+    <h3>Prose drifting from data</h3>
+    <p>The tree-test data was generated by a script, and every table on the report page was correct. The verifier still returned <b>FAIL</b>:
+    nine prose sentences contradicted the data, two of them in grader boxes claiming to have re-derived the number (for example,
+    "five different blocks" where the log shows four) <span class="fiction-badge">Fictitious data</span>. The builder's own report had said it invented no numbers.</p>
+    <p class="fix"><b>Do this:</b> anything countable comes from code. In the prompt, say "every number in prose must come from the script's output," and have a <em>different</em> agent re-derive the numbers from the raw file.</p>
+  </div>
+  <div class="pit">
+    <h3>Parallel agents, one file</h3>
+    <p>At a later rung, two builders ran in parallel and one truncated a shared local config file to zero bytes. The file was untracked, so git couldn't
+    bring it back, and the two agents then fought over it. At the same time, another session was editing the shared CSS.</p>
+    <p class="fix"><b>Do this:</b> give each agent a fenced list of allowed files. Shared files (config, stylesheets, the data file) belong to one owner, usually you.</p>
+  </div>
+  <div class="pit">
+    <h3>The freeze rule</h3>
+    <p>The moment a study runs on a build, that build freezes: the report cites it, so it can't change afterward. The verifier's nits
+    therefore had to be fixed <em>before</em> the tree test, which is why the fix packet opens with "these get fixed NOW."</p>
+    <p class="fix"><b>Do this:</b> know which output becomes the next step's input, and settle it first. Once your tree test starts, changes go into the <em>next</em> prototype, not this one.</p>
+  </div>
+</div>
+
+<!-- ============================================================ 9 -->
+<h2 id="s9"><span class="num">9</span>Your template (for your domain)</h2>
+<p>Below is everything above in one prompt, with the ward taken out. Replace every <code>[bracket]</code>. It works best as the
+<em>second</em> message, after the agent has interviewed you (section 3) and you've approved the spec it read back.</p>
+
+<div class="prompt recon">
+  <div class="who"><b>Template</b> · built from the real prompts above · <span class="stamp recon">Reconstructed</span>
+    <span style="flex:1"></span><button type="button" class="copybtn" data-copy="tpl1">Copy</button></div>
+<pre id="tpl1">Build a clickable WIREFRAME of our information architecture for [your domain, e.g. "a campus club's event archive"], plus the instrumentation we will use to tree-test it.
+
+READ FIRST
+- [card-sort-analysis.md]: our categories, labels, the pairs people always grouped, and the cards they split on
+- [blocks.csv]: all [N] information blocks (id, exact title, source link)
+- [spec.md]: the approved spec from our interview
+
+WHO USES THIS NEXT
+Our team runs a tree test with 10+ participants on this exact build. The results export IS our raw data. After the test starts, this build freezes.
+
+FIDELITY
+Black/white/gray only, one system font, generic gray boxes, no images. Links black and underlined (no default blue).
+
+DATA CONTRACT (single source, multiple views)
+- One data file holds every block: { id, title, url, [facet1: e.g. topic], [facet2: e.g. audience or time], ... }, plus the category and group lists and the 10 tasks.
+- Every page is rendered by FILTERING that file on its attributes. No block is typed into HTML anywhere.
+- View 1: by [facet1], at least 2 levels (category → group → block). View 2: by [facet2].
+- Every block reachable in at least ONE view (not necessarily both).
+- A leaf page names the block reached, with placeholder boxes.
+
+CLICK LOG (always on)
+- Each in-app navigation click appends { t (ISO UTC), from, to, label } to localStorage.
+- A log view with Export JSON, Export CSV, a copy fallback, and Clear (with confirm).
+
+TEST MODE (the tree-test instrument)
+- Our 10 scenarios live in the data file, each with its expected block id. Scenarios use our users' words and never quote a category label. At least one probes our riskiest IA decision: [name it].
+- Flow: shuffle per run → scenario card → OK starts the timer → participant starts at Home → reaching ANY leaf ends the task (clock frozen at arrival), or "I would give up" ends it with endpoint = null → "recorded" screen → next → summary.
+- Per task record { taskId, expectedId, endpointId, correct, seconds, path[] }. Save the run after EVERY task.
+- Results view with Export JSON + CSV, one row per task per run.
+- During a run, clicks go ONLY to the run, never to the click log.
+- Reload mid-run → a "run interrupted" screen with Resume / End run. No link may look clickable while it isn't.
+
+DEFINITION OF DONE (run these, then report)
+- A script that validates the data file: every block present exactly once, every block has its attributes, every task's expected id exists.
+- Crawl both views and list any unreachable blocks.
+- Complete a full 10-task run including one give-up and one mid-run reload; confirm both exports parse.
+- Search the CSS for any non-gray color or second font. No console errors.
+
+REPORT BACK
+Files created; each requirement → met / not met, with evidence; the 10 tasks with expected blocks; every judgment call (e.g. where an ambiguous block went, and why); every deviation from this spec. Don't commit. We review first.</pre>
+</div>
+
+<h3>If you're running more than one agent</h3>
+<div class="prompt recon">
+  <div class="who"><b>Coordinator add-on</b> · <span class="stamp recon">Reconstructed</span>
+    <span style="flex:1"></span><button type="button" class="copybtn" data-copy="tpl2">Copy</button></div>
+<pre id="tpl2">You are the coordinator. Don't build it yourself.
+(1) Turn the spec above into a TASK PACKET: read-first files, who uses the output next, requirements, data contract, allowed files, self-check, report format.
+(2) Give the packet to ONE builder.
+(3) When it reports, start a SEPARATE verifier with fresh context. Give it the packet and the builder's file list. Tell it to fix nothing, re-derive every number itself, exercise every state (reload mid-run, give up, click every link in every phase), and return PASS / FAIL / PASS-WITH-NITS with file:line evidence. List any builder deviations you accept, so the verifier doesn't flag them.
+(4) Send failures back to the SAME builder. Then have the verifier re-check only what changed.
+(5) Only you commit. Never let two agents edit the same file.</pre>
+</div>
+
+<h3>If you only have time for one paragraph</h3>
+<div class="prompt recon">
+  <div class="who"><b>First message</b> · <span class="stamp recon">Reconstructed</span>
+    <span style="flex:1"></span><button type="button" class="copybtn" data-copy="tpl3">Copy</button></div>
+<pre id="tpl3">I'm building a black-and-white clickable wireframe for my IA project from my card-sort results. Before writing any code, interview me one question at a time with multiple-choice options until you can write a bullet-list spec; then wait for my OK. Non-negotiables: one data file holds every information block with its attributes and every page is generated from it (single source, multiple views); two different categorizations grounded in my card sort; at least two levels; a persistent click log I can export as CSV; and a test mode that runs my 10 tree-test scenarios in random order with a timer, a give-up button, and exportable per-task results. Tell me how you'll verify each of those before you say you're done.</pre>
+</div>
+
+<!-- ============================================================ 10 -->
+<h2 id="s10"><span class="num">10</span>The checklist</h2>
+<p>Tick these as you go. The boxes are saved in this browser only.</p>
+<div class="panel">
+<ul class="checklist" id="checklist">
+  <li><h4>Before the build prompt</h4></li>
+  <li><label><input type="checkbox" data-k="c1"><span>The agent interviewed me one question at a time, and I typed my own answer when no option fit.<small>Section 3</small></span></label></li>
+  <li><label><input type="checkbox" data-k="c2"><span>I read the spec it wrote back and checked every <i>all / every / both / must</i>.<small>Pitfall: the coverage rule</small></span></label></li>
+  <li><label><input type="checkbox" data-k="c3"><span>The spec is saved in a file that later prompts can name.</span></label></li>
+  <li><h4>In the build prompt</h4></li>
+  <li><label><input type="checkbox" data-k="c4"><span>I said who uses this next: our tree test, and its export is our raw data.</span></label></li>
+  <li><label><input type="checkbox" data-k="c5"><span>I gave a data contract (fields, one file) and the rule that every page is a filter over it.<small>Section 4</small></span></label></li>
+  <li><label><input type="checkbox" data-k="c6"><span>I named the log fields, where they're stored, the export formats, and that test clicks stay out of the click log.<small>Section 5</small></span></label></li>
+  <li><label><input type="checkbox" data-k="c7"><span>I listed the test-mode states: give up, reload mid-run, resume, end early.</span></label></li>
+  <li><label><input type="checkbox" data-k="c8"><span>I gave a definition of done the builder has to run, and asked for a report I can audit.</span></label></li>
+  <li><label><input type="checkbox" data-k="c9"><span>I fenced the files each agent may touch.</span></label></li>
+  <li><h4>Before I believe "done"</h4></li>
+  <li><label><input type="checkbox" data-k="c10"><span>Someone other than the builder (a fresh chat, a teammate, or me) used the app: every view, one full run, a give-up, a reload mid-run.<small>Section 6</small></span></label></li>
+  <li><label><input type="checkbox" data-k="c11"><span>Both exports open and parse, and the numbers in our write-up come from the export, not from memory.</span></label></li>
+  <li><label><input type="checkbox" data-k="c12"><span>I decided on the builder's deviations myself.</span></label></li>
+  <li><label><input type="checkbox" data-k="c13"><span>Everything is fixed <em>before</em> the first participant sits down. After that, the build is frozen.</span></label></li>
+</ul>
+</div>
+
+<footer>Written for CS 356 from the companion's wireframe build of August 2026. The instructor's prompts and the agents' task packets
+are quoted from the build's session transcripts. Verbatim quotes keep their original typos, and […] marks a cut. Section 9's templates are
+condensed from those prompts and labeled as reconstructions. The Timpanogos Shadows Ward, both student teams, and every tree-test participant
+and number are the companion's standing fiction (<a href="fiction.html">what's real and what's not</a>); the two wireframes and their code are real.
+See them: <a href="prototypes/wireframe/team-a/">Team A</a> · <a href="prototypes/wireframe/team-b/">Team B</a> ·
+<a href="wireframe-report.html">the graded turn-ins</a> · <a href="studies/02-tree-test.html">the tree test that ran on Team A's test mode</a> ·
+<a href="index.html">the companion hub</a>.</footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  // Checklist state, per viewer, in this browser only. Storage can be blocked
+  // (private windows, previews), so every access is guarded.
+  var KEY = "cs356.prompting-agents.checklist.v1";
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { state = {}; }
+  var boxes = document.querySelectorAll("#checklist input[data-k]");
+  Array.prototype.forEach.call(boxes, function (b) {
+    b.checked = !!state[b.getAttribute("data-k")];
+    b.addEventListener("change", function () {
+      state[b.getAttribute("data-k")] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* not saved; fine */ }
+    });
+  });
+
+  // Copy buttons for the templates, with a select-the-text fallback.
+  Array.prototype.forEach.call(document.querySelectorAll(".copybtn"), function (btn) {
+    btn.addEventListener("click", function () {
+      var pre = document.getElementById(btn.getAttribute("data-copy"));
+      if (!pre) { return; }
+      var text = pre.textContent;
+      function done(msg) { btn.textContent = msg; setTimeout(function () { btn.textContent = "Copy"; }, 1600); }
+      function fallback() {
+        var r = document.createRange(); r.selectNodeContents(pre);
+        var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+        done("Selected. Press Ctrl/Cmd+C");
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { done("Copied"); }, fallback);
+      } else { fallback(); }
+    });
+  });
+})();
+</script>
+</body>
+</html>

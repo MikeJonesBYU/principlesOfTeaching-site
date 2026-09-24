@@ -30,6 +30,15 @@
    A prototype station may also carry `report` (the page where that turn-in's
    example reports are graded) with `reportStatus: "draft"` until it exists.
 
+   GUIDES. Any station may carry instructor tutorials that teach how to make
+   that station's artifact (not the method itself — that is Canvas's job):
+
+     guides: [{ path, title, status? }, …]
+
+   `path` is companion-relative; companion.js renders each as a chip on the
+   station card. `status: "draft"` renders it as a labeled, unlinked pending
+   item (the no-dead-links rule); omit `status` once the page exists.
+
    Slugs are stable once public — students bookmark them. Never rename.
 
    CANVAS CROSS-LINKS. The companion is the worked example; the Canvas course
@@ -46,7 +55,7 @@
    the canonical ones as of 2026-09-14.
    ========================================================================== */
 window.CS356_COMPANION = {
-  version: "2026-09-15",
+  version: "2026-09-24",
 
   /* Every Canvas `slug` in this file hangs off this base — one course id,
      one place to change it. */
@@ -152,6 +161,9 @@ window.CS356_COMPANION = {
       path: "prototypes/wireframe/",
       report: "wireframe-report.html",
       reportLabel: "Both teams' reports, graded",
+      guides: [
+        { path: "prompting-agents-to-build.html", title: "Prompting agents to build it" }
+      ],
       canvas: {
         method: { slug: "low-fi-clickable-wireframes", title: "Low-fi Clickable Wireframes" },
         readings: [

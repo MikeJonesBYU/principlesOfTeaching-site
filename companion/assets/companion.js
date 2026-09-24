@@ -97,6 +97,7 @@
     report: 'The turn-in',
     altVersion: 'Instructor revision',
     altReport: 'The write-up',
+    guide: 'Tutorial',
     runsOn: 'Runs on',
     canvasMethod: 'Method on Canvas',
     canvasReading: 'Course reading',
@@ -511,6 +512,18 @@
           station.reportLabel || LABELS.altReport, LABELS.studyPending, 'chip')
       ]));
     }
+
+    /* Instructor tutorials on how to make this station's artifact. Pending
+       (unlinked) while `status: "draft"` — the no-dead-links rule. */
+    each(station.guides || [], function (guide) {
+      if (!guide || !guide.path) { return; }
+      body.push(h('p', { 'class': 'arc-item__links' }, [
+        h('span', { 'class': 'micro-label' }, LABELS.guide),
+        ' ',
+        linkOrPending(guide.status !== 'draft', resolve(guide.path),
+          guide.title || 'Tutorial', LABELS.studyPending, 'chip')
+      ]));
+    });
 
     /* Where the method itself is taught: the Canvas method page for this
        station, plus the concept readings it leans on. */
