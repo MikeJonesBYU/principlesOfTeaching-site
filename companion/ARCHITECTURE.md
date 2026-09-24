@@ -310,6 +310,10 @@ exported from git history:
     its own header instead via `MASTHEAD_IMG_BY_PAGE`, shown at the picture's
     full aspect ratio: ward.html uses `assets/banner-ward.jpg`, Mike's
     Timpanogos-over-Utah-Lake panorama (credited "Photo: Mike Jones").
+    A variant's pages key their override as `"<variant id>/<data-page>"`:
+    the Finland stake page (`finland/variant-setting`) carries
+    `assets/banner-finland.jpg`, Jyväskylä's lakefront at dusk over new ice
+    (a 1536×440 panorama crop of a photo the instructor supplied, 2026-09-24).
     Pictures that don't exist yet still render as labeled `.img-slot`
     placeholders.
   - **A pared-down centered row of button links** under the banner (the

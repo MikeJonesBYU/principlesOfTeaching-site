@@ -67,13 +67,23 @@
 
   /* Per-page masthead overrides, keyed by <body data-page="…">. A page listed
      here gets its own header picture at the picture's own aspect ratio
-     (companion.css §3) instead of the slim strip of the shared banner. */
+     (companion.css §3) instead of the slim strip of the shared banner. A page
+     inside a variant is keyed "<variant id>/<data-page>", so each variant's
+     setting page can carry its own place. A null credit prints no line. */
   var MASTHEAD_IMG_BY_PAGE = {
     ward: {
       src: 'assets/banner-ward.jpg',
       alt: 'Mount Timpanogos at sunset, snow lit pink, rising over the ' +
         'rooftops and trees of Utah Valley and reflected in Utah Lake.',
       credit: 'Photo: Mike Jones',
+      creditHref: null
+    },
+    'finland/variant-setting': {
+      src: 'assets/banner-finland.jpg',
+      alt: 'Jyväskylä at dusk in early winter: a lit tower and lakeside ' +
+        'apartment blocks under a sunset sky, their lights reflected in ' +
+        'the thin new ice of the lake.',
+      credit: null,
       creditHref: null
     }
   };
@@ -258,24 +268,25 @@
 
   function buildMasthead() {
     var current = document.body.getAttribute('data-page') || '';
+    var variant = currentVariant(registry());
 
-    var img = MASTHEAD_IMG_BY_PAGE[current] || MASTHEAD_IMG;
+    var own = MASTHEAD_IMG_BY_PAGE[variant ? variant.id + '/' + current : current];
+    var img = own || MASTHEAD_IMG;
     var art = h('figure', {
-      'class': 'masthead__figure' +
-        (MASTHEAD_IMG_BY_PAGE[current] ? ' masthead__figure--own' : '')
+      'class': 'masthead__figure' + (own ? ' masthead__figure--own' : '')
     }, [
       h('img', { 'class': 'masthead__img', 'src': resolve(img.src),
                  'alt': img.alt }),
-      h('figcaption', { 'class': 'masthead__credit' }, [
+      img.credit ? h('figcaption', { 'class': 'masthead__credit' }, [
         img.creditHref
           ? h('a', { 'href': img.creditHref }, img.credit)
           : img.credit
-      ])
+      ]) : null
     ]);
 
     var nav = h('nav', { 'class': 'masthead__nav',
                          'aria-label': 'Companion sections' });
-    each(navFor(currentVariant(registry())), function (item) {
+    each(navFor(variant), function (item) {
       var attrs = { 'class': 'btn', 'href': resolve(item.href) };
       if (item.page && item.page === current) { attrs['aria-current'] = 'page'; }
       nav.appendChild(h('a', attrs, item.label));

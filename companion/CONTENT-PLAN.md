@@ -408,10 +408,10 @@ translation, flagged where the translators disagreed).
   single source, multiple views absorbs a change of population.
 - **Not binding.** No prototype implements the Finland decisions.
 
-Open for this version: a real header photograph (Wikimedia Commons
-candidates noted in the build session — `Jyväskylä winter panorama.jpg`,
-`Lake-Jyväsjärvi-panorama.jpg`, `MS Rhea and SS Suomi in Jyvaskyla
-harbour.jpg` — licences unverified; the environment could not reach
-Commons); spot-check the sourced figures against churchofjesuschrist.org
+Header photograph: done 2026-09-24 — `assets/banner-finland.jpg`, a
+panorama crop of an instructor-supplied photo of Jyväskylä at dusk, as the
+stake page's own masthead (no credit line yet; add the photographer's to
+`MASTHEAD_IMG_BY_PAGE` in companion.js when known). Open for this version:
+spot-check the sourced figures against churchofjesuschrist.org
 (unreachable from the build environment); whether the tree test is ever
 re-run here.
