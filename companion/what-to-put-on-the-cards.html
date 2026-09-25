@@ -115,6 +115,11 @@
     .rounds .mini { min-height: 58px; }
     .rounds .ln { display: block; height: 5px; border-radius: 3px; background: #dfe7ee; margin: 5px 0 0; }
     .rounds .hl { outline: 2px solid var(--link); outline-offset: 3px; }
+    .contrast { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 6px 0 12px; }
+    @media (max-width: 640px) { .contrast { grid-template-columns: minmax(0, 1fr); } }
+    .contrast > div { min-width: 0; }
+    .contrast .mini { max-width: 15rem; margin: 0 0 8px; }
+    .contrast p { font-size: .9rem; margin: 0; }
     .meter { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 10px;
              font-size: .85rem; margin: 12px 0 4px; }
     .meter__track { height: 12px; border-radius: 999px; background: #e2e7ec; overflow: hidden; }
@@ -158,6 +163,10 @@
                padding: 1px 7px; border-radius: 999px; margin-right: 4px; }
     .verdict--no { background: #e7ebee; color: var(--ink-soft); }
     .verdict--yes { background: var(--link); color: #fff; }
+
+    .fit-table td:first-child { font-weight: 700; white-space: nowrap; }
+    .fit-table .add { font-style: italic; }
+    .fit-table .no { color: var(--muted); }
 
     /* ---- One card, two audiences. */
     .audiences { display: grid; grid-template-columns: minmax(0, 12rem) minmax(0, 1fr) minmax(0, 1fr); gap: 22px;
@@ -425,26 +434,43 @@
 
       <div class="others">
         <p class="micro-label u-flush-bottom">What others have found</p>
-        <p class="u-tight"><strong>People get steered by details they
-          don&rsquo;t remember seeing.</strong>
+        <p class="u-tight"><strong>Extra words steer the cards people are
+          unsure about, even when they don&rsquo;t notice the words.</strong>
           <a class="cite" href="#cite-optimal">Optimal Workshop&rsquo;s
           card-description test</a> ran the same 30-card sort four times,
-          with 30 people each round:</p>
+          with 30 new people each round. Only the card changed:</p>
         <div class="rounds" aria-label="The four rounds">
-          <figure><div class="mini"><b>High quality</b></div><figcaption>Round 1: the label only</figcaption></figure>
-          <figure><div class="mini hl"><b>High quality</b><span class="ln"></span><span class="ln"></span></div><figcaption><strong>Round 2: plus its current site section</strong></figcaption></figure>
-          <figure><div class="mini"><b>High quality</b><span class="ln"></span><span class="ln"></span></div><figcaption>Round 3: plus a short description</figcaption></figure>
-          <figure><div class="mini"><b>High quality</b><span class="ln"></span></div><figcaption>Round 4: plus a link to the page</figcaption></figure>
+          <figure><div class="mini"><b>Life experiences</b></div><figcaption>Round 1: the label only</figcaption></figure>
+          <figure><div class="mini hl"><b>Life experiences</b><span class="ln"></span><span class="ln"></span></div><figcaption><strong>Round 2: plus the site section it lives in now</strong></figcaption></figure>
+          <figure><div class="mini"><b>Life experiences</b><span class="ln"></span><span class="ln"></span></div><figcaption>Round 3: plus a short description</figcaption></figure>
+          <figure><div class="mini"><b>Life experiences</b><span class="ln"></span></div><figcaption>Round 4: plus a link to the page</figcaption></figure>
+        </div>
+        <p>Two things happened at once:</p>
+        <div class="contrast">
+          <div>
+            <div class="mini"><b>Where &amp; what to study</b></div>
+            <p><strong>Clear labels didn&rsquo;t move.</strong> Cards like this
+              one landed with the same neighbors in every round, with or
+              without extra words.</p>
+          </div>
+          <div>
+            <div class="mini hl"><b>Life experiences</b><span class="ln"></span><span class="ln"></span></div>
+            <p><strong>Ambiguous labels did.</strong> In round 2, cards like
+              this one were grouped with the rest of their current site section
+              much more often than in the other rounds.</p>
+          </div>
         </div>
         <div class="meter" role="img" aria-label="About 40 percent of participants said they noticed the descriptions">
           <span>Said they noticed the descriptions</span>
           <span class="meter__track"><span class="meter__fill"></span></span>
           <strong>~40%</strong>
         </div>
-        <p>Most people didn&rsquo;t notice the descriptions. Even so, in round
-          2, ambiguous cards like &ldquo;High quality&rdquo; and &ldquo;Life
-          experiences&rdquo; were grouped with the rest of their site section
-          more often than in the other rounds.</p>
+        <p>And most people said they hadn&rsquo;t noticed the descriptions at
+          all. So the lesson isn&rsquo;t that people ignore what&rsquo;s on
+          the card. It&rsquo;s the opposite. The extra words did their work on
+          exactly the cards people were unsure about, which are the cards you
+          most want to learn about, and the participants couldn&rsquo;t have
+          told you it happened.</p>
         <ul>
           <li><strong>Sorting on the surface is a known weakness.</strong>
             <a class="cite" href="#cite-spencer">Spencer and Warfel&rsquo;s
@@ -491,7 +517,7 @@
         <div class="zones">
           <div class="zone zone--low">
             <p class="zone__k">Knows nothing</p>
-            <p class="zone__t">Wrong population</p>
+            <p class="zone__t">Probably the wrong population</p>
             <div class="zone__vis" aria-hidden="true">
               <div class="stack"><span class="sticky">A&ndash;K</span><div class="mini"></div><div class="mini"></div><div class="mini"></div></div>
               <div class="stack"><span class="sticky">L&ndash;Z</span><div class="mini"></div><div class="mini"></div><div class="mini"></div></div>
@@ -527,14 +553,15 @@
         </div>
       </div>
 
-      <h3>The floor is alphabetical order</h3>
+      <h3>When they don&rsquo;t know what the cards mean</h3>
       <p>
-        Hand someone a stack of cards they know truly nothing about and you
-        won&rsquo;t get anything interesting. You&rsquo;ll get the cards in
-        alphabetical order, or A through K in one pile and L through Z in
-        another. A card sort needs <strong>a population that knows
-        something</strong> and <strong>cards that tell that population
-        something</strong>.
+        If your participants really don&rsquo;t know anything about what&rsquo;s
+        on the cards, they have nothing meaningful to sort on. They may fall
+        back on alphabetical order, or on something else that has nothing to
+        do with what the cards mean, like which words look alike. That
+        isn&rsquo;t interesting, and it won&rsquo;t help you build a site. A
+        card sort needs <strong>a population that knows something</strong>
+        and <strong>cards that tell that population something</strong>.
       </p>
 
       <h3>Same activities, two populations</h3>
@@ -553,7 +580,7 @@
         on a teaching method so that parents can sort the way an experienced
         teacher would. A study with parents answers how <em>parents</em>
         organize these things. They need to understand each one just well
-        enough to sort by something other than the alphabet.
+        enough to sort by what the items mean.
       </p>
 
       <h3>Dungeons &amp; Dragons races</h3>
@@ -617,13 +644,14 @@
       <div class="versions">
         <figure>
           <div class="mini"><b>Proprioceptive input</b>Sensory activity &middot; 10 min setup &middot; ages 5&ndash;8 &middot; one-on-one</div>
-          <figcaption><span class="verdict verdict--no">No</span> Specs. Expect piles by
-            setup time or age, and you won&rsquo;t know if that&rsquo;s how
-            parents think.</figcaption>
+          <figcaption><span class="verdict verdict--no">Only if</span> you mostly
+            want to learn how parents deal with setup time, age, and format.
+            People will sort on the factors you print, so those factors are
+            what this card will teach you about.</figcaption>
         </figure>
         <figure>
           <div class="mini"><b>Proprioceptive input</b>Found under: Sensory regulation</div>
-          <figcaption><span class="verdict verdict--no">No</span> Where it lives now. That&rsquo;s
+          <figcaption><span class="verdict verdict--no">Steers</span> Where it lives now. That&rsquo;s
             round 2 of <a class="cite" href="#cite-optimal">Optimal
             Workshop&rsquo;s test</a>: it pulls the card toward the old
             structure.</figcaption>
@@ -638,8 +666,9 @@
       <p>When you do write one:</p>
       <ul class="checklist">
         <li><strong>Say what the thing is.</strong> Don&rsquo;t say where it
-          lives now, and don&rsquo;t list its specs (price, year, setup time,
-          age range).</li>
+          lives now. Leave its specs (price, year, setup time, age range) off
+          too, unless how people handle those specs is what you&rsquo;re
+          studying.</li>
         <li><strong>Use your population&rsquo;s words,</strong> not the words
           from the source you got the items from.</li>
         <li><strong>Don&rsquo;t repeat words across cards.</strong> Cards that
@@ -648,6 +677,25 @@
           say this sentence when telling a friend what the thing is? If not,
           it&rsquo;s a data field, not a description.</li>
       </ul>
+      <p>
+        Here&rsquo;s the same logic across the examples on this page. What
+        goes on the card depends on the name and on who&rsquo;s holding it.
+      </p>
+      <div class="table-scroll">
+        <table class="study-table fit-table">
+          <thead>
+            <tr><th scope="col">Name on the card</th><th scope="col">Population</th><th scope="col">What to add</th><th scope="col">Why</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>CS 252</td><td>BYU computer science students</td><td class="no">Nothing</td><td>Every one of them knows what it is.</td></tr>
+            <tr><td>CS 252</td><td>Fifth graders</td><td class="no">No sentence will fix this</td><td>They have nothing to sort on. Change the population, or the topic.</td></tr>
+            <tr><td>Tiefling</td><td>Intermediate and advanced D&amp;D players</td><td class="no">Nothing</td><td>They share an understanding of what a Tiefling is.</td></tr>
+            <tr><td>Proprioceptive input</td><td>Special-education teachers</td><td class="no">Nothing</td><td>It&rsquo;s their own vocabulary.</td></tr>
+            <tr><td>Proprioceptive input</td><td>Parents new to this</td><td class="add">&ldquo;Play that involves pushing, pulling, or carrying something heavy.&rdquo;</td><td>Enough to picture it. No age range, setup time, or goal to sort on.</td></tr>
+            <tr><td>Rumours, Fleetwood Mac</td><td>People who collect albums</td><td class="no">Nothing, and never the year</td><td>They&rsquo;d sort on the field you printed, and visitors to your site won&rsquo;t know it.</td></tr>
+          </tbody>
+        </table>
+      </div>
       <div class="others">
         <p class="micro-label u-flush-bottom">What others advise</p>
         <p class="u-tight"><a class="cite" href="#cite-optimal">Optimal
@@ -881,8 +929,8 @@
           <p>
             <strong>How it fits:</strong> that&rsquo;s a fair point, and it
             applies when your site&rsquo;s real audience is beginners. But the
-            floor still holds. People who know nothing sort alphabetically, and
-            what they need first is teaching, not help finding things. There
+            problem above still holds. People who know nothing about the items
+            have little to sort on but the words themselves, and what they need first is teaching, not help finding things. There
             are middle routes. One is to give beginners the categories and have
             them place the cards (a closed sort, sketched here).
             <a class="cite" href="#cite-robertson">Robertson and
