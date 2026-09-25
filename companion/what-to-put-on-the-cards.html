@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>What to put on the cards? — CS 356 Companion</title>
-  <meta name="description" content="What goes on a card in an open card sort: the name of the information item, and usually nothing else. Why, when to add one short sentence, how your population decides it, and where practitioners disagree.">
+  <meta name="description" content="What goes on a card in an open card sort: the name of the information item, and usually nothing else. Why, when to add one short sentence, how your population decides it, and where others see it differently.">
   <link rel="stylesheet" href="assets/companion.css">
   <style>
     /* Jump list under the header. */
@@ -12,7 +12,13 @@
             margin: 18px 0 0; padding: 12px 0 0; border-top: 1px solid var(--rule);
             font-size: .92rem; }
 
-    /* Index-card specimens. Blue ruling, not red: red is reserved for the
+    /* ---- In-text citations: a short descriptor that jumps to Works cited. */
+    a.cite { color: inherit; text-decoration: underline dotted var(--link); text-decoration-thickness: 2px;
+             text-underline-offset: 3px; }
+    a.cite:hover { color: var(--link-deep); }
+    a.cite::after { content: "\2193"; font-size: .72em; color: var(--link); margin-left: 2px; vertical-align: .15em; }
+
+    /* ---- Index cards. Blue ruling, not red: red is reserved for the
        fiction contract and the grader (ARCHITECTURE §7). */
     .icard { background: #fff; border: 1px solid var(--rule-strong); border-radius: 4px;
              box-shadow: 0 1px 2px rgba(45,59,69,.07), 0 8px 20px rgba(45,59,69,.08);
@@ -28,10 +34,61 @@
     .specimens figure { margin: 0; min-width: 0; }
     .specimens figcaption { margin-top: 12px; font-size: .95rem; color: var(--ink-soft); }
     .tilt-l { transform: rotate(-1deg); } .tilt-r { transform: rotate(.8deg); }
-
     .rulecard { max-width: 34rem; margin: 26px auto 10px; }
     .rulecard .icard__name { font-size: 1.05rem; }
     .rulecard .icard__body { min-height: 0; font-size: 1.05rem; }
+
+    /* Mini cards, for diagrams. */
+    .mini { background: #fff; border: 1px solid var(--rule-strong); border-radius: 3px;
+            box-shadow: 0 1px 2px rgba(45,59,69,.08), 0 3px 8px rgba(45,59,69,.07);
+            padding: 5px 9px 7px; font-size: .8rem; line-height: 1.35; min-width: 0; text-align: left; }
+    .mini b { display: block; font-size: .86rem; padding-bottom: 3px; margin-bottom: 4px;
+              border-bottom: 1.5px solid var(--link); }
+    .mini mark { background: #fff1b8; padding: 0 2px; border-radius: 2px; }
+    .mini--x { opacity: .55; }
+    .mini--wide { max-width: 15rem; }
+
+    /* ---- Flow strips (question chain, the album-year echo). */
+    .strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 30px; margin: 22px 0; }
+    .strip > li { list-style: none; position: relative; border: 1px solid var(--rule-strong);
+                  border-radius: var(--radius-lg); padding: 12px 14px 14px; background: #fff; min-width: 0; }
+    .strip > li:not(:last-child)::after { content: "\2192"; position: absolute; right: -24px; top: 50%;
+                  transform: translateY(-50%); color: var(--slate); font-weight: 700; font-size: 1.2rem; }
+    .strip { padding: 0; }
+    .strip__n { font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 4px; }
+    .strip__t { font-weight: 700; margin: 0 0 4px; line-height: 1.25; }
+    .strip__d { font-size: .88rem; color: var(--ink-soft); margin: 0; }
+    .strip__vis { margin: 10px 0 0; min-height: 64px; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px; }
+    .strip--chain > li { background: var(--panel-sunk); }
+    .strip--chain > li:first-child { background: var(--slate); border-color: var(--slate); color: #fff; }
+    .strip--chain > li:first-child .strip__n, .strip--chain > li:first-child .strip__d { color: #dfe6ec; }
+    @media (max-width: 720px) {
+      .strip { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+      .strip > li:not(:last-child)::after { content: "\2193"; right: auto; left: 50%; top: auto; bottom: -24px; transform: translateX(-50%); }
+    }
+
+    /* Piles of cards: a stack of offset minis with a sticky-note label. */
+    .stack { position: relative; width: 74px; height: 58px; }
+    .stack .mini { position: absolute; width: 64px; height: 42px; padding: 3px 6px; font-size: .68rem; }
+    .stack .mini:nth-of-type(1) { left: 0; top: 14px; } .stack .mini:nth-of-type(2) { left: 4px; top: 9px; }
+    .stack .mini:nth-of-type(3) { left: 8px; top: 4px; }
+    .sticky { display: inline-block; background: #fff4b3; border: 1px solid #e8d77a; color: #3b3413;
+              font-size: .74rem; font-weight: 700; padding: 2px 7px; border-radius: 2px;
+              box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+    .stack .sticky { position: absolute; left: 10px; top: -10px; z-index: 2; }
+
+    /* A tiny site mock and a speech bubble. */
+    .mock { border: 1px solid var(--rule-strong); border-radius: 5px; overflow: hidden; width: 100%; background: #fff; font-size: .72rem; }
+    .mock__bar { background: var(--panel-sunk); border-bottom: 1px solid var(--rule); padding: 3px 6px; color: var(--muted); }
+    .mock__bar i { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--rule-strong); margin-right: 3px; }
+    .mock__nav { padding: 6px; display: flex; flex-wrap: wrap; gap: 4px; }
+    .mock__nav span { border: 1px solid var(--link); color: var(--link); border-radius: 999px; padding: 0 6px; }
+    .bubble { position: relative; background: #fff; border: 1.5px solid var(--slate); border-radius: 12px;
+              padding: 6px 10px; font-size: .84rem; line-height: 1.3; max-width: 100%; }
+    .bubble::after { content: ""; position: absolute; left: 16px; bottom: -8px; width: 12px; height: 12px;
+                     background: #fff; border-right: 1.5px solid var(--slate); border-bottom: 1.5px solid var(--slate);
+                     transform: rotate(45deg); }
+    .who { font-size: .74rem; color: var(--muted); margin-top: 12px; }
 
     /* The instructor's own words, lightly edited from class notes. */
     .pull { margin: 22px 0; padding: 4px 0 4px 18px; border-left: 4px solid var(--slate);
@@ -43,13 +100,27 @@
                 border-radius: var(--radius-lg); background: var(--panel-sunk);
                 font-size: 1.15rem; font-weight: 600; max-width: 64ch; }
 
-    /* What the literature says, set apart from the notes. */
-    .backing { background: var(--panel-sunk); border: 1px solid var(--rule); border-left: 4px solid var(--link);
-               border-radius: var(--radius); padding: 14px 18px; margin: 20px 0; }
-    .backing > :last-child { margin-bottom: 0; }
-    .backing ul { margin: 6px 0 0; padding-left: 20px; }
-    .backing li { margin: 0 0 8px; }
+    /* What others found, set apart from the instructor's notes. */
+    .others { background: var(--panel-sunk); border: 1px solid var(--rule); border-left: 4px solid var(--link);
+              border-radius: var(--radius); padding: 14px 18px; margin: 20px 0; }
+    .others > :last-child { margin-bottom: 0; }
+    .others ul { margin: 6px 0 0; padding-left: 20px; }
+    .others li { margin: 0 0 8px; }
 
+    /* Optimal Workshop's four rounds. */
+    .rounds { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 12px 0 6px; }
+    @media (max-width: 640px) { .rounds { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    .rounds figure { margin: 0; min-width: 0; }
+    .rounds figcaption { font-size: .78rem; color: var(--ink-soft); margin-top: 6px; line-height: 1.3; }
+    .rounds .mini { min-height: 58px; }
+    .rounds .ln { display: block; height: 5px; border-radius: 3px; background: #dfe7ee; margin: 5px 0 0; }
+    .rounds .hl { outline: 2px solid var(--link); outline-offset: 3px; }
+    .meter { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 10px;
+             font-size: .85rem; margin: 12px 0 4px; }
+    .meter__track { height: 12px; border-radius: 999px; background: #e2e7ec; overflow: hidden; }
+    .meter__fill { display: block; height: 100%; width: 40%; background: var(--link); }
+
+    /* ---- The two questions. */
     .twoq { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 18px 0; counter-reset: q; }
     @media (min-width: 640px) { .twoq { grid-template-columns: 1fr 1fr; } }
     .twoq > div { border: 1px solid var(--rule-strong); border-radius: var(--radius-lg);
@@ -60,20 +131,97 @@
     .twoq h3 { margin: 4px 0 6px; }
     .twoq p { margin: 0; }
 
-    .fit-table td:first-child { font-weight: 700; white-space: nowrap; }
-    .fit-table .add { font-style: italic; }
-    .fit-table .no { color: var(--muted); }
+    /* ---- The knowledge spectrum. */
+    .spectrum { margin: 26px 0 10px; }
+    .spectrum__track { height: 14px; border-radius: 999px;
+                       background: linear-gradient(90deg, #cfd6dc 0%, #9fc0da 45%, var(--link) 100%); }
+    .spectrum__ends { display: flex; justify-content: space-between; font-size: .74rem; font-weight: 700;
+                      letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 6px 0 14px; }
+    .zones { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    @media (max-width: 720px) { .zones { grid-template-columns: minmax(0, 1fr); } }
+    .zone { border: 1px solid var(--rule-strong); border-radius: var(--radius-lg); padding: 14px; min-width: 0; background: #fff; }
+    .zone--low { background: repeating-linear-gradient(135deg, #f7f8f9 0 8px, #eff2f4 8px 16px); }
+    .zone__k { font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 2px; }
+    .zone__t { font-weight: 700; font-size: 1.02rem; margin: 0 0 10px; }
+    .zone__vis { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; min-height: 72px; margin: 0 0 12px; }
+    .zone ul { margin: 0; padding-left: 18px; font-size: .86rem; color: var(--ink-soft); }
+    .zone li { margin: 0 0 4px; }
 
-    .alt { border-top: 1px solid var(--rule-strong); padding: 18px 0 4px; }
-    .alt:last-of-type { border-bottom: 1px solid var(--rule-strong); }
-    .alt h3 { font-size: 1.1rem; margin: 0 0 10px; }
-    .alt p { max-width: 70ch; }
+    /* ---- Good and bad sentences. */
+    .versions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 18px 0; }
+    @media (max-width: 720px) { .versions { grid-template-columns: minmax(0, 1fr); } }
+    .versions figure { margin: 0; min-width: 0; }
+    .versions .mini { font-size: .88rem; min-height: 96px; }
+    .versions .mini b { font-size: .95rem; }
+    .versions figcaption { font-size: .86rem; margin-top: 8px; color: var(--ink-soft); }
+    .verdict { display: inline-block; font-size: .68rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+               padding: 1px 7px; border-radius: 999px; margin-right: 4px; }
+    .verdict--no { background: #e7ebee; color: var(--ink-soft); }
+    .verdict--yes { background: var(--link); color: #fff; }
 
+    /* ---- One card, two audiences. */
+    .audiences { display: grid; grid-template-columns: minmax(0, 12rem) minmax(0, 1fr) minmax(0, 1fr); gap: 22px;
+                 align-items: center; margin: 20px 0; }
+    @media (max-width: 640px) { .audiences { grid-template-columns: minmax(0, 1fr); } }
+    .audiences .icard__body { min-height: 0; }
+    .aud { min-width: 0; }
+    .aud .bubble { display: inline-block; }
+
+    /* ---- Our example: Cami's pile and Report B's echo. */
+    .cami { border: 1px solid var(--rule-strong); border-radius: var(--radius-lg); padding: 16px; margin: 18px 0; background: var(--panel-sunk); }
+    .cami__head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 0 0 12px; }
+    .cami__head .sticky { font-size: .9rem; padding: 4px 10px; transform: rotate(-1.5deg); }
+    .cami__cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr)); gap: 10px; }
+    .cami__cards .mini { font-size: .76rem; }
+    .cami__cards .mini b { font-size: .72rem; color: var(--muted); border-bottom-width: 1px; }
+    .echo2 { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.6fr); gap: 16px; align-items: center;
+             border: 1px solid var(--rule-strong); border-radius: var(--radius-lg); padding: 16px; margin: 18px 0; }
+    @media (max-width: 640px) { .echo2 { grid-template-columns: minmax(0, 1fr); } .echo2__arrow { transform: rotate(90deg); justify-self: start; } }
+    .echo2__k { font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; }
+    .echo2__arrow { font-size: 1.6rem; color: var(--slate); font-weight: 700; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chips span { border: 1px solid var(--rule-strong); border-radius: 999px; padding: 2px 10px; font-size: .84rem; background: #fff; }
+    .chips .hit { border: 2px solid var(--link); color: var(--link-deep); font-weight: 700; }
+
+    /* ---- Your project: the decision. */
+    .decide { margin: 20px 0; }
+    .decide__q { max-width: 36rem; margin: 0 auto; text-align: center; background: var(--slate); color: #fff;
+                 border-radius: var(--radius-lg); padding: 14px 18px; font-weight: 600; position: relative; }
+    .decide__q small { display: block; font-weight: 400; color: #dfe6ec; margin-top: 4px; }
+    .decide__branches { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 26px; position: relative; }
+    .decide__branches::before { content: ""; position: absolute; left: 16.6%; right: 16.6%; top: -14px; height: 14px;
+                                border: 2px solid var(--rule-strong); border-bottom: 0; border-radius: 8px 8px 0 0; }
+    @media (max-width: 720px) { .decide__branches { grid-template-columns: minmax(0, 1fr); } .decide__branches::before { display: none; } }
+    .branch { border: 1px solid var(--rule-strong); border-radius: var(--radius-lg); padding: 14px; min-width: 0; background: #fff; }
+    .branch__if { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 4px; }
+    .branch__then { font-weight: 700; margin: 0 0 6px; }
+    .branch p:last-child { margin: 0; font-size: .9rem; color: var(--ink-soft); }
+    .branch--warn { background: repeating-linear-gradient(135deg, #f7f8f9 0 8px, #eff2f4 8px 16px); }
     .checklist { margin: 10px 0 0; padding-left: 22px; }
     .checklist li { margin: 0 0 10px; max-width: 70ch; }
 
-    .refs p { margin: 0 0 12px; max-width: 76ch; font-size: .95rem; }
-    .refs .src { color: var(--muted); }
+    /* ---- Alternative views: a small specimen beside each. */
+    .alt { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 22px; border-top: 1px solid var(--rule-strong); padding: 20px 0 6px; }
+    .alt:last-of-type { border-bottom: 1px solid var(--rule-strong); }
+    @media (max-width: 640px) { .alt { grid-template-columns: minmax(0, 1fr); gap: 12px; } }
+    .alt__vis { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; min-width: 0; }
+    .alt__vis .mini { width: 100%; }
+    .alt__vis .hdr { font-size: .7rem; font-weight: 700; background: var(--slate); color: #fff; border-radius: 3px; padding: 2px 7px; }
+    .alt__vis .rank { display: flex; gap: 6px; align-items: center; width: 100%; }
+    .alt__vis .rank i { font-style: normal; font-weight: 700; color: var(--link); width: 1.1em; }
+    .alt h3 { font-size: 1.1rem; margin: 0 0 10px; }
+    .alt p { max-width: 70ch; }
+
+    /* ---- Works cited. */
+    .cited { list-style: none; counter-reset: c; padding: 0; margin: 0; }
+    .cited li { counter-increment: c; position: relative; padding: 10px 10px 10px 40px; margin: 0; border-radius: var(--radius);
+                font-size: .95rem; max-width: 80ch; scroll-margin-top: 16px; }
+    .cited li::before { content: counter(c); position: absolute; left: 8px; top: 10px; width: 22px; height: 22px; border-radius: 50%;
+                        background: var(--panel-sunk); border: 1px solid var(--rule-strong); font-size: .75rem; font-weight: 700;
+                        display: grid; place-items: center; color: var(--ink-soft); }
+    .cited li:target { background: #eaf3fa; box-shadow: inset 3px 0 0 var(--link); }
+    .cited .src { color: var(--muted); }
+    .cited .note { display: block; color: var(--ink-soft); margin-top: 2px; }
   </style>
 </head>
 <body data-page="guide">
@@ -94,14 +242,14 @@
 
       <p class="fiction-note"><strong>What&rsquo;s real on this page.</strong>
         The advice is the instructor&rsquo;s own, organized from class
-        notes, and every source is a real, linked publication. The albums,
-        restaurants, D&amp;D races, learning activities, and course numbers
-        are illustrations. The only invented material is from our example
-        card sort, whose participants are members of the companion&rsquo;s
-        made-up ward. It&rsquo;s stamped
-        <span class="fiction-badge">FICTITIOUS DATA</span> wherever it
-        appears. <a href="fiction.html">What&rsquo;s real and what&rsquo;s
-        not &rarr;</a></p>
+        notes, and every source is real and listed under
+        <a href="#works-cited">Works cited</a>. The albums, restaurants, D&amp;D
+        races, learning activities, and course numbers are illustrations. The
+        only invented material is from our example card sort, whose
+        participants are members of the companion&rsquo;s made-up ward.
+        It&rsquo;s stamped <span class="fiction-badge">FICTITIOUS DATA</span>
+        wherever it appears. <a href="fiction.html">What&rsquo;s real and
+        what&rsquo;s not &rarr;</a></p>
 
       <nav class="jump" aria-label="On this page">
         <a href="#question">The question first</a>
@@ -113,7 +261,7 @@
         <a href="#example">Our example</a>
         <a href="#your-project">Your project</a>
         <a href="#alternatives">Alternative views</a>
-        <a href="#sources">Sources</a>
+        <a href="#works-cited">Works cited</a>
       </nav>
     </header>
 
@@ -123,25 +271,45 @@
       <p>
         In any study design, the first thing to ask is: <em>what question am
         I trying to answer with this study?</em> Everything else flows from
-        that, including who you recruit, what you hand them, and what you
-        write down. For the open card sort in this project, the question is:
+        that. For the open card sort in this project, the question is:
       </p>
       <p class="question">How do people in my narrow population organize
         these blocks of information, and what do they call the groups?</p>
       <p>
-        That doesn&rsquo;t yet tell you what goes on a card, but it tells
-        you what the cards are for. It also has a purpose behind it.
         <strong>You give people cards so you can see how they organize them,
         and you want to see that so you can build a website for them.</strong>
-        That one sentence ties together your population, what&rsquo;s on
-        the cards, how you build the website, and who the website is for.
+        That one sentence ties the whole chain together:
       </p>
+
+      <ol class="strip strip--chain" aria-label="From the study question to the website">
+        <li>
+          <p class="strip__n">Start</p>
+          <p class="strip__t">Your question</p>
+          <p class="strip__d">How does this population organize these items, and what do they call the groups?</p>
+        </li>
+        <li>
+          <p class="strip__n">Decides</p>
+          <p class="strip__t">Who sorts</p>
+          <p class="strip__d">A narrow population you picked, who know these items.</p>
+        </li>
+        <li>
+          <p class="strip__n">Decides</p>
+          <p class="strip__t">What&rsquo;s on the cards</p>
+          <p class="strip__d">Whatever lets <em>them</em> recognize each item, and nothing more.</p>
+        </li>
+        <li>
+          <p class="strip__n">Produces</p>
+          <p class="strip__t">The website</p>
+          <p class="strip__d">Organized the way they organized the cards, for the people who sorted them.</p>
+        </li>
+      </ol>
+
       <p>
-        Keep in mind what kind of project this is: a user-driven information
-        architecture for a narrow population that you picked. The cards
-        exist to show you how <em>that population</em> organizes things.
-        They aren&rsquo;t there to show your own organization, the
-        source&rsquo;s, or whatever the cards happen to say.
+        This is a user-driven information architecture for a narrow
+        population that you picked. The cards exist to show you how <em>that
+        population</em> organizes things. They aren&rsquo;t there to show your
+        own organization, the source&rsquo;s, or whatever the cards happen to
+        say.
       </p>
     </section>
 
@@ -203,12 +371,44 @@
       <p>
         Say you&rsquo;re building a site for a record collection, and you
         print each card with the album&rsquo;s name <em>and the year it came
-        out</em>. A lot of people will sort by year, because it&rsquo;s right
-        there on the card. So you build the site around release years. Then
-        real visitors show up, and it turns out they don&rsquo;t know what
-        year an album came out. Your participants didn&rsquo;t know either.
-        They knew only because you printed it on the card.
+        out</em>. Here&rsquo;s what happens next:
       </p>
+
+      <ol class="strip" aria-label="How a printed year becomes a broken website">
+        <li>
+          <p class="strip__n">1 &middot; The card</p>
+          <p class="strip__t">You print the year</p>
+          <div class="strip__vis">
+            <div class="mini mini--wide"><b>Rumours, Fleetwood Mac</b><mark>Released 1977</mark></div>
+          </div>
+        </li>
+        <li>
+          <p class="strip__n">2 &middot; The sort</p>
+          <p class="strip__t">People sort by year</p>
+          <div class="strip__vis" aria-hidden="true">
+            <div class="stack"><span class="sticky">1970s</span><div class="mini"></div><div class="mini"></div><div class="mini"></div></div>
+            <div class="stack"><span class="sticky">1980s</span><div class="mini"></div><div class="mini"></div><div class="mini"></div></div>
+          </div>
+          <p class="strip__d">It&rsquo;s right there on the card.</p>
+        </li>
+        <li>
+          <p class="strip__n">3 &middot; The site</p>
+          <p class="strip__t">You organize by year</p>
+          <div class="strip__vis" aria-hidden="true">
+            <div class="mock"><div class="mock__bar"><i></i><i></i><i></i></div>
+              <div class="mock__nav"><span>1960s</span><span>1970s</span><span>1980s</span><span>1990s</span></div></div>
+          </div>
+        </li>
+        <li>
+          <p class="strip__n">4 &middot; The visitor</p>
+          <p class="strip__t">Nobody knows the year</p>
+          <div class="strip__vis">
+            <div class="bubble">&ldquo;When did <em>Rumours</em> come out?&rdquo;</div>
+          </div>
+          <p class="strip__d">Your participants didn&rsquo;t know either. The card told them.</p>
+        </li>
+      </ol>
+
       <p>
         That&rsquo;s why it matters that the card holds just the label. The
         label is what people actually know about the item, and it&rsquo;s
@@ -223,28 +423,39 @@
         <cite>From class, lightly edited</cite>
       </blockquote>
 
-      <div class="backing">
-        <p class="micro-label u-flush-bottom">Backing from the literature</p>
+      <div class="others">
+        <p class="micro-label u-flush-bottom">What others have found</p>
+        <p class="u-tight"><strong>People get steered by details they
+          don&rsquo;t remember seeing.</strong>
+          <a class="cite" href="#cite-optimal">Optimal Workshop&rsquo;s
+          card-description test</a> ran the same 30-card sort four times,
+          with 30 people each round:</p>
+        <div class="rounds" aria-label="The four rounds">
+          <figure><div class="mini"><b>High quality</b></div><figcaption>Round 1: the label only</figcaption></figure>
+          <figure><div class="mini hl"><b>High quality</b><span class="ln"></span><span class="ln"></span></div><figcaption><strong>Round 2: plus its current site section</strong></figcaption></figure>
+          <figure><div class="mini"><b>High quality</b><span class="ln"></span><span class="ln"></span></div><figcaption>Round 3: plus a short description</figcaption></figure>
+          <figure><div class="mini"><b>High quality</b><span class="ln"></span></div><figcaption>Round 4: plus a link to the page</figcaption></figure>
+        </div>
+        <div class="meter" role="img" aria-label="About 40 percent of participants said they noticed the descriptions">
+          <span>Said they noticed the descriptions</span>
+          <span class="meter__track"><span class="meter__fill"></span></span>
+          <strong>~40%</strong>
+        </div>
+        <p>Most people didn&rsquo;t notice the descriptions. Even so, in round
+          2, ambiguous cards like &ldquo;High quality&rdquo; and &ldquo;Life
+          experiences&rdquo; were grouped with the rest of their site section
+          more often than in the other rounds.</p>
         <ul>
-          <li><strong>People get steered by details they don&rsquo;t
-            remember seeing.</strong> Optimal Workshop ran the same 30-card
-            sort four times with 30 people each: label only, label plus the
-            card&rsquo;s current site section, label plus a short
-            description, and label plus a link. Only about 40% of
-            participants said they noticed the descriptions at all. Even so,
-            in the round where the description named the site section,
-            ambiguous cards like &ldquo;High quality&rdquo; and &ldquo;Life
-            experiences&rdquo; were grouped with the rest of that section
-            more often.</li>
-          <li><strong>Sorting on the surface is a known weakness of the
-            method.</strong> Spencer and Warfel warn that participants
-            &ldquo;may just sort it by surface characteristics such as
-            document types.&rdquo; Every field you print on a card gives
-            them another surface to sort on.</li>
-          <li><strong>Shared words get piled together.</strong> Nielsen
-            Norman Group finds that participants often group cards that share
-            a keyword instead of thinking about what each card means, because
-            matching words takes less effort.</li>
+          <li><strong>Sorting on the surface is a known weakness.</strong>
+            <a class="cite" href="#cite-spencer">Spencer and Warfel&rsquo;s
+            guide</a> warns that participants &ldquo;may just sort it by
+            surface characteristics such as document types.&rdquo; Every field
+            you print on a card gives them another surface to sort on.</li>
+          <li><strong>Shared words get piled together.</strong>
+            <a class="cite" href="#cite-nng">Nielsen Norman Group&rsquo;s
+            article on keyword matching</a> finds that participants often
+            group cards that share a word instead of thinking about what each
+            card means, because matching words takes less effort.</li>
         </ul>
       </div>
     </section>
@@ -269,6 +480,50 @@
           <p>A lot? Nothing? Somewhere in between? Once you know your
             population and what they know about these items, you can decide
             what goes on the card.</p>
+        </div>
+      </div>
+
+      <p>Put the answers together and you land somewhere on this line:</p>
+
+      <div class="spectrum">
+        <div class="spectrum__track" aria-hidden="true"></div>
+        <div class="spectrum__ends" aria-hidden="true"><span>Knows nothing</span><span>Knows a lot</span></div>
+        <div class="zones">
+          <div class="zone zone--low">
+            <p class="zone__k">Knows nothing</p>
+            <p class="zone__t">Wrong population</p>
+            <div class="zone__vis" aria-hidden="true">
+              <div class="stack"><span class="sticky">A&ndash;K</span><div class="mini"></div><div class="mini"></div><div class="mini"></div></div>
+              <div class="stack"><span class="sticky">L&ndash;Z</span><div class="mini"></div><div class="mini"></div><div class="mini"></div></div>
+            </div>
+            <ul>
+              <li>&ldquo;CS 252&rdquo; for fifth graders</li>
+              <li>&ldquo;Tiefling&rdquo; for someone who has never played D&amp;D</li>
+            </ul>
+          </div>
+          <div class="zone">
+            <p class="zone__k">Knows a little</p>
+            <p class="zone__t">The name, plus one short sentence</p>
+            <div class="zone__vis">
+              <div class="mini mini--wide"><b>Proprioceptive input</b>Play that involves pushing, pulling, or carrying something heavy.</div>
+            </div>
+            <ul>
+              <li>Learning activities, for parents new to all of this</li>
+            </ul>
+          </div>
+          <div class="zone">
+            <p class="zone__k">Knows a lot</p>
+            <p class="zone__t">The name only</p>
+            <div class="zone__vis">
+              <div class="mini"><b>Tiefling</b></div>
+              <div class="mini"><b>CS 252</b></div>
+            </div>
+            <ul>
+              <li>D&amp;D races, for experienced players</li>
+              <li>Course numbers, for BYU CS students</li>
+              <li>Provo restaurants, for people who live in Provo</li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -327,21 +582,21 @@
         the album-year problem again.
       </p>
 
-      <div class="backing">
-        <p class="micro-label u-flush-bottom">Backing from the literature</p>
+      <div class="others">
+        <p class="micro-label u-flush-bottom">What others have found</p>
         <ul>
           <li><strong>What people know changes what they sort on.</strong> In
-            a classic study, Chi, Feltovich, and Glaser had physics novices
-            and experts sort problems. Novices grouped them by what was on the
-            surface, such as the objects in each problem. Experts grouped them
-            by the physics principle that solves them.</li>
+            <a class="cite" href="#cite-chi">Chi and colleagues&rsquo;
+            physics-sorting study</a>, novices grouped physics problems by
+            what was on the surface, such as the objects in each problem.
+            Experts grouped them by the principle that solves them.</li>
           <li><strong>The method assumes participants know the
-            content.</strong> In Spencer and Warfel&rsquo;s table of when
-            to use card sorting, &ldquo;participants understand most of the
-            content&rdquo; is the easy case and &ldquo;complex or specialist
-            content&rdquo; is the challenging one. They also say the most
-            important thing about participants is that they are
-            representative of your user group.</li>
+            content.</strong> In <a class="cite" href="#cite-spencer">Spencer
+            and Warfel&rsquo;s guide</a>, &ldquo;participants understand most
+            of the content&rdquo; is the easy case for card sorting and
+            &ldquo;complex or specialist content&rdquo; is the challenging one.
+            They also say the most important thing about participants is that
+            they are representative of your user group.</li>
         </ul>
       </div>
     </section>
@@ -357,47 +612,50 @@
         with it, and you&rsquo;ve picked a population that knows what to do
         with a name.
       </p>
+      <p>Three ways to write the sentence for parents who are new to this:</p>
+
+      <div class="versions">
+        <figure>
+          <div class="mini"><b>Proprioceptive input</b>Sensory activity &middot; 10 min setup &middot; ages 5&ndash;8 &middot; one-on-one</div>
+          <figcaption><span class="verdict verdict--no">No</span> Specs. Expect piles by
+            setup time or age, and you won&rsquo;t know if that&rsquo;s how
+            parents think.</figcaption>
+        </figure>
+        <figure>
+          <div class="mini"><b>Proprioceptive input</b>Found under: Sensory regulation</div>
+          <figcaption><span class="verdict verdict--no">No</span> Where it lives now. That&rsquo;s
+            round 2 of <a class="cite" href="#cite-optimal">Optimal
+            Workshop&rsquo;s test</a>: it pulls the card toward the old
+            structure.</figcaption>
+        </figure>
+        <figure>
+          <div class="mini"><b>Proprioceptive input</b>Play that involves pushing, pulling, or carrying something heavy.</div>
+          <figcaption><span class="verdict verdict--yes">Yes</span> What it is. Enough to
+            picture it, with nothing extra to sort on.</figcaption>
+        </figure>
+      </div>
+
       <p>When you do write one:</p>
       <ul class="checklist">
         <li><strong>Say what the thing is.</strong> Don&rsquo;t say where it
-          lives now (naming the current site section is what steered cards in
-          the Optimal Workshop study), and don&rsquo;t list its specs (price,
-          year, setup time, age range).</li>
-        <li><strong>Use your population&rsquo;s words.</strong> Use the words
-          they would use, not the words from the source you got the items
-          from.</li>
-        <li><strong>Don&rsquo;t repeat words across cards.</strong> Cards
-          that share a word get piled together because of the word.</li>
+          lives now, and don&rsquo;t list its specs (price, year, setup time,
+          age range).</li>
+        <li><strong>Use your population&rsquo;s words,</strong> not the words
+          from the source you got the items from.</li>
+        <li><strong>Don&rsquo;t repeat words across cards.</strong> Cards that
+          share a word get piled together because of the word.</li>
         <li><strong>A quick test:</strong> would someone in your population
           say this sentence when telling a friend what the thing is? If not,
           it&rsquo;s a data field, not a description.</li>
       </ul>
-      <p>
-        Here&rsquo;s the same logic across the examples above. The answer
-        depends on the name and on who&rsquo;s holding the card.
-      </p>
-      <div class="table-scroll">
-        <table class="study-table fit-table">
-          <thead>
-            <tr><th scope="col">Name on the card</th><th scope="col">Population</th><th scope="col">What to add</th><th scope="col">Why</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>CS 252</td><td>BYU computer science students</td><td class="no">Nothing</td><td>Every one of them knows what it is.</td></tr>
-            <tr><td>CS 252</td><td>Fifth graders</td><td class="no">No sentence will fix this</td><td>They have nothing to sort on. Change the population, or the topic.</td></tr>
-            <tr><td>Tiefling</td><td>Intermediate and advanced D&amp;D players</td><td class="no">Nothing</td><td>They share an understanding of what a Tiefling is.</td></tr>
-            <tr><td>Proprioceptive input</td><td>Special-education teachers</td><td class="no">Nothing</td><td>It&rsquo;s their own vocabulary.</td></tr>
-            <tr><td>Proprioceptive input</td><td>Parents new to this</td><td class="add">&ldquo;Play that involves pushing, pulling, or carrying something heavy.&rdquo;</td><td>Enough to picture it. No age range, setup time, or goal to sort on.</td></tr>
-            <tr><td>Rumours, Fleetwood Mac</td><td>People who collect albums</td><td class="no">Nothing, and never the year</td><td>They&rsquo;d sort on the field you printed, and visitors to your site won&rsquo;t know it.</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="backing">
-        <p class="micro-label u-flush-bottom">Backing from the literature</p>
-        <p class="u-tight">Optimal Workshop&rsquo;s advice from its study is
-          to use descriptions only when &ldquo;it&rsquo;s not possible or
-          practical&rdquo; to translate complex or technical labels into
-          plain language, and to write them without repeated words or hints
-          about an existing structure.</p>
+      <div class="others">
+        <p class="micro-label u-flush-bottom">What others advise</p>
+        <p class="u-tight"><a class="cite" href="#cite-optimal">Optimal
+          Workshop&rsquo;s test</a> ends with the same advice: use
+          descriptions only when &ldquo;it&rsquo;s not possible or
+          practical&rdquo; to translate complex or technical labels into plain
+          language, and write them without repeated words or hints about an
+          existing structure.</p>
       </div>
     </section>
 
@@ -412,14 +670,26 @@
         252,&rdquo; everybody knew what it meant, and nobody had to explain
         anything on the card.
       </p>
+
+      <div class="audiences">
+        <div class="icard"><p class="icard__name">CS 252</p><div class="icard__body"></div></div>
+        <div class="aud">
+          <div class="bubble">&ldquo;Oh, I took that.&rdquo;</div>
+          <p class="who">A BYU CS student: knows exactly where it goes.</p>
+        </div>
+        <div class="aud">
+          <div class="bubble">&ldquo;What&rsquo;s a CS?&rdquo;</div>
+          <p class="who">A fifth grader: nothing to sort on.</p>
+        </div>
+      </div>
+
       <p>
         Now you pick your own topic and your own population, so that
         assumption has to be made explicit: <strong>the people in your study
-        should know what you mean by the name on the card.</strong> Try the
-        opposite case. Run a card sort of BYU CS course names with fifth
-        graders at an elementary school, and it doesn&rsquo;t make sense. You
-        can&rsquo;t put &ldquo;CS 252&rdquo; on a card and expect them to
-        have any idea what you mean.
+        should know what you mean by the name on the card.</strong> Run a card
+        sort of BYU CS course names with fifth graders at an elementary school
+        and it doesn&rsquo;t make sense. You can&rsquo;t put &ldquo;CS
+        252&rdquo; on a card and expect them to have any idea what you mean.
       </p>
       <p>
         So the goal is to pick a topic and a population <em>together</em>,
@@ -445,35 +715,60 @@
         For most participants that was enough. They teach, and the skills
         describe things teachers do.
       </p>
+
+      <h3>One participant couldn&rsquo;t read some of the cards</h3>
       <p>
-        <strong>One participant couldn&rsquo;t read some of the
-        cards.</strong> Cami, eight months into her first teaching calling,
-        put 7 of the 24 cards in a pile she labeled &ldquo;I don&rsquo;t know
-        what this means.&rdquo; She asked, &ldquo;Is <em>search question</em>
-        a church word or a real word?&rdquo;
-        <span class="fiction-badge">FICTITIOUS DATA</span>
+        Cami, eight months into her first teaching calling, put 7 of the 24
+        cards in a pile of their own. She asked, &ldquo;Is <em>search
+        question</em> a church word or a real word?&rdquo;
         <span class="fiction-badge">INVENTED QUOTE</span>
+      </p>
+      <div class="cami" aria-label="Cami's pile of seven cards">
+        <div class="cami__head">
+          <span class="sticky">I don&rsquo;t know what this means</span>
+          <span class="fiction-badge">FICTITIOUS DATA</span>
+        </div>
+        <div class="cami__cards">
+          <div class="mini"><b>C03</b>Ask questions that help students learn about Jesus Christ through symbols in the scriptures.</div>
+          <div class="mini"><b>C07</b>Seek to clarify and understand the real intent of students&rsquo; questions, feelings, and beliefs.</div>
+          <div class="mini"><b>C14</b>Before responding to a student&rsquo;s question or comment, pause and think, &ldquo;What can I ask them?&rdquo; or &ldquo;What can I invite them to do?&rdquo;</div>
+          <div class="mini"><b>C16</b>Create open-ended search questions that help learners discover gospel doctrine and principles for themselves and do not lead students to a specific response.</div>
+          <div class="mini"><b>C18</b>Consider assessment questions to carefully choose media, personal stories, and object lessons.</div>
+          <div class="mini"><b>C19</b>Respond to questions in a way that avoids speculation and nondoctrinal personal ideas.</div>
+          <div class="mini"><b>C24</b>Plan to follow up on invitations given in a previous class and invite learners to share their experiences living what they learned.</div>
+        </div>
+      </div>
+      <p>
         She&rsquo;s squarely inside the population, though. She&rsquo;s
         exactly who the site is for, so her pile wasn&rsquo;t a recruiting
-        mistake. It was a finding about the manual&rsquo;s vocabulary, and
-        the study acted on it. The redesign labels its categories and groups
-        with words participants actually said, and puts the official skill
-        names one level down. A rough way to tell the two situations apart:
-        when one person in your population can&rsquo;t read a few cards,
-        that tells you something about your labels. When most of your
-        population can&rsquo;t read most of the cards, that tells you
-        something about your population.
+        mistake. It was a finding about the manual&rsquo;s vocabulary, and the
+        study acted on it. The redesign labels its categories and groups with
+        words participants actually said, and puts the official skill names
+        one level down. A rough way to tell the two situations apart: when
+        one person in your population can&rsquo;t read a few cards, that
+        tells you something about your labels. When most of your population
+        can&rsquo;t read most of the cards, that tells you something about
+        your population.
       </p>
+
+      <h3>The weaker example report handed participants its own categories</h3>
+      <div class="echo2">
+        <div>
+          <p class="echo2__k">Shown to participants before they sorted</p>
+          <div class="chips"><span class="hit">Questions</span><span class="hit">Preparing</span></div>
+        </div>
+        <div class="echo2__arrow" aria-hidden="true">&rarr;</div>
+        <div>
+          <p class="echo2__k">The team&rsquo;s seven categories afterward <span class="fiction-badge">FICTITIOUS DATA</span></p>
+          <div class="chips"><span>Teaching Fundamentals</span><span>Spiritual Teaching</span><span>Engagement</span><span class="hit">Questions</span><span class="hit">Preparation</span><span>Love</span><span>Misc</span></div>
+        </div>
+      </div>
       <p>
-        <strong>The weaker example report handed participants its own
-        categories.</strong> Report B&rsquo;s team showed everyone two
-        example groups to get them started, &ldquo;Questions&rdquo; and
-        &ldquo;Preparing.&rdquo; Both came back as categories in the
-        team&rsquo;s results, and the grader called them &ldquo;an echo, not a
-        finding.&rdquo; The team also pulled the three cards the first
-        participant found confusing, which the grader counted as a finding
-        thrown off the table.
-        <span class="fiction-badge">FICTITIOUS DATA</span>
+        Report B&rsquo;s team showed everyone two example groups to get them
+        started. Both came back as categories, and the grader called them
+        &ldquo;an echo, not a finding.&rdquo; The team also pulled the three
+        cards the first participant found confusing, which the grader counted
+        as a finding thrown off the table.
         (<a href="studies/01-card-sort.html#report-b">Read Report B and the
         grader&rsquo;s notes</a>.)
       </p>
@@ -484,27 +779,43 @@
       <h2 id="your-project">What this means for your project this semester</h2>
       <p>
         You&rsquo;ve already pitched your topic and population. Treat this as
-        strong advice, not a new rule:
+        strong advice, not a new rule. Before you print the deck, run a quick
+        check:
       </p>
+
+      <div class="decide">
+        <div class="decide__q">Hand a few name-only cards to someone like your
+          participants. Can they tell you what each one is?
+          <small>Try it on someone who won&rsquo;t be in the study.</small></div>
+        <div class="decide__branches">
+          <div class="branch">
+            <p class="branch__if">Yes, all of them</p>
+            <p class="branch__then">Name only.</p>
+            <p>You&rsquo;re done. Print the deck.</p>
+          </div>
+          <div class="branch">
+            <p class="branch__if">Most, not all</p>
+            <p class="branch__then">Add one short sentence to those cards.</p>
+            <p>Keep it to what the thing is. Say in your report which cards
+              got one and what it said.</p>
+          </div>
+          <div class="branch branch--warn">
+            <p class="branch__if">Mostly no</p>
+            <p class="branch__then">That&rsquo;s a warning sign about your population.</p>
+            <p>The fix is usually the people, not the card. Don&rsquo;t copy
+              the record onto the card to compensate.</p>
+          </div>
+        </div>
+      </div>
+
       <ol class="checklist">
-        <li><strong>Put the name on every card.</strong> Use the name your
+        <li><strong>Put the name on every card,</strong> in the words your
           population would use.</li>
-        <li><strong>Add one short sentence only to the cards that need
-          it,</strong> and keep that sentence to what the thing is.</li>
-        <li><strong>If you&rsquo;d need more than that,</strong> for example
-          if you find yourself copying the record onto the card, take it as a
-          warning sign about your population. The fix is usually the people,
-          not the card.</li>
         <li><strong>You don&rsquo;t have to change your topic or population
           now.</strong> If some cards carry a sentence, your report should say
-          which cards, what each sentence said, and why. Then check your piles
-          for echoes. A group named with a word from your own sentences is
-          suspect.</li>
-        <li><strong>Before you print the deck,</strong> try a handful of
-          name-only cards on someone like your participants and ask them what
-          each one is. The ones they can&rsquo;t explain are the cards that
-          need a sentence, or they&rsquo;re a sign you need different
-          people.</li>
+          which cards, what each sentence said, and why.</li>
+        <li><strong>Check your piles for echoes.</strong> A group named with a
+          word from your own sentences is suspect.</li>
       </ol>
       <p>
         Next year the course will lean further in this direction: pick the
@@ -518,139 +829,193 @@
       <h2 id="alternatives">Alternative views</h2>
       <p class="section-note">
         Not everyone who writes about card sorting puts it as bluntly as this
-        page does. These are the main places where practitioners and
-        researchers see it differently, and how each one fits with the advice
-        above.
+        page does. These are the main places where others see it differently,
+        and how each one fits with the advice above.
       </p>
 
       <div class="alt">
-        <h3>&ldquo;Give the label enough detail to be understood.&rdquo;</h3>
-        <p>
-          Spencer and Warfel say labels should be short enough to read
-          quickly &ldquo;yet detailed enough that participants can understand
-          what the content is,&rdquo; with an optional short description or
-          image on the back of the card. Nielsen Norman Group goes further. To
-          break up keyword matching, it suggests rewriting short labels into
-          fuller descriptions, such as &ldquo;Interactive digital courses for
-          skill enhancements&rdquo; instead of &ldquo;Employee Online
-          Training.&rdquo;
-        </p>
-        <p>
-          <strong>How it fits:</strong> everyone agrees that participants
-          have to understand the item. The disagreement is about where that
-          understanding comes from. This page puts it in the population, and
-          these sources put more of it on the card. If you do add words, the
-          Optimal Workshop result is the warning label: every word you add
-          can steer the sort.
-        </p>
+        <div class="alt__vis" aria-hidden="true">
+          <div class="mini mini--x"><b>Employee Online Training</b></div>
+          <div class="mini"><b>Interactive digital courses for skill enhancements</b></div>
+        </div>
+        <div>
+          <h3>&ldquo;Give the label enough detail to be understood.&rdquo;</h3>
+          <p>
+            <a class="cite" href="#cite-spencer">Spencer and Warfel&rsquo;s
+            guide</a> says labels should be short enough to read quickly
+            &ldquo;yet detailed enough that participants can understand what
+            the content is,&rdquo; with an optional short description or image
+            on the back of the card. <a class="cite" href="#cite-nng">Nielsen
+            Norman Group&rsquo;s keyword-matching article</a> goes further. To
+            break up keyword matching, it suggests rewriting short labels into
+            fuller descriptions, like the pair shown here.
+          </p>
+          <p>
+            <strong>How it fits:</strong> everyone agrees that participants
+            have to understand the item. The disagreement is about where that
+            understanding comes from. This page puts it in the population, and
+            these sources put more of it on the card. If you do add words,
+            remember round 2 of <a class="cite" href="#cite-optimal">Optimal
+            Workshop&rsquo;s test</a>: every word you add can steer the sort.
+          </p>
+        </div>
       </div>
 
       <div class="alt">
-        <h3>&ldquo;Sort with your real users, even if they&rsquo;re
-          beginners.&rdquo;</h3>
-        <p>
-          If a site is for newcomers, a structure built from experts&rsquo;
-          sorts may fail them, because experts and novices group things
-          differently (Chi and colleagues again). On this view, a novice sort
-          is valuable because it shows how novices think, and a site for
-          novices should be built on that.
-        </p>
-        <p>
-          <strong>How it fits:</strong> that&rsquo;s a fair point, and it
-          applies when your site&rsquo;s real audience is beginners. But the
-          floor still holds. People who know nothing sort alphabetically, and
-          what they need first is teaching, not help finding things. There
-          are middle routes. One is to give beginners the categories and have
-          them place the cards (a closed sort). Robertson and colleagues found
-          that novices&rsquo; results came much closer to experts&rsquo; in a
-          closed sort than in an open one. Another is to build the structure
-          some other way and tree-test it with beginners.
-        </p>
+        <div class="alt__vis" aria-hidden="true">
+          <span class="hdr">Category A (given)</span>
+          <div class="mini"><b>Tiefling</b></div>
+          <span class="hdr">Category B (given)</span>
+          <div class="mini"><b>Goliath</b></div>
+        </div>
+        <div>
+          <h3>&ldquo;Sort with your real users, even if they&rsquo;re beginners.&rdquo;</h3>
+          <p>
+            If a site is for newcomers, a structure built from experts&rsquo;
+            sorts may fail them, because experts and novices group things
+            differently (<a class="cite" href="#cite-chi">Chi and
+            colleagues&rsquo; physics-sorting study</a> again). On this view,
+            a novice sort is valuable because it shows how novices think, and
+            a site for novices should be built on that.
+          </p>
+          <p>
+            <strong>How it fits:</strong> that&rsquo;s a fair point, and it
+            applies when your site&rsquo;s real audience is beginners. But the
+            floor still holds. People who know nothing sort alphabetically, and
+            what they need first is teaching, not help finding things. There
+            are middle routes. One is to give beginners the categories and have
+            them place the cards (a closed sort, sketched here).
+            <a class="cite" href="#cite-robertson">Robertson and
+            colleagues&rsquo; novice study</a> found that novices&rsquo;
+            results came much closer to experts&rsquo; in a closed sort than
+            in an open one. Another is to build the structure some other way
+            and tree-test it with beginners.
+          </p>
+        </div>
       </div>
 
       <div class="alt">
-        <h3>&ldquo;Put tasks on the cards, not things.&rdquo;</h3>
-        <p>
-          William Hudson recommends starting from user goals rather than page
-          names. For example, a card might say &ldquo;Find holiday
-          entitlement&rdquo; instead of &ldquo;Staff Policies,&rdquo; because a
-          tidy set of pages can still fail people who are trying to get
-          something done. Katsanos and colleagues propose a task-based version
-          of open card sorting along the same lines.
-        </p>
-        <p>
-          <strong>How it fits:</strong> this is a different answer to
-          &ldquo;what is the information item?&rdquo; rather than a different
-          answer to &ldquo;what goes on the card?&rdquo; If your users arrive
-          with tasks, a task card can still be just a name: the task, in their
-          words.
-        </p>
+        <div class="alt__vis" aria-hidden="true">
+          <div class="mini mini--x"><b>Staff Policies</b></div>
+          <div class="mini"><b>Find holiday entitlement</b></div>
+        </div>
+        <div>
+          <h3>&ldquo;Put tasks on the cards, not things.&rdquo;</h3>
+          <p>
+            <a class="cite" href="#cite-hudson">Hudson&rsquo;s encyclopedia
+            chapter</a> recommends starting from user goals rather than page
+            names, as in the pair shown here, because a tidy set of pages can
+            still fail people who are trying to get something done.
+            <a class="cite" href="#cite-katsanos">Katsanos and colleagues&rsquo;
+            task-based card sort</a> proposes a version of open card sorting
+            built on tasks.
+          </p>
+          <p>
+            <strong>How it fits:</strong> this is a different answer to
+            &ldquo;what is the information item?&rdquo; rather than a different
+            answer to &ldquo;what goes on the card?&rdquo; If your users arrive
+            with tasks, a task card can still be just a name: the task, in
+            their words.
+          </p>
+        </div>
       </div>
 
       <div class="alt">
-        <h3>&ldquo;Use pictures, or the things themselves.&rdquo;</h3>
-        <p>
-          Hudson suggests that in unfamiliar domains, or where language is
-          the barrier, participants can sort photographs or even the objects
-          themselves. Rugg and McGeorge describe picture sorts and item sorts
-          alongside card sorts.
-        </p>
-        <p>
-          <strong>How it fits:</strong> this is useful when words are the
-          problem, for example physical sensory tools that parents would
-          recognize on sight but not by name. But a picture carries a lot of
-          information. Color, size, and brand are all things people can sort
-          on, so the &ldquo;as little as possible&rdquo; rule applies to the
-          picture too.
-        </p>
+        <div class="alt__vis" aria-hidden="true">
+          <div class="mini">
+            <svg viewBox="0 0 120 70" width="100%" role="presentation">
+              <ellipse cx="60" cy="42" rx="46" ry="18" fill="#d6e4ef" stroke="#33414e" stroke-width="2"/>
+              <ellipse cx="60" cy="36" rx="46" ry="18" fill="#fff" stroke="#33414e" stroke-width="2"/>
+              <g fill="#0b6aa9"><circle cx="42" cy="32" r="3"/><circle cx="60" cy="28" r="3"/><circle cx="78" cy="32" r="3"/>
+              <circle cx="48" cy="41" r="3"/><circle cx="66" cy="41" r="3"/><circle cx="84" cy="39" r="2.5"/><circle cx="36" cy="39" r="2.5"/></g>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <h3>&ldquo;Use pictures, or the things themselves.&rdquo;</h3>
+          <p>
+            <a class="cite" href="#cite-hudson">Hudson&rsquo;s chapter</a>
+            suggests that in unfamiliar domains, or where language is the
+            barrier, participants can sort photographs or even the objects
+            themselves. <a class="cite" href="#cite-rugg">Rugg and
+            McGeorge&rsquo;s tutorial on sorting</a> describes picture sorts
+            and item sorts alongside card sorts.
+          </p>
+          <p>
+            <strong>How it fits:</strong> this is useful when words are the
+            problem, for example sensory tools like the wobble cushion sketched
+            here, which parents would recognize on sight but not by name. But a
+            picture carries a lot of information. Color, size, and brand are
+            all things people can sort on, so the &ldquo;as little as
+            possible&rdquo; rule applies to the picture too.
+          </p>
+        </div>
       </div>
 
       <div class="alt">
-        <h3>&ldquo;Put the attributes on the cards, on purpose.&rdquo;</h3>
-        <p>
-          If what you want to know is <em>which attributes matter</em> rather
-          than how people group the items, the attributes are the point. In a
-          repeated single-criterion sort (Rugg and McGeorge), participants sort
-          the same deck several times, each time by one criterion they choose
-          and name. Or you can put the attributes themselves on cards (price,
-          distance, setup time) and have people rank them. That ranking tells
-          you which filters to build.
-        </p>
-        <p>
-          <strong>How it fits:</strong> this is this page&rsquo;s first
-          principle. Start with the question: a different question calls for
-          different cards. Just don&rsquo;t run it as your open card sort.
-        </p>
+        <div class="alt__vis" aria-hidden="true">
+          <div class="rank"><i>1</i><div class="mini"><b>Price</b></div></div>
+          <div class="rank"><i>2</i><div class="mini"><b>Distance</b></div></div>
+          <div class="rank"><i>3</i><div class="mini"><b>Open now</b></div></div>
+        </div>
+        <div>
+          <h3>&ldquo;Put the attributes on the cards, on purpose.&rdquo;</h3>
+          <p>
+            If what you want to know is <em>which attributes matter</em> rather
+            than how people group the items, the attributes are the point. In a
+            repeated single-criterion sort (<a class="cite" href="#cite-rugg">Rugg
+            and McGeorge&rsquo;s tutorial</a>), participants sort the same deck
+            several times, each time by one criterion they choose and name. Or
+            you can put the attributes themselves on cards and have people rank
+            them, as sketched here. That ranking tells you which filters to
+            build.
+          </p>
+          <p>
+            <strong>How it fits:</strong> this is this page&rsquo;s first
+            principle. Start with the question: a different question calls for
+            different cards. Just don&rsquo;t run it as your open card sort.
+          </p>
+        </div>
       </div>
     </section>
 
     <!-- ================================================================ -->
-    <section aria-labelledby="sources" class="refs">
-      <h2 id="sources">Sources</h2>
-      <p><a href="https://boxesandarrows.com/card-sorting-a-definitive-guide/">Card Sorting: A Definitive Guide</a>
-        <span class="src">Donna Spencer and Todd Warfel, Boxes and Arrows, 2004.</span>
-        The best single article on the method: what goes on cards, who to recruit, and the surface-characteristics weakness.</p>
-      <p><a href="https://www.optimalworkshop.com/blog/card-descriptions-testing-effect-contextual-information-card-sorts">Card Descriptions: Testing the Effect of Contextual Information in Card Sorts</a>
-        <span class="src">Optimal Workshop, 2016.</span>
-        The four-round experiment on what added card information does to a sort.</p>
-      <p><a href="https://www.nngroup.com/articles/card-sorting-terminology-matches/">Card Sorting: Pushing Users Beyond Terminology Matches</a>
-        <span class="src">Samhita Tankala, Nielsen Norman Group, 2024.</span>
-        Keyword matching, and three ways to write labels that resist it.</p>
-      <p><a href="https://ixdf.org/literature/book/the-encyclopedia-of-human-computer-interaction-2nd-ed/card-sorting">Card Sorting</a>
-        <span class="src">William Hudson, <em>The Encyclopedia of Human-Computer Interaction</em>, 2nd ed., Interaction Design Foundation.</span>
-        Goal-based cards, plain vocabulary, and sorting pictures or objects when words are the barrier.</p>
-      <p><a href="https://doi.org/10.1207/s15516709cog0502_2">Categorization and Representation of Physics Problems by Experts and Novices</a>
-        <span class="src">Michelene Chi, Paul Feltovich, and Robert Glaser, <em>Cognitive Science</em> 5(2), 1981.</span>
-        The classic demonstration that novices sort by surface features and experts by deep principles.</p>
-      <p><a href="https://doi.org/10.1177/1071181320641297">Novices Perform Like Experts on a Closed Card Sort but Not an Open Card Sort</a>
-        <span class="src">Ian Robertson, Philip Kortum, Frederick Oswald, and Claudia Ziegler Acemyan, <em>Proceedings of the HFES Annual Meeting</em> 64, 2020.</span>
-        Given the categories, novices matched experts much more closely.</p>
-      <p><a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1468-0394.2005.00300.x">The Sorting Techniques: A Tutorial Paper on Card Sorts, Picture Sorts and Item Sorts</a>
-        <span class="src">Gordon Rugg and Peter McGeorge, <em>Expert Systems</em> 22(3), 2005.</span>
-        The reference for repeated single-criterion sorts and for sorting pictures and objects.</p>
-      <p><a href="https://doi.org/10.1007/978-3-031-35132-7_5">Task-Based Open Card Sorting: Towards a New Method to Produce Usable Information Architectures</a>
-        <span class="src">Christos Katsanos and colleagues, HCII 2023.</span>
-        A proposal to tie open card sorting to user tasks.</p>
+    <section aria-labelledby="works-cited">
+      <h2 id="works-cited">Works cited</h2>
+      <ol class="cited">
+        <li id="cite-spencer">Donna Spencer and Todd Warfel.
+          <a href="https://boxesandarrows.com/card-sorting-a-definitive-guide/">Card Sorting: A Definitive Guide</a>.
+          <span class="src">Boxes and Arrows, 2004.</span>
+          <span class="note">Cited as &ldquo;Spencer and Warfel&rsquo;s guide.&rdquo; What goes on cards, who to recruit, and the surface-characteristics weakness.</span></li>
+        <li id="cite-optimal">Optimal Workshop.
+          <a href="https://www.optimalworkshop.com/blog/card-descriptions-testing-effect-contextual-information-card-sorts">Card Descriptions: Testing the Effect of Contextual Information in Card Sorts</a>.
+          <span class="src">Optimal Workshop blog, 2016.</span>
+          <span class="note">Cited as &ldquo;Optimal Workshop&rsquo;s card-description test.&rdquo; The four-round experiment on what added card information does to a sort.</span></li>
+        <li id="cite-nng">Samhita Tankala.
+          <a href="https://www.nngroup.com/articles/card-sorting-terminology-matches/">Card Sorting: Pushing Users Beyond Terminology Matches</a>.
+          <span class="src">Nielsen Norman Group, 2024.</span>
+          <span class="note">Cited as &ldquo;Nielsen Norman Group&rsquo;s article on keyword matching.&rdquo; Why shared words get piled together, and three ways to write labels that resist it.</span></li>
+        <li id="cite-hudson">William Hudson.
+          <a href="https://ixdf.org/literature/book/the-encyclopedia-of-human-computer-interaction-2nd-ed/card-sorting">Card Sorting</a>.
+          <span class="src"><em>The Encyclopedia of Human-Computer Interaction</em>, 2nd ed., Interaction Design Foundation.</span>
+          <span class="note">Cited as &ldquo;Hudson&rsquo;s encyclopedia chapter.&rdquo; Goal-based cards, plain vocabulary, and sorting pictures or objects when words are the barrier.</span></li>
+        <li id="cite-chi">Michelene Chi, Paul Feltovich, and Robert Glaser.
+          <a href="https://doi.org/10.1207/s15516709cog0502_2">Categorization and Representation of Physics Problems by Experts and Novices</a>.
+          <span class="src"><em>Cognitive Science</em> 5(2), 1981.</span>
+          <span class="note">Cited as &ldquo;Chi and colleagues&rsquo; physics-sorting study.&rdquo; Novices sort by surface features, experts by deep principles.</span></li>
+        <li id="cite-robertson">Ian Robertson, Philip Kortum, Frederick Oswald, and Claudia Ziegler Acemyan.
+          <a href="https://doi.org/10.1177/1071181320641297">Novices Perform Like Experts on a Closed Card Sort but Not an Open Card Sort</a>.
+          <span class="src"><em>Proceedings of the HFES Annual Meeting</em> 64, 2020.</span>
+          <span class="note">Cited as &ldquo;Robertson and colleagues&rsquo; novice study.&rdquo; Given the categories, novices matched experts much more closely.</span></li>
+        <li id="cite-rugg">Gordon Rugg and Peter McGeorge.
+          <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1468-0394.2005.00300.x">The Sorting Techniques: A Tutorial Paper on Card Sorts, Picture Sorts and Item Sorts</a>.
+          <span class="src"><em>Expert Systems</em> 22(3), 2005.</span>
+          <span class="note">Cited as &ldquo;Rugg and McGeorge&rsquo;s tutorial on sorting.&rdquo; Repeated single-criterion sorts, and sorting pictures and objects.</span></li>
+        <li id="cite-katsanos">Christos Katsanos and colleagues.
+          <a href="https://doi.org/10.1007/978-3-031-35132-7_5">Task-Based Open Card Sorting: Towards a New Method to Produce Usable Information Architectures</a>.
+          <span class="src">HCI International 2023.</span>
+          <span class="note">Cited as &ldquo;Katsanos and colleagues&rsquo; task-based card sort.&rdquo; A proposal to tie open card sorting to user tasks.</span></li>
+      </ol>
     </section>
 
     <footer class="site-foot">
