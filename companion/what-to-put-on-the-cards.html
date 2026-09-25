@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What to put on the cards? — CS 356 Companion</title>
+  <meta name="description" content="What goes on a card in an open card sort: the name of the information item, and usually nothing else. Why, when to add one short sentence, how your population decides it, and where practitioners disagree.">
+  <link rel="stylesheet" href="assets/companion.css">
+  <style>
+    /* Jump list under the header. */
+    .jump { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 16px;
+            margin: 18px 0 0; padding: 12px 0 0; border-top: 1px solid var(--rule);
+            font-size: .92rem; }
+
+    /* Index-card specimens. Blue ruling, not red: red is reserved for the
+       fiction contract and the grader (ARCHITECTURE §7). */
+    .icard { background: #fff; border: 1px solid var(--rule-strong); border-radius: 4px;
+             box-shadow: 0 1px 2px rgba(45,59,69,.07), 0 8px 20px rgba(45,59,69,.08);
+             padding: 0 18px 12px; min-width: 0; }
+    .icard__name { font-size: 1.2rem; font-weight: 700; line-height: 1.25;
+                   padding: 14px 0 8px; border-bottom: 2px solid var(--link); margin: 0; }
+    .icard__body { --lh: 1.85rem; line-height: var(--lh); min-height: calc(var(--lh) * 4);
+                   background-image: repeating-linear-gradient(to bottom, transparent 0,
+                     transparent calc(var(--lh) - 1px), #d6e4ef calc(var(--lh) - 1px), #d6e4ef var(--lh)); }
+    .icard__body p { margin: 0; }
+    .specimens { display: grid; grid-template-columns: 1fr; gap: 26px; margin: 22px 0 8px; }
+    @media (min-width: 640px) { .specimens { grid-template-columns: 1fr 1fr; } }
+    .specimens figure { margin: 0; min-width: 0; }
+    .specimens figcaption { margin-top: 12px; font-size: .95rem; color: var(--ink-soft); }
+    .tilt-l { transform: rotate(-1deg); } .tilt-r { transform: rotate(.8deg); }
+
+    .rulecard { max-width: 34rem; margin: 26px auto 10px; }
+    .rulecard .icard__name { font-size: 1.05rem; }
+    .rulecard .icard__body { min-height: 0; font-size: 1.05rem; }
+
+    /* The instructor's own words, lightly edited from class notes. */
+    .pull { margin: 22px 0; padding: 4px 0 4px 18px; border-left: 4px solid var(--slate);
+            font-size: 1.12rem; color: var(--ink); max-width: 64ch; }
+    .pull p { margin: 0 0 6px; }
+    .pull cite { display: block; font-style: normal; font-size: .82rem; color: var(--muted); }
+
+    .question { margin: 18px 0; padding: 16px 20px; border: 1px solid var(--rule-strong);
+                border-radius: var(--radius-lg); background: var(--panel-sunk);
+                font-size: 1.15rem; font-weight: 600; max-width: 64ch; }
+
+    /* What the literature says, set apart from the notes. */
+    .backing { background: var(--panel-sunk); border: 1px solid var(--rule); border-left: 4px solid var(--link);
+               border-radius: var(--radius); padding: 14px 18px; margin: 20px 0; }
+    .backing > :last-child { margin-bottom: 0; }
+    .backing ul { margin: 6px 0 0; padding-left: 20px; }
+    .backing li { margin: 0 0 8px; }
+
+    .twoq { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 18px 0; counter-reset: q; }
+    @media (min-width: 640px) { .twoq { grid-template-columns: 1fr 1fr; } }
+    .twoq > div { border: 1px solid var(--rule-strong); border-radius: var(--radius-lg);
+                  padding: 16px 18px 14px 58px; position: relative; min-width: 0; }
+    .twoq > div::before { counter-increment: q; content: counter(q); position: absolute; left: 16px; top: 15px;
+                          width: 30px; height: 30px; border-radius: 50%; background: var(--slate); color: #fff;
+                          font-weight: 700; display: grid; place-items: center; }
+    .twoq h3 { margin: 4px 0 6px; }
+    .twoq p { margin: 0; }
+
+    .fit-table td:first-child { font-weight: 700; white-space: nowrap; }
+    .fit-table .add { font-style: italic; }
+    .fit-table .no { color: var(--muted); }
+
+    .alt { border-top: 1px solid var(--rule-strong); padding: 18px 0 4px; }
+    .alt:last-of-type { border-bottom: 1px solid var(--rule-strong); }
+    .alt h3 { font-size: 1.1rem; margin: 0 0 10px; }
+    .alt p { max-width: 70ch; }
+
+    .checklist { margin: 10px 0 0; padding-left: 22px; }
+    .checklist li { margin: 0 0 10px; max-width: 70ch; }
+
+    .refs p { margin: 0 0 12px; max-width: 76ch; font-size: .95rem; }
+    .refs .src { color: var(--muted); }
+  </style>
+</head>
+<body data-page="guide">
+
+  <main class="wrap">
+
+    <header class="site-head">
+      <p class="kicker">CS 356 Companion &middot; Turn-in 1, the card sort &middot; Tutorial</p>
+      <h1>What to put on the cards?</h1>
+
+      <p class="lead">
+        This question came up a lot in class. The short answer is
+        <strong>as little as possible</strong>: the name of the information
+        item, and usually nothing else. The longer answer doesn&rsquo;t start
+        with the cards. It starts with the question your study is trying to
+        answer, and it ends with who you picked to do the sorting.
+      </p>
+
+      <p class="fiction-note"><strong>What&rsquo;s real on this page.</strong>
+        The advice is the instructor&rsquo;s own, organized from class
+        notes, and every source is a real, linked publication. The albums,
+        restaurants, D&amp;D races, learning activities, and course numbers
+        are illustrations. The only invented material is from our example
+        card sort, whose participants are members of the companion&rsquo;s
+        made-up ward. It&rsquo;s stamped
+        <span class="fiction-badge">FICTITIOUS DATA</span> wherever it
+        appears. <a href="fiction.html">What&rsquo;s real and what&rsquo;s
+        not &rarr;</a></p>
+
+      <nav class="jump" aria-label="On this page">
+        <a href="#question">The question first</a>
+        <a href="#short">The short answer</a>
+        <a href="#echo">What you print, you get back</a>
+        <a href="#two-questions">Two more questions</a>
+        <a href="#sentence">One short sentence</a>
+        <a href="#history">Why this is new</a>
+        <a href="#example">Our example</a>
+        <a href="#your-project">Your project</a>
+        <a href="#alternatives">Alternative views</a>
+        <a href="#sources">Sources</a>
+      </nav>
+    </header>
+
+    <!-- ================================================================ -->
+    <section aria-labelledby="question">
+      <h2 id="question">Start with the question your study answers</h2>
+      <p>
+        In any study design, the first thing to ask is: <em>what question am
+        I trying to answer with this study?</em> Everything else flows from
+        that, including who you recruit, what you hand them, and what you
+        write down. For the open card sort in this project, the question is:
+      </p>
+      <p class="question">How do people in my narrow population organize
+        these blocks of information, and what do they call the groups?</p>
+      <p>
+        That doesn&rsquo;t yet tell you what goes on a card, but it tells
+        you what the cards are for. It also has a purpose behind it.
+        <strong>You give people cards so you can see how they organize them,
+        and you want to see that so you can build a website for them.</strong>
+        That one sentence ties together your population, what&rsquo;s on
+        the cards, how you build the website, and who the website is for.
+      </p>
+      <p>
+        Keep in mind what kind of project this is: a user-driven information
+        architecture for a narrow population that you picked. The cards
+        exist to show you how <em>that population</em> organizes things.
+        They aren&rsquo;t there to show your own organization, the
+        source&rsquo;s, or whatever the cards happen to say.
+      </p>
+    </section>
+
+    <!-- ================================================================ -->
+    <section aria-labelledby="short">
+      <h2 id="short">The short answer: the name, and that&rsquo;s about it</h2>
+      <p>
+        The card has to carry the name of the information item. After that,
+        you want as little as possible, because you&rsquo;re trying to see
+        how people organize the items themselves.
+      </p>
+      <blockquote class="pull">
+        <p>&ldquo;If you give them much else, they&rsquo;re going to organize
+        things based on whatever else is on the card.&rdquo;</p>
+        <cite>From class, lightly edited</cite>
+      </blockquote>
+
+      <div class="specimens" aria-label="Two cards for the same album">
+        <figure>
+          <div class="icard tilt-l">
+            <p class="icard__name">Rumours</p>
+            <div class="icard__body">
+              <p>Artist: Fleetwood Mac</p>
+              <p>Released: 1977</p>
+              <p>Genre: rock</p>
+              <p>Label: Warner Bros.</p>
+            </div>
+          </div>
+          <figcaption><strong>The whole record on a card.</strong> Every
+            field is a ready-made way to sort, and some participants will
+            use it.</figcaption>
+        </figure>
+        <figure>
+          <div class="icard tilt-r">
+            <p class="icard__name">Rumours, Fleetwood Mac</p>
+            <div class="icard__body"></div>
+          </div>
+          <figcaption><strong>Just the name.</strong> Participants sort on
+            what the name brings to mind, and that&rsquo;s what you&rsquo;re
+            trying to learn.</figcaption>
+        </figure>
+      </div>
+
+      <div class="rulecard">
+        <div class="icard">
+          <p class="icard__name">The rule</p>
+          <div class="icard__body">
+            <p>Put the name of the information item on the card.</p>
+            <p>If you have to, add one very short sentence saying what it is.</p>
+            <p>Nothing else.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <section aria-labelledby="echo">
+      <h2 id="echo">Whatever you put on the card, you get back</h2>
+      <p>
+        Say you&rsquo;re building a site for a record collection, and you
+        print each card with the album&rsquo;s name <em>and the year it came
+        out</em>. A lot of people will sort by year, because it&rsquo;s right
+        there on the card. So you build the site around release years. Then
+        real visitors show up, and it turns out they don&rsquo;t know what
+        year an album came out. Your participants didn&rsquo;t know either.
+        They knew only because you printed it on the card.
+      </p>
+      <p>
+        That&rsquo;s why it matters that the card holds just the label. The
+        label is what people actually know about the item, and it&rsquo;s
+        what they&rsquo;ll have in mind when they come to your site looking
+        for it.
+      </p>
+      <blockquote class="pull">
+        <p>&ldquo;Whatever that label brings to mind for the person doing the
+        card sort is exactly what you want to organize your website on. And
+        if the card doesn&rsquo;t bring anything to mind, they&rsquo;re not
+        the right person to be in the study.&rdquo;</p>
+        <cite>From class, lightly edited</cite>
+      </blockquote>
+
+      <div class="backing">
+        <p class="micro-label u-flush-bottom">Backing from the literature</p>
+        <ul>
+          <li><strong>People get steered by details they don&rsquo;t
+            remember seeing.</strong> Optimal Workshop ran the same 30-card
+            sort four times with 30 people each: label only, label plus the
+            card&rsquo;s current site section, label plus a short
+            description, and label plus a link. Only about 40% of
+            participants said they noticed the descriptions at all. Even so,
+            in the round where the description named the site section,
+            ambiguous cards like &ldquo;High quality&rdquo; and &ldquo;Life
+            experiences&rdquo; were grouped with the rest of that section
+            more often.</li>
+          <li><strong>Sorting on the surface is a known weakness of the
+            method.</strong> Spencer and Warfel warn that participants
+            &ldquo;may just sort it by surface characteristics such as
+            document types.&rdquo; Every field you print on a card gives
+            them another surface to sort on.</li>
+          <li><strong>Shared words get piled together.</strong> Nielsen
+            Norman Group finds that participants often group cards that share
+            a keyword instead of thinking about what each card means, because
+            matching words takes less effort.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <section aria-labelledby="two-questions">
+      <h2 id="two-questions">When the name isn&rsquo;t enough: two more questions</h2>
+      <p>
+        So the name, and that&rsquo;s it, unless you have to do more. To know
+        whether you have to do more, answer two more questions.
+      </p>
+      <div class="twoq">
+        <div>
+          <h3>Who&rsquo;s in your narrow population?</h3>
+          <p>We scoped this study to a narrow population on purpose, because
+            that simplifies a lot. Later in your career, and later in this
+            course, you&rsquo;ll design for diverse populations with many
+            kinds of people in them. Not yet.</p>
+        </div>
+        <div>
+          <h3>What do they know about the things you&rsquo;re sorting?</h3>
+          <p>A lot? Nothing? Somewhere in between? Once you know your
+            population and what they know about these items, you can decide
+            what goes on the card.</p>
+        </div>
+      </div>
+
+      <h3>The floor is alphabetical order</h3>
+      <p>
+        Hand someone a stack of cards they know truly nothing about and you
+        won&rsquo;t get anything interesting. You&rsquo;ll get the cards in
+        alphabetical order, or A through K in one pile and L through Z in
+        another. A card sort needs <strong>a population that knows
+        something</strong> and <strong>cards that tell that population
+        something</strong>.
+      </p>
+
+      <h3>Same activities, two populations</h3>
+      <p>
+        Take learning activities for neurodivergent learners. If your
+        population is teachers, you can assume a fair amount about what they
+        know about each activity. If it&rsquo;s parents who are new to all of
+        this, you can&rsquo;t. Whoever the population is, though, you&rsquo;re
+        answering the same question: <em>how does this population organize
+        these things?</em> Participants have to understand each item well
+        enough to organize it. They don&rsquo;t have to understand it like an
+        expert.
+      </p>
+      <p>
+        So if you sort with parents, don&rsquo;t turn each card into a lesson
+        on a teaching method so that parents can sort the way an experienced
+        teacher would. A study with parents answers how <em>parents</em>
+        organize these things. They need to understand each one just well
+        enough to sort by something other than the alphabet.
+      </p>
+
+      <h3>Dungeons &amp; Dragons races</h3>
+      <p>
+        For intermediate or advanced players, just put the race&rsquo;s name
+        on the card. They know what you&rsquo;re talking about, and you want
+        to see how they organize the races so you can build a site for them.
+        For someone who has never played, a card that says
+        &ldquo;Tiefling&rdquo; communicates nothing, and they won&rsquo;t know
+        how to sort it. It&rsquo;s not even clear why you&rsquo;d build a site
+        to help them <em>find</em> a race. The first thing they need is to
+        learn what the races are and what they mean.
+      </p>
+
+      <h3>Restaurants</h3>
+      <p>
+        We have two restaurant projects, and restaurants complicate this a
+        little. Can your population look at a restaurant&rsquo;s name and
+        know something about it? For people who live in Provo and the
+        restaurants in Provo, that&rsquo;s a reasonable assumption. For
+        restaurants in Finland, none of us would be much use. So pick the
+        people who know the restaurants, give them the names, and let them
+        bring what they know. If you put price, cuisine, and hours on every
+        card, you change how they organize. That change may not show up in
+        how they actually look for a restaurant on your site later. It&rsquo;s
+        the album-year problem again.
+      </p>
+
+      <div class="backing">
+        <p class="micro-label u-flush-bottom">Backing from the literature</p>
+        <ul>
+          <li><strong>What people know changes what they sort on.</strong> In
+            a classic study, Chi, Feltovich, and Glaser had physics novices
+            and experts sort problems. Novices grouped them by what was on the
+            surface, such as the objects in each problem. Experts grouped them
+            by the physics principle that solves them.</li>
+          <li><strong>The method assumes participants know the
+            content.</strong> In Spencer and Warfel&rsquo;s table of when
+            to use card sorting, &ldquo;participants understand most of the
+            content&rdquo; is the easy case and &ldquo;complex or specialist
+            content&rdquo; is the challenging one. They also say the most
+            important thing about participants is that they are
+            representative of your user group.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <section aria-labelledby="sentence">
+      <h2 id="sentence">If you add a sentence, keep it small</h2>
+      <p>
+        If you need to, you can add a very short sentence to a card that
+        clarifies what you mean. Put as little information in that sentence
+        as you can, so people don&rsquo;t sort on some attribute of it.
+        Ideally, you put just the name on the card and see what people do
+        with it, and you&rsquo;ve picked a population that knows what to do
+        with a name.
+      </p>
+      <p>When you do write one:</p>
+      <ul class="checklist">
+        <li><strong>Say what the thing is.</strong> Don&rsquo;t say where it
+          lives now (naming the current site section is what steered cards in
+          the Optimal Workshop study), and don&rsquo;t list its specs (price,
+          year, setup time, age range).</li>
+        <li><strong>Use your population&rsquo;s words.</strong> Use the words
+          they would use, not the words from the source you got the items
+          from.</li>
+        <li><strong>Don&rsquo;t repeat words across cards.</strong> Cards
+          that share a word get piled together because of the word.</li>
+        <li><strong>A quick test:</strong> would someone in your population
+          say this sentence when telling a friend what the thing is? If not,
+          it&rsquo;s a data field, not a description.</li>
+      </ul>
+      <p>
+        Here&rsquo;s the same logic across the examples above. The answer
+        depends on the name and on who&rsquo;s holding the card.
+      </p>
+      <div class="table-scroll">
+        <table class="study-table fit-table">
+          <thead>
+            <tr><th scope="col">Name on the card</th><th scope="col">Population</th><th scope="col">What to add</th><th scope="col">Why</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>CS 252</td><td>BYU computer science students</td><td class="no">Nothing</td><td>Every one of them knows what it is.</td></tr>
+            <tr><td>CS 252</td><td>Fifth graders</td><td class="no">No sentence will fix this</td><td>They have nothing to sort on. Change the population, or the topic.</td></tr>
+            <tr><td>Tiefling</td><td>Intermediate and advanced D&amp;D players</td><td class="no">Nothing</td><td>They share an understanding of what a Tiefling is.</td></tr>
+            <tr><td>Proprioceptive input</td><td>Special-education teachers</td><td class="no">Nothing</td><td>It&rsquo;s their own vocabulary.</td></tr>
+            <tr><td>Proprioceptive input</td><td>Parents new to this</td><td class="add">&ldquo;Play that involves pushing, pulling, or carrying something heavy.&rdquo;</td><td>Enough to picture it. No age range, setup time, or goal to sort on.</td></tr>
+            <tr><td>Rumours, Fleetwood Mac</td><td>People who collect albums</td><td class="no">Nothing, and never the year</td><td>They&rsquo;d sort on the field you printed, and visitors to your site won&rsquo;t know it.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="backing">
+        <p class="micro-label u-flush-bottom">Backing from the literature</p>
+        <p class="u-tight">Optimal Workshop&rsquo;s advice from its study is
+          to use descriptions only when &ldquo;it&rsquo;s not possible or
+          practical&rdquo; to translate complex or technical labels into
+          plain language, and to write them without repeated words or hints
+          about an existing structure.</p>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <section aria-labelledby="history">
+      <h2 id="history">Why this never came up before</h2>
+      <p>
+        In earlier versions of this course, the first information
+        architecture project was organizing BYU computer science classes.
+        Everyone in CS 356 was a BYU CS student, and they ran their card
+        sorts with other BYU CS students. When a card said &ldquo;CS
+        252,&rdquo; everybody knew what it meant, and nobody had to explain
+        anything on the card.
+      </p>
+      <p>
+        Now you pick your own topic and your own population, so that
+        assumption has to be made explicit: <strong>the people in your study
+        should know what you mean by the name on the card.</strong> Try the
+        opposite case. Run a card sort of BYU CS course names with fifth
+        graders at an elementary school, and it doesn&rsquo;t make sense. You
+        can&rsquo;t put &ldquo;CS 252&rdquo; on a card and expect them to
+        have any idea what you mean.
+      </p>
+      <p>
+        So the goal is to pick a topic and a population <em>together</em>,
+        so that you can put an item&rsquo;s name on a card and the people in
+        your population know a good deal about that thing. If you&rsquo;re
+        doing D&amp;D races, your population is people who can look at a
+        race&rsquo;s name and have a reasonable, shared understanding of what
+        it means. If you&rsquo;d have to copy a race&rsquo;s whole record
+        onto the card, you probably need a different population.
+      </p>
+    </section>
+
+    <!-- ================================================================ -->
+    <section aria-labelledby="example">
+      <h2 id="example">In our example card sort</h2>
+      <p>
+        The <a href="studies/01-card-sort.html">companion&rsquo;s card
+        sort</a> ran into both halves of this page. Its population is people
+        who teach in one ward. Its items are skills from the <em>Teacher
+        Development</em> manual. Each of its 24 cards is one skill, quoted
+        word for word from the manual as the card&rsquo;s name, with nothing
+        added (<a href="studies/01-card-sort.html#deck">see the deck</a>).
+        For most participants that was enough. They teach, and the skills
+        describe things teachers do.
+      </p>
+      <p>
+        <strong>One participant couldn&rsquo;t read some of the
+        cards.</strong> Cami, eight months into her first teaching calling,
+        put 7 of the 24 cards in a pile she labeled &ldquo;I don&rsquo;t know
+        what this means.&rdquo; She asked, &ldquo;Is <em>search question</em>
+        a church word or a real word?&rdquo;
+        <span class="fiction-badge">FICTITIOUS DATA</span>
+        <span class="fiction-badge">INVENTED QUOTE</span>
+        She&rsquo;s squarely inside the population, though. She&rsquo;s
+        exactly who the site is for, so her pile wasn&rsquo;t a recruiting
+        mistake. It was a finding about the manual&rsquo;s vocabulary, and
+        the study acted on it. The redesign labels its categories and groups
+        with words participants actually said, and puts the official skill
+        names one level down. A rough way to tell the two situations apart:
+        when one person in your population can&rsquo;t read a few cards,
+        that tells you something about your labels. When most of your
+        population can&rsquo;t read most of the cards, that tells you
+        something about your population.
+      </p>
+      <p>
+        <strong>The weaker example report handed participants its own
+        categories.</strong> Report B&rsquo;s team showed everyone two
+        example groups to get them started, &ldquo;Questions&rdquo; and
+        &ldquo;Preparing.&rdquo; Both came back as categories in the
+        team&rsquo;s results, and the grader called them &ldquo;an echo, not a
+        finding.&rdquo; The team also pulled the three cards the first
+        participant found confusing, which the grader counted as a finding
+        thrown off the table.
+        <span class="fiction-badge">FICTITIOUS DATA</span>
+        (<a href="studies/01-card-sort.html#report-b">Read Report B and the
+        grader&rsquo;s notes</a>.)
+      </p>
+    </section>
+
+    <!-- ================================================================ -->
+    <section aria-labelledby="your-project">
+      <h2 id="your-project">What this means for your project this semester</h2>
+      <p>
+        You&rsquo;ve already pitched your topic and population. Treat this as
+        strong advice, not a new rule:
+      </p>
+      <ol class="checklist">
+        <li><strong>Put the name on every card.</strong> Use the name your
+          population would use.</li>
+        <li><strong>Add one short sentence only to the cards that need
+          it,</strong> and keep that sentence to what the thing is.</li>
+        <li><strong>If you&rsquo;d need more than that,</strong> for example
+          if you find yourself copying the record onto the card, take it as a
+          warning sign about your population. The fix is usually the people,
+          not the card.</li>
+        <li><strong>You don&rsquo;t have to change your topic or population
+          now.</strong> If some cards carry a sentence, your report should say
+          which cards, what each sentence said, and why. Then check your piles
+          for echoes. A group named with a word from your own sentences is
+          suspect.</li>
+        <li><strong>Before you print the deck,</strong> try a handful of
+          name-only cards on someone like your participants and ask them what
+          each one is. The ones they can&rsquo;t explain are the cards that
+          need a sentence, or they&rsquo;re a sign you need different
+          people.</li>
+      </ol>
+      <p>
+        Next year the course will lean further in this direction: pick the
+        topic and the population together, so that the name alone is
+        enough.
+      </p>
+    </section>
+
+    <!-- ================================================================ -->
+    <section aria-labelledby="alternatives">
+      <h2 id="alternatives">Alternative views</h2>
+      <p class="section-note">
+        Not everyone who writes about card sorting puts it as bluntly as this
+        page does. These are the main places where practitioners and
+        researchers see it differently, and how each one fits with the advice
+        above.
+      </p>
+
+      <div class="alt">
+        <h3>&ldquo;Give the label enough detail to be understood.&rdquo;</h3>
+        <p>
+          Spencer and Warfel say labels should be short enough to read
+          quickly &ldquo;yet detailed enough that participants can understand
+          what the content is,&rdquo; with an optional short description or
+          image on the back of the card. Nielsen Norman Group goes further. To
+          break up keyword matching, it suggests rewriting short labels into
+          fuller descriptions, such as &ldquo;Interactive digital courses for
+          skill enhancements&rdquo; instead of &ldquo;Employee Online
+          Training.&rdquo;
+        </p>
+        <p>
+          <strong>How it fits:</strong> everyone agrees that participants
+          have to understand the item. The disagreement is about where that
+          understanding comes from. This page puts it in the population, and
+          these sources put more of it on the card. If you do add words, the
+          Optimal Workshop result is the warning label: every word you add
+          can steer the sort.
+        </p>
+      </div>
+
+      <div class="alt">
+        <h3>&ldquo;Sort with your real users, even if they&rsquo;re
+          beginners.&rdquo;</h3>
+        <p>
+          If a site is for newcomers, a structure built from experts&rsquo;
+          sorts may fail them, because experts and novices group things
+          differently (Chi and colleagues again). On this view, a novice sort
+          is valuable because it shows how novices think, and a site for
+          novices should be built on that.
+        </p>
+        <p>
+          <strong>How it fits:</strong> that&rsquo;s a fair point, and it
+          applies when your site&rsquo;s real audience is beginners. But the
+          floor still holds. People who know nothing sort alphabetically, and
+          what they need first is teaching, not help finding things. There
+          are middle routes. One is to give beginners the categories and have
+          them place the cards (a closed sort). Robertson and colleagues found
+          that novices&rsquo; results came much closer to experts&rsquo; in a
+          closed sort than in an open one. Another is to build the structure
+          some other way and tree-test it with beginners.
+        </p>
+      </div>
+
+      <div class="alt">
+        <h3>&ldquo;Put tasks on the cards, not things.&rdquo;</h3>
+        <p>
+          William Hudson recommends starting from user goals rather than page
+          names. For example, a card might say &ldquo;Find holiday
+          entitlement&rdquo; instead of &ldquo;Staff Policies,&rdquo; because a
+          tidy set of pages can still fail people who are trying to get
+          something done. Katsanos and colleagues propose a task-based version
+          of open card sorting along the same lines.
+        </p>
+        <p>
+          <strong>How it fits:</strong> this is a different answer to
+          &ldquo;what is the information item?&rdquo; rather than a different
+          answer to &ldquo;what goes on the card?&rdquo; If your users arrive
+          with tasks, a task card can still be just a name: the task, in their
+          words.
+        </p>
+      </div>
+
+      <div class="alt">
+        <h3>&ldquo;Use pictures, or the things themselves.&rdquo;</h3>
+        <p>
+          Hudson suggests that in unfamiliar domains, or where language is
+          the barrier, participants can sort photographs or even the objects
+          themselves. Rugg and McGeorge describe picture sorts and item sorts
+          alongside card sorts.
+        </p>
+        <p>
+          <strong>How it fits:</strong> this is useful when words are the
+          problem, for example physical sensory tools that parents would
+          recognize on sight but not by name. But a picture carries a lot of
+          information. Color, size, and brand are all things people can sort
+          on, so the &ldquo;as little as possible&rdquo; rule applies to the
+          picture too.
+        </p>
+      </div>
+
+      <div class="alt">
+        <h3>&ldquo;Put the attributes on the cards, on purpose.&rdquo;</h3>
+        <p>
+          If what you want to know is <em>which attributes matter</em> rather
+          than how people group the items, the attributes are the point. In a
+          repeated single-criterion sort (Rugg and McGeorge), participants sort
+          the same deck several times, each time by one criterion they choose
+          and name. Or you can put the attributes themselves on cards (price,
+          distance, setup time) and have people rank them. That ranking tells
+          you which filters to build.
+        </p>
+        <p>
+          <strong>How it fits:</strong> this is this page&rsquo;s first
+          principle. Start with the question: a different question calls for
+          different cards. Just don&rsquo;t run it as your open card sort.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <section aria-labelledby="sources" class="refs">
+      <h2 id="sources">Sources</h2>
+      <p><a href="https://boxesandarrows.com/card-sorting-a-definitive-guide/">Card Sorting: A Definitive Guide</a>
+        <span class="src">Donna Spencer and Todd Warfel, Boxes and Arrows, 2004.</span>
+        The best single article on the method: what goes on cards, who to recruit, and the surface-characteristics weakness.</p>
+      <p><a href="https://www.optimalworkshop.com/blog/card-descriptions-testing-effect-contextual-information-card-sorts">Card Descriptions: Testing the Effect of Contextual Information in Card Sorts</a>
+        <span class="src">Optimal Workshop, 2016.</span>
+        The four-round experiment on what added card information does to a sort.</p>
+      <p><a href="https://www.nngroup.com/articles/card-sorting-terminology-matches/">Card Sorting: Pushing Users Beyond Terminology Matches</a>
+        <span class="src">Samhita Tankala, Nielsen Norman Group, 2024.</span>
+        Keyword matching, and three ways to write labels that resist it.</p>
+      <p><a href="https://ixdf.org/literature/book/the-encyclopedia-of-human-computer-interaction-2nd-ed/card-sorting">Card Sorting</a>
+        <span class="src">William Hudson, <em>The Encyclopedia of Human-Computer Interaction</em>, 2nd ed., Interaction Design Foundation.</span>
+        Goal-based cards, plain vocabulary, and sorting pictures or objects when words are the barrier.</p>
+      <p><a href="https://doi.org/10.1207/s15516709cog0502_2">Categorization and Representation of Physics Problems by Experts and Novices</a>
+        <span class="src">Michelene Chi, Paul Feltovich, and Robert Glaser, <em>Cognitive Science</em> 5(2), 1981.</span>
+        The classic demonstration that novices sort by surface features and experts by deep principles.</p>
+      <p><a href="https://doi.org/10.1177/1071181320641297">Novices Perform Like Experts on a Closed Card Sort but Not an Open Card Sort</a>
+        <span class="src">Ian Robertson, Philip Kortum, Frederick Oswald, and Claudia Ziegler Acemyan, <em>Proceedings of the HFES Annual Meeting</em> 64, 2020.</span>
+        Given the categories, novices matched experts much more closely.</p>
+      <p><a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1468-0394.2005.00300.x">The Sorting Techniques: A Tutorial Paper on Card Sorts, Picture Sorts and Item Sorts</a>
+        <span class="src">Gordon Rugg and Peter McGeorge, <em>Expert Systems</em> 22(3), 2005.</span>
+        The reference for repeated single-criterion sorts and for sorting pictures and objects.</p>
+      <p><a href="https://doi.org/10.1007/978-3-031-35132-7_5">Task-Based Open Card Sorting: Towards a New Method to Produce Usable Information Architectures</a>
+        <span class="src">Christos Katsanos and colleagues, HCII 2023.</span>
+        A proposal to tie open card sorting to user tasks.</p>
+    </section>
+
+    <footer class="site-foot">
+      <p>Organized from the instructor&rsquo;s class notes on card content,
+        September 2026. The method itself is taught on Canvas:
+        <a href="https://byu.instructure.com/courses/36062/pages/card-sorting">Card Sorting</a>.
+        The worked example: <a href="studies/01-card-sort.html">the
+        companion&rsquo;s open card sort</a>. Back to the
+        <a href="index.html">companion hub</a>.</p>
+    </footer>
+
+  </main>
+
+  <script src="assets/studies-data.js" defer></script>
+  <script src="assets/companion.js" defer></script>
+</body>
+</html>

@@ -59,7 +59,7 @@
    the canonical ones as of 2026-09-14.
    ========================================================================== */
 window.CS356_COMPANION = {
-  version: "2026-09-24",
+  version: "2026-09-24b",
 
   /* Every Canvas `slug` in this file hangs off this base — one course id,
      one place to change it. */
@@ -149,6 +149,9 @@ window.CS356_COMPANION = {
       status: "published",
       page: "studies/01-card-sort.html",
       question: "How do teachers naturally group and label the 53 skills — and where do their groupings disagree?",
+      guides: [
+        { path: "what-to-put-on-the-cards.html", title: "What to put on the cards?" }
+      ],
       canvas: {
         method: { slug: "card-sorting", title: "Card Sorting" }
       },
