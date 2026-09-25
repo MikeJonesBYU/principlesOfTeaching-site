@@ -12,6 +12,26 @@
             margin: 18px 0 0; padding: 12px 0 0; border-top: 1px solid var(--rule);
             font-size: .92rem; }
 
+    /* ---- TL;DR: the whole page in one dark panel at the top. */
+    .tldr { text-align: left; background: var(--slate); color: #fff; border-radius: var(--radius-lg);
+            padding: 22px 24px 24px; margin: 18px 0 26px; box-shadow: 0 10px 28px rgba(34,48,60,.22); }
+    .tldr__tag { display: inline-block; background: #fff; color: var(--slate); font-weight: 800; font-size: .78rem;
+                 letter-spacing: .12em; text-transform: uppercase; border-radius: 999px; padding: 3px 12px; margin: 0 0 12px; }
+    .tldr__lines { list-style: none; margin: 0 0 20px; padding: 0; }
+    .tldr__lines li { font-size: 1.14rem; line-height: 1.45; margin: 0 0 10px; padding-left: 26px; position: relative; max-width: 62ch; }
+    .tldr__lines li::before { content: "\2192"; position: absolute; left: 0; color: #9fc0da; font-weight: 700; }
+    .tldr__lines strong { color: #fff; }
+    .tldr__eg { font-size: .74rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #c9d6e0; margin: 0 0 10px; }
+    .tldr__cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    @media (max-width: 640px) { .tldr__cards { grid-template-columns: minmax(0, 1fr); } }
+    .tldr__cards figure { margin: 0; min-width: 0; }
+    .tldr__who { font-size: .86rem; font-weight: 700; color: #dfe6ec; margin: 0 0 6px; }
+    .tldr__cards .icard { color: var(--ink); box-shadow: 0 4px 14px rgba(0,0,0,.25); }
+    .tldr__cards .icard__name { font-size: 1.12rem; }
+    .tldr__cards .icard__body { min-height: calc(1.85rem * 2); }
+    .tldr__cards .icard--q .icard__name { color: var(--muted); }
+    .tldr__q { margin: 18px 0 0; font-size: 1.08rem; font-weight: 600; color: #fff; }
+
     /* ---- In-text citations: a short descriptor that jumps to Works cited. */
     a.cite { color: inherit; text-decoration: underline dotted var(--link); text-decoration-thickness: 2px;
              text-underline-offset: 3px; }
@@ -240,6 +260,35 @@
     <header class="site-head">
       <p class="kicker">CS 356 Companion &middot; Turn-in 1, the card sort &middot; Tutorial</p>
       <h1>What to put on the cards?</h1>
+
+      <section class="tldr" aria-labelledby="tldr-tag">
+        <p class="tldr__tag" id="tldr-tag">TL;DR</p>
+        <ul class="tldr__lines">
+          <li><strong>It depends on what your participants, and the people who
+            will eventually use your site, already know about your
+            information items.</strong></li>
+          <li>If you do need to add something to a card, make it <strong>one
+            short sentence</strong>.</li>
+          <li>If you need more than a sentence, <strong>your combination of
+            population and topic is probably wrong.</strong></li>
+        </ul>
+        <p class="tldr__eg">Example: a card sort of BYU CS classes</p>
+        <div class="tldr__cards">
+          <figure>
+            <p class="tldr__who">For BYU CS students</p>
+            <div class="icard"><p class="icard__name">CS 240</p><div class="icard__body"></div></div>
+          </figure>
+          <figure>
+            <p class="tldr__who">For CS students at other schools</p>
+            <div class="icard"><p class="icard__name">CS 240: Software engineering</p><div class="icard__body"></div></div>
+          </figure>
+          <figure>
+            <p class="tldr__who">For fifth graders</p>
+            <div class="icard icard--q"><p class="icard__name">CS 240: ???</p><div class="icard__body"><p>What would you even write here?</p></div></div>
+          </figure>
+        </div>
+        <p class="tldr__q">And does it make sense to run a card sort on CS classes with fifth graders at all?</p>
+      </section>
 
       <p class="lead">
         This question came up a lot in class. The short answer is
