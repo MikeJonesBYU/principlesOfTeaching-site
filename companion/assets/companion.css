@@ -918,6 +918,15 @@ span.chip.is-pending .pill--pending {
 .sort-photo__who { font-weight: 600; }
 .sort-photo__scheme { color: var(--muted); font-style: italic; }
 .sort-photo__head .fiction-badge { margin-left: auto; }
+.sort-photo__badges { margin-left: auto; display: flex; flex-wrap: wrap; gap: 4px 6px; }
+.sort-photo__badges .fiction-badge { margin-left: 0; }
+/* The photograph itself, where one stands in for the transcribed piles. */
+.sort-photo__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 12px 14px 8px;
+}
 .sort-photo__piles {
   display: flex;
   flex-wrap: wrap;
