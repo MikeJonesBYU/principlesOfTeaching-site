@@ -30,6 +30,49 @@
     .tldr__lines strong { color: #fff; }
     .tldr__so { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.22); font-size: 1.02rem; color: #dfe6ec; max-width: 66ch; }
     .tldr__so strong { color: #fff; }
+    .tldr a { color: #fff; text-decoration-color: #9fc0da; }
+    .tldr__cmp { margin-top: 14px !important; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.22); }
+    .tldr__cmp::before { color: #fff; top: 12px; }
+
+    /* ---- The three analyses, side by side: one row per method step,
+       one quoted chip per report, the grader's line under each row. Chips
+       borrow their report's typeface so they read as clippings. */
+    .cmp { margin: 18px 0 6px; }
+    .cmp__head, .cmp__row { display: grid; grid-template-columns: 10.5rem repeat(3, minmax(0, 1fr)); gap: 12px 14px; }
+    .cmp__head { align-items: end; margin-bottom: 4px; }
+    .cmp__corner { align-self: end; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-bottom: 6px; }
+    .cmp__col { display: block; text-decoration: none; border-radius: var(--radius); padding: 8px 12px; color: #fff; font-weight: 700; line-height: 1.25; }
+    .cmp__col:hover, .cmp__col:focus-visible { filter: brightness(1.12); color: #fff; }
+    .cmp__col small { display: block; font-weight: 400; font-size: .76rem; opacity: .9; }
+    .cmp__col--a { background: #2f5496; }
+    .cmp__col--b { background: #4a4f55; }
+    .cmp__col--c { background: #7a5c3a; }
+    .cmp__row { padding: 16px 0 14px; border-top: 1px solid var(--rule); }
+    .cmp__what { margin: 0; font-weight: 700; font-size: .95rem; line-height: 1.3; }
+    .cmp__what small { display: block; font-weight: 400; color: var(--muted); font-size: .8rem; margin-top: 2px; }
+    .qchip { position: relative; margin: 0; min-width: 0; border: 1px solid var(--rule-strong); border-radius: var(--radius-lg);
+             padding: 12px 12px 10px; font-size: .86rem; line-height: 1.4; background: #fff; color: #141414; }
+    .qchip::before { content: attr(data-who); position: absolute; top: -9px; left: 10px; font-family: var(--mono);
+                     font-size: .64rem; font-weight: 700; letter-spacing: .1em; line-height: 1; padding: 3px 7px;
+                     border-radius: 999px; color: #fff; background: var(--slate); }
+    .qchip--a { font-family: Calibri, "Segoe UI", Optima, Candara, Arial, sans-serif; font-size: .92rem; border-color: #2f5496; }
+    .qchip--a::before { background: #2f5496; }
+    .qchip--b { font-family: Arial, Helvetica, sans-serif; font-size: .86rem; border-color: #4a4f55; }
+    .qchip--b::before { background: #4a4f55; }
+    .qchip--c { font-family: "Times New Roman", Times, Georgia, serif; font-size: .95rem; border-color: #7a5c3a; }
+    .qchip--c::before { background: #7a5c3a; }
+    .qchip--blank { border-style: dashed; border-color: var(--rule-strong); background: transparent; min-height: 3.2rem; }
+    .qchip--blank::before { background: #b9c2ca; }
+    .cmp__note { grid-column: 1 / -1; margin: 4px 0 0; padding: 8px 12px 8px 14px; border-left: 4px solid #b3392f;
+                 background: #fdf3f2; font-size: .9rem; line-height: 1.45; color: #3a1a16; }
+    .cmp__note::before { content: "The difference"; display: block; font-family: var(--mono); font-size: .64rem;
+                         letter-spacing: .08em; text-transform: uppercase; color: #8f2d25; margin-bottom: 3px; }
+    @media (max-width: 800px) {
+      .cmp__head, .cmp__row { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+      .cmp__corner { display: none; }
+      .cmp__head { margin-bottom: 10px; }
+      .cmp__what { margin-bottom: -4px; }
+    }
 
     /* ---- In-text citations: a short descriptor that jumps to Works cited. */
     a.cite { color: inherit; text-decoration: underline dotted var(--link); text-decoration-thickness: 2px; text-underline-offset: 3px; }
@@ -209,6 +252,7 @@
         <a href="#splitters">3&nbsp;Splitters</a>
         <a href="#schemes">4&nbsp;Schemes</a>
         <a href="#proposal">5&nbsp;A Utah-animals site</a>
+        <a href="#compare">The analyses, compared</a>
         <a href="#reports">Three write-ups, graded</a>
         <a href="#appendix-a">Raw data</a>
       </nav>
@@ -238,6 +282,12 @@
           &ldquo;how often, or what it does to you&rdquo; in 3.</strong>
           That is the second categorization a wireframe will need. Size and
           predator/prey are attributes, not boxes.</li>
+        <li class="tldr__cmp"><strong>Compare the three analyses.</strong> The
+          same ten sorts, read for a 60, a 45, and a 30:
+          <a href="#analysis-a">Report A&rsquo;s analysis</a> &middot;
+          <a href="#analysis-b">Report B&rsquo;s</a> &middot;
+          <a href="#analysis-c">Report C&rsquo;s</a> &mdash; or
+          <a href="#compare">all three side by side</a>, quote against quote.</li>
       </ul>
       <p class="tldr__so"><strong>So:</strong> seven top-level categories in
         the sorters&rsquo; own words, a second way in by place, and four
@@ -753,6 +803,95 @@
       </div>
 
       <!-- ============================================================ -->
+      <section aria-labelledby="compare-heading" id="compare" class="compare">
+        <h2 id="compare-heading">The three analyses, side by side</h2>
+        <p>
+          Three analyses of the same ten sorts, and the difference is not
+          length &mdash; Report A&rsquo;s is a page. <strong>Report C</strong>
+          transcribes the whiteboard, accurately, and then writes one
+          sentence: most groups sorted &ldquo;like you would in a science
+          class.&rdquo; No names standardized, no counts, no pairs, no
+          splitters &mdash; and the one claim it makes is contradicted by
+          the nine domestic piles it has just listed. <strong>Report B</strong>
+          does the first step well &mdash; 65 labels folded into six groups,
+          each with a count &mdash; and then treats the count as a vote:
+          seven of ten sorted by kind, so kind &ldquo;wins,&rdquo; and the
+          three that didn&rsquo;t are &ldquo;an outlier&rdquo; and
+          &ldquo;random.&rdquo; It sees the fox move and stops at
+          &ldquo;50/50&rdquo;; it never counts pairs; and it looks for habitat
+          only in the six photographed sorts, then concludes from an absence
+          its own recap disproves. <strong>Report A</strong> does what B does
+          and three things more: it counts pairs with the right denominator
+          (of 6), it sorts the splitters into <em>scatter</em> and
+          <em>systematic split</em> and names what the split is between, and
+          it counts scheme <em>words</em> across all ten sorts &mdash; which
+          is where the second categorization was hiding. What separates the
+          three is what each team did after counting.
+        </p>
+        <p class="section-note">Each row is one step of the method, quoted
+          from the three analysis sections exactly as written. An empty
+          dashed chip means that report&rsquo;s analysis doesn&rsquo;t do
+          that step. The red line under each row is the grader.</p>
+
+        <div class="cmp">
+          <div class="cmp__head">
+            <span class="cmp__corner">Step</span>
+            <a class="cmp__col cmp__col--a" href="#analysis-a">Report A &middot; 60<small>read its analysis &darr;</small></a>
+            <a class="cmp__col cmp__col--b" href="#analysis-b">Report B &middot; 45<small>read its analysis &darr;</small></a>
+            <a class="cmp__col cmp__col--c" href="#analysis-c">Report C &middot; 30<small>read its analysis &darr;</small></a>
+          </div>
+
+          <div class="cmp__row">
+            <p class="cmp__what">Standardize the names, then count<small>the method page&rsquo;s first step</small></p>
+            <blockquote class="qchip qchip--a" data-who="A">After standardizing the 65 labels, nine of ten sorts had a domestic pile (five spellings; two groups split pets from farm or food animals).</blockquote>
+            <blockquote class="qchip qchip--b" data-who="B">After combining similar names, the most common categories were domestic animals (9 groups), birds (8), deer/horned animals (7), reptiles (6), predators (6), and small mammals/rodents (6).</blockquote>
+            <p class="qchip qchip--c qchip--blank" data-who="C"><span class="u-visually-hidden">Not in Report C&rsquo;s analysis.</span></p>
+            <p class="cmp__note">A and B both fold 65 labels into six groups with a count each &mdash; the same six. C copies the whiteboard column by column and never puts two &ldquo;domestic&rdquo; piles on the same line, so it never sees that there are nine.</p>
+          </div>
+
+          <div class="cmp__row">
+            <p class="cmp__what">Strong pairs<small>which cards travel together</small></p>
+            <blockquote class="qchip qchip--a" data-who="A">21 pairs together in all six photographed sorts, 15 more in five: the six domestic animals (all 15 pairs, 6/6); elk + moose + mule deer (6/6; pronghorn and bison 5/6); bear + mountain lion (6/6; coyote 4/6)&hellip;</blockquote>
+            <p class="qchip qchip--b qchip--blank" data-who="B"><span class="u-visually-hidden">Not in Report B&rsquo;s analysis.</span></p>
+            <p class="qchip qchip--c qchip--blank" data-who="C"><span class="u-visually-hidden">Not in Report C&rsquo;s analysis.</span></p>
+            <p class="cmp__note">Only A counted pairs at all &mdash; and with the right denominator, <em>of 6</em>, because only six sorts show which card went where. Pairs are what tell you which cards must stay together whatever labels you choose.</p>
+          </div>
+
+          <div class="cmp__row">
+            <p class="cmp__what">Splitters<small>the cards that moved</small></p>
+            <blockquote class="qchip qchip--a" data-who="A">The honeybee (five homes in six sorts) and the trout (four) scatter because they have no companions in the deck. The red fox splits <em>systematically</em>: 2 sorts by kind (small mammals), 2 by role (predators), 1 by size.</blockquote>
+            <blockquote class="qchip qchip--b" data-who="B">A few cards were hard for people to place. The honeybee went all over the place (bird, insect, domestic, other). &hellip; The red fox was 50/50 between predators and small mammals.</blockquote>
+            <p class="qchip qchip--c qchip--blank" data-who="C"><span class="u-visually-hidden">Not in Report C&rsquo;s analysis.</span></p>
+            <p class="cmp__note">Both saw the fox move. A asked what <em>kind</em> of movement it was &mdash; scatter or split &mdash; named what the split was between, and blamed the honeybee&rsquo;s scatter on the deck, not the sorters. B stopped at &ldquo;50/50,&rdquo; one sentence short of the method page&rsquo;s point.</p>
+          </div>
+
+          <div class="cmp__row">
+            <p class="cmp__what">Schemes<small>what principle people reached for</small></p>
+            <blockquote class="qchip qchip--a" data-who="A">Seven of ten sorted by kind of animal, but only one purely; the rest mixed in predators or size. Three sorted by their experience of the animal (how often you meet it; what it does to you; where it lives).</blockquote>
+            <blockquote class="qchip qchip--b" data-who="B">Most groups (7 out of 10) sorted by the type of animal, so type of animal is the winning scheme. &hellip; Group 2 did common/uncommon/unseen, which was kind of an outlier&hellip;</blockquote>
+            <blockquote class="qchip qchip--c" data-who="C">Overall most groups basically sorted by what type of animal it is, like you would in a science class.</blockquote>
+            <p class="cmp__note">Same seven-of-ten, three readings. A describes a hybrid &mdash; kind of animal with predators and domestic alongside. B declares a winner and calls the rest outliers: the sort as a vote. C has no count and gets the scheme wrong: nine of ten made a pile no science class has.</p>
+          </div>
+
+          <div class="cmp__row">
+            <p class="cmp__what">The second categorization<small>place, size, role, feature words</small></p>
+            <blockquote class="qchip qchip--a" data-who="A">Place words appear in four sorts, size words in four, predator/prey words in five, visible features (flight, horns, scales) in six.</blockquote>
+            <blockquote class="qchip qchip--b" data-who="B">Nobody really thought about habitat except Group 6&rsquo;s &ldquo;desert&rdquo; category, so habitat doesn&rsquo;t seem important to people.</blockquote>
+            <p class="qchip qchip--c qchip--blank" data-who="C"><span class="u-visually-hidden">Not in Report C&rsquo;s analysis.</span></p>
+            <p class="cmp__note">A counts the <em>words</em> across all ten sorts and finds the second categorization. B looks only where it has photographs and concludes from an absence its own previous paragraph contradicts &mdash; the over-claim that caps its score. C never gets here.</p>
+          </div>
+
+          <div class="cmp__row">
+            <p class="cmp__what">Incidents kept apart from trends<small>calibration</small></p>
+            <blockquote class="qchip qchip--a" data-who="A">&ldquo;Road kill&rdquo; (S10) and &ldquo;Destructive animals&rdquo; (S9): one group each, but both are real Utah experiences of these animals.</blockquote>
+            <blockquote class="qchip qchip--b" data-who="B">Groups 9 and 10 had some random ones like &ldquo;road kill&rdquo; and &ldquo;destructive animals.&rdquo;</blockquote>
+            <blockquote class="qchip qchip--c" data-who="C">Some groups did more random ones like road kill.</blockquote>
+            <p class="cmp__note">The same two labels, three ways. A files them as incidents &mdash; one group each &mdash; under their own heading, and says why they still matter. B and C both call them &ldquo;random,&rdquo; which is a way of not counting them; the word never appears in a calibrated analysis.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
       <section aria-labelledby="report-a" class="report report--a">
         <h2 id="report-a">Report A &mdash; 60/60</h2>
         <p class="section-note">Written in the voice of a strong CS
@@ -873,7 +1012,7 @@
             pictures.</p>
         </aside>
 
-        <div class="docpage docpage--a">
+        <div class="docpage docpage--a" id="analysis-a">
           <h3>3. Analysis: trends and isolated incidents</h3>
           <h4>Trends</h4>
           <p><strong>1. The loudest group is a relationship, not a kind.</strong>
@@ -1071,7 +1210,7 @@
             two of the problems below.</p>
         </aside>
 
-        <div class="docpage docpage--m">
+        <div class="docpage docpage--m" id="analysis-b">
           <h3>3. Analysis</h3>
           <p>Most groups (7 out of 10) sorted by the type of animal, so type
             of animal is the winning scheme. After combining similar names,
@@ -1231,7 +1370,7 @@
             counts to check. <em>&ldquo;Raw data missing.&rdquo;</em></p>
         </aside>
 
-        <div class="docpage docpage--b">
+        <div class="docpage docpage--b" id="analysis-c">
           <h3>3. Analysis</h3>
           <p>Group 1 did insects, mammals, birds, reptiles, fish, and
             uncategorized. Group 2 did domestic, common, uncommon, wild, and
