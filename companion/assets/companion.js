@@ -52,6 +52,17 @@
     link: "What's real and what's not →"
   };
 
+  /* The one exception: a page whose data is REAL — so far only the in-class
+     animals card sort (animals-card-sort.html) — declares
+     <body data-banner="real"> and gets this wording instead. It is a
+     different contract stated just as loudly, never a softening of the
+     fiction banner; fiction.html explains both. */
+  var REAL_BANNER = {
+    flag: 'Real class data.',
+    text: 'The photographs, labels, and counts on this page come from an in-class exercise in CS 356 and are not invented. The three sample write-ups are written by the instructor as examples.',
+    link: "What's real and what's not →"
+  };
+
   /* --- The masthead (redesign 2026-08-26, "effective Canvas site" idiom):
          one banner graphic carried on every page, and a pared-down centered
          row of button links under it. The banner is the ONE place the image
@@ -241,15 +252,18 @@
      as a second line underneath — added, never paraphrased in. */
   function buildBanner() {
     var variant = currentVariant(registry());
-    return h('div', { 'class': 'fiction-banner', 'role': 'note',
-                      'aria-label': 'Fictitious teaching example' }, [
+    var real = !!document.body && document.body.getAttribute('data-banner') === 'real';
+    var words = real ? REAL_BANNER : BANNER;
+    return h('div', { 'class': 'fiction-banner' + (real ? ' fiction-banner--real' : ''),
+                      'role': 'note',
+                      'aria-label': real ? 'Real class data' : 'Fictitious teaching example' }, [
       h('div', { 'class': 'fiction-banner__inner' }, [
-        h('strong', { 'class': 'fiction-banner__flag' }, BANNER.flag),
+        h('strong', { 'class': 'fiction-banner__flag' }, words.flag),
         ' ',
-        h('span', { 'class': 'fiction-banner__text' }, BANNER.text),
+        h('span', { 'class': 'fiction-banner__text' }, words.text),
         ' ',
         h('a', { 'class': 'fiction-banner__link', 'href': resolve('fiction.html') },
-          BANNER.link)
+          words.link)
       ]),
       variant && variant.bannerNote
         ? h('div', { 'class': 'fiction-banner__inner fiction-banner__variant' },

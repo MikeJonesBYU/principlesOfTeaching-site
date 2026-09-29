@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>An in-class card sort, analyzed: animals that live in Utah — CS 356 Companion</title>
+  <meta name="description" content="A real open card sort run in CS 356 on 28 Utah animals, analyzed the way the method page asks — standardized group names, strong pairs, splitters, schemes — into an organization with facets for a Utah-animals website; then three write-ups of the same sort graded on the Study Report Rubric.">
+  <link rel="stylesheet" href="assets/companion.css">
+  <style>
+    /* Jump list under the header. */
+    .path { font-size: .95rem; color: var(--ink-soft); max-width: 66ch; margin: 10px auto 0; }
+    .jump { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 16px;
+            margin: 18px 0 0; padding: 12px 0 0; border-top: 1px solid var(--rule); font-size: .92rem; }
+
+    /* ---- Real data, marked as loudly as fiction is — in slate, never the
+       fiction/grader red (ARCHITECTURE §7). */
+    .real-note { font-size: .92rem; color: var(--ink-soft); background: var(--panel-sunk);
+                 border: 1px solid var(--rule); border-left: 4px solid var(--slate);
+                 border-radius: var(--radius); padding: 10px 14px; margin: 0 0 20px; text-align: left; }
+    .badge--real { color: var(--slate-deep); background: #e9eef2; border-color: var(--slate); }
+
+    /* ---- TL;DR: the whole page in one dark panel at the top. */
+    .tldr { text-align: left; background: var(--slate); color: #fff; border-radius: var(--radius-lg);
+            padding: 22px 24px 20px; margin: 18px 0 26px; box-shadow: 0 10px 28px rgba(34,48,60,.22); }
+    .tldr__tag { display: inline-block; background: #fff; color: var(--slate); font-weight: 800; font-size: .78rem;
+                 letter-spacing: .12em; text-transform: uppercase; border-radius: 999px; padding: 3px 12px; margin: 0 0 12px; }
+    .tldr__lines { list-style: none; margin: 0; padding: 0; }
+    .tldr__lines li { font-size: 1.08rem; line-height: 1.45; margin: 0 0 10px; padding-left: 26px; position: relative; max-width: 66ch; }
+    .tldr__lines li::before { content: "\2192"; position: absolute; left: 0; color: #9fc0da; font-weight: 700; }
+    .tldr__lines strong { color: #fff; }
+    .tldr__so { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.22); font-size: 1.02rem; color: #dfe6ec; max-width: 66ch; }
+    .tldr__so strong { color: #fff; }
+
+    /* ---- In-text citations: a short descriptor that jumps to Works cited. */
+    a.cite { color: inherit; text-decoration: underline dotted var(--link); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+    a.cite:hover { color: var(--link-deep); }
+    a.cite::after { content: "\2193"; font-size: .72em; color: var(--link); margin-left: 2px; vertical-align: .15em; }
+
+    /* ---- The method page's own words. */
+    .pull { margin: 22px 0; padding: 4px 0 4px 18px; border-left: 4px solid var(--slate);
+            font-size: 1.06rem; color: var(--ink); max-width: 66ch; }
+    .pull p { margin: 0 0 6px; }
+    .pull cite { display: block; font-style: normal; font-size: .82rem; color: var(--muted); }
+
+    /* ---- Photographs of the sorts. */
+    .board { margin: 18px 0 8px; }
+    .board img { display: block; width: 100%; height: auto; border: 1px solid var(--rule-strong); }
+    .board figcaption, .photos figcaption { font-size: .9rem; color: var(--ink-soft); margin-top: 8px; line-height: 1.4; }
+    .photos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin: 18px 0 6px; }
+    @media (max-width: 720px) { .photos { grid-template-columns: minmax(0, 1fr); } }
+    .photos figure { margin: 0; min-width: 0; border: 1px solid var(--rule-strong); background: var(--panel-sunk); }
+    .photos img { display: block; width: 100%; height: auto; }
+    .photos figcaption { padding: 10px 12px 12px; margin: 0; }
+    .photos .sid { font-family: var(--mono); font-weight: 700; color: var(--slate); }
+    .photos .scheme-word { font-style: italic; }
+    .labels { margin: 6px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 4px 6px; }
+    .labels li { background: #fff; border: 1px solid var(--rule-strong); border-radius: 3px; padding: 1px 7px; font-size: .82rem; color: var(--ink); }
+    .labels li small { color: var(--muted); font-family: var(--mono); margin-left: 2px; }
+    .docpage .photos { gap: 12px; margin: 10px 0 4px; }
+    .photos--report { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    @media (max-width: 720px) { .photos--report { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    .docpage .board { max-width: 34rem; }
+    .three-head { margin-bottom: 4px; }
+    .docpage .photos figure { background: #f7f7f7; border-color: #b5b5b5; }
+    .docpage .photos figcaption { font-size: .8rem; color: #333; }
+    .docpage .photos .labels li { border-color: #bbb; }
+    .docpage .board img { border-color: #b5b5b5; }
+    .docpage .board figcaption { color: #333; font-size: .85em; }
+
+    /* ---- Bars: how many of the ten sorts made each standardized group. */
+    .bars { list-style: none; margin: 14px 0 4px; padding: 0; }
+    .bars li { display: grid; grid-template-columns: minmax(0, 20rem) minmax(0, 1fr) 3.5rem; gap: 10px; align-items: center;
+               margin: 0 0 6px; font-size: .9rem; }
+    @media (max-width: 640px) {
+      .bars li { grid-template-columns: minmax(0, 1fr) 3.5rem; grid-template-rows: auto auto; row-gap: 3px; margin-bottom: 10px; }
+      .bars li > span:first-child { grid-column: 1 / -1; grid-row: 1; }
+      .bars li .bar { grid-column: 1 / 2; grid-row: 2; }
+      .bars .n { grid-column: 2 / 3; grid-row: 2; } }
+    .bars .bar { height: 14px; background: #e2e7ec; border-radius: 3px; overflow: hidden; }
+    .bars .bar i { display: block; height: 100%; width: calc(var(--n) * 10%); background: var(--link); }
+    .bars .n { font-family: var(--mono); text-align: right; }
+    .bars li.is-scheme { color: var(--ink-soft); }
+    .bars li.is-scheme .bar i { background: #8aa4b8; }
+    .bars li.is-scheme:first-of-type, .bars .divider { margin-top: 10px; }
+    .bars .divider { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); display: block; }
+
+    /* ---- Clusters: cards that travel together. */
+    .clusters { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin: 18px 0; }
+    .cluster { border: 1px solid var(--rule-strong); border-radius: var(--radius-lg); padding: 12px 14px 12px; background: #fff; min-width: 0; }
+    .cluster h4 { margin: 0 0 8px; font-size: .95rem; display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+    .tally { font-family: var(--mono); font-size: .76rem; color: var(--muted); font-weight: 400; white-space: nowrap; }
+    .cards { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+    .card { background: #fff; border: 1px solid #8f9aa5; border-radius: 2px; box-shadow: 0 1px 2px rgba(0,0,0,.12);
+            padding: 3px 8px; font-size: .82rem; font-weight: 600; }
+    .card--joins { border-style: dashed; font-weight: 400; }
+    .cluster .joins { margin: 8px 0 4px; font-size: .78rem; color: var(--muted); }
+
+    /* ---- Where each card went, sort by sort. Cells tinted by the
+       standardized group; S2's frequency scheme is hatched because it is a
+       different kind of answer. */
+    .homes { font-size: .84rem; }
+    .homes th[scope="row"] { font-weight: 600; white-space: nowrap; text-align: left;
+                             position: sticky; left: 0; background: #fff; box-shadow: 1px 0 0 var(--rule); }
+    .homes td { padding: 5px 8px; }
+    .homes .h-dom   { background: #e6f0e8; }
+    .homes .h-bird  { background: #e8eef7; }
+    .homes .h-hoof  { background: #f3ede2; }
+    .homes .h-rept  { background: #eef0d9; }
+    .homes .h-pred  { background: #efe4f1; }
+    .homes .h-small { background: #f8f1d6; }
+    .homes .h-fish  { background: #dff0f2; }
+    .homes .h-ins   { background: #f0f0f0; }
+    .homes .h-size  { background: #fbe9d7; }
+    .homes .h-other { background: repeating-linear-gradient(135deg, #f4f4f4 0 6px, #e6e6e6 6px 12px); }
+    .homes .h-s2    { background: repeating-linear-gradient(135deg, #fff 0 6px, #eceff2 6px 12px); color: var(--ink-soft); }
+    .homes-key { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .8rem; color: var(--ink-soft); margin: 8px 0 14px; }
+    .homes-key i { display: inline-block; width: 14px; height: 12px; border: 1px solid var(--rule-strong); vertical-align: -2px; margin-right: 4px; }
+
+    /* ---- Ten sorts, ten schemes. */
+    .schemes { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 16px 0 8px; }
+    @media (max-width: 720px) { .schemes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    .scheme { border: 1px solid var(--rule-strong); border-radius: var(--radius); padding: 9px 10px; font-size: .8rem; line-height: 1.35; min-width: 0; }
+    .scheme b { display: block; font-family: var(--mono); font-size: .82rem; margin-bottom: 3px; }
+    .scheme--kind { background: #e8eef7; }
+    .scheme--mix  { background: #f3ede2; }
+    .scheme--exp  { background: #e6f0e8; }
+    .scheme--nophoto { border-style: dashed; }
+    .legend { font-size: .82rem; color: var(--muted); margin: 6px 0 0; }
+    .legend i { display: inline-block; width: 14px; height: 12px; border: 1px solid var(--rule-strong); vertical-align: -2px; margin: 0 4px 0 10px; }
+    .legend i.dashed { border-style: dashed; background: #fff; }
+
+    /* ---- One animal, four views. */
+    .fox { display: grid; grid-template-columns: minmax(0, 17rem) minmax(0, 1fr); gap: 22px; align-items: center; margin: 20px 0; }
+    @media (max-width: 640px) { .fox { grid-template-columns: minmax(0, 1fr); } }
+    .fox__block { border: 1.5px solid var(--slate); border-radius: var(--radius-lg); padding: 12px 14px; background: #fff; }
+    .fox__block h4 { margin: 0 0 6px; font-size: 1.05rem; }
+    .fox__attrs { list-style: none; margin: 0; padding: 0; font-size: .86rem; }
+    .fox__attrs li { display: flex; justify-content: space-between; gap: 8px; padding: 4px 0; border-top: 1px dotted var(--rule); }
+    .fox__attrs li span:first-child { color: var(--muted); }
+    .fox__views { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+    .fox__views li { border: 1px solid var(--rule-strong); border-radius: var(--radius); padding: 8px 12px; font-size: .88rem; background: var(--panel-sunk); }
+    .fox__views li::before { content: "\2192"; color: var(--slate); font-weight: 700; margin-right: 8px; }
+    .fox__views small { color: var(--muted); display: block; margin-left: 22px; }
+
+    .facets td:first-child, .labels-table td:first-child { font-weight: 700; }
+    .facets .vals { font-size: .88rem; }
+
+    /* ---- The three write-ups. */
+    .count-note { border: 2px solid var(--slate); border-radius: var(--radius-lg); padding: 14px 18px; margin: 18px 0 26px; background: #fff; }
+    .count-note p { margin: 0 0 6px; }
+    .count-note p:last-child { margin: 0; }
+    .badge--authored { color: var(--slate-deep); background: #e9eef2; border-color: var(--slate); }
+    /* Report B: the Google-Docs-default look — Arial, bold black headings. */
+    .docpage--m { font-family: Arial, Helvetica, sans-serif; font-size: 15px; line-height: 1.5; }
+    .docpage--m .doc-title { font-weight: 700; font-size: 1.5em; }
+    .docpage--m h3 { font-family: inherit; font-size: 1.12em; font-weight: 700; color: #141414; margin: 4px 0 8px; }
+    .docpage--m .study-table thead th { background: #efefef; }
+    .sort-photo--labels .labels-only { padding: 10px 14px; margin: 0; font-size: .9rem; }
+    .separates .study-table td:first-child { font-weight: 700; white-space: nowrap; }
+    .three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 14px 0; }
+    @media (max-width: 720px) { .three { grid-template-columns: minmax(0, 1fr); } }
+    .three > div { border: 1px solid var(--rule-strong); border-radius: var(--radius-lg); padding: 12px 14px; font-size: .9rem; min-width: 0; }
+    .three b { display: block; font-size: 1.15rem; margin-bottom: 4px; }
+
+    /* ---- Works cited. */
+    .cited li { margin: 0 0 10px; }
+    .cited .src { display: block; color: var(--ink-soft); font-size: .92rem; }
+    .cited .note { display: block; color: var(--muted); font-size: .88rem; }
+  </style>
+</head>
+<body data-page="guide" data-banner="real">
+
+  <main class="wrap">
+
+    <header class="site-head">
+      <p class="kicker">CS 356 Companion &middot; Card sort &middot; A worked analysis of real class data</p>
+      <h1>An in-class card sort, analyzed: animals that live in Utah</h1>
+      <p class="lead">
+        In September 2026 the class ran an open card sort in class: 28 cards
+        naming animals that live in Utah, ten groups, one sort each, every
+        label on the whiteboard, six tables photographed. This page analyzes
+        it the way <a class="cite" href="#cite-canvas">the Canvas method
+        page</a> asks &mdash; standardize the names, then find the groups
+        almost everyone made, the strong pairs, and the splitters &mdash; and
+        turns the result into an organization, with facets, for a website
+        about Utah&rsquo;s animals. Then three write-ups of this same sort,
+        graded, so you can see what separates a 60 from a 45 from a 30 when
+        the data is identical.
+      </p>
+      <p class="path"><strong>Five minutes:</strong> the TL;DR, then
+        <a href="#proposal">section 5</a>. <strong>Before you write your own
+        report:</strong> <a href="#report-a">Report A</a> against
+        <a href="#report-c">Report C</a>. <strong>The whole method, worked:</strong>
+        sections 1&ndash;4.</p>
+      <p class="real-note"><span class="fiction-badge badge--real">REAL DATA</span>
+        Nothing on this page is invented. The photographs are the class&rsquo;s
+        tables, the labels are what the groups wrote, and every count comes
+        from the transcription in
+        <a href="animals-card-sort-data.py"><code>animals-card-sort-data.py</code></a>.
+        The three sample write-ups are written by the instructor &mdash; three
+        ways this same class could have written it up &mdash; and are stamped
+        <span class="fiction-badge badge--authored">AUTHORED EXAMPLE</span>
+        where they begin. The photographs show tables, cards, and hands; no
+        student is identifiable or named.</p>
+      <nav class="jump" aria-label="On this page">
+        <a href="#ran">What we ran</a>
+        <a href="#standardize">1&nbsp;Standardize the names</a>
+        <a href="#pairs">2&nbsp;Strong pairs</a>
+        <a href="#splitters">3&nbsp;Splitters</a>
+        <a href="#schemes">4&nbsp;Schemes</a>
+        <a href="#proposal">5&nbsp;A Utah-animals site</a>
+        <a href="#reports">Three write-ups, graded</a>
+        <a href="#appendix-a">Raw data</a>
+      </nav>
+    </header>
+
+    <section class="tldr" aria-label="Summary">
+      <p class="tldr__tag">TL;DR</p>
+      <ul class="tldr__lines">
+        <li><strong>Nine of ten groups made a &ldquo;domestic&rdquo; pile.</strong>
+          The loudest group in the study isn&rsquo;t a kind of animal at all
+          &mdash; it&rsquo;s the animal&rsquo;s relationship to people.</li>
+        <li><strong>Five clusters never, or almost never, come apart:</strong>
+          the six farm animals and pets (together in 6 of 6 photographed
+          sorts); elk, moose, and mule deer (6/6, with pronghorn and bison at
+          5/6); bear and mountain lion (6/6); the four birds (5/6); jackrabbit
+          and marmot (6/6, with skunk and porcupine at 5/6).</li>
+        <li><strong>Six of ten made a predators pile</strong> (one called it
+          &ldquo;animals to stay away from&rdquo;) &mdash; a role, not a kind
+          &mdash; and that is why the red fox split
+          2&ndash;2 between predators and small mammals. That split is
+          systematic, not a tie: the fox needs two homes.</li>
+        <li><strong>The honeybee (five different homes in six sorts) and the
+          trout (four) are not design problems; they are deck problems</strong>
+          &mdash; one insect and one fish in a deck of 28.</li>
+        <li><strong>Kind of animal is the primary scheme (7 of 10), but
+          &ldquo;where you meet it&rdquo; words turn up in 4 of 10 and
+          &ldquo;how often, or what it does to you&rdquo; in 3.</strong>
+          That is the second categorization a wireframe will need. Size and
+          predator/prey are attributes, not boxes.</li>
+      </ul>
+      <p class="tldr__so"><strong>So:</strong> seven top-level categories in
+        the sorters&rsquo; own words, a second way in by place, and four
+        attributes on every animal &mdash; <a href="#proposal" style="color:#fff">section 5</a>.</p>
+    </section>
+
+    <!-- ================================================================ -->
+    <section aria-labelledby="ran-heading" id="ran">
+      <h2 id="ran-heading">What we ran</h2>
+      <p>
+        An open sort, no starter categories, physical cards: 28 of them,
+        numbered alphabetically, each naming one animal that lives in Utah.
+        Ten groups of two or three students; each group negotiated one sort
+        and wrote a label for each pile on a blank card. When time was called,
+        every group copied its labels onto the whiteboard in a column, and six
+        of the ten tables were photographed before the cards were picked up.
+      </p>
+      <p>
+        So the study has two kinds of record, and this page uses two
+        denominators. <strong>Label-level findings count all ten sorts
+        (&ldquo;of 10&rdquo;)</strong> &mdash; the whiteboard has every
+        group&rsquo;s labels. <strong>Card-level findings count the six we can
+        see (&ldquo;of 6&rdquo;)</strong> &mdash; strong pairs and splitters
+        need to know which card went where, and for four groups only the
+        whiteboard survives. Keep the two apart and both records are usable;
+        blur them and neither is.
+      </p>
+
+      <figure class="board">
+        <img src="assets/animals-whiteboard.webp" width="2000" height="1500"
+             alt="A classroom whiteboard covered in handwritten labels in ten columns. Large letters at left: Insects, Mammals, Birds, Reptiles, Fishes, Uncategorized. Then columns reading Domestic, Common, Uncommon, Wild, Unseen; Lg mammals, Predators, Sm mammals, Domesticated, Scaly, Birds; Flight, Horned, Rodents, Domesticated, Scales, Med-lg predators; Domestic animals, Reptiles, Antlers/Horns, Rodents, Fish, Birds, Predators; Domesticated/pets, Birds, Desert, Lg sized mammals, Insects, Sm sized mammals, Med sized mammals, Fish, Deer-like animals; Predators, Horned animals, Rodents, Avians, Reptiles, Domestic animals, Food producing animals; Domestic animals, Birds, Lg predators, Lg prey, Small animals, Other. Two lists lower down: Animals you can own, Animals to stay away from, Animals specific to places, Destructive animals, Forest animals; and Fish, Desert, Mountainous, Household, Antlers/Horns, Road kill, Birds, Farm. A hand at the left edge holds a marker.">
+        <figcaption>The whiteboard: every group&rsquo;s labels, one column per
+          group &mdash; S1 to S8 left to right across the top, then S9 (lower
+          left) and S10 (lower right). Sixty-five labels in all. Six of the
+          columns match a photographed table below; the other four (S1, S7,
+          S9, S10) are labels only.</figcaption>
+      </figure>
+
+      <h3>The six photographed sorts</h3>
+      <p class="section-note">Labels are verbatim, with the number of cards in
+        each pile. Appendix A has every pile card by card.</p>
+      <div class="photos">
+<figure id="photo-s2">
+  <img src="assets/animals-sort-s2.webp" alt="Photo of Group 2's finished sort on a classroom desk: &ldquo;Domestic&rdquo;: Horse, Pet rabbit, Cat, Chicken, Cow, Dog; &ldquo;Common&rdquo;: California gull, Red fox, Coyote, Honeybee, Black-billed magpie, Raccoon; &ldquo;Uncommon&rdquo;: Great Basin rattlesnake, Striped skunk, Great horned owl, Porcupine; &ldquo;Wild – region specific&rdquo;: Moose, Mule deer, Black bear, American bison, Bonneville cutthroat trout, Bald eagle, Elk, Mountain lion; &ldquo;Usually unseen&rdquo;: Black-tailed jackrabbit, Yellow-bellied marmot, Pronghorn, Desert tortoise." loading="lazy" width="2000" height="1500">
+  <figcaption><span class="sid">S2</span> <strong>Group 2</strong> &middot; <span class="scheme-word">how often you meet it</span> &middot; 5 piles
+    <ul class="labels"><li>&ldquo;Domestic&rdquo; <small>6</small></li><li>&ldquo;Common&rdquo; <small>6</small></li><li>&ldquo;Uncommon&rdquo; <small>4</small></li><li>&ldquo;Wild – region specific&rdquo; <small>8</small></li><li>&ldquo;Usually unseen&rdquo; <small>4</small></li></ul>
+  </figcaption>
+</figure>
+<figure id="photo-s3">
+  <img src="assets/animals-sort-s3.webp" alt="Photo of Group 3's finished sort on a classroom desk: &ldquo;large mammals&rdquo;: Elk, Pronghorn, Mule deer, American bison, Moose; &ldquo;predators&rdquo;: Coyote, Black bear, Mountain lion; &ldquo;scaly animals&rdquo;: Great Basin rattlesnake, Bonneville cutthroat trout, Desert tortoise; &ldquo;small mammals&rdquo;: Black-tailed jackrabbit, Porcupine, Yellow-bellied marmot, Striped skunk, Red fox, Raccoon; &ldquo;domesticated animals&rdquo;: Honeybee, Horse, Cow, Cat, Pet rabbit, Chicken, Dog; &ldquo;birds&rdquo;: California gull, Great horned owl, Black-billed magpie, Bald eagle." loading="lazy" width="2000" height="1500">
+  <figcaption><span class="sid">S3</span> <strong>Group 3</strong> &middot; <span class="scheme-word">kind of animal, mammals split by size and role</span> &middot; 6 piles
+    <ul class="labels"><li>&ldquo;large mammals&rdquo; <small>5</small></li><li>&ldquo;predators&rdquo; <small>3</small></li><li>&ldquo;scaly animals&rdquo; <small>3</small></li><li>&ldquo;small mammals&rdquo; <small>6</small></li><li>&ldquo;domesticated animals&rdquo; <small>7</small></li><li>&ldquo;birds&rdquo; <small>4</small></li></ul>
+  </figcaption>
+</figure>
+<figure id="photo-s4">
+  <img src="assets/animals-sort-s4.webp" alt="Photo of Group 4's finished sort on a classroom desk: &ldquo;flight&rdquo;: California gull, Great horned owl, Black-billed magpie, Bald eagle, Honeybee; &ldquo;horns&rdquo;: Pronghorn, Mule deer, American bison, Elk, Moose; &ldquo;rodents&rdquo;: Black-tailed jackrabbit, Raccoon, Yellow-bellied marmot, Striped skunk; &ldquo;domesticated&rdquo;: Horse, Pet rabbit, Dog, Chicken, Cat, Cow; &ldquo;scales&rdquo;: Bonneville cutthroat trout, Great Basin rattlesnake, Desert tortoise; &ldquo;medium to large predators&rdquo;: Coyote, Red fox, Mountain lion, Black bear; an unlabeled card: Porcupine." loading="lazy" width="2000" height="1500">
+  <figcaption><span class="sid">S4</span> <strong>Group 4</strong> &middot; <span class="scheme-word">visible features (flight, horns, scales), plus role</span> &middot; 7 piles
+    <ul class="labels"><li>&ldquo;flight&rdquo; <small>5</small></li><li>&ldquo;horns&rdquo; <small>5</small></li><li>&ldquo;rodents&rdquo; <small>4</small></li><li>&ldquo;domesticated&rdquo; <small>6</small></li><li>&ldquo;scales&rdquo; <small>3</small></li><li>&ldquo;medium to large predators&rdquo; <small>4</small></li><li><em>no label</em> <small>1</small></li></ul>
+  </figcaption>
+</figure>
+<figure id="photo-s5">
+  <img src="assets/animals-sort-s5.webp" alt="Photo of Group 5's finished sort on a classroom desk: &ldquo;Domestic Animals&rdquo;: Cow, Pet rabbit, Cat, Chicken, Horse, Dog, Honeybee; &ldquo;Reptiles&rdquo;: Desert tortoise, Great Basin rattlesnake; &ldquo;Antlers/Horns&rdquo;: Elk, Pronghorn, Mule deer, American bison, Moose; &ldquo;Rodents&rdquo;: Porcupine, Yellow-bellied marmot, Black-tailed jackrabbit, Striped skunk, Raccoon; &ldquo;Birds&rdquo;: Black-billed magpie, Bald eagle, Great horned owl, California gull; &ldquo;Fish&rdquo;: Bonneville cutthroat trout; &ldquo;Predators&rdquo;: Coyote, Black bear, Red fox, Mountain lion." loading="lazy" width="2000" height="1500">
+  <figcaption><span class="sid">S5</span> <strong>Group 5</strong> &middot; <span class="scheme-word">kind of animal, plus role</span> &middot; 7 piles
+    <ul class="labels"><li>&ldquo;Domestic Animals&rdquo; <small>7</small></li><li>&ldquo;Reptiles&rdquo; <small>2</small></li><li>&ldquo;Antlers/Horns&rdquo; <small>5</small></li><li>&ldquo;Rodents&rdquo; <small>5</small></li><li>&ldquo;Birds&rdquo; <small>4</small></li><li>&ldquo;Fish&rdquo; <small>1</small></li><li>&ldquo;Predators&rdquo; <small>4</small></li></ul>
+  </figcaption>
+</figure>
+<figure id="photo-s6">
+  <img src="assets/animals-sort-s6.webp" alt="Photo of Group 6's finished sort on a classroom desk: &ldquo;Domesticated / Pets&rdquo;: Pet rabbit, Cat, Chicken, Cow, Dog, Horse; &ldquo;Birds&rdquo;: California gull, Great horned owl, Bald eagle, Black-billed magpie; &ldquo;Desert&rdquo;: Desert tortoise, Great Basin rattlesnake; &ldquo;large-sized mammals&rdquo;: American bison, Black bear, Mountain lion; &ldquo;Insects&rdquo;: Honeybee; &ldquo;small-sized mammals&rdquo;: Black-tailed jackrabbit, Striped skunk, Yellow-bellied marmot, Porcupine; &ldquo;Deer-like Animals&rdquo;: Pronghorn, Mule deer, Moose, Elk; &ldquo;fish&rdquo;: Bonneville cutthroat trout; &ldquo;medium-sized mammals&rdquo;: Coyote, Red fox, Raccoon." loading="lazy" width="2000" height="1500">
+  <figcaption><span class="sid">S6</span> <strong>Group 6</strong> &middot; <span class="scheme-word">kind of animal, mammals split three ways by size</span> &middot; 9 piles
+    <ul class="labels"><li>&ldquo;Domesticated / Pets&rdquo; <small>6</small></li><li>&ldquo;Birds&rdquo; <small>4</small></li><li>&ldquo;Desert&rdquo; <small>2</small></li><li>&ldquo;large-sized mammals&rdquo; <small>3</small></li><li>&ldquo;Insects&rdquo; <small>1</small></li><li>&ldquo;small-sized mammals&rdquo; <small>4</small></li><li>&ldquo;Deer-like Animals&rdquo; <small>4</small></li><li>&ldquo;fish&rdquo; <small>1</small></li><li>&ldquo;medium-sized mammals&rdquo; <small>3</small></li></ul>
+  </figcaption>
+</figure>
+<figure id="photo-s8">
+  <img src="assets/animals-sort-s8.webp" alt="Photo of Group 8's finished sort on a classroom desk: &ldquo;Domestic Animals&rdquo;: Pet rabbit, Dog, Cow, Horse, Chicken, Cat; &ldquo;Birds&rdquo;: Great horned owl, California gull, Black-billed magpie, Bald eagle; &ldquo;Large predators&rdquo;: Coyote, Black bear, Mountain lion; &ldquo;Large prey&rdquo;: Mule deer, Moose, American bison, Elk, Pronghorn; &ldquo;Small animals&rdquo;: Striped skunk, Red fox, Raccoon, Porcupine, Desert tortoise, Great Basin rattlesnake, Black-tailed jackrabbit, Yellow-bellied marmot; &ldquo;Other&rdquo;: Bonneville cutthroat trout, Honeybee." loading="lazy" width="2000" height="1500">
+  <figcaption><span class="sid">S8</span> <strong>Group 8</strong> &middot; <span class="scheme-word">kind of animal, mammals split by size and predator/prey</span> &middot; 6 piles
+    <ul class="labels"><li>&ldquo;Domestic Animals&rdquo; <small>6</small></li><li>&ldquo;Birds&rdquo; <small>4</small></li><li>&ldquo;Large predators&rdquo; <small>3</small></li><li>&ldquo;Large prey&rdquo; <small>5</small></li><li>&ldquo;Small animals&rdquo; <small>8</small></li><li>&ldquo;Other&rdquo; <small>2</small></li></ul>
+  </figcaption>
+</figure>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <section aria-labelledby="std-heading" id="standardize">
+      <h2 id="std-heading">1. Standardize the group names</h2>
+      <blockquote class="pull">
+        <p>&ldquo;Standardize similar group names (&lsquo;Getting started&rsquo; /
+          &lsquo;Start here&rsquo; / &lsquo;Basics&rsquo; are one category), then
+          look for: groups almost everyone created, strong card pairs, and
+          splitter cards. &hellip; And where sorters split cards systematically
+          &mdash; half filing a skill by situation, half by topic &mdash; that
+          is not noise and not a tie to break. It is evidence the item needs
+          more than one home.&rdquo;</p>
+        <cite><a class="cite" href="#cite-canvas">The Canvas method page</a>, after
+          <a class="cite" href="#cite-spencer">Spencer&rsquo;s book</a>.</cite>
+      </blockquote>
+      <p>
+        Two rules governed the standardizing. <strong>Where the photo exists,
+        a pile is standardized by what is in it, not only by the word on
+        it.</strong> Group 6&rsquo;s &ldquo;Desert&rdquo; holds exactly the
+        tortoise and the rattlesnake, so it is a reptile pile with a habitat
+        word on it &mdash; and the word is kept, because the word is vocabulary
+        evidence. Where only the whiteboard survives, the word is all we have.
+        And <strong>labels that name a principle rather than a kind of
+        animal</strong> &mdash; &ldquo;Common,&rdquo; &ldquo;Road kill,&rdquo;
+        &ldquo;Mountainous&rdquo; &mdash; are not forced into a category; they
+        go in a second table, as evidence about schemes.
+      </p>
+
+      <figure>
+        <ul class="bars">
+          <li><span class="divider">Standardized groups &middot; of 10 sorts</span><span></span><span></span></li>
+<li style="--n:9"><span>Domestic / farm &amp; pets</span><span class="bar"><i></i></span><span class="n">9/10</span></li>
+<li style="--n:8"><span>Birds</span><span class="bar"><i></i></span><span class="n">8/10</span></li>
+<li style="--n:7"><span>Deer, elk &amp; other antlered or horned animals</span><span class="bar"><i></i></span><span class="n">7/10</span></li>
+<li style="--n:6"><span>Reptiles (and other scaly things)</span><span class="bar"><i></i></span><span class="n">6/10</span></li>
+<li style="--n:6"><span>Predators / animals to stay away from</span><span class="bar"><i></i></span><span class="n">6/10</span></li>
+<li style="--n:6"><span>Small mammals</span><span class="bar"><i></i></span><span class="n">6/10</span></li>
+<li style="--n:4"><span>Fish</span><span class="bar"><i></i></span><span class="n">4/10</span></li>
+<li style="--n:2"><span>Insects</span><span class="bar"><i></i></span><span class="n">2/10</span></li>
+<li><span class="divider">Kinds of word in the labels &middot; of 10 sorts</span><span></span><span></span></li>
+<li class="is-scheme" style="--n:4"><span>Where you meet it (habitat / place)</span><span class="bar"><i></i></span><span class="n">4/10</span></li>
+<li class="is-scheme" style="--n:3"><span>How often you meet it, or what it does to you</span><span class="bar"><i></i></span><span class="n">3/10</span></li>
+<li class="is-scheme" style="--n:4"><span>Size words in labels</span><span class="bar"><i></i></span><span class="n">4/10</span></li>
+<li class="is-scheme" style="--n:5"><span>Predator / prey words in labels</span><span class="bar"><i></i></span><span class="n">5/10</span></li>
+<li class="is-scheme" style="--n:6"><span>Visible-feature words in labels</span><span class="bar"><i></i></span><span class="n">6/10</span></li>
+        </ul>
+        <figcaption class="legend">The blue bars are kinds of animal (plus
+          &ldquo;domestic,&rdquo; which isn&rsquo;t one); the gray bars count
+          sorts whose labels used that kind of <em>word</em>, whatever the pile.</figcaption>
+      </figure>
+
+      <h3>Table 1 &middot; The 65 labels, standardized</h3>
+      <div class="table-scroll">
+        <table class="study-table std-table">
+          <thead><tr><th>Standardized group</th><th>Sorts</th><th>Verbatim labels folded in</th></tr></thead>
+          <tbody>
+<tr><td class="std__cat">Domestic / farm &amp; pets</td><td class="std__n">9/10</td><td class="std__labels">&ldquo;Domestic&rdquo; (S2); &ldquo;domesticated animals&rdquo; (S3); &ldquo;domesticated&rdquo; (S4); &ldquo;Domestic Animals&rdquo; (S5); &ldquo;Domesticated / Pets&rdquo; (S6); &ldquo;Domestic animals&rdquo; (S7); &ldquo;Food producing animals&rdquo; (S7); &ldquo;Domestic Animals&rdquo; (S8); &ldquo;Animals you can own&rdquo; (S9); &ldquo;Household&rdquo; (S10); &ldquo;Farm&rdquo; (S10)</td></tr>
+<tr><td class="std__cat">Birds</td><td class="std__n">8/10</td><td class="std__labels">&ldquo;Birds&rdquo; (S1); &ldquo;birds&rdquo; (S3); &ldquo;flight&rdquo; (S4); &ldquo;Birds&rdquo; (S5); &ldquo;Birds&rdquo; (S6); &ldquo;Avians&rdquo; (S7); &ldquo;Birds&rdquo; (S8); &ldquo;Birds&rdquo; (S10)</td></tr>
+<tr><td class="std__cat">Deer, elk &amp; other antlered or horned animals</td><td class="std__n">7/10</td><td class="std__labels">&ldquo;large mammals&rdquo; (S3); &ldquo;horns&rdquo; (S4); &ldquo;Antlers/Horns&rdquo; (S5); &ldquo;Deer-like Animals&rdquo; (S6); &ldquo;Horned animals&rdquo; (S7); &ldquo;Large prey&rdquo; (S8); &ldquo;Antlers/Horns&rdquo; (S10)</td></tr>
+<tr><td class="std__cat">Reptiles (and other scaly things)</td><td class="std__n">6/10</td><td class="std__labels">&ldquo;Reptiles&rdquo; (S1); &ldquo;scaly animals&rdquo; (S3); &ldquo;scales&rdquo; (S4); &ldquo;Reptiles&rdquo; (S5); &ldquo;Desert&rdquo; (S6); &ldquo;Reptiles&rdquo; (S7)</td></tr>
+<tr><td class="std__cat">Predators / animals to stay away from</td><td class="std__n">6/10</td><td class="std__labels">&ldquo;predators&rdquo; (S3); &ldquo;medium to large predators&rdquo; (S4); &ldquo;Predators&rdquo; (S5); &ldquo;Predators&rdquo; (S7); &ldquo;Large predators&rdquo; (S8); &ldquo;Animals to stay away from&rdquo; (S9)</td></tr>
+<tr><td class="std__cat">Small mammals</td><td class="std__n">6/10</td><td class="std__labels">&ldquo;small mammals&rdquo; (S3); &ldquo;rodents&rdquo; (S4); &ldquo;Rodents&rdquo; (S5); &ldquo;small-sized mammals&rdquo; (S6); &ldquo;Rodents&rdquo; (S7); &ldquo;Small animals&rdquo; (S8)</td></tr>
+<tr><td class="std__cat">Fish</td><td class="std__n">4/10</td><td class="std__labels">&ldquo;Fishes&rdquo; (S1); &ldquo;Fish&rdquo; (S5); &ldquo;fish&rdquo; (S6); &ldquo;Fish&rdquo; (S10)</td></tr>
+<tr><td class="std__cat">Leftovers</td><td class="std__n">3/10</td><td class="std__labels">&ldquo;Uncategorized&rdquo; (S1); &ldquo;(one card left unlabeled)&rdquo; (S4); &ldquo;Other&rdquo; (S8)</td></tr>
+<tr><td class="std__cat">Insects</td><td class="std__n">2/10</td><td class="std__labels">&ldquo;Insects&rdquo; (S1); &ldquo;Insects&rdquo; (S6)</td></tr>
+<tr><td class="std__cat">Mammals, undivided</td><td class="std__n">1/10</td><td class="std__labels">&ldquo;Mammals&rdquo; (S1)</td></tr>
+<tr><td class="std__cat">Mammals by size alone</td><td class="std__n">1/10</td><td class="std__labels">&ldquo;large-sized mammals&rdquo; (S6); &ldquo;medium-sized mammals&rdquo; (S6)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Table 2 &middot; Labels that are a principle, not a group</h3>
+      <div class="table-scroll">
+        <table class="study-table std-table">
+          <thead><tr><th>Kind of word</th><th>Sorts</th><th>Verbatim labels</th></tr></thead>
+          <tbody>
+<tr><td class="std__cat">Where you meet it (habitat / place)</td><td class="std__n">4/10</td><td class="std__labels">&ldquo;Wild – region specific&rdquo; (S2); &ldquo;Desert&rdquo; (S6); &ldquo;Animals specific to places&rdquo; (S9); &ldquo;Forest animals&rdquo; (S9); &ldquo;Desert&rdquo; (S10); &ldquo;Mountainous&rdquo; (S10); &ldquo;Household&rdquo; (S10); &ldquo;Farm&rdquo; (S10)</td></tr>
+<tr><td class="std__cat">How often you meet it, or what it does to you</td><td class="std__n">3/10</td><td class="std__labels">&ldquo;Common&rdquo; (S2); &ldquo;Uncommon&rdquo; (S2); &ldquo;Usually unseen&rdquo; (S2); &ldquo;Animals you can own&rdquo; (S9); &ldquo;Animals to stay away from&rdquo; (S9); &ldquo;Destructive animals&rdquo; (S9); &ldquo;Road kill&rdquo; (S10)</td></tr>
+<tr><td class="std__cat">Size words in labels</td><td class="std__n">4/10</td><td class="std__labels">&ldquo;large mammals&rdquo; (S3); &ldquo;small mammals&rdquo; (S3); &ldquo;medium to large predators&rdquo; (S4); &ldquo;large-sized mammals&rdquo; (S6); &ldquo;medium-sized mammals&rdquo; (S6); &ldquo;small-sized mammals&rdquo; (S6); &ldquo;Large predators&rdquo; (S8); &ldquo;Large prey&rdquo; (S8); &ldquo;Small animals&rdquo; (S8)</td></tr>
+<tr><td class="std__cat">Predator / prey words in labels</td><td class="std__n">5/10</td><td class="std__labels">&ldquo;predators&rdquo; (S3); &ldquo;medium to large predators&rdquo; (S4); &ldquo;Predators&rdquo; (S5); &ldquo;Predators&rdquo; (S7); &ldquo;Large predators&rdquo; (S8); &ldquo;Large prey&rdquo; (S8)</td></tr>
+<tr><td class="std__cat">Visible-feature words in labels</td><td class="std__n">6/10</td><td class="std__labels">&ldquo;scaly animals&rdquo; (S3); &ldquo;flight&rdquo; (S4); &ldquo;horns&rdquo; (S4); &ldquo;scales&rdquo; (S4); &ldquo;Antlers/Horns&rdquo; (S5); &ldquo;Deer-like Animals&rdquo; (S6); &ldquo;Horned animals&rdquo; (S7); &ldquo;Antlers/Horns&rdquo; (S10)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Reading the tables</h3>
+      <ul>
+        <li><strong>Domestic is the loudest group in the study &mdash; 9 of
+          10 &mdash; under five spellings,</strong> and two groups split it
+          further: pets from food animals (S7), household from farm (S10). The
+          one group without it (S1) sorted like a biology class. Notice what
+          that means: the strongest category people reached for describes the
+          animal&rsquo;s relationship to us, not its biology.</li>
+        <li><strong>Birds, 8 of 10.</strong> S4 wrote &ldquo;flight&rdquo; and
+          put the honeybee in; S7 wrote &ldquo;Avians,&rdquo; the only
+          Latinate word among 65 labels.</li>
+        <li><strong>The deer group is the most consistently made and the most
+          inconsistently named:</strong> seven groups, six different labels.
+          Two wrote &ldquo;Antlers/Horns&rdquo; independently; nobody wrote
+          &ldquo;ungulates&rdquo; or &ldquo;hoofed.&rdquo; And &ldquo;large
+          mammals&rdquo; named <em>this</em> group for S3 but a different
+          group (bison, bear, lion) for S6 &mdash; one size word, two
+          different piles.</li>
+        <li><strong>&ldquo;Rodents&rdquo; (3 of 10) is a label that doesn&rsquo;t
+          mean what it says.</strong> Both &ldquo;rodents&rdquo; piles we can
+          see (S4, S5) held the jackrabbit (a hare), the raccoon and the skunk
+          (carnivores) &mdash; and S4, which wrote &ldquo;rodents,&rdquo; left the
+          porcupine, an actual rodent, on the table with no label at all.
+          People say &ldquo;rodents&rdquo; for &ldquo;small furry
+          animals.&rdquo; &ldquo;Small mammals&rdquo; says that without being
+          wrong.</li>
+        <li><strong>Reptiles:</strong> &ldquo;Reptiles,&rdquo; &ldquo;scaly,&rdquo;
+          &ldquo;scales,&rdquo; &ldquo;Desert&rdquo; &mdash; three ideas for
+          the same two animals, and twice the trout joined them under a
+          scales word.</li>
+        <li><strong>Fish (4 of 10 as its own pile, plus 2 folded into
+          &ldquo;scaly&rdquo;) and Insects (2 of 10)</strong> can&rsquo;t
+          show up as groups: the deck has one of each. They show up as
+          splitters instead (<a href="#splitters">section 3</a>).</li>
+      </ul>
+    </section>
+
+    <!-- ================================================================ -->
+    <section aria-labelledby="pairs-heading" id="pairs">
+      <h2 id="pairs-heading">2. Strong pairs &mdash; of the six photographed sorts</h2>
+      <p>
+        Counting every pair of cards that shared a pile, sort by sort: 21 pairs
+        were together in all six photographed sorts and 15 more in five. They
+        form five clusters.
+      </p>
+      <div class="clusters">
+        <div class="cluster">
+          <h4>Farm animals &amp; pets <span class="tally">6/6 &middot; all 15 pairs</span></h4>
+          <ul class="cards"><li class="card">Cat</li><li class="card">Dog</li><li class="card">Cow</li><li class="card">Horse</li><li class="card">Chicken</li><li class="card">Pet rabbit</li></ul>
+          <p class="joins">Never once separated, under any scheme.</p>
+        </div>
+        <div class="cluster">
+          <h4>The deer group <span class="tally">6/6 core</span></h4>
+          <ul class="cards"><li class="card">Elk</li><li class="card">Moose</li><li class="card">Mule deer</li><li class="card card--joins">Pronghorn 5/6</li><li class="card card--joins">American bison 5/6</li></ul>
+          <p class="joins">Pronghorn left once (S2: &ldquo;usually unseen&rdquo;); bison left once (S6 filed it by size, with bear and lion).</p>
+        </div>
+        <div class="cluster">
+          <h4>Big predators <span class="tally">6/6 core</span></h4>
+          <ul class="cards"><li class="card">Black bear</li><li class="card">Mountain lion</li><li class="card card--joins">Coyote 4/6</li></ul>
+          <p class="joins">Coyote joins in the four sorts with a predators pile; S2 called it &ldquo;common,&rdquo; S6 &ldquo;medium-sized.&rdquo; Red fox joins in two.</p>
+        </div>
+        <div class="cluster">
+          <h4>Birds <span class="tally">5/6</span></h4>
+          <ul class="cards"><li class="card">Bald eagle</li><li class="card">Great horned owl</li><li class="card">California gull</li><li class="card">Black-billed magpie</li></ul>
+          <p class="joins">Gull + magpie 6/6. Only S2 split the birds &mdash; by how often you see them, not by whether they are birds.</p>
+        </div>
+        <div class="cluster">
+          <h4>Small mammals <span class="tally">6/6 core</span></h4>
+          <ul class="cards"><li class="card">Black-tailed jackrabbit</li><li class="card">Yellow-bellied marmot</li><li class="card card--joins">Striped skunk 5/6</li><li class="card card--joins">Porcupine 5/6</li><li class="card card--joins">Raccoon 4/6</li></ul>
+          <p class="joins">Porcupine + skunk 5/6; raccoon leaves for &ldquo;common&rdquo; (S2) and &ldquo;medium-sized&rdquo; (S6).</p>
+        </div>
+        <div class="cluster">
+          <h4>Reptiles <span class="tally">5/6</span></h4>
+          <ul class="cards"><li class="card">Desert tortoise</li><li class="card">Great Basin rattlesnake</li><li class="card card--joins">Trout 2/6</li></ul>
+          <p class="joins">Together everywhere but S2 (&ldquo;uncommon&rdquo; vs. &ldquo;usually unseen&rdquo;). The trout joins under &ldquo;scales&rdquo; and &ldquo;scaly.&rdquo;</p>
+        </div>
+      </div>
+      <p>
+        <strong>One thing to notice before you count pairs: four of the six
+        5/6 clusters are S2&rsquo;s doing.</strong> Group 2 sorted by how
+        often you meet the animal, so it split the birds, the reptiles, the
+        pronghorn from the deer, and the skunk from the jackrabbit without
+        disagreeing with anyone about what they are. Among the five sorts that
+        used a kind-of-animal scheme, those four clusters are 5 of 5 (bison
+        and porcupine, the other two, are 4 of 5). A group with a different
+        scheme lowers every pair count in the study; separate the schemes
+        (<a href="#schemes">section 4</a>) before you read the pairs, or you
+        will see disagreement that isn&rsquo;t there.
+      </p>
+    </section>
+
+    <!-- ================================================================ -->
+    <section aria-labelledby="split-heading" id="splitters">
+      <h2 id="split-heading">3. Splitters &mdash; and which splits are systematic</h2>
+      <p>
+        Table 3 shows where each card went in each photographed sort, cell
+        tinted by the standardized group. The last column counts how many
+        different groups a card landed in <em>outside S2</em> (S2&rsquo;s
+        frequency scheme is a different kind of answer; it is hatched, and
+        it would make every card look like a splitter). Eleven cards moved;
+        the other seventeen are in Appendix B.
+      </p>
+      <p class="homes-key">
+        <span><i style="background:#e6f0e8"></i>domestic</span>
+        <span><i style="background:#e8eef7"></i>birds</span>
+        <span><i style="background:#f3ede2"></i>deer group</span>
+        <span><i style="background:#eef0d9"></i>reptiles / scaly</span>
+        <span><i style="background:#efe4f1"></i>predators</span>
+        <span><i style="background:#f8f1d6"></i>small mammals</span>
+        <span><i style="background:#dff0f2"></i>fish</span>
+        <span><i style="background:#f0f0f0"></i>insects</span>
+        <span><i style="background:#fbe9d7"></i>by size alone</span>
+        <span><i style="background:repeating-linear-gradient(135deg,#f4f4f4 0 4px,#e6e6e6 4px 8px)"></i>leftover / no label</span>
+        <span><i style="background:repeating-linear-gradient(135deg,#fff 0 4px,#eceff2 4px 8px)"></i>S2&rsquo;s frequency scheme</span>
+      </p>
+      <h3>Table 3 &middot; The eleven cards that moved</h3>
+      <div class="table-scroll">
+        <table class="study-table homes">
+          <thead><tr><th>Card</th><th>S2</th><th>S3</th><th>S4</th><th>S5</th><th>S6</th><th>S8</th><th>Different homes, S2 aside</th></tr></thead>
+          <tbody>
+<tr><th scope="row">Honeybee</th><td class="h-s2">Common</td><td class="h-dom">domesticated animals</td><td class="h-bird">flight</td><td class="h-dom">Domestic Animals</td><td class="h-ins">Insects</td><td class="h-other">Other</td><td class="std__n">4</td></tr>
+<tr><th scope="row">Bonneville cutthroat trout</th><td class="h-s2">Wild – region specific</td><td class="h-rept">scaly animals</td><td class="h-rept">scales</td><td class="h-fish">Fish</td><td class="h-fish">fish</td><td class="h-other">Other</td><td class="std__n">3</td></tr>
+<tr><th scope="row">Red fox</th><td class="h-s2">Common</td><td class="h-small">small mammals</td><td class="h-pred">medium to large predators</td><td class="h-pred">Predators</td><td class="h-size">medium-sized mammals</td><td class="h-small">Small animals</td><td class="std__n">3</td></tr>
+<tr><th scope="row">American bison</th><td class="h-s2">Wild – region specific</td><td class="h-hoof">large mammals</td><td class="h-hoof">horns</td><td class="h-hoof">Antlers/Horns</td><td class="h-size">large-sized mammals</td><td class="h-hoof">Large prey</td><td class="std__n">2</td></tr>
+<tr><th scope="row">Black bear</th><td class="h-s2">Wild – region specific</td><td class="h-pred">predators</td><td class="h-pred">medium to large predators</td><td class="h-pred">Predators</td><td class="h-size">large-sized mammals</td><td class="h-pred">Large predators</td><td class="std__n">2</td></tr>
+<tr><th scope="row">Coyote</th><td class="h-s2">Common</td><td class="h-pred">predators</td><td class="h-pred">medium to large predators</td><td class="h-pred">Predators</td><td class="h-size">medium-sized mammals</td><td class="h-pred">Large predators</td><td class="std__n">2</td></tr>
+<tr><th scope="row">Desert tortoise</th><td class="h-s2">Usually unseen</td><td class="h-rept">scaly animals</td><td class="h-rept">scales</td><td class="h-rept">Reptiles</td><td class="h-rept">Desert</td><td class="h-small">Small animals</td><td class="std__n">2</td></tr>
+<tr><th scope="row">Great Basin rattlesnake</th><td class="h-s2">Uncommon</td><td class="h-rept">scaly animals</td><td class="h-rept">scales</td><td class="h-rept">Reptiles</td><td class="h-rept">Desert</td><td class="h-small">Small animals</td><td class="std__n">2</td></tr>
+<tr><th scope="row">Mountain lion</th><td class="h-s2">Wild – region specific</td><td class="h-pred">predators</td><td class="h-pred">medium to large predators</td><td class="h-pred">Predators</td><td class="h-size">large-sized mammals</td><td class="h-pred">Large predators</td><td class="std__n">2</td></tr>
+<tr><th scope="row">Porcupine</th><td class="h-s2">Uncommon</td><td class="h-small">small mammals</td><td class="h-other"><em>no label</em></td><td class="h-small">Rodents</td><td class="h-small">small-sized mammals</td><td class="h-small">Small animals</td><td class="std__n">2</td></tr>
+<tr><th scope="row">Raccoon</th><td class="h-s2">Common</td><td class="h-small">small mammals</td><td class="h-small">rodents</td><td class="h-small">Rodents</td><td class="h-size">medium-sized mammals</td><td class="h-small">Small animals</td><td class="std__n">2</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        Two different things are happening in this table, and the method page
+        asks you to tell them apart.
+      </p>
+      <ul>
+        <li><strong>The honeybee and the trout <em>scatter</em>.</strong>
+          The honeybee had five different homes in six sorts &mdash; common,
+          domesticated, flight, domestic, insects, other &mdash; and the trout
+          four. Neither had a companion in the deck: one insect, one fish.
+          Two things are still worth keeping from the scatter. Two groups put
+          the honeybee with the farm animals and a third (S7, on the
+          whiteboard) made a &ldquo;Food producing animals&rdquo; pile: in the
+          Beehive State, a honeybee is a kept animal. And two groups put the
+          trout under a scales word with the reptiles: fish and reptiles can
+          sit next to each other.</li>
+        <li><strong>The red fox <em>splits</em>, and it splits the same way
+          every time.</strong> Two groups filed it by what it is (small
+          mammals), two by what it does (predators), one by its size (with the
+          coyote and the raccoon). That is the method page&rsquo;s example
+          almost word for word &mdash; half by one principle, half by another
+          &mdash; and it is not a tie to break. The fox needs two homes
+          (<a href="#fox">one animal, several views</a>, below).</li>
+        <li><strong>The bison, the coyote, and the raccoon split the same
+          way, more quietly:</strong> four sorts by kind (the deer group,
+          predators, small mammals), one by size (S6&rsquo;s large / medium /
+          small mammals). Size is a principle people reach for &mdash; four
+          groups used a size word &mdash; but only one group used it as the
+          whole scheme, and &ldquo;large mammals&rdquo; meant two different
+          piles to two different groups. Size is an attribute, not a box.</li>
+        <li><strong>The porcupine is a vocabulary casualty.</strong> S4 wrote
+          &ldquo;rodents&rdquo; and then couldn&rsquo;t put the one rodent
+          they had left into it. It sat alone on the table with no label.</li>
+        <li><strong>Tortoise and rattlesnake</strong> went with the reptiles
+          four times and, once (S8), into &ldquo;Small animals&rdquo; with the
+          small mammals &mdash; the one kind-scheme sort with no reptile pile
+          at all.</li>
+      </ul>
+    </section>
+
+    <!-- ================================================================ -->
+    <section aria-labelledby="schemes-heading" id="schemes">
+      <h2 id="schemes-heading">4. Schemes &mdash; what organizing principle did people reach for?</h2>
+      <div class="schemes">
+        <div class="scheme scheme--kind scheme--nophoto"><b>S1</b>kind of animal, biology-class pure: insects, mammals, birds, reptiles, fishes</div>
+        <div class="scheme scheme--exp"><b>S2</b>how often you meet it: domestic, common, uncommon, wild, usually unseen</div>
+        <div class="scheme scheme--mix"><b>S3</b>kind + size + role: large mammals, predators, small mammals, domesticated, scaly, birds</div>
+        <div class="scheme scheme--mix"><b>S4</b>visible features + role: flight, horns, rodents, domesticated, scales, med&ndash;lg predators</div>
+        <div class="scheme scheme--mix"><b>S5</b>kind + role: domestic, reptiles, antlers/horns, rodents, fish, birds, predators</div>
+        <div class="scheme scheme--mix"><b>S6</b>kind + three sizes: domesticated/pets, birds, desert, lg / md / sm mammals, insects, deer-like, fish</div>
+        <div class="scheme scheme--mix scheme--nophoto"><b>S7</b>kind + role, pets split from food: predators, horned, rodents, avians, reptiles, domestic, food producing</div>
+        <div class="scheme scheme--mix"><b>S8</b>kind + size + predator/prey: domestic, birds, lg predators, lg prey, small animals, other</div>
+        <div class="scheme scheme--exp scheme--nophoto"><b>S9</b>your relationship to it: can own, stay away from, specific to places, destructive, forest</div>
+        <div class="scheme scheme--exp scheme--nophoto"><b>S10</b>where you meet it (mostly): fish, desert, mountainous, household, antlers/horns, road kill, birds, farm</div>
+      </div>
+      <p class="legend"><i style="background:#e8eef7"></i>kind of animal, pure
+        <i style="background:#f3ede2"></i>kind of animal mixed with role or size
+        <i style="background:#e6f0e8"></i>your experience of the animal
+        <i class="dashed"></i>labels only (no photo)</p>
+      <p>
+        Seven of ten built on <strong>kind of animal</strong> &mdash; but only
+        S1 kept it pure. The other six mixed a role word (predators) or a size
+        word into the same level, and every one of them had a domestic pile.
+        Three groups organized by <strong>their experience of the
+        animal</strong>: how often you meet it (S2), what it does to or for
+        you (S9: animals you can own, stay away from, destructive), where you
+        meet it (S10: desert, mountainous, household, farm &mdash; and road
+        kill, which is where a lot of Utahns do meet a mule deer).
+      </p>
+      <p>
+        <strong>The hybrid is the mental model.</strong> A pure taxonomy is one
+        group in ten; a pure experience scheme is three; the common case is
+        kind of animal with &ldquo;domestic&rdquo; and &ldquo;predators&rdquo;
+        sitting alongside as if they were kinds. And the experience words are
+        not confined to the three experience sorts: place words appear in
+        four of ten sorts, size words in four, predator/prey words in five,
+        visible-feature words (flight, horns, scales) in six. Those are the
+        candidate facets.
+      </p>
+    </section>
+
+    <!-- ================================================================ -->
+    <section aria-labelledby="prop-heading" id="proposal">
+      <h2 id="prop-heading">5. What this says about a website of Utah&rsquo;s animals</h2>
+      <p>
+        Read as the method page says &mdash; patterns, not a vote &mdash;
+        here is what we would carry into a wireframe: seven top-level
+        categories in the sorters&rsquo; own words, a second categorization by
+        place, and four attributes on every animal. In
+        <a class="cite" href="#cite-polar">the Polar Bear book&rsquo;s</a>
+        terms, the first is a topical scheme with two audience-relative
+        exceptions (domestic, predators), and the rest are facets.
+      </p>
+
+      <h3>Table 4 &middot; The organization, with its evidence</h3>
+      <div class="table-scroll">
+        <table class="study-table facets">
+          <thead><tr><th>Facet</th><th>Values</th><th>Evidence</th><th>Where it shows up</th></tr></thead>
+          <tbody>
+            <tr><td>Kind of animal<br><small>the primary categorization</small></td>
+              <td class="vals">Farm animals &amp; pets &middot; Birds &middot; Deer, elk &amp; other antlered animals &middot; Small mammals &middot; Reptiles &middot; Fish &middot; Insects &amp; other small creatures</td>
+              <td>Six groups made by 6 of 10 or more; every photographed sort made at least four of them; four of the five 6/6 clusters sit inside one of them, and the fifth (bear + lion) is the Predators view below.</td>
+              <td>Main navigation &mdash; one door per category.</td></tr>
+            <tr><td>Where you&rsquo;d find it<br><small>the second categorization</small></td>
+              <td class="vals">Deserts &middot; Mountains &amp; forests &middot; Rivers, lakes &amp; wetlands &middot; Farms, yards &amp; towns</td>
+              <td>Place words in 4 of 10 sorts (&ldquo;Desert&rdquo; ×2, &ldquo;Mountainous,&rdquo; &ldquo;Forest animals,&rdquo; &ldquo;specific to places,&rdquo; &ldquo;region specific,&rdquo; &ldquo;Household,&rdquo; &ldquo;Farm&rdquo;); half of S10&rsquo;s scheme. Every animal takes at least one value, so it can carry a whole second view.</td>
+              <td>A second way in from the home page (&ldquo;browse by where you are&rdquo;), and a fact on every animal&rsquo;s page.</td></tr>
+            <tr><td>Role</td>
+              <td class="vals">Predator &middot; Prey / grazer &middot; (neither)</td>
+              <td>&ldquo;Predators&rdquo; in 5 of 10 sorts, &ldquo;stay away from&rdquo; in a sixth, &ldquo;Large prey&rdquo; in one. The red fox&rsquo;s 2&ndash;2 split is kind vs. role.</td>
+              <td>A &ldquo;Predators&rdquo; door that is a <em>view</em> over this attribute, not a box &mdash; so the fox, the coyote, the bear and the lion are also in their kind, and in a fuller inventory the eagle, the owl, and the rattlesnake join without leaving Birds or Reptiles.</td></tr>
+            <tr><td>Size</td>
+              <td class="vals">Small &middot; Medium &middot; Large</td>
+              <td>Size words in 4 of 10; the bison, coyote, raccoon, and fox all moved once because of it. But &ldquo;large mammals&rdquo; meant two different piles (S3, S6): size can&rsquo;t be a category by itself.</td>
+              <td>A filter chip and a fact on the page. Never a top-level box.</td></tr>
+            <tr><td>Visible feature</td>
+              <td class="vals">Antlers or horns &middot; Scales &middot; Flies &middot; Fur &middot; Feathers</td>
+              <td>Feature words in 6 of 10 sorts; S4&rsquo;s whole scheme (flight, horns, scales). This is how someone who just saw something describes it.</td>
+              <td>&ldquo;What did you see?&rdquo; identification entry; search terms.</td></tr>
+            <tr><td>How likely you are to meet one</td>
+              <td class="vals">Kept &middot; Common &middot; Uncommon &middot; Rarely seen</td>
+              <td>S2&rsquo;s entire scheme; &ldquo;Animals you can own&rdquo; (S9); &ldquo;Road kill&rdquo; (S10). One full scheme in ten.</td>
+              <td><strong>Held.</strong> Recorded as a candidate, not built &mdash; one group is a signal to test, not a finding to ship.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 id="fox">One animal, several views</h3>
+      <p>
+        This is why a systematic split isn&rsquo;t a tie to break. If every
+        animal is one record carrying these attributes, the fox is filed once
+        and found four ways &mdash; the single source, multiple views idea the
+        wireframe assignment is built on.
+      </p>
+      <div class="fox">
+        <div class="fox__block">
+          <h4>Red fox</h4>
+          <ul class="fox__attrs">
+            <li><span>kind</span><span>Small mammals</span></li>
+            <li><span>role</span><span>Predator</span></li>
+            <li><span>size</span><span>Medium</span></li>
+            <li><span>where</span><span>Mountains &amp; forests; Farms, yards &amp; towns</span></li>
+            <li><span>feature</span><span>Fur</span></li>
+          </ul>
+        </div>
+        <ul class="fox__views">
+          <li>Small mammals <small>S3, S8 filed it here &mdash; by kind</small></li>
+          <li>Predators <small>S4, S5 filed it here &mdash; by role</small></li>
+          <li>Farms, yards &amp; towns <small>S2 called it &ldquo;common&rdquo;; a place view says why</small></li>
+          <li>Medium-sized animals <small>S6 filed it here &mdash; by size, with coyote and raccoon</small></li>
+        </ul>
+      </div>
+
+      <h3>Table 5 &middot; The labels, each with its evidence</h3>
+      <div class="table-scroll">
+        <table class="study-table labels-table">
+          <thead><tr><th>Label</th><th>Why this wording</th></tr></thead>
+          <tbody>
+            <tr><td>Farm animals &amp; pets</td><td>&ldquo;Domestic&rdquo; in five spellings (9 of 10), but two groups split pets from farm/food animals (S7, S10); a label that names both keeps their distinction visible. Nobody outside a biology context says &ldquo;domesticated.&rdquo;</td></tr>
+            <tr><td>Birds</td><td>8 of 10 wrote it. Not &ldquo;Avians&rdquo; (one group), not &ldquo;Flight&rdquo; (one group, and it swallowed the honeybee).</td></tr>
+            <tr><td>Deer, elk &amp; other antlered animals</td><td>Seven groups, six labels. &ldquo;Antlers/Horns&rdquo; was written twice, independently &mdash; the strongest verbatim signal &mdash; and &ldquo;Deer-like animals&rdquo; is the most transparent. &ldquo;Large mammals&rdquo; (S3) is ambiguous (S6 used it for bear and lion); &ldquo;Large prey&rdquo; (S8) is a hunter&rsquo;s frame. Naming the two most familiar animals plus the feature covers pronghorn and bison without a taxonomy word.</td></tr>
+            <tr><td>Small mammals</td><td>&ldquo;Rodents&rdquo; (3), &ldquo;small mammals&rdquo; (2), &ldquo;small animals&rdquo; (1) &mdash; the same five animals behind all six. We take the label that is true of the pile: the jackrabbit, raccoon, and skunk are not rodents, and &ldquo;rodents&rdquo; orphaned the porcupine on S4&rsquo;s table.</td></tr>
+            <tr><td>Reptiles</td><td>&ldquo;Reptiles&rdquo; ×4, &ldquo;scaly / scales&rdquo; ×2, &ldquo;Desert&rdquo; ×1 (by contents). The scales word is why Fish sits next door.</td></tr>
+            <tr><td>Predators</td><td>Five groups wrote it. S9&rsquo;s &ldquo;Animals to stay away from&rdquo; is the safety reading of the same pile; for a hiking audience, &ldquo;Animals to watch out for&rdquo; is worth testing. Built as a view over the role attribute (Table 4).</td></tr>
+            <tr><td>Fish &middot; Insects &amp; other small creatures</td><td>Weak in this sort (4 of 10 and 2 of 10) because the deck held one of each. In a real inventory of Utah&rsquo;s animals both are large; the deck, not the users, made them small. The honeybee also carries the &ldquo;kept&rdquo; reading three groups gave it.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Two caveats we would write into the report</h3>
+      <ul>
+        <li><strong>The sorters were CS students standing in for a general
+          Utah audience.</strong> A school audience would pull toward
+          S1&rsquo;s taxonomy (one group in ten here); a hiking or driving
+          audience toward S9&rsquo;s and S10&rsquo;s experience words. The
+          categories above are a reading of these ten sorts, and the audience
+          question is the first thing the real project would settle.</li>
+        <li><strong>The deck taught us about the deck.</strong> One fish, one
+          insect, no amphibians, and three of ten groups needed a leftover
+          pile &mdash; always for the honeybee, the trout, or the porcupine.
+          A content inventory that sampled Utah&rsquo;s animals evenly would
+          make Fish and Insects proper groups and make the splitter list
+          shorter.</li>
+      </ul>
+    </section>
+
+    <!-- ================================================================ -->
+    <section aria-labelledby="reports-heading" id="reports">
+      <h2 id="reports-heading">Three write-ups of this sort, graded</h2>
+      <p>
+        Below, the same data written up three ways &mdash; the five elements
+        the assignment asks for, graded on the 60-point Study Report Rubric
+        (Methods 15 / Results &amp; Analysis 20 / Design Decisions 25). The
+        white pages are the report; everything in red is the grader.
+      </p>
+      <div class="count-note">
+        <p><strong>What is not being graded here: the number of sorts.</strong>
+          All three write-ups describe the same in-class protocol &mdash; ten
+          sorts, six photographed &mdash; so Methods is scored the same for
+          each (15/15) and never separates them. The whole spread, 60 to 45 to
+          30, comes from Results &amp; Analysis and Design Decisions: from the
+          reading and the deciding, not the running.</p>
+        <p>In your real study the count <em>is</em> graded. The rubric&rsquo;s
+          Developing band is &ldquo;recruited more than half of the required
+          participants, but not all,&rdquo; and Beginning is &ldquo;half or
+          fewer&rdquo; &mdash; too few sorts costs Methods points before a
+          word of analysis is read.</p>
+      </div>
+      <h3 class="three-head">What to watch for as you read</h3>
+      <div class="three">
+        <div><b>A &middot; 60/60</b>Two denominators, kept apart. Disagreement read before it is averaged. Every decision cites its count &mdash; including the decision to hold one scheme and to give one animal two homes.</div>
+        <div><b>B &middot; 45/60</b>Real synthesis with counts, then two bad habits: the sort treated as a vote, a systematic split broken with a coin. Four sorts thrown away for lack of a photo &mdash; the four that held the second categorization.</div>
+        <div><b>C &middot; 30/60</b>The whiteboard transcribed, then one sentence about it. A plan from a biology textbook, in which the loudest finding in the data has nowhere to live.</div>
+      </div>
+
+      <!-- ============================================================ -->
+      <section aria-labelledby="report-a" class="report report--a">
+        <h2 id="report-a">Report A &mdash; 60/60</h2>
+        <p class="section-note">Written in the voice of a strong CS
+          undergraduate: plain, numbers-forward, and honest about its two
+          denominators. It is sections 1&ndash;5 of this page fitted to the
+          assignment&rsquo;s limits &mdash; a page of analysis, a page of
+          decisions, half a page of what&rsquo;s ignored &mdash; and the
+          fitting is part of the skill: notice what survived.
+          <span class="fiction-badge badge--authored">AUTHORED EXAMPLE</span></p>
+
+        <div class="docpage docpage--a">
+          <div class="doc-head">
+            <p class="doc-title">Open Card Sort &mdash; Animals That Live in Utah</p>
+            <p class="doc-sub">CS 356 &middot; Turn-in 1 &middot; September 2026</p>
+          </div>
+          <h3>1. Who sorted</h3>
+          <p>Ten groups of two or three students from CS 356 sorted the same
+            28 cards in class, one sort per group, in about fifteen minutes.
+            The sorts are numbered by their column on the whiteboard.</p>
+          <table class="study-table">
+            <thead><tr><th>Sort</th><th>Group</th><th>What we have</th><th>Piles</th><th>Their scheme, as we read it</th></tr></thead>
+            <tbody>
+<tr><td>S1</td><td>Group 1</td><td>whiteboard only</td><td>6</td><td>biology-class taxonomy</td></tr>
+<tr><td>S2</td><td>Group 2</td><td>photo + whiteboard</td><td>5</td><td>how often you meet it</td></tr>
+<tr><td>S3</td><td>Group 3</td><td>photo + whiteboard</td><td>6</td><td>kind of animal, mammals split by size and role</td></tr>
+<tr><td>S4</td><td>Group 4</td><td>photo + whiteboard</td><td>7</td><td>visible features (flight, horns, scales), plus role</td></tr>
+<tr><td>S5</td><td>Group 5</td><td>photo + whiteboard</td><td>7</td><td>kind of animal, plus role</td></tr>
+<tr><td>S6</td><td>Group 6</td><td>photo + whiteboard</td><td>9</td><td>kind of animal, mammals split three ways by size</td></tr>
+<tr><td>S7</td><td>Group 7</td><td>whiteboard only</td><td>7</td><td>kind of animal, plus role; pets split from food animals</td></tr>
+<tr><td>S8</td><td>Group 8</td><td>photo + whiteboard</td><td>6</td><td>kind of animal, mammals split by size and predator/prey</td></tr>
+<tr><td>S9</td><td>Group 9</td><td>whiteboard only</td><td>5</td><td>your relationship to the animal</td></tr>
+<tr><td>S10</td><td>Group 10</td><td>whiteboard only</td><td>8</td><td>where you meet it, mixed with kind</td></tr>
+            </tbody>
+          </table>
+          <p>Method: open sort, physical cards, no starter categories. Each
+            group grouped the cards however it wanted and wrote a label for
+            each pile on a blank card; when time was called, every group
+            copied its labels onto the whiteboard, and we photographed six of
+            the tables before the cards were picked up. Labels are transcribed
+            exactly as written.</p>
+          <p>Three things to flag. First, four sorts (S1, S7, S9, S10) survive
+            only as labels, so this report uses two denominators and says
+            which one every time: label-level counts are of 10, card-level
+            counts (pairs, splitters) are of 6. Second, we did not record how
+            many people were in each group &mdash; two or three &mdash; and
+            should have. Third, the sorters are CS students, not the audience
+            of a Utah-animals site; we treat them as stand-ins for a general
+            Utah audience and say in section 4 where that matters.</p>
+        </div>
+        <aside class="grader" aria-label="Grader comment">
+          <p class="grader__head">Grader &middot; Methods &middot; <span class="grader__pts">15/15 &mdash; Full Marks</span></p>
+          <p>The two-denominator discipline is the best thing in this section,
+            and you set it up before I could ask. Open sort, no priming,
+            verbatim labels, photographs before anyone touched a table. The
+            unrecorded group sizes are exactly &ldquo;a minor error or
+            two&rdquo; &mdash; and you told me, which is the difference
+            between an error and a habit. The population mismatch would cost
+            you in your own study; here it&rsquo;s the class&rsquo;s exercise,
+            and this page scores the same protocol for all three reports.</p>
+        </aside>
+
+        <div class="docpage docpage--a">
+          <h3>2. Pictures of the sorts</h3>
+          <p>The whiteboard (every group&rsquo;s labels), then the six
+            photographed tables. Labels in the captions are verbatim;
+            Appendix A lists every pile card by card.</p>
+          <figure class="board">
+            <img src="assets/animals-whiteboard.webp" width="2000" height="1500" loading="lazy"
+                 alt="The whiteboard with all ten groups' labels in columns (transcribed in Appendix A).">
+            <figcaption>All ten groups&rsquo; labels. S1&ndash;S8 across the top; S9 lower left, S10 lower right.</figcaption>
+          </figure>
+          <div class="photos photos--report">
+<figure id="report-a-photo-s2">
+  <img src="assets/animals-sort-s2.webp" alt="Photo of Group 2's finished sort on a classroom desk: &ldquo;Domestic&rdquo;: Horse, Pet rabbit, Cat, Chicken, Cow, Dog; &ldquo;Common&rdquo;: California gull, Red fox, Coyote, Honeybee, Black-billed magpie, Raccoon; &ldquo;Uncommon&rdquo;: Great Basin rattlesnake, Striped skunk, Great horned owl, Porcupine; &ldquo;Wild – region specific&rdquo;: Moose, Mule deer, Black bear, American bison, Bonneville cutthroat trout, Bald eagle, Elk, Mountain lion; &ldquo;Usually unseen&rdquo;: Black-tailed jackrabbit, Yellow-bellied marmot, Pronghorn, Desert tortoise." loading="lazy" width="2000" height="1500">
+  <figcaption><span class="sid">S2</span> <strong>Group 2</strong> &middot; <span class="scheme-word">how often you meet it</span> &middot; 5 piles
+    <ul class="labels"><li>&ldquo;Domestic&rdquo; <small>6</small></li><li>&ldquo;Common&rdquo; <small>6</small></li><li>&ldquo;Uncommon&rdquo; <small>4</small></li><li>&ldquo;Wild – region specific&rdquo; <small>8</small></li><li>&ldquo;Usually unseen&rdquo; <small>4</small></li></ul>
+  </figcaption>
+</figure>
+<figure id="report-a-photo-s3">
+  <img src="assets/animals-sort-s3.webp" alt="Photo of Group 3's finished sort on a classroom desk: &ldquo;large mammals&rdquo;: Elk, Pronghorn, Mule deer, American bison, Moose; &ldquo;predators&rdquo;: Coyote, Black bear, Mountain lion; &ldquo;scaly animals&rdquo;: Great Basin rattlesnake, Bonneville cutthroat trout, Desert tortoise; &ldquo;small mammals&rdquo;: Black-tailed jackrabbit, Porcupine, Yellow-bellied marmot, Striped skunk, Red fox, Raccoon; &ldquo;domesticated animals&rdquo;: Honeybee, Horse, Cow, Cat, Pet rabbit, Chicken, Dog; &ldquo;birds&rdquo;: California gull, Great horned owl, Black-billed magpie, Bald eagle." loading="lazy" width="2000" height="1500">
+  <figcaption><span class="sid">S3</span> <strong>Group 3</strong> &middot; <span class="scheme-word">kind of animal, mammals split by size and role</span> &middot; 6 piles
+    <ul class="labels"><li>&ldquo;large mammals&rdquo; <small>5</small></li><li>&ldquo;predators&rdquo; <small>3</small></li><li>&ldquo;scaly animals&rdquo; <small>3</small></li><li>&ldquo;small mammals&rdquo; <small>6</small></li><li>&ldquo;domesticated animals&rdquo; <small>7</small></li><li>&ldquo;birds&rdquo; <small>4</small></li></ul>
+  </figcaption>
+</figure>
+<figure id="report-a-photo-s4">
+  <img src="assets/animals-sort-s4.webp" alt="Photo of Group 4's finished sort on a classroom desk: &ldquo;flight&rdquo;: California gull, Great horned owl, Black-billed magpie, Bald eagle, Honeybee; &ldquo;horns&rdquo;: Pronghorn, Mule deer, American bison, Elk, Moose; &ldquo;rodents&rdquo;: Black-tailed jackrabbit, Raccoon, Yellow-bellied marmot, Striped skunk; &ldquo;domesticated&rdquo;: Horse, Pet rabbit, Dog, Chicken, Cat, Cow; &ldquo;scales&rdquo;: Bonneville cutthroat trout, Great Basin rattlesnake, Desert tortoise; &ldquo;medium to large predators&rdquo;: Coyote, Red fox, Mountain lion, Black bear; an unlabeled card: Porcupine." loading="lazy" width="2000" height="1500">
+  <figcaption><span class="sid">S4</span> <strong>Group 4</strong> &middot; <span class="scheme-word">visible features (flight, horns, scales), plus role</span> &middot; 7 piles
+    <ul class="labels"><li>&ldquo;flight&rdquo; <small>5</small></li><li>&ldquo;horns&rdquo; <small>5</small></li><li>&ldquo;rodents&rdquo; <small>4</small></li><li>&ldquo;domesticated&rdquo; <small>6</small></li><li>&ldquo;scales&rdquo; <small>3</small></li><li>&ldquo;medium to large predators&rdquo; <small>4</small></li><li><em>no label</em> <small>1</small></li></ul>
+  </figcaption>
+</figure>
+<figure id="report-a-photo-s5">
+  <img src="assets/animals-sort-s5.webp" alt="Photo of Group 5's finished sort on a classroom desk: &ldquo;Domestic Animals&rdquo;: Cow, Pet rabbit, Cat, Chicken, Horse, Dog, Honeybee; &ldquo;Reptiles&rdquo;: Desert tortoise, Great Basin rattlesnake; &ldquo;Antlers/Horns&rdquo;: Elk, Pronghorn, Mule deer, American bison, Moose; &ldquo;Rodents&rdquo;: Porcupine, Yellow-bellied marmot, Black-tailed jackrabbit, Striped skunk, Raccoon; &ldquo;Birds&rdquo;: Black-billed magpie, Bald eagle, Great horned owl, California gull; &ldquo;Fish&rdquo;: Bonneville cutthroat trout; &ldquo;Predators&rdquo;: Coyote, Black bear, Red fox, Mountain lion." loading="lazy" width="2000" height="1500">
+  <figcaption><span class="sid">S5</span> <strong>Group 5</strong> &middot; <span class="scheme-word">kind of animal, plus role</span> &middot; 7 piles
+    <ul class="labels"><li>&ldquo;Domestic Animals&rdquo; <small>7</small></li><li>&ldquo;Reptiles&rdquo; <small>2</small></li><li>&ldquo;Antlers/Horns&rdquo; <small>5</small></li><li>&ldquo;Rodents&rdquo; <small>5</small></li><li>&ldquo;Birds&rdquo; <small>4</small></li><li>&ldquo;Fish&rdquo; <small>1</small></li><li>&ldquo;Predators&rdquo; <small>4</small></li></ul>
+  </figcaption>
+</figure>
+<figure id="report-a-photo-s6">
+  <img src="assets/animals-sort-s6.webp" alt="Photo of Group 6's finished sort on a classroom desk: &ldquo;Domesticated / Pets&rdquo;: Pet rabbit, Cat, Chicken, Cow, Dog, Horse; &ldquo;Birds&rdquo;: California gull, Great horned owl, Bald eagle, Black-billed magpie; &ldquo;Desert&rdquo;: Desert tortoise, Great Basin rattlesnake; &ldquo;large-sized mammals&rdquo;: American bison, Black bear, Mountain lion; &ldquo;Insects&rdquo;: Honeybee; &ldquo;small-sized mammals&rdquo;: Black-tailed jackrabbit, Striped skunk, Yellow-bellied marmot, Porcupine; &ldquo;Deer-like Animals&rdquo;: Pronghorn, Mule deer, Moose, Elk; &ldquo;fish&rdquo;: Bonneville cutthroat trout; &ldquo;medium-sized mammals&rdquo;: Coyote, Red fox, Raccoon." loading="lazy" width="2000" height="1500">
+  <figcaption><span class="sid">S6</span> <strong>Group 6</strong> &middot; <span class="scheme-word">kind of animal, mammals split three ways by size</span> &middot; 9 piles
+    <ul class="labels"><li>&ldquo;Domesticated / Pets&rdquo; <small>6</small></li><li>&ldquo;Birds&rdquo; <small>4</small></li><li>&ldquo;Desert&rdquo; <small>2</small></li><li>&ldquo;large-sized mammals&rdquo; <small>3</small></li><li>&ldquo;Insects&rdquo; <small>1</small></li><li>&ldquo;small-sized mammals&rdquo; <small>4</small></li><li>&ldquo;Deer-like Animals&rdquo; <small>4</small></li><li>&ldquo;fish&rdquo; <small>1</small></li><li>&ldquo;medium-sized mammals&rdquo; <small>3</small></li></ul>
+  </figcaption>
+</figure>
+<figure id="report-a-photo-s8">
+  <img src="assets/animals-sort-s8.webp" alt="Photo of Group 8's finished sort on a classroom desk: &ldquo;Domestic Animals&rdquo;: Pet rabbit, Dog, Cow, Horse, Chicken, Cat; &ldquo;Birds&rdquo;: Great horned owl, California gull, Black-billed magpie, Bald eagle; &ldquo;Large predators&rdquo;: Coyote, Black bear, Mountain lion; &ldquo;Large prey&rdquo;: Mule deer, Moose, American bison, Elk, Pronghorn; &ldquo;Small animals&rdquo;: Striped skunk, Red fox, Raccoon, Porcupine, Desert tortoise, Great Basin rattlesnake, Black-tailed jackrabbit, Yellow-bellied marmot; &ldquo;Other&rdquo;: Bonneville cutthroat trout, Honeybee." loading="lazy" width="2000" height="1500">
+  <figcaption><span class="sid">S8</span> <strong>Group 8</strong> &middot; <span class="scheme-word">kind of animal, mammals split by size and predator/prey</span> &middot; 6 piles
+    <ul class="labels"><li>&ldquo;Domestic Animals&rdquo; <small>6</small></li><li>&ldquo;Birds&rdquo; <small>4</small></li><li>&ldquo;Large predators&rdquo; <small>3</small></li><li>&ldquo;Large prey&rdquo; <small>5</small></li><li>&ldquo;Small animals&rdquo; <small>8</small></li><li>&ldquo;Other&rdquo; <small>2</small></li></ul>
+  </figcaption>
+</figure>
+          </div>
+        </div>
+        <aside class="grader" aria-label="Grader comment">
+          <p class="grader__head">Grader &middot; Results &amp; Analysis (raw data) &middot; <span class="grader__pts">appendix requirement met</span></p>
+          <p>Photos before the cards moved, labels verbatim in the captions,
+            and an appendix I can re-derive your numbers from &mdash; I
+            checked the domestic count and the fox&rsquo;s six homes against
+            it and both hold. That is what &ldquo;raw data included as an
+            appendix&rdquo; means: a checkable record, not a pile of
+            pictures.</p>
+        </aside>
+
+        <div class="docpage docpage--a">
+          <h3>3. Analysis: trends and isolated incidents</h3>
+          <h4>Trends</h4>
+          <p><strong>1. The loudest group is a relationship, not a kind.</strong>
+            After standardizing the 65 labels, nine of ten sorts had a
+            domestic pile (five spellings; two groups split pets from farm or
+            food animals). The only group without one sorted like a biology
+            class.</p>
+          <p><strong>2. Six groups clear 6 of 10.</strong> Domestic 9, birds 8,
+            the deer group 7 (six different labels for the same five animals),
+            reptiles 6, predators 6, small mammals 6. Fish (4) and insects (2)
+            can&rsquo;t form groups in a deck with one of each.</p>
+          <p><strong>3. Strong pairs (of 6).</strong> 21 pairs together in all
+            six photographed sorts, 15 more in five: the six domestic animals
+            (all 15 pairs, 6/6); elk + moose + mule deer (6/6; pronghorn and
+            bison 5/6); bear + mountain lion (6/6; coyote 4/6); the four
+            birds (5/6); jackrabbit + marmot (6/6; skunk and porcupine 5/6);
+            tortoise + rattlesnake (5/6). Four of the six 5/6 clusters are
+            S2&rsquo;s frequency scheme splitting kinds without disagreeing
+            about them; among the five kind-scheme sorts they are 5 of 5.</p>
+          <p><strong>4. Two kinds of splitter.</strong> The honeybee (five
+            homes in six sorts) and the trout (four) scatter because they have
+            no companions in the deck. The red fox splits <em>systematically</em>:
+            2 sorts by kind (small mammals), 2 by role (predators), 1 by size.
+            Bison, coyote, and raccoon show the same kind-vs-size split, 4 to
+            1. Per the method page, the fox&rsquo;s split is evidence for a
+            second home, not a tie.</p>
+          <p><strong>5. Schemes.</strong> Seven of ten sorted by kind of animal,
+            but only one purely; the rest mixed in predators or size. Three
+            sorted by their experience of the animal (how often you meet it;
+            what it does to you; where it lives). Place words appear in four
+            sorts, size words in four, predator/prey words in five, visible
+            features (flight, horns, scales) in six.</p>
+          <h4>Isolated incidents</h4>
+          <ul>
+            <li>S4 wrote &ldquo;rodents,&rdquo; filled it with a hare, a
+              raccoon, and a skunk, and left the porcupine &mdash; the rodent
+              &mdash; unlabeled on the table.</li>
+            <li>S7 split &ldquo;Food producing animals&rdquo; from
+              &ldquo;Domestic animals&rdquo;; S10 split &ldquo;Farm&rdquo; from
+              &ldquo;Household.&rdquo; Two of ten, noted.</li>
+            <li>&ldquo;Road kill&rdquo; (S10) and &ldquo;Destructive
+              animals&rdquo; (S9): one group each, but both are real Utah
+              experiences of these animals.</li>
+            <li>&ldquo;Avians&rdquo; (S7): the only Latinate label of 65.</li>
+          </ul>
+        </div>
+        <aside class="grader" aria-label="Grader comment">
+          <p class="grader__head">Grader &middot; Results &amp; Analysis &middot; <span class="grader__pts">20/20 &mdash; Full Marks</span></p>
+          <p>Trend 4 is the paragraph I&rsquo;ll show the class. You found
+            disagreement and asked what kind it was &mdash; scatter or split
+            &mdash; instead of averaging it away, and you named the deck as
+            the cause of the scatter rather than the users. Trend 3&rsquo;s
+            last sentence is the other mark of real synthesis: you noticed
+            that one group&rsquo;s scheme was lowering every pair count and
+            said so. Every claim carries a count with the right denominator,
+            the incidents stay separate from the trends, and nothing is
+            bigger than the data. Full marks.</p>
+        </aside>
+
+        <div class="docpage docpage--a">
+          <h3>4. Categories and labels</h3>
+          <p>Seven categories in the sorters&rsquo; words, a second way in by
+            place, and attributes on every animal. Each row says which result
+            it comes from.</p>
+          <table class="study-table">
+            <thead><tr><th>Decision</th><th>Because</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Farm animals &amp; pets</strong></td><td>9 of 10 made it; S7 and S10 split pets from farm, so the label names both.</td></tr>
+              <tr><td><strong>Birds</strong></td><td>8 of 10; the four birds 5/6 (gull + magpie 6/6).</td></tr>
+              <tr><td><strong>Deer, elk &amp; other antlered animals</strong></td><td>7 of 10 under six labels; &ldquo;Antlers/Horns&rdquo; written twice independently; elk + moose + mule deer 6/6, pronghorn and bison 5/6. Not &ldquo;large mammals&rdquo; &mdash; S3 and S6 meant different piles by it.</td></tr>
+              <tr><td><strong>Small mammals</strong></td><td>6 of 10; jackrabbit + marmot 6/6, skunk and porcupine 5/6. Not &ldquo;Rodents&rdquo; (3 groups) &mdash; their piles weren&rsquo;t rodents, and the word orphaned S4&rsquo;s porcupine.</td></tr>
+              <tr><td><strong>Reptiles</strong>; <strong>Fish</strong> next to it</td><td>Reptiles 6 of 10, tortoise + rattlesnake 5/6; the trout joined them under &ldquo;scales&rdquo; in 2 of 6, so Fish sits adjacent.</td></tr>
+              <tr><td><strong>Insects &amp; other small creatures</strong></td><td>2 of 10 &mdash; a one-card category in this deck; kept because a real inventory will fill it, and the honeybee also gets the &ldquo;kept&rdquo; attribute three groups gave it.</td></tr>
+              <tr><td><strong>Predators</strong> &mdash; a view, not a box</td><td>6 of 10 made it, and the red fox split 2&ndash;2 between it and small mammals. Because that split is systematic, the fox is filed under Small mammals with role&nbsp;=&nbsp;predator, and the Predators page lists every animal with that role. Bear, lion, and coyote (4/6 together) appear there and in their kind.</td></tr>
+              <tr><td><strong>Second categorization: where you&rsquo;d find it</strong> (deserts / mountains &amp; forests / rivers &amp; lakes / farms, yards &amp; towns)</td><td>Place words in 4 of 10 sorts and half of S10&rsquo;s scheme; every animal takes at least one value, so it can carry a whole second view.</td></tr>
+              <tr><td><strong>Attributes</strong>: size, visible feature</td><td>Size words in 4 of 10, and every kind-vs-size split above; feature words in 6 of 10 (S4&rsquo;s whole scheme). Filters and page facts, never top-level boxes &mdash; &ldquo;large mammals&rdquo; already proved ambiguous.</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Audience.</strong> These labels read the sorters as a
+            general Utah audience. For a school audience we would expect
+            S1&rsquo;s taxonomy to strengthen; for hikers, S9&rsquo;s
+            &ldquo;Animals to stay away from&rdquo; may be the better name for
+            Predators. Neither is decided by ten sorts of CS students.</p>
+        </div>
+        <aside class="grader" aria-label="Grader comment">
+          <p class="grader__head">Grader &middot; Design Decisions &middot; <span class="grader__pts">25/25 &mdash; Full Marks</span></p>
+          <p>Every row is &ldquo;because [count], we will [decision]&rdquo;
+            with the right denominator, and three rows show judgment I want
+            the whole class to see. &ldquo;Small mammals&rdquo; over
+            &ldquo;Rodents&rdquo; &mdash; choosing the label that is true of
+            the pile over the label three groups wrote &mdash; is the method
+            page&rsquo;s &ldquo;not a vote&rdquo; done right. Predators as a
+            view over an attribute, argued from the fox&rsquo;s split, is the
+            single-source idea arriving a turn-in early. And the audience
+            paragraph keeps the whole section from over-claiming. Concrete
+            enough to wireframe from; no volume padding.</p>
+        </aside>
+
+        <div class="docpage docpage--a">
+          <h3>5. What we&rsquo;re ignoring &mdash; for now</h3>
+          <ul>
+            <li><strong>S2&rsquo;s frequency scheme</strong> (common / uncommon /
+              usually unseen). One full scheme in ten, plus &ldquo;Road
+              kill.&rdquo; Recorded as a candidate attribute; if a tree test
+              shows people looking for &ldquo;what am I likely to see,&rdquo;
+              we build it.</li>
+            <li><strong>&ldquo;Destructive animals&rdquo; (S9).</strong> One
+              group, and we don&rsquo;t know which cards.</li>
+            <li><strong>Size as a category.</strong> Four groups used the words,
+              but one used them for the whole scheme, and &ldquo;large
+              mammals&rdquo; meant two different things. Attribute only.</li>
+            <li><strong>S1&rsquo;s pure taxonomy.</strong> One group. It would be
+              the first thing to revisit for a school audience.</li>
+            <li><strong>The four label-only sorts&rsquo; card placements.</strong>
+              We don&rsquo;t have them and won&rsquo;t guess; they count for
+              labels and schemes only.</li>
+          </ul>
+        </div>
+        <aside class="grader" aria-label="Grader comment">
+          <p class="grader__head">Grader &middot; Element 5 &middot; <span class="grader__pts">feeds both R&amp;A and Decisions</span></p>
+          <p>&ldquo;We don&rsquo;t have them and won&rsquo;t guess&rdquo; is
+            the sentence that makes your two denominators trustworthy, and
+            holding S2&rsquo;s scheme with a named condition for reopening it
+            is what kept section 4 from claiming a facet on one group&rsquo;s
+            evidence.</p>
+        </aside>
+
+        <div class="scorecard">
+          <p class="scorecard__title">Report A scorecard</p>
+          <table class="study-table">
+            <tbody>
+              <tr><td>Methods</td><td>Full Marks</td><td class="scorecard__pts">15</td></tr>
+              <tr><td>Results &amp; Analysis</td><td>Full Marks</td><td class="scorecard__pts">20</td></tr>
+              <tr><td>Design Decisions</td><td>Full Marks</td><td class="scorecard__pts">25</td></tr>
+              <tr class="scorecard__total"><td>Total</td><td></td><td class="scorecard__pts">60/60</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <section aria-labelledby="report-b" class="report report--b">
+        <h2 id="report-b">Report B &mdash; 45/60</h2>
+        <p class="section-note">A competent team that did the counting and
+          then stopped one step early, twice. <span class="fiction-badge badge--authored">AUTHORED EXAMPLE</span></p>
+
+        <div class="docpage docpage--m">
+          <div class="doc-head">
+            <p class="doc-title">Card Sort Report: Utah Animals Website</p>
+            <p class="doc-sub">CS 356 &mdash; Team B</p>
+          </div>
+          <h3>1. Participants</h3>
+          <p>Our class did the card sort in 10 groups of 2&ndash;3 people with
+            28 cards of animals that live in Utah. It took about 15 minutes.
+            It was an open sort, so groups made up their own categories and
+            wrote them on cards. We took pictures of 6 of the tables, and
+            everyone wrote their categories on the whiteboard, so we have the
+            categories for all 10 groups.</p>
+        </div>
+        <aside class="grader" aria-label="Grader comment">
+          <p class="grader__head">Grader &middot; Methods &middot; <span class="grader__pts">15/15 &mdash; Full Marks</span></p>
+          <p>Same protocol as everyone, accurately described &mdash; full
+            marks, as for all three reports on this page. One thing to carry
+            forward: you have card placements for six sorts and labels for
+            ten, and this section is the last place you say so. Watch what
+            that does below.</p>
+        </aside>
+
+        <div class="docpage docpage--m">
+          <h3>2. Pictures</h3>
+          <p>The whiteboard has all 10 groups&rsquo; categories. Here are the 6
+            tables we photographed.</p>
+          <figure class="board">
+            <img src="assets/animals-whiteboard.webp" width="2000" height="1500" loading="lazy" alt="The whiteboard with every group's categories.">
+            <figcaption>Everyone&rsquo;s categories on the whiteboard.</figcaption>
+          </figure>
+          <div class="photos photos--report">
+            <figure><img src="assets/animals-sort-s2.webp" loading="lazy" width="1536" height="1152" alt="Group 2's sort on a laptop and desk."><figcaption>Group 2 &mdash; sorted by how common the animal is.</figcaption></figure>
+            <figure><img src="assets/animals-sort-s3.webp" loading="lazy" width="2000" height="1505" alt="Group 3's sort in rows."><figcaption>Group 3 &mdash; sorted by animal type (big mammals, predators, small mammals, etc.).</figcaption></figure>
+            <figure><img src="assets/animals-sort-s4.webp" loading="lazy" width="2000" height="1500" alt="Group 4's sort in columns."><figcaption>Group 4 &mdash; sorted by features like flying, horns, and scales.</figcaption></figure>
+            <figure><img src="assets/animals-sort-s5.webp" loading="lazy" width="2000" height="1500" alt="Group 5's sort in piles with blue labels."><figcaption>Group 5 &mdash; sorted by animal type.</figcaption></figure>
+            <figure><img src="assets/animals-sort-s6.webp" loading="lazy" width="2000" height="1500" alt="Group 6's sort across two desks."><figcaption>Group 6 &mdash; sorted by type and size.</figcaption></figure>
+            <figure><img src="assets/animals-sort-s8.webp" loading="lazy" width="768" height="1024" alt="Group 8's sort in columns on a desk."><figcaption>Group 8 &mdash; sorted by type, with predators and prey.</figcaption></figure>
+          </div>
+        </div>
+        <aside class="grader" aria-label="Grader comment">
+          <p class="grader__head">Grader &middot; Results &amp; Analysis (raw data) &middot; <span class="grader__pts">incomplete</span></p>
+          <p>The verbatim labels are in your photographs &mdash; but only in
+            your photographs. Your captions paraphrase them (&ldquo;big
+            mammals&rdquo;: nobody wrote that; &ldquo;animal type&rdquo; for
+            three different schemes), and there is no card-by-card record I
+            can check a count against. The rubric&rsquo;s words: <em>&ldquo;raw
+            data incomplete or hard to connect to the analysis.&rdquo;</em>
+            The fix is an hour of transcription, and it would have caught
+            two of the problems below.</p>
+        </aside>
+
+        <div class="docpage docpage--m">
+          <h3>3. Analysis</h3>
+          <p>Most groups (7 out of 10) sorted by the type of animal, so type
+            of animal is the winning scheme. After combining similar names,
+            the most common categories were domestic animals (9 groups), birds
+            (8), deer/horned animals (7), reptiles (6), predators (6), and
+            small mammals/rodents (6). Group 2 did common/uncommon/unseen,
+            which was kind of an outlier, and Groups 9 and 10 had some random
+            ones like &ldquo;road kill&rdquo; and &ldquo;destructive
+            animals.&rdquo;</p>
+          <p>A few cards were hard for people to place. The honeybee went all
+            over the place (bird, insect, domestic, other). The trout was
+            sometimes with the reptiles and sometimes its own fish category.
+            The red fox was 50/50 between predators and small mammals.</p>
+          <p>Nobody really thought about habitat except Group 6&rsquo;s
+            &ldquo;desert&rdquo; category, so habitat doesn&rsquo;t seem
+            important to people.</p>
+        </div>
+        <aside class="grader" aria-label="Grader comment">
+          <p class="grader__head">Grader &middot; Results &amp; Analysis &middot; <span class="grader__pts">13/20 &mdash; Developing (capped)</span></p>
+          <p>Your first paragraph is real synthesis &mdash; standardized
+            names, counts, the right six groups &mdash; and I want you to know
+            that part is good. Then three things. <em>&ldquo;Nobody really
+            thought about habitat&rdquo;</em> is contradicted by your own
+            previous paragraph: Group 9&rsquo;s &ldquo;specific to
+            places&rdquo; and &ldquo;forest animals,&rdquo; Group 10&rsquo;s
+            &ldquo;desert,&rdquo; &ldquo;mountainous,&rdquo;
+            &ldquo;household,&rdquo; and &ldquo;farm,&rdquo; Group 2&rsquo;s
+            &ldquo;region specific&rdquo; &mdash; four of ten groups used a
+            place word. You called that evidence &ldquo;random&rdquo; and then
+            concluded from its absence. That is over-claiming, and
+            <em>over-claiming caps a submission at this level regardless of
+            polish</em>. Second, &ldquo;50/50&rdquo; on the fox is the right
+            observation and you stopped one sentence early: 50/50 between
+            <em>what</em>? Between what it is and what it does &mdash; and the
+            method page tells you what that means. Third, &ldquo;kind of an
+            outlier&rdquo; is where your second categorization was hiding.</p>
+        </aside>
+
+        <div class="docpage docpage--m">
+          <h3>4. Categories</h3>
+          <p>Based on the results we chose seven categories: <strong>Domestic
+            Animals, Birds, Big Game, Predators, Rodents, Reptiles, and
+            Other</strong> (the fish and the honeybee). These are the
+            categories most groups used. For the red fox we went with
+            Predators since it hunts and two groups put it there. We might
+            add a filter for animal size later since a couple of groups used
+            size.</p>
+        </div>
+        <aside class="grader" aria-label="Grader comment">
+          <p class="grader__head">Grader &middot; Design Decisions &middot; <span class="grader__pts">17/25 &mdash; Developing</span></p>
+          <p>These are mostly the right categories, and that&rsquo;s why this
+            is Developing rather than Beginning &mdash; <em>&ldquo;reasonable
+            and consistent with findings, but connections implicit.&rdquo;</em>
+            The counts are in your section 3; not one of them made it into
+            this paragraph, so I&rsquo;m inferring which result motivated
+            which category. Then the specifics. &ldquo;Big Game&rdquo;: nobody
+            wrote it &mdash; it&rsquo;s a hunting word; your groups wrote
+            &ldquo;antlers/horns,&rdquo; &ldquo;deer-like,&rdquo;
+            &ldquo;horned.&rdquo; &ldquo;Rodents&rdquo;: look at what was in
+            those piles &mdash; a jackrabbit, a raccoon, a skunk &mdash; and
+            at the one rodent Group 4 left unlabeled because it didn&rsquo;t
+            fit the word. &ldquo;Other&rdquo; commits to nothing. The fox:
+            two groups said predators and two said small mammals, and you
+            broke the tie with &ldquo;it hunts.&rdquo; The method page&rsquo;s
+            exact example of a systematic split is an item that needs two
+            homes, not a coin. And &ldquo;we might add a filter for size
+            later&rdquo; is the band&rsquo;s own language: <em>&ldquo;too
+            vague to commit to anything.&rdquo;</em></p>
+        </aside>
+
+        <div class="docpage docpage--m">
+          <h3>5. What we ignored</h3>
+          <p>We ignored Group 2&rsquo;s common/uncommon categories since only
+            one group did that. We also mostly ignored the four groups we
+            didn&rsquo;t have photos of, since we couldn&rsquo;t see which
+            cards they put where.</p>
+        </div>
+        <aside class="grader" aria-label="Grader comment">
+          <p class="grader__head">Grader &middot; Element 5 &middot; <span class="grader__pts">where the points went</span></p>
+          <p>Ignoring Group 2 on one group&rsquo;s evidence is defensible
+            &mdash; say so as a hold, with what would reopen it. Ignoring four
+            of ten sorts because you couldn&rsquo;t see their cards threw away
+            40% of your label evidence, and specifically the evidence (Groups
+            9 and 10) that would have handed you a second categorization.
+            Label-only sorts can&rsquo;t give you pairs. They can absolutely
+            give you schemes and vocabulary, and those were the two things
+            section 4 needed.</p>
+        </aside>
+
+        <div class="scorecard">
+          <p class="scorecard__title">Report B scorecard</p>
+          <table class="study-table">
+            <tbody>
+              <tr><td>Methods</td><td>Full Marks &mdash; the class protocol, accurately reported</td><td class="scorecard__pts">15</td></tr>
+              <tr><td>Results &amp; Analysis</td><td>Developing &mdash; real counts, then an over-claim (capped); raw data incomplete</td><td class="scorecard__pts">13</td></tr>
+              <tr><td>Design Decisions</td><td>Developing &mdash; connections implicit; one uncited label, a tie broken by coin, one vague filter</td><td class="scorecard__pts">17</td></tr>
+              <tr class="scorecard__total"><td>Total</td><td></td><td class="scorecard__pts">45/60</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <section aria-labelledby="report-c" class="report report--c">
+        <h2 id="report-c">Report C &mdash; 30/60</h2>
+        <p class="section-note">An earnest team that recorded the whiteboard
+          and decided before it read. <span class="fiction-badge badge--authored">AUTHORED EXAMPLE</span></p>
+
+        <div class="docpage docpage--b">
+          <div class="doc-head">
+            <p class="doc-title">Card Sort</p>
+            <p class="doc-sub">CS 356</p>
+          </div>
+          <h3>1. Participants</h3>
+          <p>For the card sort our whole class participated in groups. There
+            were 28 cards with animals from Utah on them and I think about 10
+            groups. Everyone sorted them however they wanted and then wrote
+            their categories on the board.</p>
+        </div>
+        <aside class="grader" aria-label="Grader comment">
+          <p class="grader__head">Grader &middot; Methods &middot; <span class="grader__pts">15/15 &mdash; Full Marks</span></p>
+          <p>It&rsquo;s the class&rsquo;s protocol, so full marks by the
+            design of this page &mdash; but notice what a real Methods section
+            needs that this one doesn&rsquo;t have: how many people, how many
+            sorts, how the labels were captured, which sorts were
+            photographed. &ldquo;I think about 10 groups&rdquo; is a number
+            you were standing in front of.</p>
+        </aside>
+
+        <div class="docpage docpage--b">
+          <h3>2. Photos</h3>
+          <p>Here are some pictures of the sorts (the clearest ones) and the
+            whiteboard, which has everyone&rsquo;s categories on it.</p>
+          <figure class="board">
+            <img src="assets/animals-whiteboard.webp" width="2000" height="1500" loading="lazy" alt="The whiteboard with every group's categories.">
+          </figure>
+          <div class="photos photos--report">
+<figure>
+  <img src="assets/animals-sort-s3.webp" alt="Group 3's sort." loading="lazy" width="2000" height="1500">
+  <figcaption>Group 3&rsquo;s sort.</figcaption>
+</figure>
+<figure>
+  <img src="assets/animals-sort-s6.webp" alt="Group 6's sort." loading="lazy" width="2000" height="1500">
+  <figcaption>Group 6&rsquo;s sort.</figcaption>
+</figure>
+<figure>
+  <img src="assets/animals-sort-s8.webp" alt="Group 8's sort." loading="lazy" width="2000" height="1500">
+  <figcaption>Group 8&rsquo;s sort.</figcaption>
+</figure>
+          </div>
+        </div>
+        <aside class="grader" aria-label="Grader comment">
+          <p class="grader__head">Grader &middot; Results &amp; Analysis (raw data) &middot; <span class="grader__pts">missing</span></p>
+          <p>Three of six photographs, no transcription, and the labels live
+            only in a picture of a whiteboard. I can&rsquo;t check a single
+            count against this &mdash; and, as it turns out, there are no
+            counts to check. <em>&ldquo;Raw data missing.&rdquo;</em></p>
+        </aside>
+
+        <div class="docpage docpage--b">
+          <h3>3. Analysis</h3>
+          <p>Group 1 did insects, mammals, birds, reptiles, fish, and
+            uncategorized. Group 2 did domestic, common, uncommon, wild, and
+            unseen. Group 3 did large mammals, predators, small mammals,
+            domesticated, scaly, and birds. Group 4 did flight, horned,
+            rodents, domesticated, scales, and predators. Group 5 did domestic
+            animals, reptiles, antlers/horns, rodents, fish, birds, and
+            predators. Group 6 did domesticated/pets, birds, desert, large
+            mammals, insects, small mammals, medium mammals, fish, and
+            deer-like animals. Group 7 did predators, horned animals, rodents,
+            avians, reptiles, domestic animals, and food producing animals.
+            Group 8 did domestic animals, birds, large predators, large prey,
+            small animals, and other. Group 9 did animals you can own, animals
+            to stay away from, animals specific to places, destructive
+            animals, and forest animals. Group 10 did fish, desert,
+            mountainous, household, antlers/horns, road kill, birds, and
+            farm.</p>
+          <p>Overall most groups basically sorted by what type of animal it is,
+            like you would in a science class. Some groups did more random
+            ones like road kill.</p>
+        </div>
+        <aside class="grader" aria-label="Grader comment">
+          <p class="grader__head">Grader &middot; Results &amp; Analysis &middot; <span class="grader__pts">7/20 &mdash; Beginning</span></p>
+          <p>Your first paragraph is a transcription of the whiteboard, and
+            it&rsquo;s accurate &mdash; that is raw data, and it belongs in an
+            appendix. It is not analysis. Then you wrote one sentence about it,
+            and the sentence is wrong: nine of your ten groups made a pile no
+            science class has (&ldquo;domestic&rdquo;), and six made
+            &ldquo;predators.&rdquo; The patterns in this data are loud, but
+            you have to standardize the names before you can hear them, and
+            you didn&rsquo;t: no counts, no pairs, no splitters. The
+            rubric&rsquo;s words: <em>&ldquo;data without
+            interpretation.&rdquo;</em> Start by putting every
+            &ldquo;domestic&rdquo; on one line and counting the lines.</p>
+        </aside>
+
+        <div class="docpage docpage--b">
+          <h3>4. Categories</h3>
+          <p>We decided to organize the website by animal type: <strong>Mammals,
+            Birds, Reptiles, Amphibians, Fish, and Insects.</strong> This is
+            the scientific way to do it and it&rsquo;s basically what most
+            groups did. We might also do a page for Utah&rsquo;s state
+            animals.</p>
+        </div>
+        <aside class="grader" aria-label="Grader comment">
+          <p class="grader__head">Grader &middot; Design Decisions &middot; <span class="grader__pts">8/25 &mdash; Beginning</span></p>
+          <p>Look at what happened here, because it&rsquo;s the most common
+            failure in this assignment and it&rsquo;s fixable. One group of
+            ten sorted this way (Group 1). Nine made a domestic pile, and your
+            plan has nowhere for a cow or a dog to live except
+            &ldquo;Mammals&rdquo; &mdash; a box that would hold 19 of your 28
+            cards, which every photographed group split at least two ways.
+            Six groups made &ldquo;predators&rdquo;; it&rsquo;s gone.
+            &ldquo;Amphibians&rdquo; holds zero cards. This is a plan from a
+            biology textbook, and it existed before the sort ran &mdash; the
+            band&rsquo;s own words: <em>&ldquo;decisions ignore or contradict
+            the data.&rdquo;</em> The fix is a sentence shape: &ldquo;Because
+            [count], we will [decision].&rdquo; If you can&rsquo;t fill in the
+            because, the decision isn&rsquo;t ready.</p>
+        </aside>
+
+        <div class="docpage docpage--b">
+          <h3>5. What we are ignoring</h3>
+          <p>Nothing really, the results were about what we expected.</p>
+        </div>
+        <aside class="grader" aria-label="Grader comment">
+          <p class="grader__head">Grader &middot; Element 5 &middot; <span class="grader__pts">the tell</span></p>
+          <p>A study that only confirms what you expected is a study you
+            haven&rsquo;t looked at yet. What did you expect &ldquo;road
+            kill&rdquo; to mean? Why did nine groups need a pile your
+            categories don&rsquo;t have? Where did the honeybee go, in six
+            different tables? This half page exists to make you go and look;
+            it would have rewritten section 4.</p>
+        </aside>
+
+        <div class="scorecard">
+          <p class="scorecard__title">Report C scorecard</p>
+          <table class="study-table">
+            <tbody>
+              <tr><td>Methods</td><td>Full Marks &mdash; the class protocol (thinly reported)</td><td class="scorecard__pts">15</td></tr>
+              <tr><td>Results &amp; Analysis</td><td>Beginning &mdash; a transcription and one sentence; raw data missing</td><td class="scorecard__pts">7</td></tr>
+              <tr><td>Design Decisions</td><td>Beginning &mdash; a textbook plan that contradicts the data</td><td class="scorecard__pts">8</td></tr>
+              <tr class="scorecard__total"><td>Total</td><td></td><td class="scorecard__pts">30/60</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section aria-labelledby="separates" class="separates">
+        <h2 id="separates">What separates 60 from 45 from 30</h2>
+        <p>
+          Same 28 cards, same ten sorts, same photographs. <strong>Report C
+          decided before it read:</strong> the plan is a biology textbook&rsquo;s,
+          and the loudest thing in the data &mdash; nine domestic piles &mdash;
+          has nowhere to live in it. <strong>Report B read, mostly, and then
+          did two things the method page warns against:</strong> it treated
+          the sort as a vote (seven of ten sorted by kind, so kind wins and
+          the rest is &ldquo;random&rdquo;), and it broke a systematic split
+          with a coin (&ldquo;it hunts&rdquo;). It also threw away four sorts
+          because it couldn&rsquo;t see their cards, and those four held the
+          second categorization. <strong>Report A&rsquo;s difference
+          isn&rsquo;t effort; it&rsquo;s three habits.</strong> Keep two
+          denominators and say which one you&rsquo;re using. Read
+          disagreement before you average it &mdash; scatter and split are
+          different findings. And write every decision as &ldquo;because
+          [count], we will [decision],&rdquo; including the decisions to hold
+          something and to give one animal two homes. The rubric&rsquo;s
+          weighting says the same thing: 15 points for running the study, 45
+          for what you make of it.
+        </p>
+      </section>
+    </section>
+
+    <!-- ================================================================ -->
+    <section aria-labelledby="appa-heading" id="appendix-a">
+      <h2 id="appa-heading">Appendix A: the raw data</h2>
+      <p class="real-note"><span class="fiction-badge badge--real">REAL DATA</span>
+        Every photographed sort, pile by pile, labels verbatim; then the four
+        sorts that survive only as whiteboard labels. Card numbers are the
+        numbers printed on the cards (alphabetical, 1&ndash;28). This is the
+        transcription every count on the page is computed from.</p>
+<div class="sort-photo" id="raw-s2">
+  <p class="sort-photo__head"><span class="sort-photo__id">S2</span> <span class="sort-photo__who">Group 2</span> <span class="sort-photo__scheme">how often you meet it</span></p>
+  <div class="sort-photo__piles">
+    <div class="pile"><p class="pile__label">&ldquo;Domestic&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">18</span> Horse</li>
+      <li class="pile__card"><span class="pile__cardnum">22</span> Pet rabbit</li>
+      <li class="pile__card"><span class="pile__cardnum">08</span> Cat</li>
+      <li class="pile__card"><span class="pile__cardnum">09</span> Chicken</li>
+      <li class="pile__card"><span class="pile__cardnum">10</span> Cow</li>
+      <li class="pile__card"><span class="pile__cardnum">13</span> Dog</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;Common&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">07</span> California gull</li>
+      <li class="pile__card"><span class="pile__cardnum">26</span> Red fox</li>
+      <li class="pile__card"><span class="pile__cardnum">11</span> Coyote</li>
+      <li class="pile__card"><span class="pile__cardnum">17</span> Honeybee</li>
+      <li class="pile__card"><span class="pile__cardnum">04</span> Black-billed magpie</li>
+      <li class="pile__card"><span class="pile__cardnum">25</span> Raccoon</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;Uncommon&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">15</span> Great Basin rattlesnake</li>
+      <li class="pile__card"><span class="pile__cardnum">27</span> Striped skunk</li>
+      <li class="pile__card"><span class="pile__cardnum">16</span> Great horned owl</li>
+      <li class="pile__card"><span class="pile__cardnum">23</span> Porcupine</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;Wild – region specific&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">19</span> Moose</li>
+      <li class="pile__card"><span class="pile__cardnum">21</span> Mule deer</li>
+      <li class="pile__card"><span class="pile__cardnum">03</span> Black bear</li>
+      <li class="pile__card"><span class="pile__cardnum">01</span> American bison</li>
+      <li class="pile__card"><span class="pile__cardnum">06</span> Bonneville cutthroat trout</li>
+      <li class="pile__card"><span class="pile__cardnum">02</span> Bald eagle</li>
+      <li class="pile__card"><span class="pile__cardnum">14</span> Elk</li>
+      <li class="pile__card"><span class="pile__cardnum">20</span> Mountain lion</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;Usually unseen&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">05</span> Black-tailed jackrabbit</li>
+      <li class="pile__card"><span class="pile__cardnum">28</span> Yellow-bellied marmot</li>
+      <li class="pile__card"><span class="pile__cardnum">24</span> Pronghorn</li>
+      <li class="pile__card"><span class="pile__cardnum">12</span> Desert tortoise</li>
+    </ul></div>
+  </div>
+</div>
+<div class="sort-photo" id="raw-s3">
+  <p class="sort-photo__head"><span class="sort-photo__id">S3</span> <span class="sort-photo__who">Group 3</span> <span class="sort-photo__scheme">kind of animal, mammals split by size and role</span></p>
+  <div class="sort-photo__piles">
+    <div class="pile"><p class="pile__label">&ldquo;large mammals&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">14</span> Elk</li>
+      <li class="pile__card"><span class="pile__cardnum">24</span> Pronghorn</li>
+      <li class="pile__card"><span class="pile__cardnum">21</span> Mule deer</li>
+      <li class="pile__card"><span class="pile__cardnum">01</span> American bison</li>
+      <li class="pile__card"><span class="pile__cardnum">19</span> Moose</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;predators&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">11</span> Coyote</li>
+      <li class="pile__card"><span class="pile__cardnum">03</span> Black bear</li>
+      <li class="pile__card"><span class="pile__cardnum">20</span> Mountain lion</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;scaly animals&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">15</span> Great Basin rattlesnake</li>
+      <li class="pile__card"><span class="pile__cardnum">06</span> Bonneville cutthroat trout</li>
+      <li class="pile__card"><span class="pile__cardnum">12</span> Desert tortoise</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;small mammals&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">05</span> Black-tailed jackrabbit</li>
+      <li class="pile__card"><span class="pile__cardnum">23</span> Porcupine</li>
+      <li class="pile__card"><span class="pile__cardnum">28</span> Yellow-bellied marmot</li>
+      <li class="pile__card"><span class="pile__cardnum">27</span> Striped skunk</li>
+      <li class="pile__card"><span class="pile__cardnum">26</span> Red fox</li>
+      <li class="pile__card"><span class="pile__cardnum">25</span> Raccoon</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;domesticated animals&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">17</span> Honeybee</li>
+      <li class="pile__card"><span class="pile__cardnum">18</span> Horse</li>
+      <li class="pile__card"><span class="pile__cardnum">10</span> Cow</li>
+      <li class="pile__card"><span class="pile__cardnum">08</span> Cat</li>
+      <li class="pile__card"><span class="pile__cardnum">22</span> Pet rabbit</li>
+      <li class="pile__card"><span class="pile__cardnum">09</span> Chicken</li>
+      <li class="pile__card"><span class="pile__cardnum">13</span> Dog</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;birds&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">07</span> California gull</li>
+      <li class="pile__card"><span class="pile__cardnum">16</span> Great horned owl</li>
+      <li class="pile__card"><span class="pile__cardnum">04</span> Black-billed magpie</li>
+      <li class="pile__card"><span class="pile__cardnum">02</span> Bald eagle</li>
+    </ul></div>
+  </div>
+</div>
+<div class="sort-photo" id="raw-s4">
+  <p class="sort-photo__head"><span class="sort-photo__id">S4</span> <span class="sort-photo__who">Group 4</span> <span class="sort-photo__scheme">visible features (flight, horns, scales), plus role</span></p>
+  <div class="sort-photo__piles">
+    <div class="pile"><p class="pile__label">&ldquo;flight&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">07</span> California gull</li>
+      <li class="pile__card"><span class="pile__cardnum">16</span> Great horned owl</li>
+      <li class="pile__card"><span class="pile__cardnum">04</span> Black-billed magpie</li>
+      <li class="pile__card"><span class="pile__cardnum">02</span> Bald eagle</li>
+      <li class="pile__card"><span class="pile__cardnum">17</span> Honeybee</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;horns&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">24</span> Pronghorn</li>
+      <li class="pile__card"><span class="pile__cardnum">21</span> Mule deer</li>
+      <li class="pile__card"><span class="pile__cardnum">01</span> American bison</li>
+      <li class="pile__card"><span class="pile__cardnum">14</span> Elk</li>
+      <li class="pile__card"><span class="pile__cardnum">19</span> Moose</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;rodents&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">05</span> Black-tailed jackrabbit</li>
+      <li class="pile__card"><span class="pile__cardnum">25</span> Raccoon</li>
+      <li class="pile__card"><span class="pile__cardnum">28</span> Yellow-bellied marmot</li>
+      <li class="pile__card"><span class="pile__cardnum">27</span> Striped skunk</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;domesticated&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">18</span> Horse</li>
+      <li class="pile__card"><span class="pile__cardnum">22</span> Pet rabbit</li>
+      <li class="pile__card"><span class="pile__cardnum">13</span> Dog</li>
+      <li class="pile__card"><span class="pile__cardnum">09</span> Chicken</li>
+      <li class="pile__card"><span class="pile__cardnum">08</span> Cat</li>
+      <li class="pile__card"><span class="pile__cardnum">10</span> Cow</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;scales&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">06</span> Bonneville cutthroat trout</li>
+      <li class="pile__card"><span class="pile__cardnum">15</span> Great Basin rattlesnake</li>
+      <li class="pile__card"><span class="pile__cardnum">12</span> Desert tortoise</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;medium to large predators&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">11</span> Coyote</li>
+      <li class="pile__card"><span class="pile__cardnum">26</span> Red fox</li>
+      <li class="pile__card"><span class="pile__cardnum">20</span> Mountain lion</li>
+      <li class="pile__card"><span class="pile__cardnum">03</span> Black bear</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label"><em>(no label)</em></p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">23</span> Porcupine</li>
+    </ul></div>
+  </div>
+</div>
+<div class="sort-photo" id="raw-s5">
+  <p class="sort-photo__head"><span class="sort-photo__id">S5</span> <span class="sort-photo__who">Group 5</span> <span class="sort-photo__scheme">kind of animal, plus role</span></p>
+  <div class="sort-photo__piles">
+    <div class="pile"><p class="pile__label">&ldquo;Domestic Animals&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">10</span> Cow</li>
+      <li class="pile__card"><span class="pile__cardnum">22</span> Pet rabbit</li>
+      <li class="pile__card"><span class="pile__cardnum">08</span> Cat</li>
+      <li class="pile__card"><span class="pile__cardnum">09</span> Chicken</li>
+      <li class="pile__card"><span class="pile__cardnum">18</span> Horse</li>
+      <li class="pile__card"><span class="pile__cardnum">13</span> Dog</li>
+      <li class="pile__card"><span class="pile__cardnum">17</span> Honeybee</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;Reptiles&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">12</span> Desert tortoise</li>
+      <li class="pile__card"><span class="pile__cardnum">15</span> Great Basin rattlesnake</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;Antlers/Horns&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">14</span> Elk</li>
+      <li class="pile__card"><span class="pile__cardnum">24</span> Pronghorn</li>
+      <li class="pile__card"><span class="pile__cardnum">21</span> Mule deer</li>
+      <li class="pile__card"><span class="pile__cardnum">01</span> American bison</li>
+      <li class="pile__card"><span class="pile__cardnum">19</span> Moose</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;Rodents&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">23</span> Porcupine</li>
+      <li class="pile__card"><span class="pile__cardnum">28</span> Yellow-bellied marmot</li>
+      <li class="pile__card"><span class="pile__cardnum">05</span> Black-tailed jackrabbit</li>
+      <li class="pile__card"><span class="pile__cardnum">27</span> Striped skunk</li>
+      <li class="pile__card"><span class="pile__cardnum">25</span> Raccoon</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;Birds&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">04</span> Black-billed magpie</li>
+      <li class="pile__card"><span class="pile__cardnum">02</span> Bald eagle</li>
+      <li class="pile__card"><span class="pile__cardnum">16</span> Great horned owl</li>
+      <li class="pile__card"><span class="pile__cardnum">07</span> California gull</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;Fish&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">06</span> Bonneville cutthroat trout</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;Predators&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">11</span> Coyote</li>
+      <li class="pile__card"><span class="pile__cardnum">03</span> Black bear</li>
+      <li class="pile__card"><span class="pile__cardnum">26</span> Red fox</li>
+      <li class="pile__card"><span class="pile__cardnum">20</span> Mountain lion</li>
+    </ul></div>
+  </div>
+</div>
+<div class="sort-photo" id="raw-s6">
+  <p class="sort-photo__head"><span class="sort-photo__id">S6</span> <span class="sort-photo__who">Group 6</span> <span class="sort-photo__scheme">kind of animal, mammals split three ways by size</span></p>
+  <div class="sort-photo__piles">
+    <div class="pile"><p class="pile__label">&ldquo;Domesticated / Pets&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">22</span> Pet rabbit</li>
+      <li class="pile__card"><span class="pile__cardnum">08</span> Cat</li>
+      <li class="pile__card"><span class="pile__cardnum">09</span> Chicken</li>
+      <li class="pile__card"><span class="pile__cardnum">10</span> Cow</li>
+      <li class="pile__card"><span class="pile__cardnum">13</span> Dog</li>
+      <li class="pile__card"><span class="pile__cardnum">18</span> Horse</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;Birds&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">07</span> California gull</li>
+      <li class="pile__card"><span class="pile__cardnum">16</span> Great horned owl</li>
+      <li class="pile__card"><span class="pile__cardnum">02</span> Bald eagle</li>
+      <li class="pile__card"><span class="pile__cardnum">04</span> Black-billed magpie</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;Desert&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">12</span> Desert tortoise</li>
+      <li class="pile__card"><span class="pile__cardnum">15</span> Great Basin rattlesnake</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;large-sized mammals&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">01</span> American bison</li>
+      <li class="pile__card"><span class="pile__cardnum">03</span> Black bear</li>
+      <li class="pile__card"><span class="pile__cardnum">20</span> Mountain lion</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;Insects&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">17</span> Honeybee</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;small-sized mammals&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">05</span> Black-tailed jackrabbit</li>
+      <li class="pile__card"><span class="pile__cardnum">27</span> Striped skunk</li>
+      <li class="pile__card"><span class="pile__cardnum">28</span> Yellow-bellied marmot</li>
+      <li class="pile__card"><span class="pile__cardnum">23</span> Porcupine</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;Deer-like Animals&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">24</span> Pronghorn</li>
+      <li class="pile__card"><span class="pile__cardnum">21</span> Mule deer</li>
+      <li class="pile__card"><span class="pile__cardnum">19</span> Moose</li>
+      <li class="pile__card"><span class="pile__cardnum">14</span> Elk</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;fish&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">06</span> Bonneville cutthroat trout</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;medium-sized mammals&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">11</span> Coyote</li>
+      <li class="pile__card"><span class="pile__cardnum">26</span> Red fox</li>
+      <li class="pile__card"><span class="pile__cardnum">25</span> Raccoon</li>
+    </ul></div>
+  </div>
+</div>
+<div class="sort-photo" id="raw-s8">
+  <p class="sort-photo__head"><span class="sort-photo__id">S8</span> <span class="sort-photo__who">Group 8</span> <span class="sort-photo__scheme">kind of animal, mammals split by size and predator/prey</span></p>
+  <div class="sort-photo__piles">
+    <div class="pile"><p class="pile__label">&ldquo;Domestic Animals&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">22</span> Pet rabbit</li>
+      <li class="pile__card"><span class="pile__cardnum">13</span> Dog</li>
+      <li class="pile__card"><span class="pile__cardnum">10</span> Cow</li>
+      <li class="pile__card"><span class="pile__cardnum">18</span> Horse</li>
+      <li class="pile__card"><span class="pile__cardnum">09</span> Chicken</li>
+      <li class="pile__card"><span class="pile__cardnum">08</span> Cat</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;Birds&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">16</span> Great horned owl</li>
+      <li class="pile__card"><span class="pile__cardnum">07</span> California gull</li>
+      <li class="pile__card"><span class="pile__cardnum">04</span> Black-billed magpie</li>
+      <li class="pile__card"><span class="pile__cardnum">02</span> Bald eagle</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;Large predators&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">11</span> Coyote</li>
+      <li class="pile__card"><span class="pile__cardnum">03</span> Black bear</li>
+      <li class="pile__card"><span class="pile__cardnum">20</span> Mountain lion</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;Large prey&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">21</span> Mule deer</li>
+      <li class="pile__card"><span class="pile__cardnum">19</span> Moose</li>
+      <li class="pile__card"><span class="pile__cardnum">01</span> American bison</li>
+      <li class="pile__card"><span class="pile__cardnum">14</span> Elk</li>
+      <li class="pile__card"><span class="pile__cardnum">24</span> Pronghorn</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;Small animals&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">27</span> Striped skunk</li>
+      <li class="pile__card"><span class="pile__cardnum">26</span> Red fox</li>
+      <li class="pile__card"><span class="pile__cardnum">25</span> Raccoon</li>
+      <li class="pile__card"><span class="pile__cardnum">23</span> Porcupine</li>
+      <li class="pile__card"><span class="pile__cardnum">12</span> Desert tortoise</li>
+      <li class="pile__card"><span class="pile__cardnum">15</span> Great Basin rattlesnake</li>
+      <li class="pile__card"><span class="pile__cardnum">05</span> Black-tailed jackrabbit</li>
+      <li class="pile__card"><span class="pile__cardnum">28</span> Yellow-bellied marmot</li>
+    </ul></div>
+    <div class="pile"><p class="pile__label">&ldquo;Other&rdquo;</p><ul class="pile__cards">
+      <li class="pile__card"><span class="pile__cardnum">06</span> Bonneville cutthroat trout</li>
+      <li class="pile__card"><span class="pile__cardnum">17</span> Honeybee</li>
+    </ul></div>
+  </div>
+</div>
+<div class="sort-photo sort-photo--labels" id="raw-s1">
+  <p class="sort-photo__head"><span class="sort-photo__id">S1</span> <span class="sort-photo__who">Group 1</span> <span class="sort-photo__scheme">biology-class taxonomy &middot; labels only, from the whiteboard</span></p>
+  <p class="labels-only">&ldquo;Insects&rdquo; &middot; &ldquo;Mammals&rdquo; &middot; &ldquo;Birds&rdquo; &middot; &ldquo;Reptiles&rdquo; &middot; &ldquo;Fishes&rdquo; &middot; &ldquo;Uncategorized&rdquo;</p>
+</div>
+<div class="sort-photo sort-photo--labels" id="raw-s7">
+  <p class="sort-photo__head"><span class="sort-photo__id">S7</span> <span class="sort-photo__who">Group 7</span> <span class="sort-photo__scheme">kind of animal, plus role; pets split from food animals &middot; labels only, from the whiteboard</span></p>
+  <p class="labels-only">&ldquo;Predators&rdquo; &middot; &ldquo;Horned animals&rdquo; &middot; &ldquo;Rodents&rdquo; &middot; &ldquo;Avians&rdquo; &middot; &ldquo;Reptiles&rdquo; &middot; &ldquo;Domestic animals&rdquo; &middot; &ldquo;Food producing animals&rdquo;</p>
+</div>
+<div class="sort-photo sort-photo--labels" id="raw-s9">
+  <p class="sort-photo__head"><span class="sort-photo__id">S9</span> <span class="sort-photo__who">Group 9</span> <span class="sort-photo__scheme">your relationship to the animal &middot; labels only, from the whiteboard</span></p>
+  <p class="labels-only">&ldquo;Animals you can own&rdquo; &middot; &ldquo;Animals to stay away from&rdquo; &middot; &ldquo;Animals specific to places&rdquo; &middot; &ldquo;Destructive animals&rdquo; &middot; &ldquo;Forest animals&rdquo;</p>
+</div>
+<div class="sort-photo sort-photo--labels" id="raw-s10">
+  <p class="sort-photo__head"><span class="sort-photo__id">S10</span> <span class="sort-photo__who">Group 10</span> <span class="sort-photo__scheme">where you meet it, mixed with kind &middot; labels only, from the whiteboard</span></p>
+  <p class="labels-only">&ldquo;Fish&rdquo; &middot; &ldquo;Desert&rdquo; &middot; &ldquo;Mountainous&rdquo; &middot; &ldquo;Household&rdquo; &middot; &ldquo;Antlers/Horns&rdquo; &middot; &ldquo;Road kill&rdquo; &middot; &ldquo;Birds&rdquo; &middot; &ldquo;Farm&rdquo;</p>
+</div>
+    </section>
+
+    <section aria-labelledby="appb-heading" id="appendix-b">
+      <h2 id="appb-heading">Appendix B: every card&rsquo;s home in every photographed sort</h2>
+      <p>The seventeen cards that never moved outside S2 (the eleven that did
+        are in Table 3). The co-occurrence matrix behind section 2 and every
+        number above come from
+        <a href="animals-card-sort-data.py"><code>animals-card-sort-data.py</code></a>;
+        run it to re-derive them.</p>
+      <div class="table-scroll">
+        <table class="study-table homes">
+          <thead><tr><th>Card</th><th>S2</th><th>S3</th><th>S4</th><th>S5</th><th>S6</th><th>S8</th><th>Different homes, S2 aside</th></tr></thead>
+          <tbody>
+<tr><th scope="row">Bald eagle</th><td class="h-s2">Wild – region specific</td><td class="h-bird">birds</td><td class="h-bird">flight</td><td class="h-bird">Birds</td><td class="h-bird">Birds</td><td class="h-bird">Birds</td><td class="std__n">1</td></tr>
+<tr><th scope="row">Black-billed magpie</th><td class="h-s2">Common</td><td class="h-bird">birds</td><td class="h-bird">flight</td><td class="h-bird">Birds</td><td class="h-bird">Birds</td><td class="h-bird">Birds</td><td class="std__n">1</td></tr>
+<tr><th scope="row">Black-tailed jackrabbit</th><td class="h-s2">Usually unseen</td><td class="h-small">small mammals</td><td class="h-small">rodents</td><td class="h-small">Rodents</td><td class="h-small">small-sized mammals</td><td class="h-small">Small animals</td><td class="std__n">1</td></tr>
+<tr><th scope="row">California gull</th><td class="h-s2">Common</td><td class="h-bird">birds</td><td class="h-bird">flight</td><td class="h-bird">Birds</td><td class="h-bird">Birds</td><td class="h-bird">Birds</td><td class="std__n">1</td></tr>
+<tr><th scope="row">Elk</th><td class="h-s2">Wild – region specific</td><td class="h-hoof">large mammals</td><td class="h-hoof">horns</td><td class="h-hoof">Antlers/Horns</td><td class="h-hoof">Deer-like Animals</td><td class="h-hoof">Large prey</td><td class="std__n">1</td></tr>
+<tr><th scope="row">Great horned owl</th><td class="h-s2">Uncommon</td><td class="h-bird">birds</td><td class="h-bird">flight</td><td class="h-bird">Birds</td><td class="h-bird">Birds</td><td class="h-bird">Birds</td><td class="std__n">1</td></tr>
+<tr><th scope="row">Moose</th><td class="h-s2">Wild – region specific</td><td class="h-hoof">large mammals</td><td class="h-hoof">horns</td><td class="h-hoof">Antlers/Horns</td><td class="h-hoof">Deer-like Animals</td><td class="h-hoof">Large prey</td><td class="std__n">1</td></tr>
+<tr><th scope="row">Mule deer</th><td class="h-s2">Wild – region specific</td><td class="h-hoof">large mammals</td><td class="h-hoof">horns</td><td class="h-hoof">Antlers/Horns</td><td class="h-hoof">Deer-like Animals</td><td class="h-hoof">Large prey</td><td class="std__n">1</td></tr>
+<tr><th scope="row">Pronghorn</th><td class="h-s2">Usually unseen</td><td class="h-hoof">large mammals</td><td class="h-hoof">horns</td><td class="h-hoof">Antlers/Horns</td><td class="h-hoof">Deer-like Animals</td><td class="h-hoof">Large prey</td><td class="std__n">1</td></tr>
+<tr><th scope="row">Striped skunk</th><td class="h-s2">Uncommon</td><td class="h-small">small mammals</td><td class="h-small">rodents</td><td class="h-small">Rodents</td><td class="h-small">small-sized mammals</td><td class="h-small">Small animals</td><td class="std__n">1</td></tr>
+<tr><th scope="row">Yellow-bellied marmot</th><td class="h-s2">Usually unseen</td><td class="h-small">small mammals</td><td class="h-small">rodents</td><td class="h-small">Rodents</td><td class="h-small">small-sized mammals</td><td class="h-small">Small animals</td><td class="std__n">1</td></tr>
+<tr><th scope="row">Cat</th><td class="h-dom">Domestic</td><td class="h-dom">domesticated animals</td><td class="h-dom">domesticated</td><td class="h-dom">Domestic Animals</td><td class="h-dom">Domesticated / Pets</td><td class="h-dom">Domestic Animals</td><td class="std__n">1</td></tr>
+<tr><th scope="row">Chicken</th><td class="h-dom">Domestic</td><td class="h-dom">domesticated animals</td><td class="h-dom">domesticated</td><td class="h-dom">Domestic Animals</td><td class="h-dom">Domesticated / Pets</td><td class="h-dom">Domestic Animals</td><td class="std__n">1</td></tr>
+<tr><th scope="row">Cow</th><td class="h-dom">Domestic</td><td class="h-dom">domesticated animals</td><td class="h-dom">domesticated</td><td class="h-dom">Domestic Animals</td><td class="h-dom">Domesticated / Pets</td><td class="h-dom">Domestic Animals</td><td class="std__n">1</td></tr>
+<tr><th scope="row">Dog</th><td class="h-dom">Domestic</td><td class="h-dom">domesticated animals</td><td class="h-dom">domesticated</td><td class="h-dom">Domestic Animals</td><td class="h-dom">Domesticated / Pets</td><td class="h-dom">Domestic Animals</td><td class="std__n">1</td></tr>
+<tr><th scope="row">Horse</th><td class="h-dom">Domestic</td><td class="h-dom">domesticated animals</td><td class="h-dom">domesticated</td><td class="h-dom">Domestic Animals</td><td class="h-dom">Domesticated / Pets</td><td class="h-dom">Domestic Animals</td><td class="std__n">1</td></tr>
+<tr><th scope="row">Pet rabbit</th><td class="h-dom">Domestic</td><td class="h-dom">domesticated animals</td><td class="h-dom">domesticated</td><td class="h-dom">Domestic Animals</td><td class="h-dom">Domesticated / Pets</td><td class="h-dom">Domestic Animals</td><td class="std__n">1</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="cited-heading" id="works-cited">
+      <h2 id="cited-heading">Works cited</h2>
+      <ol class="cited">
+        <li id="cite-canvas">CS 356, <a href="https://byu.instructure.com/courses/36062/pages/card-sorting">Card Sorting</a>.
+          <span class="src">The course&rsquo;s method page on Canvas, 2026.</span>
+          <span class="note">Cited as &ldquo;the Canvas method page.&rdquo; The analysis steps this page follows, and the assignment&rsquo;s five elements.</span></li>
+        <li id="cite-spencer">Donna Spencer. <a href="https://rosenfeldmedia.com/books/card-sorting/">Card Sorting: Designing Usable Categories</a>.
+          <span class="src">Rosenfeld Media, 2009.</span>
+          <span class="note">Cited as &ldquo;Spencer&rsquo;s book.&rdquo; Standardizing group names, eyeballing small studies, and reading the sort for patterns rather than averages.</span></li>
+        <li id="cite-warfel">Donna Spencer and Todd Warfel. <a href="https://boxesandarrows.com/card-sorting-a-definitive-guide/">Card sorting: a definitive guide</a>.
+          <span class="src"><em>Boxes and Arrows</em>, 2004.</span>
+          <span class="note">The free article version of the method, including the analysis spreadsheet.</span></li>
+        <li id="cite-polar">Louis Rosenfeld, Peter Morville, and Jorge Arango. <a href="https://www.oreilly.com/library/view/information-architecture-4th/9781491913529/">Information Architecture: For the Web and Beyond</a>, 4th ed.
+          <span class="src">O&rsquo;Reilly, 2015.</span>
+          <span class="note">Cited as &ldquo;the Polar Bear book.&rdquo; Organization schemes (exact, topical, task, audience) and faceted classification.</span></li>
+      </ol>
+    </section>
+
+    <footer class="site-foot">
+      <p>Real class data from CS 356, September 2026; analysis and the three
+        authored write-ups by the instructor. The method itself is taught on
+        Canvas: <a href="https://byu.instructure.com/courses/36062/pages/card-sorting">Card Sorting</a>.
+        The companion&rsquo;s own worked example, on invented data:
+        <a href="studies/01-card-sort.html">the open card sort</a>. What goes
+        on a card: <a href="what-to-put-on-the-cards.html">the card-content
+        tutorial</a>. Back to the <a href="index.html">companion hub</a>.</p>
+    </footer>
+
+  </main>
+
+  <script src="assets/studies-data.js" defer></script>
+  <script src="assets/companion.js" defer></script>
+</body>
+</html>

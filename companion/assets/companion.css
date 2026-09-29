@@ -111,6 +111,14 @@ a:focus-visible,
 }
 .fiction-banner__link:hover { color: #ffd9c6; }
 .fiction-banner a:focus-visible { outline-color: #ffd9c6; }
+/* The real-data banner (animals-card-sort.html): the same shape, in slate
+   rather than the fiction red, so the two contracts can't be confused. */
+.fiction-banner--real {
+  background: var(--slate-deep);
+  border-bottom-color: #121c26;
+}
+.fiction-banner--real .fiction-banner__text { color: #dfe6ec; }
+.fiction-banner--real .fiction-banner__link:hover { color: #cfe3f3; }
 /* A variant page's own note, under the canonical line (never replacing it). */
 .fiction-banner__variant {
   border-top: 1px solid rgba(255, 244, 234, .28);
