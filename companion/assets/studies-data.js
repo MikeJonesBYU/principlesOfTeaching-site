@@ -59,7 +59,7 @@
    the canonical ones as of 2026-09-14.
    ========================================================================== */
 window.CS356_COMPANION = {
-  version: "2026-09-29a",
+  version: "2026-10-14a",
 
   /* Every Canvas `slug` in this file hangs off this base — one course id,
      one place to change it. */
@@ -240,9 +240,14 @@ window.CS356_COMPANION = {
           report: "cards-build-notes.html",
           reportLabel: "Revision notes",
           note: "the semantic build with every listing redesigned into an informative skill card — situation, manual sentence, first move, prep — on a simpler shell; each change traced to the studies and the ward in the revision notes"
+        },
+        {
+          title: "v4 — guided questions",
+          path: "prototypes/v1/guided/",
+          note: "the semantic build refined around guiding questions — the home page asks what problem you are solving and where you are in the lesson, each category page acknowledges the choice and asks the next question, and each group shows its skills as cards with a phrase from the manual"
         }
       ],
-      shows: "Two example turn-ins again. Both teams add color, layout, and a search feature invented from study vocabulary — one steers attention with a single sparing accent, one doesn't. Every click and every search query is logged for the task test. Then the prototype keeps evolving: two instructor revisions of Team A's build, each one bet at a time — v2 grows the search into a precomputed meaning index (no server, no AI call at lookup time); v3 redesigns every listing into a skill card and pares the shell down. The task test ran on v3, and every build here is frozen as of that study."
+      shows: "Two example turn-ins again. Both teams add color, layout, and a search feature invented from study vocabulary — one steers attention with a single sparing accent, one doesn't. Every click and every search query is logged for the task test. Then the prototype keeps evolving: three instructor revisions of Team A's build, each one bet at a time — v2 grows the search into a precomputed meaning index (no server, no AI call at lookup time); v3 redesigns every listing into a skill card and pares the shell down; v4 goes back to the semantic build and guides the visitor with questions at every level. The task test ran on v3, and v1–v3 are frozen as of that study; v4 came after it."
     },
     {
       id: "task-test",

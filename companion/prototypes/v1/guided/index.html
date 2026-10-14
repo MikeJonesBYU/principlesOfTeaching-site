@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>First functional prototype &mdash; fourth build (guided questions)</title>
+  <meta name="description" content="Instructor revision of the semantic build: the home and category pages ask the visitor guiding questions, search sits on the home page, and each group shows its skills as cards with a phrase from the manual.">
+  <link rel="stylesheet" href="../team-a/v1.css">
+  <style>
+    /* The one visual difference from Team A's build: say what this is. */
+    .brand::after {
+      content: "guided build \00b7 v4";
+      display: inline-block; margin-left: 0.55rem; padding: 0.1rem 0.5rem;
+      border: 1px solid currentColor; border-radius: 999px;
+      font-size: 0.62rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; vertical-align: 0.12em; opacity: 0.75;
+    }
+    /* Home: the two entry questions, larger and in the accent. */
+    .section--entry > h2 {
+      font-size: 1.5rem; font-weight: 700; line-height: 1.25;
+      letter-spacing: -0.01em; text-transform: none;
+      color: var(--accent-600);
+    }
+    /* Home: the search sits in the page, under the intro. */
+    .home-search { margin-top: var(--sp-5); max-width: 40rem; }
+    .home-search .search { flex: none; }
+    .home-search .search__field { min-height: 48px; font-size: 1rem; }
+    .home-search .search__go { min-height: 48px; padding: 0 var(--sp-5); }
+    .home-search .site__util { margin-top: var(--sp-2); }
+    /* Group pages: the skills as portrait cards, three or four to a row. */
+    .blocks--cards {
+      display: grid; gap: var(--sp-4);
+      grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+    }
+    .blocks--cards > li + li { margin-top: 0; }
+    .blocks--cards .block-item {
+      display: flex; flex-direction: column; height: 100%;
+      aspect-ratio: 2 / 3; padding: var(--sp-5) var(--sp-4);
+    }
+    .blocks--cards .block-item__foot { margin-top: var(--sp-3); }
+    /* A phrase from the manual: italic, smaller, quieter than the skill. */
+    .block-item__snip {
+      display: block; margin-top: var(--sp-3);
+      font-size: 0.875rem; font-style: italic; line-height: 1.45;
+      color: var(--gray-600);
+    }
+    .block-item__cite {
+      display: block; margin-top: var(--sp-1);
+      font-size: 0.75rem; font-style: normal; color: var(--gray-600);
+    }
+    .block-item__cite::before { content: "— "; }
+    @media (max-width: 40rem) {
+      .blocks--cards { grid-template-columns: 1fr; gap: var(--sp-3); }
+      .blocks--cards .block-item { aspect-ratio: auto; min-height: 9rem; }
+    }
+  </style>
+</head>
+<body data-focus="search">
+
+  <!-- Prototype banner (companion chrome, not part of the prototype) -->
+  <div class="proto-banner">
+    <strong>CS 356 companion &mdash; prototype v1, fourth build.</strong>
+    The semantic build refined around guiding questions; an instructor
+    revision, not a graded turn-in.
+    <a href="../team-a/index.html">v1, the turn-in &rarr;</a> &middot;
+    <a href="../semantic/index.html">v2, semantic search &rarr;</a> &middot;
+    <a href="../cards/index.html">v3, skill cards &rarr;</a> &middot;
+    <a href="../../../../index.html">Live site &rarr;</a> &middot;
+    <a href="../../../index.html">Back to the companion &rarr;</a>
+  </div>
+
+  <header class="site">
+    <div class="site__inner">
+      <a class="brand" href="#/" data-label="Home (title bar)">Principles of Teaching</a>
+      <form class="search" id="search-form" role="search">
+        <label class="visually-hidden" for="search-field">Search the skills</label>
+        <input class="search__field" id="search-field" type="search" autocomplete="off"
+               placeholder="What is going wrong on Sunday?">
+        <button class="search__go" type="submit">Search</button>
+      </form>
+      <p class="site__util">
+        <a href="#/how" data-label="About this search">About this search</a> &middot;
+        <a href="#/log" data-label="Session log">Session log</a>
+      </p>
+    </div>
+  </header>
+
+  <main class="shell">
+    <div class="surface" id="app" tabindex="-1"></div>
+  </main>
+
+  <footer class="footfine">
+    <p>Fourth build of prototype v1. Same single data file as Team A&rsquo;s
+       build and the same semantic search as v2: it matches meaning as well as
+       wording, from an index computed once ahead of time &mdash; no server, no
+       AI call at lookup time. <a href="#/how">How it works &rarr;</a></p>
+  </footer>
+
+  <noscript>
+    <p class="footfine">This prototype renders its pages from a single data
+    file in the browser, so it needs JavaScript enabled.</p>
+  </noscript>
+
+  <script src="../team-a/v1-data.js"></script>
+  <script src="../semantic/semantic-index.js"></script>
+  <script src="snips.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
