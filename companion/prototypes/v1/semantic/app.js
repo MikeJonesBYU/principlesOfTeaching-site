@@ -507,7 +507,7 @@
   // ONE template for all 53 blocks, in every list on every view.
   function blockList(list, opts) {
     opts = opts || {};
-    return '<ul class="blocks">' + list.map(function (item, i) {
+    return '<ul class="blocks' + (opts.cards ? " blocks--cards" : "") + '">' + list.map(function (item, i) {
       var s = item.block || item;
       var title = blockTitle(s);
       var attrs = ' data-label="' + esc("Block: " + title) + '"';
@@ -617,7 +617,7 @@
       ]) +
       here("In " + cat.name, grp.name,
            (grp.subtitle ? grp.subtitle + " · " : "") + plural(list.length, "skill", "skills") + ".") +
-      blockList(list) +
+      blockList(list, { cards: true }) +
       backnav([
         { text: "← " + cat.name, href: "#/c/" + cat.slug },
         { text: "← Home", href: "#/" }

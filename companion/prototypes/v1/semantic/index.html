@@ -28,6 +28,21 @@
     .home-search .search__field { min-height: 48px; font-size: 1rem; }
     .home-search .search__go { min-height: 48px; padding: 0 var(--sp-5); }
     .home-search .site__util { margin-top: var(--sp-2); }
+    /* Group pages: the skills as portrait cards, three or four to a row. */
+    .blocks--cards {
+      display: grid; gap: var(--sp-4);
+      grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+    }
+    .blocks--cards > li + li { margin-top: 0; }
+    .blocks--cards .block-item {
+      display: flex; flex-direction: column; height: 100%;
+      aspect-ratio: 2 / 3; padding: var(--sp-5) var(--sp-4);
+    }
+    .blocks--cards .block-item__foot { margin-top: auto; padding-top: var(--sp-4); }
+    @media (max-width: 40rem) {
+      .blocks--cards { grid-template-columns: 1fr; gap: var(--sp-3); }
+      .blocks--cards .block-item { aspect-ratio: auto; min-height: 9rem; }
+    }
   </style>
 </head>
 <body data-focus="search">
