@@ -22,6 +22,22 @@
   var app     = document.getElementById("app");
   var form    = document.getElementById("search-form");
   var field   = document.getElementById("search-field");
+  var util    = document.querySelector(".site__util");
+  var siteBar = form.parentNode;   // the header row the search lives in
+
+  // On the home screen the search (and its two utility links) moves out of
+  // the header into the page, under the intro; everywhere else it sits in
+  // the header, so search is still one step away from every screen.
+  function placeSearch() {
+    var slot = document.getElementById("home-search");
+    if (slot) {
+      slot.appendChild(form);
+      slot.appendChild(util);
+    } else if (form.parentNode !== siteBar) {
+      siteBar.appendChild(form);
+      siteBar.appendChild(util);
+    }
+  }
 
   /* ------------------------------------------------------------- utilities */
 
@@ -426,6 +442,47 @@
     return '<p class="crumbs">' + html + "</p>";
   }
 
+  // Category pages that talk back: an acknowledgement of the problem the
+  // visitor picked, and a sub-question whose answers are the groups.
+  var CATEGORY_PROMPTS = {
+    christ: {
+      ack: "So you want your lesson to point to Jesus Christ.",
+      ask: "How do you want to bring Him in?"
+    },
+    attention: {
+      ack: "So you’re losing their attention.",
+      ask: "What would help them focus?"
+    },
+    love: {
+      ack: "So you want to know and love the people you teach.",
+      ask: "Where do you want to start?"
+    },
+    prep: {
+      ack: "So you’re getting ready for Sunday.",
+      ask: "What are you working on?"
+    },
+    talk: {
+      ack: "So you’re having trouble getting your class to talk.",
+      ask: "Which part is hardest right now?"
+    },
+    feels: {
+      ack: "So you want your class to recognize when the Spirit is there.",
+      ask: "How can you help them recognize it?"
+    }
+  };
+
+  // The prompted top of a category page: title, acknowledgement, and the
+  // sub-question heading whatever answers it (group tiles or skills).
+  function prompted(cat, prompt, answers) {
+    return crumbs([{ text: "Home", href: "#/" }, { text: cat.name }]) +
+      "<h1>" + esc(cat.name) + "</h1>" +
+      '<p class="lede">' + esc(prompt.ack) + "</p>" +
+      '<div class="section section--entry"><h2>' + esc(prompt.ask) + "</h2>" +
+        answers +
+      "</div>" +
+      backnav([{ text: "← Home", href: "#/" }]);
+  }
+
   function here(kicker, title, sub) {
     return '<div class="here">' +
       '<p class="here__kicker">' + esc(kicker) + "</p>" +
@@ -498,29 +555,16 @@
                   "Moment: " + m.name);
     }).join("");
 
-    var trial = D.categories.filter(function (c) { return c.trial; })[0];
+    return "<h1>Teaching Skills</h1>" +
+      '<p class="lede">Search in your own words, or start with one of the ' +
+      "questions below.</p>" +
+      '<div class="home-search" id="home-search"></div>' +
 
-    var tries = ["kids are noisy", "nobody answers", "saturday night",
-                 "quiet kid", "is it the spirit"].map(function (t) {
-      return '<button type="button" data-act="try" data-q="' + esc(t) + '">' + esc(t) + "</button>";
-    }).join("");
-
-    return "<h1>Find something to try on Sunday</h1>" +
-      '<p class="lede">Search in your own words, or walk in through one of the ' +
-      "two ways below. Everything lands on the same " + D.skills.length +
-      " skills from the manual &mdash; a skill can sit in more than one place, " +
-      "because teachers reach for it from more than one question. " +
-      "In this build the search box matches what you mean, not just the " +
-      "words you use &mdash; type it the way you&rsquo;d say it.</p>" +
-      '<p class="chips__legend">Try searching</p>' +
-      '<div class="suggests">' + tries + "</div>" +
-
-      '<div class="section"><h2>Start with the problem you are having</h2>' +
+      '<div class="section section--entry"><h2>What problem are you trying to solve?</h2>' +
         '<ul class="grid">' + cats + "</ul>" +
-        (trial ? trialNote(trial) : "") +
       "</div>" +
 
-      '<div class="section"><h2>Start with where you are in the lesson</h2>' +
+      '<div class="section section--entry"><h2>Where are you in the lesson?</h2>' +
         '<ul class="grid">' + moments + "</ul>" +
       "</div>";
   }
@@ -530,9 +574,11 @@
     if (!cat) { return notFound(); }
     var list = blocksInCategory(cat.slug);
     var gs = groupsIn(cat.slug);
+    var prompt = CATEGORY_PROMPTS[cat.slug];
 
     // A trial branch files its blocks directly: no L2 to walk (D1).
     if (!gs.length) {
+      if (prompt) { return prompted(cat, prompt, blockList(list)); }
       return crumbs([{ text: "Home", href: "#/" }, { text: cat.name }]) +
         here("Category", cat.name, plural(list.length, "skill", "skills") + ", filed directly.") +
         (cat.trialNote ? trialNote(cat) : "") +
@@ -546,6 +592,10 @@
                   (g.subtitle ? g.subtitle + " · " : "") + plural(n, "skill", "skills"),
                   "Group: " + g.name);
     }).join("");
+
+    // A category with a guiding prompt answers the visitor's choice back to
+    // them, then asks the next question, so the groups read as answers.
+    if (prompt) { return prompted(cat, prompt, '<ul class="grid">' + tiles + "</ul>"); }
 
     return crumbs([{ text: "Home", href: "#/" }, { text: cat.name }]) +
       here("Category", cat.name,
@@ -879,6 +929,7 @@
     else                        { html = notFound(); }
 
     app.innerHTML = html;
+    placeSearch();
     document.body.setAttribute("data-focus", FOCUS[head] || "search");
     field.value = head === "find" ? query : "";
 
