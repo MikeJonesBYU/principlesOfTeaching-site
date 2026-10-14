@@ -15,6 +15,7 @@
 
   var D = window.V1_DATA;
   var S = window.V1_SEM;
+  var SNIPS = window.V1_SNIPS || {};   // a phrase from the manual per skill, for the cards
 
   var LOG_KEY = "v1.sem.log.v1";
   var LOG_CAP = 5000;
@@ -516,10 +517,15 @@
                  ' data-query="' + esc(opts.query) + '" data-rank="' + (i + 1) + '"';
       }
       var why = (item.why && item.why.length) ? item.why[0] : "";
+      var snip = opts.cards ? SNIPS[s.id] : null;
       return "<li>" +
         '<a class="block-item" href="#/b/' + esc(s.id) + '"' + attrs + ">" +
           '<span class="block-item__title">' + esc(title) + "</span>" +
           (s.label ? '<span class="block-item__verbatim">' + esc(s.name) + "</span>" : "") +
+          (snip ? '<span class="block-item__snip">' +
+                    (snip.cite ? "“" + esc(snip.text) + "”" : esc(snip.text)) +
+                    (snip.cite ? '<span class="block-item__cite">' + esc(snip.cite) + "</span>" : "") +
+                  "</span>" : "") +
           '<span class="block-item__foot">' +
             momentNames(s.moment).map(function (n) {
               return '<span class="tag">' + esc(n) + "</span>";
